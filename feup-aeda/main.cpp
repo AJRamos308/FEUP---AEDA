@@ -69,7 +69,7 @@ int hostJourney(){
 				loop = false;
 				break;
 		}
-		for (size_t i; i < districts.size(); i++) {
+		for (size_t i = 0; i < districts.size(); i++) {
 			if (districts[i] == stop) {
 				a.addStops(stop);
 			}
