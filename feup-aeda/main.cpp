@@ -84,6 +84,7 @@ int hostJourney(){
 
 int login() { //Don't know how to check if the username and password are a match for a user - Guardar num ficheiro e procurar?
 	string username, password;
+	cin.clear();
 	cout << "Type in your username: ";
 	cin >> username;
 	cout << "Type in your password: ";
@@ -95,6 +96,8 @@ int registration() {
 	string name, username, password;
 	unsigned int age;
 	cout << "*Fancy introduction to our system*\n";
+	cin.clear();
+	cin.ignore();
 	cout << "Name: ";
 	getline(cin, name);
 	cout << "Age: ";
