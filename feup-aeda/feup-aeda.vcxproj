@@ -115,7 +115,9 @@
     <ClCompile Include="utilities.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="buddies.txt" />
     <Text Include="districts.txt" />
+    <Text Include="members.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header.h" />

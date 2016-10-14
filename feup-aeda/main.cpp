@@ -24,6 +24,22 @@ void loadDistrictVector(){
 	return;
 }
 
+//Implementar algoritmo de ordenação para ficheiros!
+
+void loadMainMatrix() {
+	fstream f;
+	f.open("members.txt");
+
+	string username;
+
+	while (!f.eof()) {
+		getline(f, username);
+	}
+
+
+
+}
+
 bool hasWhitespace(string s) {
 	for (size_t i = 0; i < s.size(); i++) {
 		if (s[i] == ' ')
@@ -105,6 +121,53 @@ int registration() {
 	cout << "User created with success!\n";
 	Registered member(name, age, username, password);
 	return 0;
+}
+
+unsigned int menu2() {
+	unsigned int choice = 1;
+
+	util.hideCursor();
+	cout << "\n  "; util.whiteBG(); cout << "1. Host journey\n"; util.blackBG();
+	cout << "  2. Join journey\n";
+	cout << "  3. Account settings\n";
+
+	while (!GetAsyncKeyState(VK_RETURN) && !GetAsyncKeyState(VK_SPACE)) {
+		if (GetAsyncKeyState(VK_DOWN) && choice == 1) {
+			system("cls");
+
+			cout << "\n  1. Host journey\n";
+			cout << "  "; util.whiteBG(); cout << "2. Join journey\n"; util.blackBG();
+			cout << "  3. Account settings\n";
+			choice = 2;
+		}
+		else if (GetAsyncKeyState(VK_UP) && choice == 2) {
+			system("cls");
+
+			cout << "\n  "; util.whiteBG(); cout << "1. Host journey\n"; util.blackBG();
+			cout << "  2. Join journey\n";
+			cout << "  3. Account settings\n";
+			choice = 1;
+		}
+		else if (GetAsyncKeyState(VK_UP) && choice == 3) {
+			system("cls");
+
+			cout << "\n  1. Host journey\n";
+			cout << "  "; util.whiteBG(); cout << "2. Join journey\n"; util.blackBG();
+			cout << "  3. Account settings\n";
+			choice = 2;
+		}
+		else if (GetAsyncKeyState(VK_DOWN) && choice == 2) {
+			system("cls");
+
+			cout << "\n  1. Host journey\n";
+			cout << "  2. Join journey\n";
+			cout << "  "; util.whiteBG(); cout << "3. Account settings\n"; util.blackBG();
+			choice = 3;
+		}
+		Sleep(120);
+	}
+	util.showCursor();
+	return choice;
 }
 
 unsigned int menu1(){
