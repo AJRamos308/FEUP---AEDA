@@ -110,8 +110,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\feup-aeda222\src\source.cpp" />
     <ClCompile Include="header.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="utilities.cpp" />
   </ItemGroup>
   <ItemGroup>
