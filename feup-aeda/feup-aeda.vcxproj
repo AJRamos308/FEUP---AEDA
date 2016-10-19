@@ -110,9 +110,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="header.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Route.cpp" />
+    <ClCompile Include="User.cpp" />
     <ClCompile Include="utilities.cpp" />
     <ClCompile Include="Vehicle.cpp" />
   </ItemGroup>
@@ -122,8 +122,8 @@
     <Text Include="members.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="header.h" />
     <ClInclude Include="Route.h" />
+    <ClInclude Include="User.h" />
     <ClInclude Include="utilities.h" />
     <ClInclude Include="Vehicle.h" />
   </ItemGroup>
