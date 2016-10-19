@@ -110,21 +110,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="header.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Route.cpp" />
-    <ClCompile Include="utilities.cpp" />
-    <ClCompile Include="Vehicle.cpp" />
-  </ItemGroup>
-  <ItemGroup>
     <Text Include="buddies.txt" />
     <Text Include="districts.txt" />
     <Text Include="members.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="header.h" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="route.cpp" />
+    <ClCompile Include="user.cpp" />
+    <ClCompile Include="utilities.cpp" />
+    <ClCompile Include="vehicle.cpp" />
+  </ItemGroup>
+  <ItemGroup>
     <ClInclude Include="Route.h" />
-    <ClInclude Include="utilities.h" />
+    <ClInclude Include="User.h" />
+    <ClInclude Include="Utilities.h" />
     <ClInclude Include="Vehicle.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
