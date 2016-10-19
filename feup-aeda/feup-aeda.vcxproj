@@ -111,10 +111,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Route.cpp" />
-    <ClCompile Include="User.cpp" />
+    <ClCompile Include="route.cpp" />
+    <ClCompile Include="user.cpp" />
     <ClCompile Include="utilities.cpp" />
-    <ClCompile Include="Vehicle.cpp" />
+    <ClCompile Include="vehicle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="buddies.txt" />

@@ -21,13 +21,13 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Vehicle.cpp">
+    <ClCompile Include="route.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Route.cpp">
+    <ClCompile Include="user.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="User.cpp">
+    <ClCompile Include="vehicle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
