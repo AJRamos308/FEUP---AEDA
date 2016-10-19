@@ -31,27 +31,3 @@ public:
 
 class Guest : public User{
 };
-
-class Vehicle{
-private:
-	const unsigned int maxSeats;
-	unsigned int emptySeats;
-	string model;
-	string licensePlate;
-public:
-	Vehicle(unsigned int maximumSeats, unsigned int availableSeats, string model, string licensePlate);
-	unsigned int getMaxSeats();
-	unsigned int getEmptySeats();
-	string getLicensePlate();
-	string getModel();
-};
-
-class Route{
-private:
-	float price;
-	vector<string> stops;
-	string username;
-public:
-	Route(string username);
-	void addStops(string stop);
-};
