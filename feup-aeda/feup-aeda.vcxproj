@@ -112,6 +112,7 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="route.cpp" />
+    <ClCompile Include="session.cpp" />
     <ClCompile Include="user.cpp" />
     <ClCompile Include="utilities.cpp" />
     <ClCompile Include="vehicle.cpp" />
@@ -123,6 +124,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Route.h" />
+    <ClInclude Include="Session.h" />
     <ClInclude Include="User.h" />
     <ClInclude Include="Utilities.h" />
     <ClInclude Include="Vehicle.h" />
