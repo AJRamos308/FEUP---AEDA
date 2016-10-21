@@ -12,12 +12,29 @@ vector<string> districts;
 
 //Testing main.cpp push.
 
+bool Valid(string File)
+{
+	fstream f;
+	f.open(File);
+	if (f.is_open()) { //Tests whether the file was found.
+		f.close();
+		return true;
+	}
+	return false;
+}
+
 void loadDistrictVector(){
 	fstream f;
-
-	f.open("src\\districts.txt");
 	string token;
-
+	if (Valid("src\\districts.txt") == false)
+	{
+		util.setcolor(12);
+		cerr << "\n\a> Error! Districts file could not be found!\n\n"; //Displays error if txt was not found.
+		util.setcolor(15);
+		Sleep(1500);
+		//main();
+	}
+	f.open("src\\districts.txt");
 	while(!f.eof()){
 		getline(f, token);
 		districts.push_back(token);
@@ -30,16 +47,20 @@ void loadDistrictVector(){
 
 void loadMainMatrix() {
 	fstream f;
-	f.open("members.txt");
-
 	string username;
 
+	 if (Valid("members.txt") == false)
+		{
+		util.setcolor(12);
+		cerr << "\n\a> Error! Members file could not be found!\n\n"; //Displays error if txt was not found.
+		util.setcolor(15);
+		Sleep(1500);
+		//main();
+		}
+	f.open("members.txt");
 	while (!f.eof()) {
 		getline(f, username);
 	}
-
-
-
 }
 
 bool hasWhitespace(string s) {
@@ -220,6 +241,17 @@ unsigned int menu1(){
 }
 
 int main() {
+	system("cls"); // clear window
+	util.setcolor(15);
+	cout << "================================================================\n";
+	cout << "| "; util.setcolor(10); cout << "  ____    ___   ____    _____       __  __   _____ "; util.setcolor(15); cout << " |" << endl;
+	cout << "| "; util.setcolor(10); cout << " |  _ \  |_ _| |  _ \  | ____|     |  \/  | | ____|"; util.setcolor(15); cout << " |" << endl;
+	cout << "| "; util.setcolor(10); cout << " | |_) |  | |  | | | | |  _|       | |\/| | |  _|  "; util.setcolor(15); cout << " |" << endl;
+	cout << "| "; util.setcolor(10); cout << " |  _ <   | |  | |_| | | |___   _  | |  | | | |___ "; util.setcolor(15); cout << " |" << endl;
+	cout << "| "; util.setcolor(10); cout << " |_| \_\ |___| |____/  |_____| (_) |_|  |_| |_____|"; util.setcolor(15); cout << " |" << endl;
+	cout << "================================================================\n\n";
+	Sleep(2500);
+	system("cls");
 	menu1();
 	registration();
 	loadDistrictVector();

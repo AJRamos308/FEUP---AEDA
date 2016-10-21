@@ -1,4 +1,4 @@
-#include "header.h"
+#include "User.h"
 
 /*USER CLASS*/
 User::User(string name, unsigned int age){
