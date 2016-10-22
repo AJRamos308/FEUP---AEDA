@@ -4,6 +4,9 @@
 
 Session::Session(){
 }
+Session::Session(string username) {
+	this->username = username;
+}
 
 //Imports users (registered) from "members.txt" and saves to registered vector.
 bool Session::importUsers() {
@@ -57,6 +60,12 @@ vector<string> Session::getDistricts() {
 	return districts;
 }
 
+//Returns username of the logged in user.
+string Session::getUsername() {
+	return username;
+}
+
+
 //Processes login.
 void Session::login() {
 	string username, password;
@@ -85,6 +94,7 @@ void Session::login() {
 			continue;
 		}
 	}
+	Session s(username);
 	return;
 }
 
@@ -119,6 +129,7 @@ void Session::registration() {
 
 		return;
 }
+
 string Session::passwordMaker() {
 	string pw1, pw2;
 	bool whiteSpaceFound = false;
