@@ -53,7 +53,7 @@ void Registered::addBuddy() {
 		cin >> username;
 
 		for (size_t i = 0; i < s.getRegistered().size(); i++) {
-			if (s.getRegistered.at(i).getUsername() == username) {
+			if (s.getRegistered().at(i).getUsername() == username) {
 				foundUsername = true;
 				buddies.push_back(s.getRegistered().at(i));
 			}
