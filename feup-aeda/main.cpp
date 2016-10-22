@@ -96,10 +96,9 @@ string passwordMaker() {
 	return password;
 }
 
-int hostJourney(){
+int hostJourney(string username){
 	bool loop = true;
 	string stop;
-	string username = "zepedrob16"; //test
 	Route a(username);
 	cout << "Please add the stops you intend to go through. Type in 'done' when you're finished. ";
 	while (loop){
@@ -121,13 +120,26 @@ int hostJourney(){
 }
 
 
-int login() { //Don't know how to check if the username and password are a match for a user - Guardar num ficheiro e procurar?
+int login() { //Unfinished
 	string username, password;
-	cout << "Type in your username: ";
-	cin >> username;
-	cout << "Type in your password: ";
-	cin >> password;
-	return 0;
+	bool encontrado = false;
+	while (!encontrado) {
+		cout << "Type in your username: ";
+		cin >> username;
+		cout << "Type in your password: ";
+		cin >> password;
+		for (size_t i = 0; i < getUsers().size(); i++) { //Ainda nao sei como ir buscar aquele getUsers
+			if (getUsers()[i].getUsername() == username) {
+				if (getUsers()[i].getPassword() == password) {
+					cout << "Login successful\n";
+					encontrado = true;
+					break;
+				}
+			}
+		}
+		cout << "Wrong username or password.\n";
+	}
+	return 1;
 }
 
 int registration() {

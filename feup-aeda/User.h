@@ -19,14 +19,17 @@ public:
 class Registered : public User{
 private:
 	string username, password;//, name
-	//unsigned int age;
-	bool ownership; //has registered car?
+	unsigned int age;
+	bool ownership; //has registered car
 	vector<Vehicle> garage;
 	vector<vector<string>> trips; //vector with all registered trips.
+	vector<Registered> users;
 public:
 	Registered(string name, unsigned int age, string username, string password);
 	string getUsername();
 	string getPassword();
+	void addUser(Registered a);
+	vector <Registered> getUsers();
 };
 
 class Guest : public User{

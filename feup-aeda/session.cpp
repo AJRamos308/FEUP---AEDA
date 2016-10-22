@@ -19,6 +19,7 @@ void Session::importUsers() {
 		int age2 = stoi(age);
 
 		Registered novoregisto(name, age2, password, username);
+		novoregisto.addUser(novoregisto);
 	}
 	f.close();
 	return;
