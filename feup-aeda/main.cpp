@@ -105,15 +105,6 @@ unsigned int menu1(){
 }
 
 int main() {
-	system("cls"); // clear window
-	util.setcolor(15);
-	cout << "================================================================\n";
-	cout << "| "; util.setcolor(10); cout << "  ____    ___   ____    _____       __  __   _____ "; util.setcolor(15); cout << " |" << endl;
-	cout << "| "; util.setcolor(10); cout << " |  _ \  |_ _| |  _ \  | ____|     |  \/  | | ____|"; util.setcolor(15); cout << " |" << endl;
-	cout << "| "; util.setcolor(10); cout << " | |_) |  | |  | | | | |  _|       | |\/| | |  _|  "; util.setcolor(15); cout << " |" << endl;
-	cout << "| "; util.setcolor(10); cout << " |  _ <   | |  | |_| | | |___   _  | |  | | | |___ "; util.setcolor(15); cout << " |" << endl;
-	cout << "| "; util.setcolor(10); cout << " |_| \_\ |___| |____/  |_____| (_) |_|  |_| |_____|"; util.setcolor(15); cout << " |" << endl;
-	cout << "================================================================\n\n";
 	Sleep(2500);
 	system("cls");
 	menu1();
