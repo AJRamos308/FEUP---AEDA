@@ -4,8 +4,12 @@
 
 Session::Session(){
 }
-Session::Session(string username) {
-	this->username = username;
+
+Session* Session::instance() {
+	if (!singleton_instance) {
+		singleton_instance = new Session;
+	}
+	return singleton_instance;
 }
 
 //Imports users (registered) from "members.txt" and saves to registered vector.
@@ -65,9 +69,9 @@ string Session::getUsername() {
 	return username;
 }
 
-
 //Processes login.
 void Session::login() {
+	
 	string username, password;
 	bool foundUsername = false, foundPassword = false;
 	size_t passwordIndex;
@@ -94,7 +98,7 @@ void Session::login() {
 			continue;
 		}
 	}
-	Session s(username);
+	this->username = username;
 	return;
 }
 
