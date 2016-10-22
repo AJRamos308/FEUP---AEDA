@@ -18,6 +18,26 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Route.cpp" />
+    <ClCompile Include="Session.cpp" />
+    <ClCompile Include="User.cpp" />
+    <ClCompile Include="Utilities.cpp" />
+    <ClCompile Include="Vehicle.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Route.h" />
+    <ClInclude Include="Session.h" />
+    <ClInclude Include="User.h" />
+    <ClInclude Include="Utilities.h" />
+    <ClInclude Include="Vehicle.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="buddies.txt" />
+    <Text Include="districts.txt" />
+    <Text Include="members.txt" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{3900274F-D143-4C83-A7DC-5BEC230FC8FC}</ProjectGuid>
     <RootNamespace>feupaeda</RootNamespace>
