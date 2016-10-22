@@ -52,45 +52,72 @@ vector<Registered> Session::getRegistered() {
 	return registered;
 }
 
+//Returns districts vector.
+vector<string> Session::getDistricts() {
+	return districts;
+}
+
+//Processes login.
 void Session::login() {
 	string username, password;
-	bool encontrado = false;
-	Session newSession;
+	bool foundUsername = false, foundPassword = false;
+	size_t passwordIndex;
 
-	while (!encontrado) {
-		cout << "Type in your username: ";
+	while (!foundUsername || !foundPassword) {
+		
+		cout << "USERNAME : ";
 		cin >> username;
-		cout << "Type in your password: ";
+
+		cout << "PASSWORD : ";
 		cin >> password;
-		for (size_t i = 0; i < newSession.getUsers().size(); i++) { //Ainda nao sei como ir buscar aquele getUsers
-			if (newSession.getUsers()[i].getUsername() == username) {
-				if (newSession.getUsers()[i].getPassword() == password) {
-					cout << "Login successful\n";
-					encontrado = true;
-					break;
-				}
+
+		for (size_t i = 0; i < registered.size(); i++) {
+			if (registered.at(i).getUsername() == username) {
+				foundUsername = true;
+				passwordIndex = i;
 			}
 		}
-		cout << "Wrong username or password.\n";
+		if (registered.at(passwordIndex).getPassword() == password) {
+			foundPassword = true;
+		}
+		if (!foundUsername || !foundPassword) {
+			cout << "Wrong username or password.\n";
+			continue;
+		}
 	}
-	return 1;
+	return;
 }
 
 void Session::registration() {
 		string name, username, password;
 		unsigned int age;
-		cout << "*Fancy introduction to our system*\n";
-		cout << "Name: ";
-		getline(cin, name);
+
+		bool validName = false; //Um nome não pode conter números.
+
+		while (!validName) {
+			cout << "Name: ";
+			getline(cin, name);
+
+			for (unsigned int i = 0; i < name.length(); i++) {
+				if (isdigit(name.at(i))) {
+					cout << "Invalid name!";
+					continue;
+				}
+			}
+		}
+
 		cout << "Age: ";
 		cin >> age;
 		cout << "Username: ";
 		cin >> username;
 		password = passwordMaker();
-		cout << "User created with success!\n";
-		Registered member(name, age, username, password);
-		return;
 
+		Registered token(name, age, username, password);
+		registered.push_back(token);
+
+		cout << "User created with success!\n";
+
+		return;
 }
 string Session::passwordMaker() {
 	string pw1, pw2;

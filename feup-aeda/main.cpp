@@ -7,7 +7,6 @@
 using namespace std;
 
 Utilities util;
-vector<string> districts;
 
 //Implementar algoritmo de ordenação para ficheiros!
 
@@ -118,10 +117,11 @@ int main() {
 	Sleep(2500);
 	system("cls");
 	menu1();
-	registration();
-	loadDistrictVector();
 
 	Session s; //Activates session.
+	s.importDistricts();
+	s.importUsers();
+	
 
 	return 0;
 }
