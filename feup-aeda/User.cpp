@@ -1,4 +1,5 @@
 #include "User.h"
+#include "Session.h"
 #include "Route.h"
 
 /*USER CLASS*/
@@ -19,25 +20,47 @@ string Registered::getUsername() {
 
 //Precisa de reestruturação.
 void Registered::hostJourney() {
-		bool loop = true;
-		string stop;
-		Route a();
-		cout << "Please add the stops you intend to go through. Type in 'done' when you're finished. ";
-		while (loop) {
-			getline(cin, stop);
-			if (stop == "done") {
-				loop = false;
-				break;
+	bool loop = true;
+	string stop;
+	Route a;
+	Session s;
+	cout << "Please add the stops you intend to go through. Type in 'done' when you're finished. ";
+	while (loop) {
+		getline(cin, stop);
+		if (stop == "done") {
+			loop = false;
+			break;
+		}
+		for (size_t i = 0; i < s.getDistricts().size(); i++) {
+			if (s.getDistricts()[i] == stop) {
+				a.addStop(stop);
 			}
-			for (size_t i = 0; i < districts.size(); i++) {
-				if (districts[i] == stop) {
-					a.addStops(stop);
-				}
-				else if (i + 1 == districts.size()) {
-					cout << "That stop does not exist in the system data, please try again";
-				}
+			else if (i + 1 == s.getDistricts().size()) {
+				cout << "That stop does not exist in the system data, please try again";
 			}
 		}
-		return;
+	}
+	return;
+}
+void Registered::addBuddy() {
+	string username;
+	bool foundUsername = false;
+	Session s;
+
+	while (!foundUsername) {
+
+		cout << "Type in the username of the user you would like to add: ";
+		cin >> username;
+
+		for (size_t i = 0; i < s.getRegistered().size(); i++) {
+			if (s.getRegistered.at(i).getUsername() == username) {
+				foundUsername = true;
+				buddies.push_back(s.getRegistered().at(i));
+			}
+		}
+		if (!foundUsername) {
+			cout << "That user does not exist. Please try again.";
+			continue;
+		}
 	}
 }

@@ -6,9 +6,11 @@
 
 class Session {
 private:
+	string username;
 	vector<Registered> registered;
 	vector<string> districts;
 public:
+	Session(string username);
 	Session();
 
 	bool importUsers();
@@ -20,5 +22,6 @@ public:
 
 	vector<Registered> getRegistered();
 	vector<string> getDistricts();
+	string getUsername();
 };
 

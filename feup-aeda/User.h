@@ -29,6 +29,7 @@ public:
 	string getUsername();
 	string getPassword();
 	void hostJourney();
+	void addBuddy();
 	
 };
 

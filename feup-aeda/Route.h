@@ -12,6 +12,6 @@ private:
 	vector<string> stops;
 	string host;
 public:
-	Route(string host);
+	Route();
 	void addStop(string stop);
 };
