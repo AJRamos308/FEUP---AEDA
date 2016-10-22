@@ -10,5 +10,6 @@ public:
 	Session();
 	void importUsers();
 	void importDistricts();
+	vector<User> getUsers();
 };
 

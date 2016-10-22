@@ -5,6 +5,7 @@
 #include "Vehicle.h"
 #include "User.h"
 #include "utilities.h"
+#include "Session.h"
 using namespace std;
 
 Utilities util;
@@ -123,14 +124,16 @@ int hostJourney(string username){
 int login() { //Unfinished
 	string username, password;
 	bool encontrado = false;
+	Session newSession;
+
 	while (!encontrado) {
 		cout << "Type in your username: ";
 		cin >> username;
 		cout << "Type in your password: ";
 		cin >> password;
-		for (size_t i = 0; i < getUsers().size(); i++) { //Ainda nao sei como ir buscar aquele getUsers
-			if (getUsers()[i].getUsername() == username) {
-				if (getUsers()[i].getPassword() == password) {
+		for (size_t i = 0; i < newSession.getUsers().size(); i++) { //Ainda nao sei como ir buscar aquele getUsers
+			if (newSession.getUsers()[i].getUsername() == username) {
+				if (newSession.getUsers()[i].getPassword() == password) {
 					cout << "Login successful\n";
 					encontrado = true;
 					break;

@@ -1,6 +1,8 @@
 #include "User.h"
 
 /*USER CLASS*/
+User::User() {
+}
 User::User(string name, unsigned int age){
 	this->name = name;
 	this->age = age;
@@ -8,7 +10,7 @@ User::User(string name, unsigned int age){
 unsigned int User::getAge(){
 	return age;
 }
-string User::getName(){
+string User::getName() {
 	return name;
 }
 
