@@ -19,5 +19,6 @@ public:
 	string passwordMaker();
 
 	vector<Registered> getRegistered();
+	vector<string> getDistricts();
 };
 

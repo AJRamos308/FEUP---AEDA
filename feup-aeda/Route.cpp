@@ -1,10 +1,10 @@
 #include "Route.h"
 
 /*ROUTE CLASS*/
-Route::Route(string username) {
-	this->username = username;
+Route::Route(string host) {
+	this->host = host;
 }
 
-void Route::addStops(string stop) {
+void Route::addStop(string stop) {
 	stops.push_back(stop);
 }

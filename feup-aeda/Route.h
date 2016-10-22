@@ -10,8 +10,8 @@ class Route {
 private:
 	float price;
 	vector<string> stops;
-	string username;
+	string host;
 public:
-	Route(string username);
-	void addStops(string stop);
+	Route(string host);
+	void addStop(string stop);
 };

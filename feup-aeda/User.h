@@ -17,7 +17,7 @@ public:
 
 class Registered : public User{
 private:
-	string name, username, password;
+	string name, password;
 	unsigned int age;
 
 	vector<Vehicle> garage;
@@ -25,6 +25,7 @@ private:
 	vector<Registered> buddies;
 public:
 	Registered(string name, unsigned int age, string username, string password);
+
 	string getUsername();
 	string getPassword();
 	void hostJourney();

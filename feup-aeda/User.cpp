@@ -1,4 +1,5 @@
 #include "User.h"
+#include "Route.h"
 
 /*USER CLASS*/
 User::User() {
@@ -9,16 +10,18 @@ Registered::Registered(string name, unsigned int age, string username, string pa
 	this->username = username;
 	this->password = password;
 }
-string Registered::getUsername(){
-	return username;
-}
 string Registered::getPassword(){
 	return password;
 }
+string Registered::getUsername() {
+	return username;
+}
+
+//Precisa de reestruturação.
 void Registered::hostJourney() {
 		bool loop = true;
 		string stop;
-		Route a(username);
+		Route a();
 		cout << "Please add the stops you intend to go through. Type in 'done' when you're finished. ";
 		while (loop) {
 			getline(cin, stop);
