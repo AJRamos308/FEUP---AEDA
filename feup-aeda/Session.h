@@ -1,15 +1,23 @@
+#pragma once
+
 #include "User.h"
 #include "Vehicle.h"
 #include "Route.h"
 
 class Session {
 private:
-	vector<User> users;
+	vector<Registered> registered;
 	vector<string> districts;
 public:
 	Session();
-	void importUsers();
-	void importDistricts();
-	vector<User> getUsers();
+
+	bool importUsers();
+	bool importDistricts();
+	
+	void login();
+	void registration();
+	string passwordMaker();
+
+	vector<Registered> getRegistered();
 };
 

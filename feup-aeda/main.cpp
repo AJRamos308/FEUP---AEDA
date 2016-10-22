@@ -1,165 +1,15 @@
 #include <iostream>
 #include <fstream>
 #include <windows.h>
-#include "Route.h"
-#include "Vehicle.h"
-#include "User.h"
-#include "utilities.h"
+
 #include "Session.h"
+#include "Utilities.h"
 using namespace std;
 
 Utilities util;
 vector<string> districts;
 
-//Testing main.cpp push.
-
-bool Valid(string File)
-{
-	fstream f;
-	f.open(File);
-	if (f.is_open()) { //Tests whether the file was found.
-		f.close();
-		return true;
-	}
-	return false;
-}
-
-void loadDistrictVector(){
-	fstream f;
-	string token;
-	if (Valid("src\\districts.txt") == false)
-	{
-		util.setcolor(12);
-		cerr << "\n\a> Error! Districts file could not be found!\n\n"; //Displays error if txt was not found.
-		util.setcolor(15);
-		Sleep(1500);
-		//main();
-	}
-	f.open("src\\districts.txt");
-	while(!f.eof()){
-		getline(f, token);
-		districts.push_back(token);
-	}
-	f.close();
-	return;
-}
-
 //Implementar algoritmo de ordenação para ficheiros!
-
-void loadMainMatrix() {
-	fstream f;
-	string username;
-
-	 if (Valid("members.txt") == false)
-		{
-		util.setcolor(12);
-		cerr << "\n\a> Error! Members file could not be found!\n\n"; //Displays error if txt was not found.
-		util.setcolor(15);
-		Sleep(1500);
-		//main();
-		}
-	f.open("members.txt");
-	while (!f.eof()) {
-		getline(f, username);
-	}
-}
-
-bool hasWhitespace(string s) {
-	for (size_t i = 0; i < s.size(); i++) {
-		if (s[i] == ' ')
-			return true;
-	}
-	return false;
-}
-
-string passwordMaker() {
-	string password, test1, test2;
-	bool loop = true;
-	while (loop) {
-		cin.clear();
-		cout << "Password: ";
-		cin >> test1;
-		if (test1.size() < 5)
-			cout << "ERROR: Passwords too short. Please try again\n";
-		else if (hasWhitespace(test1))
-			cout << "ERROR: Passwords do not support white spaces. Please try again\n";
-		else {
-			cout << "Confirm password: ";
-			cin >> test2;
-			if (test1 == test2) {
-				password = test1;
-				loop = false;
-			} else {
-				cout << "ERROR: Passwords do not match. Please try again\n";
-			}
-		}
-	}
-	return password;
-}
-
-int hostJourney(string username){
-	bool loop = true;
-	string stop;
-	Route a(username);
-	cout << "Please add the stops you intend to go through. Type in 'done' when you're finished. ";
-	while (loop){
-		getline(cin, stop);
-		if (stop == "done") {
-				loop = false;
-				break;
-		}
-		for (size_t i = 0; i < districts.size(); i++) {
-			if (districts[i] == stop) {
-				a.addStops(stop);
-			}
-			else if (i + 1 == districts.size()){
-				cout << "That stop does not exist in the system data, please try again";
-			}
-		}
-	}
-	return 0;
-}
-
-
-int login() { //Unfinished
-	string username, password;
-	bool encontrado = false;
-	Session newSession;
-
-	while (!encontrado) {
-		cout << "Type in your username: ";
-		cin >> username;
-		cout << "Type in your password: ";
-		cin >> password;
-		for (size_t i = 0; i < newSession.getUsers().size(); i++) { //Ainda nao sei como ir buscar aquele getUsers
-			if (newSession.getUsers()[i].getUsername() == username) {
-				if (newSession.getUsers()[i].getPassword() == password) {
-					cout << "Login successful\n";
-					encontrado = true;
-					break;
-				}
-			}
-		}
-		cout << "Wrong username or password.\n";
-	}
-	return 1;
-}
-
-int registration() {
-	string name, username, password;
-	unsigned int age;
-	cout << "*Fancy introduction to our system*\n";
-	cout << "Name: ";
-	getline(cin, name);
-	cout << "Age: ";
-	cin >> age;
-	cout << "Username: ";
-	cin >> username;
-	password = passwordMaker();
-	cout << "User created with success!\n";
-	Registered member(name, age, username, password);
-	return 0;
-}
 
 unsigned int menu2() {
 	unsigned int choice = 1;
@@ -270,6 +120,8 @@ int main() {
 	menu1();
 	registration();
 	loadDistrictVector();
+
+	Session s; //Activates session.
 
 	return 0;
 }

@@ -1,36 +1,37 @@
+#pragma once
+
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <vector>
-using namespace std;
 
-class Vehicle;
+#include "Vehicle.h"
+using namespace std;
 
 class User{
 protected:
-	string name;
-	unsigned int age; //Age is needed to know if the user is old enough to drive(host a trip)
+	string username;
 public:
 	User();
-	User(string name, unsigned int age);
-	unsigned int getAge();
-	string getName();
 };
 
 class Registered : public User{
 private:
-	string username, password;//, name
+	string name, username, password;
 	unsigned int age;
-	bool ownership; //has registered car
+
 	vector<Vehicle> garage;
 	vector<vector<string>> trips; //vector with all registered trips.
+	vector<Registered> buddies;
 public:
 	Registered(string name, unsigned int age, string username, string password);
 	string getUsername();
 	string getPassword();
-	void addUser(Registered a);
+	void hostJourney();
 	
 };
 
 class Guest : public User{
+public:
+	Guest(string username);
 };

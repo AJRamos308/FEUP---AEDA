@@ -3,25 +3,11 @@
 /*USER CLASS*/
 User::User() {
 }
-User::User(string name, unsigned int age){
-	this->name = name;
-	this->age = age;
-}
-unsigned int User::getAge(){
-	return age;
-}
-string User::getName() {
-	return name;
-}
-
-
 
 /*REGISTERED CLASS*/
-Registered::Registered(string name, unsigned int age, string username, string password) : User(name, age){
+Registered::Registered(string name, unsigned int age, string username, string password){
 	this->username = username;
 	this->password = password;
-	this->age = age;
-	this->name = name;
 }
 string Registered::getUsername(){
 	return username;
@@ -29,9 +15,26 @@ string Registered::getUsername(){
 string Registered::getPassword(){
 	return password;
 }
-void Registered::addUser(Registered a) {
-	users.push_back(a);
-}
-vector<Registered> Registered::getUsers() {
-	return users;
+void Registered::hostJourney() {
+		bool loop = true;
+		string stop;
+		Route a(username);
+		cout << "Please add the stops you intend to go through. Type in 'done' when you're finished. ";
+		while (loop) {
+			getline(cin, stop);
+			if (stop == "done") {
+				loop = false;
+				break;
+			}
+			for (size_t i = 0; i < districts.size(); i++) {
+				if (districts[i] == stop) {
+					a.addStops(stop);
+				}
+				else if (i + 1 == districts.size()) {
+					cout << "That stop does not exist in the system data, please try again";
+				}
+			}
+		}
+		return;
+	}
 }
