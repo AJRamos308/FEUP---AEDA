@@ -16,6 +16,8 @@ string User::getName(){
 Registered::Registered(string name, unsigned int age, string username, string password) : User(name, age){
 	this->username = username;
 	this->password = password;
+	//this->age = age;
+	//this->name = name;
 }
 string Registered::getUsername(){
 	return username;

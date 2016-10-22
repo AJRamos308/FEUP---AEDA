@@ -10,7 +10,6 @@ class User{
 protected:
 	string name;
 	unsigned int age; //Age is needed to know if the user is old enough to drive(host a trip)
-
 public:
 	User(string name, unsigned int age);
 	unsigned int getAge();
@@ -19,7 +18,8 @@ public:
 
 class Registered : public User{
 private:
-	string username, password;
+	string username, password;//, name
+	//unsigned int age;
 	bool ownership; //has registered car?
 	vector<Vehicle> garage;
 	vector<vector<string>> trips; //vector with all registered trips.
