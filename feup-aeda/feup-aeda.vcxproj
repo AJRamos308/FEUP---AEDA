@@ -109,26 +109,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="route.cpp" />
-    <ClCompile Include="session.cpp" />
-    <ClCompile Include="user.cpp" />
-    <ClCompile Include="utilities.cpp" />
-    <ClCompile Include="vehicle.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="buddies.txt" />
-    <Text Include="districts.txt" />
-    <Text Include="members.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Route.h" />
-    <ClInclude Include="Session.h" />
-    <ClInclude Include="User.h" />
-    <ClInclude Include="Utilities.h" />
-    <ClInclude Include="Vehicle.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
