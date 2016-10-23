@@ -98,6 +98,7 @@ void Session::loginAsGuest() {
 void Session::registration() {
 		string name, username, password;
 		unsigned int age;
+		fstream f;
 
 		cin.clear();
 		cin.ignore();
@@ -124,6 +125,9 @@ void Session::registration() {
 
 		Registered token(name, age, username, password);
 		registered.push_back(token);
+
+		f.open("members.txt", ios::app);
+		f <<endl <<  username << endl << password << endl << name << endl << age;
 
 		cout << "User created with success!\n";
 		return;

@@ -7,17 +7,19 @@ Utilities u;
 unsigned int Menu::currentMenu = 1;
 
 int Menu::manager() {
-	
-	while (true) {
-		switch (menu1()) {
-		case 1:
-			Session::instance()->registration();
-			break;
-		case 2:
-			Session::instance()->login();
-			break;
-		}
+
+	switch (menu1()) {
+	case 1:
+		Session::instance()->registration();
+		break;
+	case 2:
+		Session::instance()->login();
+		break;
+	case 3:
+		Session::instance()->loginAsGuest();
+		break;
 	}
+	return 0;
 }
 
 int Menu::menu1() {
