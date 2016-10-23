@@ -9,7 +9,14 @@ unsigned int Menu::currentMenu = 1;
 int Menu::manager() {
 	
 	while (true) {
-
+		switch (menu1()) {
+		case 1:
+			Session::instance()->registration();
+			break;
+		case 2:
+			Session::instance()->login();
+			break;
+		}
 	}
 }
 

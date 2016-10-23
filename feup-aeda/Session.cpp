@@ -49,7 +49,6 @@ bool Session::importDistricts() {
 
 //Processes login.
 void Session::login() {
-	
 	string username, password;
 	bool foundUsername = false, foundPassword = false;
 	size_t passwordIndex;
@@ -68,8 +67,10 @@ void Session::login() {
 				passwordIndex = i;
 			}
 		}
-		if (registered.at(passwordIndex).getPassword() == password) {
-			foundPassword = true;
+		if (foundUsername) {
+			if (registered.at(passwordIndex).getPassword() == password) {
+				foundPassword = true;
+			}
 		}
 		if (!foundUsername || !foundPassword) {
 			cout << "Wrong username or password.\n";
@@ -98,6 +99,8 @@ void Session::registration() {
 		string name, username, password;
 		unsigned int age;
 
+		cin.clear();
+		cin.ignore();
 		bool validName = false; //Um nome não pode conter números.
 
 		while (!validName) {
@@ -110,6 +113,7 @@ void Session::registration() {
 					continue;
 				}
 			}
+			validName = true;
 		}
 
 		cout << "Age: ";

@@ -11,15 +11,15 @@ Session* Session::singleton_instance = 0;
 //Implementar algoritmo de ordenação para ficheiros!
 
 int main() {
-
+	Session::instance()->importUsers();
 	//TEST MAIN
 	Menu m;
-	Session::instance()->loginAsGuest();
-	cout << Session::instance()->username << endl << endl;
+	m.manager();
+	//Session::instance()->loginAsGuest();
+	//cout << Session::instance()->username << endl << endl;
 	Sleep(2000);
-	//Session::instance()->importUsers();
-	Session::instance()->importDistricts();
-	m.journeyMenu();
+	//Session::instance()->importDistricts();
+	//m.journeyMenu();
 
 	return 0;
 }
