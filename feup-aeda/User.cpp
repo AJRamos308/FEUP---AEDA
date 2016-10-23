@@ -45,7 +45,7 @@ void Registered::addBuddy() {
 
 	while (!foundUsername) {
 
-		cout << "Type in the username of the user you would like to add: ";
+		cout << "Add friend : ";
 		cin >> username;
 
 		for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
