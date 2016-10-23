@@ -1,9 +1,5 @@
 #include "Session.h"
 #include "User.h"
-#include "main.cpp"
-
-Session::Session(){
-}
 
 Session* Session::instance() {
 	if (!singleton_instance) {
@@ -52,21 +48,6 @@ bool Session::importDistricts() {
 	}
 	f.close();
 	return true;
-}
-
-//Returns registered vector.
-vector<Registered> Session::getRegistered() {
-	return registered;
-}
-
-//Returns districts vector.
-vector<string> Session::getDistricts() {
-	return districts;
-}
-
-//Returns username of the logged in user.
-string Session::getUsername() {
-	return username;
 }
 
 //Processes login.
@@ -130,7 +111,6 @@ void Session::registration() {
 		registered.push_back(token);
 
 		cout << "User created with success!\n";
-
 		return;
 }
 

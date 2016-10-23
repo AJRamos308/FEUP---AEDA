@@ -7,16 +7,17 @@
 class Session {
 private:
 	static Session* singleton_instance;
-	vector<Registered> registered;
-	vector<string> districts;
-	string username;
 
 public:
-	static Session* instance(); 
+	static Session* instance();
 	/*
 	Singleton, apenas uma instanciação de Session permitida.
 	Para aceder a uma função desta classe, usar p.e., Session::instance()->importDistricts();
 	*/
+	
+	vector<Registered> registered;
+	vector<string> districts;
+	string username;
 
 	bool importUsers();
 	bool importDistricts();
@@ -24,9 +25,4 @@ public:
 	void login();
 	void registration();
 	string passwordMaker();
-
-	vector<Registered> getRegistered();
-	vector<string> getDistricts();
-	string getUsername();
 };
-

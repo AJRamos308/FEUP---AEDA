@@ -1,10 +1,8 @@
 #include "Menu.h"
 #include "Utilities.h"
+#include "Session.h"
 
 Utilities u;
-
-Menu::Menu(){
-}
 
 int Menu::menu1() {
 	unsigned int choice = 1;
@@ -98,4 +96,39 @@ int Menu::menu2() {
 	}
 	u.showCursor();
 	return choice;
+}
+
+vector<string> Menu::journeyMenu() {
+	u.hideCursor();
+
+	vector<string> localDistricts = Session::instance()->districts;
+	vector<string> selectedDistricts;
+	size_t selectedIndex = 0;
+
+	while (!GetAsyncKeyState(VK_SHIFT) && !GetAsyncKeyState(VK_RETURN)) {
+		for (size_t i = 0; localDistricts.size(); i++) {
+
+			if (i == selectedIndex) {
+				u.whiteBG();
+				cout << i - 1 << ". " << localDistricts.at(i);
+				u.blackBG();
+			}
+			else {
+				cout << i - 1 << ". " << localDistricts.at(i);
+			}
+		}
+		if (GetAsyncKeyState(VK_RETURN)) {
+			selectedDistricts.push_back(localDistricts.at(selectedIndex));
+		}
+		else if ((GetAsyncKeyState(VK_DOWN) && selectedIndex == localDistricts.size()) || (GetAsyncKeyState(VK_UP) && selectedIndex == 0)) {
+			continue;
+		}
+		else if (GetAsyncKeyState(VK_DOWN)) {
+			selectedIndex += 1;
+		}
+		else if (GetAsyncKeyState(VK_UP)) {
+			selectedIndex -= 1;
+		}
+	}
+	return selectedDistricts;
 }

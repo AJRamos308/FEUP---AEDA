@@ -1,6 +1,10 @@
 #include "User.h"
 #include "Session.h"
 #include "Route.h"
+#include "Session.h"
+#include "Menu.h"
+
+Menu m;
 
 /*USER CLASS*/
 User::User() {
@@ -18,44 +22,25 @@ string Registered::getUsername() {
 	return username;
 }
 
-//Precisa de reestruturação.
 void Registered::hostJourney() {
-	bool loop = true;
-	string stop;
-	Route a;
-	Session s;
-	cout << "Please add the stops you intend to go through. Type in 'done' when you're finished. ";
-	while (loop) {
-		getline(cin, stop);
-		if (stop == "done") {
-			loop = false;
-			break;
-		}
-		for (size_t i = 0; i < s.getDistricts().size(); i++) {
-			if (s.getDistricts()[i] == stop) {
-				a.addStop(stop);
-			}
-			else if (i + 1 == s.getDistricts().size()) {
-				cout << "That stop does not exist in the system data, please try again";
-			}
-		}
-	}
+
+	vector<string> stops = m.journeyMenu(); //THIS DOESN'T WORK.
 	return;
 }
+
 void Registered::addBuddy() {
 	string username;
 	bool foundUsername = false;
-	Session s;
 
 	while (!foundUsername) {
 
 		cout << "Type in the username of the user you would like to add: ";
 		cin >> username;
 
-		for (size_t i = 0; i < s.getRegistered().size(); i++) {
-			if (s.getRegistered.at(i).getUsername() == username) {
+		for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
+			if (Session::instance()->registered.at(i).getUsername() == username) {
 				foundUsername = true;
-				buddies.push_back(s.getRegistered().at(i));
+				buddies.push_back(Session::instance()->registered.at(i));
 			}
 		}
 		if (!foundUsername) {
