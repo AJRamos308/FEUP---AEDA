@@ -1,12 +1,14 @@
 #pragma once
-
-#include <iostream>
+#include <vector>
+#include <string>
 using namespace std;
 
 class Menu {
+private:
+	static unsigned int currentMenu;
 public:
-	Menu();
-	
+	int manager();
 	int menu1();
 	int menu2();
+	vector<string> journeyMenu();
 };

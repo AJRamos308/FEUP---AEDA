@@ -1,11 +1,10 @@
 #pragma once
 
-#include <iostream>
-#include <fstream>
 #include <string>
 #include <vector>
 
 #include "Vehicle.h"
+#include "Route.h"
 using namespace std;
 
 class User{
@@ -21,13 +20,16 @@ private:
 	unsigned int age;
 
 	vector<Vehicle> garage;
-	vector<vector<string>> trips; //vector with all registered trips.
+	vector<Route> allTrips; //vector with all registered trips.
 	vector<Registered> buddies;
 public:
 	Registered(string name, unsigned int age, string username, string password);
 
 	string getUsername();
 	string getPassword();
+	vector<Route> getAllTrips();
+	void addTrip(Route r);
+
 	void hostJourney();
 	void addBuddy();
 	
