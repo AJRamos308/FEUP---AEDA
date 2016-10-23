@@ -1,5 +1,5 @@
 # feup-aeda
-* [ ] Guardar todos os clientes registados.
+* [x] Guardar todos os clientes registados.
 * [ ] Implementar linking entre menus.
 * [ ] Implementar host_journey.
 * [ ] Buddy system.

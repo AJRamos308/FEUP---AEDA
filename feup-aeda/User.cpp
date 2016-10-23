@@ -50,13 +50,12 @@ void Registered::addBuddy() {
 
 		for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
 			if (Session::instance()->registered.at(i).getUsername() == username) {
-				foundUsername = true;
-				buddies.push_back(Session::instance()->registered.at(i));
 			}
-		}
-		if (!foundUsername) {
-			cout << "That user does not exist. Please try again.";
-			continue;
+
+			if (!foundUsername) {
+				cout << "That user does not exist. Please try again.";
+				continue;
+			}
 		}
 	}
 }
