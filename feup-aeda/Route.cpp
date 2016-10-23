@@ -1,8 +1,6 @@
 #include "Route.h"
 
-/*ROUTE CLASS*/
-Route::Route() {}
-
-void Route::addStop(string stop) {
-	stops.push_back(stop);
+Route::Route(string host, vector<string> stops) {
+	this->host = host;
+	this->stops = stops;
 }

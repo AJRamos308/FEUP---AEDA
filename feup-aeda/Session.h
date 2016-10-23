@@ -1,8 +1,8 @@
 #pragma once
+#include <stdlib.h> 
+#include <time.h>  
 
 #include "User.h"
-#include "Vehicle.h"
-#include "Route.h"
 
 class Session {
 private:
@@ -10,6 +10,7 @@ private:
 
 public:
 	static Session* instance();
+	
 	/*
 	Singleton, apenas uma instanciação de Session permitida.
 	Para aceder a uma função desta classe, usar p.e., Session::instance()->importDistricts();
@@ -23,6 +24,7 @@ public:
 	bool importDistricts();
 	
 	void login();
+	void loginAsGuest();
 	void registration();
 	string passwordMaker();
 };

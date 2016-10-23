@@ -4,6 +4,15 @@
 
 Utilities u;
 
+unsigned int Menu::currentMenu = 1;
+
+int Menu::manager() {
+	
+	while (true) {
+
+	}
+}
+
 int Menu::menu1() {
 	unsigned int choice = 1;
 
@@ -101,34 +110,71 @@ int Menu::menu2() {
 vector<string> Menu::journeyMenu() {
 	u.hideCursor();
 
+	bool menuUpdate = true;
 	vector<string> localDistricts = Session::instance()->districts;
 	vector<string> selectedDistricts;
 	size_t selectedIndex = 0;
 
-	while (!GetAsyncKeyState(VK_SHIFT) && !GetAsyncKeyState(VK_RETURN)) {
-		for (size_t i = 0; localDistricts.size(); i++) {
+	while (!(GetAsyncKeyState(VK_SHIFT) && GetAsyncKeyState(VK_RETURN))) {
+		
+		if (menuUpdate == true) {
+			for (size_t i = 0; i < localDistricts.size(); i++) {
+				
+				if (i == selectedIndex) {
+					cout << "  ";
+					u.whiteBG();
+					cout << i + 1 << ". " << localDistricts.at(i) << endl;
+					u.blackBG();
+				}
+				else {
+					cout << "  ";
+					cout << i + 1 << ". " << localDistricts.at(i) << endl;
+				}
+			}
+			
+			cout << "You are stopping at: ";
+			for (size_t i = 0; i < selectedDistricts.size(); i++) {
+				cout << selectedDistricts.at(i);
+				if (i == selectedDistricts.size() - 1) {
+					cout << ".";
+				}
+				else {
+					cout << ", ";
+				}
+			}
 
-			if (i == selectedIndex) {
-				u.whiteBG();
-				cout << i - 1 << ". " << localDistricts.at(i);
-				u.blackBG();
-			}
-			else {
-				cout << i - 1 << ". " << localDistricts.at(i);
-			}
+			menuUpdate = false;
 		}
 		if (GetAsyncKeyState(VK_RETURN)) {
+			bool breakCicle = false;
+			
+			for (size_t i = 0; i < selectedDistricts.size(); i++) {
+				if (localDistricts.at(selectedIndex) == selectedDistricts.at(i)) {
+					breakCicle = true;
+				}
+			}
+			if (breakCicle) {
+				continue;
+			}
+			u.clearScreen();
+			menuUpdate = true;
 			selectedDistricts.push_back(localDistricts.at(selectedIndex));
 		}
-		else if ((GetAsyncKeyState(VK_DOWN) && selectedIndex == localDistricts.size()) || (GetAsyncKeyState(VK_UP) && selectedIndex == 0)) {
+		else if ((GetAsyncKeyState(VK_DOWN) && selectedIndex == localDistricts.size() - 1) || (GetAsyncKeyState(VK_UP) && selectedIndex == 0)) {
 			continue;
 		}
 		else if (GetAsyncKeyState(VK_DOWN)) {
+			u.clearScreen();
+			menuUpdate = true;
 			selectedIndex += 1;
 		}
 		else if (GetAsyncKeyState(VK_UP)) {
+			u.clearScreen();
+			menuUpdate = true;
 			selectedIndex -= 1;
 		}
+		Sleep(80);
 	}
+	u.showCursor();
 	return selectedDistricts;
 }

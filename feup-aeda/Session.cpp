@@ -1,5 +1,4 @@
 #include "Session.h"
-#include "User.h"
 
 Session* Session::instance() {
 	if (!singleton_instance) {
@@ -13,7 +12,7 @@ bool Session::importUsers() {
 	fstream f;
 	string username, password, name, age;
 
-	f.open("src\\members.txt");
+	f.open("members.txt");
 	
 	//try
 	if (!f.is_open()) {
@@ -39,11 +38,9 @@ bool Session::importDistricts() {
 	fstream f;
 	string token;
 
-	f.open("src\\districts.txt");
+	f.open("districts.txt");
 
-	while (!f.eof()) {
-		getline(f, token);
-
+	while (getline(f, token)) {
 		districts.push_back(token);
 	}
 	f.close();
@@ -80,6 +77,20 @@ void Session::login() {
 		}
 	}
 	this->username = username;
+	return;
+}
+
+void Session::loginAsGuest() {
+	
+	//Gera um número aleatório com 8 dígitos.
+	srand(time(NULL));
+	string guestUsername = "guest_";
+	
+	for (size_t i = 0; i < 6; i++) {
+		int foo = rand() % 9;
+		guestUsername.append(to_string(foo));
+	}
+	username = guestUsername;
 	return;
 }
 

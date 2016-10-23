@@ -1,10 +1,7 @@
 #include "User.h"
 #include "Session.h"
-#include "Route.h"
 #include "Session.h"
 #include "Menu.h"
-
-Menu m;
 
 /*USER CLASS*/
 User::User() {
@@ -21,10 +18,24 @@ string Registered::getPassword(){
 string Registered::getUsername() {
 	return username;
 }
+vector<Route> Registered::getAllTrips() {
+	return allTrips;
+}
+void Registered::addTrip(Route r) {
+	allTrips.push_back(r);
+}
 
 void Registered::hostJourney() {
 
-	vector<string> stops = m.journeyMenu(); //THIS DOESN'T WORK.
+	Menu m;
+	
+	Route r(Session::instance()->username, m.journeyMenu());
+
+	for (size_t i = 0; Session::instance()->registered.size(); i++) {
+		if (Session::instance()->registered.at(i).getUsername() == Session::instance()->username) {
+			Session::instance()->registered.at(i).addTrip(r);
+		}
+	}
 	return;
 }
 
