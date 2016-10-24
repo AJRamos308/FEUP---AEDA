@@ -9,13 +9,13 @@ unsigned int Menu::currentMenu = 1;
 int Menu::manager() {
 
 	switch (menu1()) {
-	case 1:
+	case 0:
 		Session::instance()->registration();
 		break;
-	case 2:
+	case 1:
 		Session::instance()->login();
 		break;
-	case 3:
+	case 2:
 		Session::instance()->loginAsGuest();
 		break;
 	}
@@ -23,97 +23,119 @@ int Menu::manager() {
 }
 
 int Menu::menu1() {
-	unsigned int choice = 1;
+	
+	fstream f;
+	string token;
+	bool menuMatched = false, pushUpdate = true;
+	vector<string> menuOptions;
+	unsigned int selectedIndex = 0;
 
 	u.hideCursor();
-	cout << "\n  "; u.whiteBG(); cout << "1. Register\n"; u.blackBG();
-	cout << "  2. Login\n";
-	cout << "  3. Login as guest\n";
 
-	while (!GetAsyncKeyState(VK_RETURN) && !GetAsyncKeyState(VK_SPACE)) {
-		if (GetAsyncKeyState(VK_DOWN) && choice == 1) {
-			system("cls");
+	f.open("menu.txt");
 
-			cout << "\n  1. Register\n";
-			cout << "  "; u.whiteBG(); cout << "2. Login\n"; u.blackBG();
-			cout << "  3. Login as guest\n";
-			choice = 2;
+	while (getline(f, token)) {
+		if (token == "1") {
+			menuMatched = true;
+			continue;
 		}
-		else if (GetAsyncKeyState(VK_UP) && choice == 2) {
-			system("cls");
-
-			cout << "\n  "; u.whiteBG(); cout << "1. Register\n"; u.blackBG();
-			cout << "  2. Login\n";
-			cout << "  3. Login as guest\n";
-			choice = 1;
+		if (menuMatched && token != "") {
+			menuOptions.push_back(token);
+			continue;
 		}
-		else if (GetAsyncKeyState(VK_UP) && choice == 3) {
-			system("cls");
-
-			cout << "\n  1. Register\n";
-			cout << "  "; u.whiteBG(); cout << "2. Login\n"; u.blackBG();
-			cout << "  3. Login as guest\n";
-			choice = 2;
+		if (menuMatched && token == "") {
+			break;
 		}
-		else if (GetAsyncKeyState(VK_DOWN) && choice == 2) {
-			system("cls");
-
-			cout << "\n  1. Register\n";
-			cout << "  2. Login\n";
-			cout << "  "; u.whiteBG(); cout << "3. Login as guest\n"; u.blackBG();
-			choice = 3;
+	}
+	
+	while (!GetAsyncKeyState(VK_RETURN)) {
+		if (pushUpdate) {
+			u.clearScreen();
+			for (size_t i = 0; i < menuOptions.size(); i++) {
+				if (i == selectedIndex) {
+					u.whiteBG();
+					cout << menuOptions.at(i) << endl;
+					u.blackBG();
+				}
+				else {
+					cout << menuOptions.at(i) << endl;
+				}
+			}
+			pushUpdate = false;
 		}
-		Sleep(110);
+		if ((GetAsyncKeyState(VK_UP) && selectedIndex == 0) || (GetAsyncKeyState(VK_DOWN) && selectedIndex == menuOptions.size() - 1)) {
+			continue;
+		}
+		else if (GetAsyncKeyState(VK_UP)) {
+			selectedIndex--;
+			pushUpdate = true;
+		}
+		else if (GetAsyncKeyState(VK_DOWN)) {
+			selectedIndex++;
+			pushUpdate = true;
+		}
+		Sleep(90);
 	}
 	u.showCursor();
-	return choice;
+	return selectedIndex;
 }
 
 int Menu::menu2() {
-	unsigned int choice = 1;
+
+	fstream f;
+	string token;
+	bool menuMatched = false, pushUpdate = true;
+	vector<string> menuOptions;
+	unsigned int selectedIndex = 0;
 
 	u.hideCursor();
-	cout << "\n  "; u.whiteBG(); cout << "1. Host journey\n"; u.blackBG();
-	cout << "  2. Join journey\n";
-	cout << "  3. Account settings\n";
 
-	while (!GetAsyncKeyState(VK_RETURN) && !GetAsyncKeyState(VK_SPACE)) {
-		if (GetAsyncKeyState(VK_DOWN) && choice == 1) {
-			system("cls");
+	f.open("menu.txt");
 
-			cout << "\n  1. Host journey\n";
-			cout << "  "; u.whiteBG(); cout << "2. Join journey\n"; u.blackBG();
-			cout << "  3. Account settings\n";
-			choice = 2;
+	while (getline(f, token)) {
+		if (token == "2") {
+			menuMatched = true;
+			continue;
 		}
-		else if (GetAsyncKeyState(VK_UP) && choice == 2) {
-			system("cls");
-
-			cout << "\n  "; u.whiteBG(); cout << "1. Host journey\n"; u.blackBG();
-			cout << "  2. Join journey\n";
-			cout << "  3. Account settings\n";
-			choice = 1;
+		if (menuMatched && token != "") {
+			menuOptions.push_back(token);
+			continue;
 		}
-		else if (GetAsyncKeyState(VK_UP) && choice == 3) {
-			system("cls");
-
-			cout << "\n  1. Host journey\n";
-			cout << "  "; u.whiteBG(); cout << "2. Join journey\n"; u.blackBG();
-			cout << "  3. Account settings\n";
-			choice = 2;
+		if (menuMatched && token == "") {
+			break;
 		}
-		else if (GetAsyncKeyState(VK_DOWN) && choice == 2) {
-			system("cls");
+	}
 
-			cout << "\n  1. Host journey\n";
-			cout << "  2. Join journey\n";
-			cout << "  "; u.whiteBG(); cout << "3. Account settings\n"; u.blackBG();
-			choice = 3;
+	while (!GetAsyncKeyState(VK_RETURN)) {
+		if (pushUpdate) {
+			u.clearScreen();
+			for (size_t i = 0; i < menuOptions.size(); i++) {
+				if (i == selectedIndex) {
+					u.whiteBG();
+					cout << menuOptions.at(i) << endl;
+					u.blackBG();
+				}
+				else {
+					cout << menuOptions.at(i) << endl;
+				}
+			}
+			pushUpdate = false;
 		}
-		Sleep(110);
+		if ((GetAsyncKeyState(VK_UP) && selectedIndex == 0) || (GetAsyncKeyState(VK_DOWN) && selectedIndex == menuOptions.size() - 1)) {
+			continue;
+		}
+		else if (GetAsyncKeyState(VK_UP)) {
+			selectedIndex--;
+			pushUpdate = true;
+		}
+		else if (GetAsyncKeyState(VK_DOWN)) {
+			selectedIndex++;
+			pushUpdate = true;
+		}
+		Sleep(90);
 	}
 	u.showCursor();
-	return choice;
+	return selectedIndex;
 }
 
 vector<string> Menu::journeyMenu() {

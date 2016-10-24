@@ -67,5 +67,8 @@
     <Text Include="members.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="menu.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

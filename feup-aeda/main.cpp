@@ -15,10 +15,17 @@ int main() {
 	//TEST MAIN
 	Menu m;
 	m.manager();
+	//m.manager();
 	//Session::instance()->loginAsGuest();
-	//cout << Session::instance()->username << endl << endl;
-	Session::instance()->importDistricts();
+	//cout << Session::instance()->username << endl;
+	//Session::instance()->importDistricts();
 	//m.journeyMenu();
+	Sleep(1000);
+	//Session::instance()->logout();
+	//Session::instance()->importUsers();
+	//Session::instance()->login();
+	//cout << Session::instance()->username;
+	//Sleep(1000);
 
 	return 0;
 }

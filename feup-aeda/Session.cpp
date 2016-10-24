@@ -8,6 +8,11 @@ Session* Session::instance() {
 }
 Utilities us;
 
+void Session::logout(){
+	delete singleton_instance;
+	singleton_instance = NULL;
+}
+
 //Imports users (registered) from "members.txt" and saves to registered vector.
 bool Session::importUsers() {
 	fstream f;
@@ -60,7 +65,11 @@ void Session::login() {
 		cin >> username;
 
 		cout << "PASSWORD : ";
+		us.hideCursor();
+		while (!GetAsyncKeyState(VK_RETURN)) {
+		}
 		cin >> password;
+		us.showCursor();
 
 		for (size_t i = 0; i < registered.size(); i++) {
 			if (registered.at(i).getUsername() == username) {

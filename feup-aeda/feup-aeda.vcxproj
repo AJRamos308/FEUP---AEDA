@@ -39,6 +39,7 @@
     <Text Include="buddies.txt" />
     <Text Include="districts.txt" />
     <Text Include="members.txt" />
+    <Text Include="menu.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{3900274F-D143-4C83-A7DC-5BEC230FC8FC}</ProjectGuid>
