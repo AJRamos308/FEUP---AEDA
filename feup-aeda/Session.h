@@ -3,6 +3,7 @@
 #include <time.h>  
 
 #include "User.h"
+#include "Utilities.h"
 
 class Session {
 private:

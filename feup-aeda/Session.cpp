@@ -6,6 +6,7 @@ Session* Session::instance() {
 	}
 	return singleton_instance;
 }
+Utilities us;
 
 //Imports users (registered) from "members.txt" and saves to registered vector.
 bool Session::importUsers() {
@@ -96,41 +97,44 @@ void Session::loginAsGuest() {
 }
 
 void Session::registration() {
-		string name, username, password;
-		unsigned int age;
-		fstream f;
 
-		cin.clear();
-		cin.ignore();
-		bool validName = false; //Um nome não pode conter números.
+	string name, username, password;
+	unsigned int age;
+	fstream f;
 
-		while (!validName) {
-			cout << "Name: ";
-			getline(cin, name);
+	bool validName = false; //Um nome não pode conter números.
 
-			for (unsigned int i = 0; i < name.length(); i++) {
-				if (isdigit(name.at(i))) {
-					cout << "Invalid name!";
-					continue;
-				}
+	cin.ignore(50, '\n');
+	us.clearScreen();
+
+	
+	while (!validName) {
+		cout << "Name: ";
+		getline(cin, name);
+
+		for (unsigned int i = 0; i < name.length(); i++) {
+			if (isdigit(name.at(i))) {
+				cout << "Invalid name!";
+				continue;
 			}
-			validName = true;
 		}
+		validName = true;
+	}
 
-		cout << "Age: ";
-		cin >> age;
-		cout << "Username: ";
-		cin >> username;
-		password = passwordMaker();
+	cout << "Age: ";
+	cin >> age;
+	cout << "Username: ";
+	cin >> username;
+	password = passwordMaker();
 
-		Registered token(name, age, username, password);
-		registered.push_back(token);
+	Registered token(name, age, username, password);
+	registered.push_back(token);
 
-		f.open("members.txt", ios::app);
-		f <<endl <<  username << endl << password << endl << name << endl << age;
+	f.open("members.txt", ios::app);
+	f << endl << username << endl << password << endl << name << endl << age;
 
-		cout << "User created with success!\n";
-		return;
+	cout << "User created with success!\n";
+	return;
 }
 
 string Session::passwordMaker() {
