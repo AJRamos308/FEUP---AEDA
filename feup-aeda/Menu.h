@@ -7,8 +7,8 @@ class Menu {
 private:
 	static unsigned int currentMenu;
 public:
-	int manager();
-	int menu1();
-	int menu2();
+	void manager();
+	void menu1();
+	void menu2();
 	vector<string> journeyMenu();
 };

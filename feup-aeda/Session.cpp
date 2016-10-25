@@ -1,12 +1,13 @@
 #include "Session.h"
 
+Utilities us;
+
 Session* Session::instance() {
 	if (!singleton_instance) {
 		singleton_instance = new Session;
 	}
 	return singleton_instance;
 }
-Utilities us;
 
 void Session::logout(){
 	delete singleton_instance;
@@ -59,17 +60,18 @@ void Session::login() {
 	bool foundUsername = false, foundPassword = false;
 	size_t passwordIndex;
 
+	cin.ignore(50, '\n');
+	us.clearScreen();
+
 	while (!foundUsername || !foundPassword) {
 		
-		cout << "USERNAME : ";
+		us.showLogo();
+
+		cout << "  Username: ";
 		cin >> username;
 
-		cout << "PASSWORD : ";
-		us.hideCursor();
-		while (!GetAsyncKeyState(VK_RETURN)) {
-		}
+		cout << "  Password: ";
 		cin >> password;
-		us.showCursor();
 
 		for (size_t i = 0; i < registered.size(); i++) {
 			if (registered.at(i).getUsername() == username) {
@@ -83,11 +85,13 @@ void Session::login() {
 			}
 		}
 		if (!foundUsername || !foundPassword) {
-			cout << "Wrong username or password.\n";
+			cout << "  Wrong username or password!"; Sleep(1000);
+			us.clearScreen();
 			continue;
 		}
 	}
 	this->username = username;
+	cout << "  Login successful!\n"; Sleep(1000);
 	return;
 }
 

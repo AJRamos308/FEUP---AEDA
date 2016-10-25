@@ -4,25 +4,43 @@
 
 Utilities u;
 
-unsigned int Menu::currentMenu = 1;
+unsigned int Menu::currentMenu = 10;
 
-int Menu::manager() {
+void Menu::manager() {
 
-	switch (menu1()) {
-	case 0:
-		Session::instance()->registration();
-		break;
-	case 1:
-		Session::instance()->login();
-		break;
-	case 2:
-		Session::instance()->loginAsGuest();
-		break;
+	while (true) {
+		if (currentMenu == 10) {
+			menu1();
+			continue;
+		}
+		else if (currentMenu == 11) {
+			Session::instance()->registration();
+			currentMenu = 20;
+			continue;
+		}
+		else if (currentMenu == 12) {
+			Session::instance()->login();
+			currentMenu = 20;
+			continue;
+		}
+		else if (currentMenu == 13) {
+			Session::instance()->loginAsGuest();
+			currentMenu = 20;
+			continue;
+		}
+		else if (currentMenu == 20) {
+			menu2();
+			continue;
+		}
+		else if (currentMenu == 21) {
+			//...
+		}
 	}
-	return 0;
+
+	return;
 }
 
-int Menu::menu1() {
+void Menu::menu1() {
 	
 	fstream f;
 	string token;
@@ -47,10 +65,10 @@ int Menu::menu1() {
 			break;
 		}
 	}
-	
 	while (!GetAsyncKeyState(VK_RETURN)) {
 		if (pushUpdate) {
 			u.clearScreen();
+			u.showLogo();
 			for (size_t i = 0; i < menuOptions.size(); i++) {
 				if (i == selectedIndex) {
 					u.whiteBG();
@@ -77,10 +95,11 @@ int Menu::menu1() {
 		Sleep(90);
 	}
 	u.showCursor();
-	return selectedIndex;
+	currentMenu = 11 + selectedIndex;
+	return;
 }
 
-int Menu::menu2() {
+void Menu::menu2() {
 
 	fstream f;
 	string token;
@@ -109,6 +128,7 @@ int Menu::menu2() {
 	while (!GetAsyncKeyState(VK_RETURN)) {
 		if (pushUpdate) {
 			u.clearScreen();
+			cout << "\n  WELCOME\\MAIN MENU\n\n";
 			for (size_t i = 0; i < menuOptions.size(); i++) {
 				if (i == selectedIndex) {
 					u.whiteBG();
@@ -135,7 +155,8 @@ int Menu::menu2() {
 		Sleep(90);
 	}
 	u.showCursor();
-	return selectedIndex;
+	currentMenu = 21 + selectedIndex;
+	return;
 }
 
 vector<string> Menu::journeyMenu() {

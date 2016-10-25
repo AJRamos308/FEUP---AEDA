@@ -78,8 +78,7 @@ void Utilities::showCursor(){
 }
 
 void Utilities::showLogo(){
-	system("cls"); // clear window
-	setcolor(15);
+	/*setcolor(15);
 	cout << "=======================================================\n";
 	cout << "| "; setcolor(10); cout << "  ____    ___   ____    _____       __  __   _____ "; setcolor(15); cout << " |" << endl;
 	cout << "| "; setcolor(10); cout << " |  _ \\  |_ _| |  _ \\  | ____|     |  \\/  | | ____|"; setcolor(15); cout << " |" << endl;
@@ -88,4 +87,12 @@ void Utilities::showLogo(){
 	cout << "| "; setcolor(10); cout << " |_| \\_\\ |___| |____/  |_____|"; setcolor(12);cout << " (_) "; setcolor(12); cout << "|_|  |_| |_____|"; setcolor(15); cout << " |" << endl;
 	cout << "                 Ride Sharing Service                  \n";
 	cout << "=======================================================\n\n";
+	*/
+
+	cout << "        _     _\n";
+	cout << "   _ __(_) __| | ___   _ __ ___   ___\n";
+	cout << "  | '__| |/ _` |/ _ \\ | '_ ` _ \\ / _ \\\n";
+	cout << "  | |  | | (_| |  __/_| | | | | |  __/\n";
+	cout << "  |_|  |_|\\__,_|\\___(_)_| |_| |_|\\___|\n";
+	cout << "        #1 Leading Carpooling Platform\n\n";
 }
