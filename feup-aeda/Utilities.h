@@ -15,6 +15,7 @@ public:
 	void whiteBG();
 	void blackBG();
 	void yellowBG();
+	void greenBG();
 	void hideCursor();
 	void showCursor();
 	void showLogo();

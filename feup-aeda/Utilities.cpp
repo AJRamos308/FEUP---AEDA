@@ -61,6 +61,11 @@ void Utilities::yellowBG() {
 	SetConsoleTextAttribute(hConsole, BACKGROUND_INTENSITY | BACKGROUND_RED | BACKGROUND_GREEN);
 }
 
+void Utilities::greenBG() {
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(hConsole, BACKGROUND_INTENSITY | BACKGROUND_GREEN);
+}
+
 void Utilities::hideCursor(){
    HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
    CONSOLE_CURSOR_INFO info;

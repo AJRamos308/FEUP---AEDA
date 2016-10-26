@@ -50,6 +50,10 @@ void Registered::addBuddy() {
 
 		for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
 			if (Session::instance()->registered.at(i).getUsername() == username) {
+				buddies.push_back(Session::instance()->registered.at(i));
+				foundUsername = true;
+				cout << "Buddy added!\n";
+				break;
 			}
 
 			if (!foundUsername) {
@@ -58,4 +62,5 @@ void Registered::addBuddy() {
 			}
 		}
 	}
+	return;
 }

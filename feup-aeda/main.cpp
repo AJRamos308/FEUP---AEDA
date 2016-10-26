@@ -12,8 +12,10 @@ Session* Session::singleton_instance = 0;
 
 int main() {
 	Session::instance()->importUsers();
+	Session::instance()->importDistricts();
 	//TEST MAIN
 	Menu m;
+	m.journeyMenu();
 	m.manager();
 	//m.manager();
 	//Session::instance()->loginAsGuest();

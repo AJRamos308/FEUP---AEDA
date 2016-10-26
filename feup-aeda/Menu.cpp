@@ -13,30 +13,26 @@ void Menu::manager() {
 			menu1();
 			continue;
 		}
-		else if (currentMenu == 11) {
+		if (currentMenu == 11) {
 			Session::instance()->registration();
 			currentMenu = 20;
 			continue;
 		}
-		else if (currentMenu == 12) {
+		if (currentMenu == 12) {
 			Session::instance()->login();
 			currentMenu = 20;
 			continue;
 		}
-		else if (currentMenu == 13) {
+		if (currentMenu == 13) {
 			Session::instance()->loginAsGuest();
 			currentMenu = 20;
 			continue;
 		}
-		else if (currentMenu == 20) {
+		if (currentMenu == 20) {
 			menu2();
 			continue;
 		}
-		else if (currentMenu == 21) {
-			//...
-		}
 	}
-
 	return;
 }
 
@@ -82,17 +78,19 @@ void Menu::menu1() {
 			pushUpdate = false;
 		}
 		if ((GetAsyncKeyState(VK_UP) && selectedIndex == 0) || (GetAsyncKeyState(VK_DOWN) && selectedIndex == menuOptions.size() - 1)) {
+			while (GetAsyncKeyState(VK_UP) || GetAsyncKeyState(VK_DOWN)){}
 			continue;
 		}
 		else if (GetAsyncKeyState(VK_UP)) {
+			while (GetAsyncKeyState(VK_UP)) {}
 			selectedIndex--;
 			pushUpdate = true;
 		}
 		else if (GetAsyncKeyState(VK_DOWN)) {
+			while (GetAsyncKeyState(VK_DOWN)) {}
 			selectedIndex++;
 			pushUpdate = true;
 		}
-		Sleep(90);
 	}
 	u.showCursor();
 	currentMenu = 11 + selectedIndex;
@@ -124,11 +122,13 @@ void Menu::menu2() {
 			break;
 		}
 	}
+	while (GetAsyncKeyState(VK_RETURN)) {
+	}
 
 	while (!GetAsyncKeyState(VK_RETURN)) {
 		if (pushUpdate) {
 			u.clearScreen();
-			cout << "\n  WELCOME\\MAIN MENU\n\n";
+			u.showLogo();
 			for (size_t i = 0; i < menuOptions.size(); i++) {
 				if (i == selectedIndex) {
 					u.whiteBG();
@@ -170,21 +170,22 @@ vector<string> Menu::journeyMenu() {
 	while (!(GetAsyncKeyState(VK_SHIFT) && GetAsyncKeyState(VK_RETURN))) {
 		
 		if (menuUpdate == true) {
+			u.clearScreen();
+			u.showLogo();
+
 			for (size_t i = 0; i < localDistricts.size(); i++) {
 				
 				if (i == selectedIndex) {
-					cout << "  ";
 					u.whiteBG();
-					cout << i + 1 << ". " << localDistricts.at(i) << endl;
-					u.blackBG();
 				}
-				else {
-					cout << "  ";
-					cout << i + 1 << ". " << localDistricts.at(i) << endl;
+				if (find(selectedDistricts.begin(), selectedDistricts.end(), localDistricts.at(i)) != selectedDistricts.end()) {
+					u.greenBG();
 				}
+				cout << "  " << i + 1 << ". " << localDistricts.at(i) << endl;
+				u.blackBG();
 			}
 			
-			cout << "You are stopping at: ";
+			cout << "\n\n  You are stopping at: ";
 			for (size_t i = 0; i < selectedDistricts.size(); i++) {
 				cout << selectedDistricts.at(i);
 				if (i == selectedDistricts.size() - 1) {
@@ -199,33 +200,39 @@ vector<string> Menu::journeyMenu() {
 		}
 		if (GetAsyncKeyState(VK_RETURN)) {
 			bool breakCicle = false;
-			
+
 			for (size_t i = 0; i < selectedDistricts.size(); i++) {
 				if (localDistricts.at(selectedIndex) == selectedDistricts.at(i)) {
+					selectedDistricts.erase(selectedDistricts.begin() + i);
 					breakCicle = true;
+					menuUpdate = true;
 				}
 			}
+			while (GetAsyncKeyState(VK_RETURN)) {}
+
 			if (breakCicle) {
 				continue;
 			}
-			u.clearScreen();
 			menuUpdate = true;
 			selectedDistricts.push_back(localDistricts.at(selectedIndex));
 		}
 		else if ((GetAsyncKeyState(VK_DOWN) && selectedIndex == localDistricts.size() - 1) || (GetAsyncKeyState(VK_UP) && selectedIndex == 0)) {
+			while (GetAsyncKeyState(VK_DOWN) || GetAsyncKeyState(VK_UP)) {}
+
 			continue;
 		}
 		else if (GetAsyncKeyState(VK_DOWN)) {
-			u.clearScreen();
+			while (GetAsyncKeyState(VK_DOWN)) {}
+
 			menuUpdate = true;
 			selectedIndex += 1;
 		}
 		else if (GetAsyncKeyState(VK_UP)) {
-			u.clearScreen();
+			while (GetAsyncKeyState(VK_UP)) {}
+
 			menuUpdate = true;
 			selectedIndex -= 1;
 		}
-		Sleep(80);
 	}
 	u.showCursor();
 	return selectedDistricts;

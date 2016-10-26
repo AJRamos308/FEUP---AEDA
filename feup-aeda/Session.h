@@ -12,7 +12,6 @@ private:
 public:
 	static Session* instance();
 	
-	
 	/*
 	Singleton, apenas uma instanciação de Session permitida.
 	Para aceder a uma função desta classe, usar p.e., Session::instance()->importDistricts();
