@@ -15,7 +15,7 @@ int main() {
 	Session::instance()->importDistricts();
 	//TEST MAIN
 	Menu m;
-	m.journeyMenu();
+	//m.journeyMenu();
 	m.manager();
 	//m.manager();
 	//Session::instance()->loginAsGuest();

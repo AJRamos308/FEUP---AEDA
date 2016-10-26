@@ -32,6 +32,21 @@ void Menu::manager() {
 			menu2();
 			continue;
 		}
+		if (currentMenu == 21) {
+			for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
+				if (Session::instance()->username == Session::instance()->registered.at(i).getUsername()) {
+					Session::instance()->registered.at(i).hostJourney();
+					break;
+				}
+			}
+			currentMenu = 20;
+			continue;
+		}
+		if (currentMenu == 24) {
+			Session::instance()->logout();
+			menu1();
+			continue;
+		}
 	}
 	return;
 }
@@ -61,6 +76,8 @@ void Menu::menu1() {
 			break;
 		}
 	}
+	while (GetAsyncKeyState(VK_RETURN)){}
+
 	while (!GetAsyncKeyState(VK_RETURN)) {
 		if (pushUpdate) {
 			u.clearScreen();
@@ -77,23 +94,27 @@ void Menu::menu1() {
 			}
 			pushUpdate = false;
 		}
-		if ((GetAsyncKeyState(VK_UP) && selectedIndex == 0) || (GetAsyncKeyState(VK_DOWN) && selectedIndex == menuOptions.size() - 1)) {
-			while (GetAsyncKeyState(VK_UP) || GetAsyncKeyState(VK_DOWN)){}
-			continue;
-		}
 		else if (GetAsyncKeyState(VK_UP)) {
 			while (GetAsyncKeyState(VK_UP)) {}
-			selectedIndex--;
-			pushUpdate = true;
+
+			if (selectedIndex != 0) {
+				selectedIndex--;
+				pushUpdate = true;
+			}
 		}
 		else if (GetAsyncKeyState(VK_DOWN)) {
 			while (GetAsyncKeyState(VK_DOWN)) {}
-			selectedIndex++;
-			pushUpdate = true;
+			
+			if (selectedIndex != menuOptions.size() - 1) {
+				selectedIndex++;
+				pushUpdate = true;
+			}
 		}
 	}
 	u.showCursor();
 	currentMenu = 11 + selectedIndex;
+
+	cin.ignore(50, '\n');
 	return;
 }
 
@@ -122,8 +143,7 @@ void Menu::menu2() {
 			break;
 		}
 	}
-	while (GetAsyncKeyState(VK_RETURN)) {
-	}
+	while (GetAsyncKeyState(VK_RETURN)){}
 
 	while (!GetAsyncKeyState(VK_RETURN)) {
 		if (pushUpdate) {
@@ -141,21 +161,27 @@ void Menu::menu2() {
 			}
 			pushUpdate = false;
 		}
-		if ((GetAsyncKeyState(VK_UP) && selectedIndex == 0) || (GetAsyncKeyState(VK_DOWN) && selectedIndex == menuOptions.size() - 1)) {
-			continue;
-		}
 		else if (GetAsyncKeyState(VK_UP)) {
-			selectedIndex--;
-			pushUpdate = true;
+			while (GetAsyncKeyState(VK_UP)) {}
+
+			if (selectedIndex != 0) {
+				selectedIndex--;
+				pushUpdate = true;
+			}
 		}
 		else if (GetAsyncKeyState(VK_DOWN)) {
-			selectedIndex++;
-			pushUpdate = true;
+			while (GetAsyncKeyState(VK_DOWN)) {}
+
+			if (selectedIndex != menuOptions.size() - 1) {
+				selectedIndex++;
+				pushUpdate = true;
+			}
 		}
-		Sleep(90);
 	}
 	u.showCursor();
 	currentMenu = 21 + selectedIndex;
+
+	cin.ignore(50, '\n');
 	return;
 }
 
@@ -166,6 +192,8 @@ vector<string> Menu::journeyMenu() {
 	vector<string> localDistricts = Session::instance()->districts;
 	vector<string> selectedDistricts;
 	size_t selectedIndex = 0;
+
+	while(GetAsyncKeyState(VK_RETURN)){}
 
 	while (!(GetAsyncKeyState(VK_SHIFT) && GetAsyncKeyState(VK_RETURN))) {
 		
@@ -216,24 +244,25 @@ vector<string> Menu::journeyMenu() {
 			menuUpdate = true;
 			selectedDistricts.push_back(localDistricts.at(selectedIndex));
 		}
-		else if ((GetAsyncKeyState(VK_DOWN) && selectedIndex == localDistricts.size() - 1) || (GetAsyncKeyState(VK_UP) && selectedIndex == 0)) {
-			while (GetAsyncKeyState(VK_DOWN) || GetAsyncKeyState(VK_UP)) {}
-
-			continue;
-		}
 		else if (GetAsyncKeyState(VK_DOWN)) {
 			while (GetAsyncKeyState(VK_DOWN)) {}
 
-			menuUpdate = true;
-			selectedIndex += 1;
+			if (selectedIndex != localDistricts.size() - 1) {
+				menuUpdate = true;
+				selectedIndex += 1;
+			}
 		}
 		else if (GetAsyncKeyState(VK_UP)) {
 			while (GetAsyncKeyState(VK_UP)) {}
 
-			menuUpdate = true;
-			selectedIndex -= 1;
+			if (selectedIndex != 0) {
+				menuUpdate = true;
+				selectedIndex -= 1;
+			}
 		}
 	}
 	u.showCursor();
+
+	cin.ignore(50, '\n');
 	return selectedDistricts;
 }

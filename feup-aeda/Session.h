@@ -20,6 +20,7 @@ public:
 	vector<Registered> registered;
 	vector<string> districts;
 	string username;
+	bool lang; //TODO: language.
 
 	static void logout();
 	bool importUsers();

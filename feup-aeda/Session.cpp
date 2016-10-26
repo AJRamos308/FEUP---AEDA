@@ -60,7 +60,6 @@ void Session::login() {
 	bool foundUsername = false, foundPassword = false;
 	size_t passwordIndex;
 
-	cin.ignore(50, '\n');
 	us.clearScreen();
 
 	while (!foundUsername || !foundPassword) {
@@ -72,6 +71,9 @@ void Session::login() {
 
 		cout << "  Password: ";
 		cin >> password;
+
+		cin.clear();
+		cin.ignore();
 
 		for (size_t i = 0; i < registered.size(); i++) {
 			if (registered.at(i).getUsername() == username) {
@@ -92,6 +94,7 @@ void Session::login() {
 	}
 	this->username = username;
 	cout << "  Login successful!\n"; Sleep(1000);
+
 	return;
 }
 
@@ -117,26 +120,25 @@ void Session::registration() {
 
 	bool validName = false; //Um nome não pode conter números.
 
-	cin.ignore(50, '\n');
 	us.clearScreen();
-
+	us.showLogo();
 	
 	while (!validName) {
-		cout << "Name: ";
+		cout << "  Name: ";
 		getline(cin, name);
 
 		for (unsigned int i = 0; i < name.length(); i++) {
 			if (isdigit(name.at(i))) {
-				cout << "Invalid name!";
+				cout << "  Invalid name!";
 				continue;
 			}
 		}
 		validName = true;
 	}
 
-	cout << "Age: ";
+	cout << "  Age: ";
 	cin >> age;
-	cout << "Username: ";
+	cout << "  Username: ";
 	cin >> username;
 	password = passwordMaker();
 
@@ -146,7 +148,7 @@ void Session::registration() {
 	f.open("members.txt", ios::app);
 	f << endl << username << endl << password << endl << name << endl << age;
 
-	cout << "User created with success!\n";
+	cout << "  User created with success!\n";
 	return;
 }
 

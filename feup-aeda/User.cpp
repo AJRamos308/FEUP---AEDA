@@ -21,9 +21,6 @@ string Registered::getUsername() {
 vector<Route> Registered::getAllTrips() {
 	return allTrips;
 }
-void Registered::addTrip(Route r) {
-	allTrips.push_back(r);
-}
 
 void Registered::hostJourney() {
 
@@ -33,7 +30,8 @@ void Registered::hostJourney() {
 
 	for (size_t i = 0; Session::instance()->registered.size(); i++) {
 		if (Session::instance()->registered.at(i).getUsername() == Session::instance()->username) {
-			Session::instance()->registered.at(i).addTrip(r);
+			Session::instance()->registered.at(i).getAllTrips().push_back(r);
+			break;
 		}
 	}
 	return;
