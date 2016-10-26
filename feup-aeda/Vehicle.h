@@ -19,3 +19,21 @@ public:
 	string getLicensePlate();
 	string getModel();
 };
+
+class Compact : public Vehicle {
+private:
+public:
+	//Compact();
+};
+
+class Midsize : public Vehicle {
+private:
+	
+public:
+};
+
+class Van : public Vehicle {
+private:
+	
+public:
+};

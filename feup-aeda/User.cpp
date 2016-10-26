@@ -64,3 +64,19 @@ void Registered::addBuddy() {
 	}
 	return;
 }
+
+void Registered::addVehicle() {
+	string model, licensePlate;
+	int maxSeats;
+
+	cout << "Type in the Model of the car you intend to add to your garage: ";
+	getline(cin, model);
+	cout << "Type in the License Plate: ";
+	cin >> licensePlate;
+	cout << "How many seats does your car have? (Including the driver): ";
+	cin >> maxSeats;
+
+	if (maxSeats < 5) {
+		Compact compact();
+	}
+}

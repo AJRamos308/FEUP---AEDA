@@ -15,3 +15,8 @@ string Vehicle::getLicensePlate() {
 string Vehicle::getModel() {
 	return model;
 }
+
+//COMPACT CLASS
+/*Compact::Compact() : maxSeats(maximumSeats), model(model),  {
+	
+}*/

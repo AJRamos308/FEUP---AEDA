@@ -32,7 +32,7 @@ public:
 
 	void hostJourney();
 	void addBuddy();
-	
+	void addVehicle();
 };
 
 class Guest : public User{
