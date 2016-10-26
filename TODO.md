@@ -6,3 +6,4 @@
 * [ ] Gerar ocorrências para a viagem de quem se junta a uma viagem.
 * [ ] Arranjar forma de calcular o preço (por distância/tempo).
 * [ ] Adicionar os restantes menus.
+* [ ] Fazer com que o host receba o dinheiro da viagem.
