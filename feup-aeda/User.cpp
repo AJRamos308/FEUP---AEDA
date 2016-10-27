@@ -70,16 +70,34 @@ void Registered::addBuddy() {
 void Registered::addVehicle() {
 	string model, licensePlate;
 	int maxSeats;
+	bool car = false;
 
 	cout << "Type in the Model of the car you intend to add to your garage: ";
 	getline(cin, model);
 	cout << "Type in the License Plate: ";
-	cin >> licensePlate;
+	cin >> licensePlate; //TODO: Adicionar funcao que verifica matricula
+
+	while (!car) {
 	cout << "How many seats does your car have? (Including the driver): ";
 	cin >> maxSeats;
-
-	if (maxSeats < 5) {
-		Compact compact();
+		if (maxSeats < 5) {
+			Compact compact(maxSeats, model, licensePlate);
+			garage.push_back(compact);
+			car = true;
+		}
+		else if (maxSeats == 5) {
+			Midsize midsize(maxSeats, model, licensePlate);
+			garage.push_back(midsize);
+			car = true;
+		}
+		else if (maxSeats <= 7) {
+			Van van(maxSeats, model, licensePlate);
+			garage.push_back(van);
+			car = true;
+		}
+		else {
+			cout << "Invalid number of seats chosen, please try again";
+		}
 	}
 }
 
