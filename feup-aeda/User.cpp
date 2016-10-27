@@ -107,8 +107,8 @@ void Registered::removeVehicle() {
 	while (!found) {
 		cout << "Type in the license plate of the vehicle you wish to remove: ";
 		cin >> license;
-		for (size_t i; i < garage.size(); i++) {
-			if (garage[i].getLicensePlate == license) {
+		for (size_t i = 0; i < garage.size(); i++) {
+			if (garage[i].getLicensePlate() == license) {
 				garage.erase(garage.begin() + i);
 				cout << "Vehicle successfully deleted!\n";
 				found = true;
