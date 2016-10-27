@@ -23,12 +23,16 @@ vector<Route> Registered::getAllTrips() {
 }
 
 void Registered::hostJourney() {
+	if (age < 18) {
+		cout << "Sorry, under 18 can't host journeys.\n";
+	}
 
 	Menu m;
-	
-	Route r(Session::instance()->username, m.journeyMenu());
 
-	for (size_t i = 0; Session::instance()->registered.size(); i++) {
+	Route r(Session::instance()->username, m.journeyMenu()); //Creating route with all the districts the user will go through
+
+
+	for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
 		if (Session::instance()->registered.at(i).getUsername() == Session::instance()->username) {
 			Session::instance()->registered.at(i).getAllTrips().push_back(r);
 			break;
@@ -77,4 +81,42 @@ void Registered::addVehicle() {
 	if (maxSeats < 5) {
 		Compact compact();
 	}
+}
+
+void Registered::removeVehicle() {
+	string license;
+	bool found = false;
+	while (!found) {
+		cout << "Type in the license plate of the vehicle you wish to remove: ";
+		cin >> license;
+		for (size_t i; i < garage.size(); i++) {
+			if (garage[i].getLicensePlate == license) {
+				garage.erase(garage.begin() + i);
+				cout << "Vehicle successfully deleted!\n";
+				found = true;
+				break;
+			}
+		}
+		if (!found) {
+			cout << "Vehicle not found, please try again.\n";
+		}
+	}
+	return;
+}
+void Registered::changePassword() {
+	string pass, newpass, newpass2;
+	bool changed = false;
+	while (!changed) {
+		cout << "Type in your old password: ";
+		cin >> pass;
+		if (pass == password) {
+			cout << "New ";
+			password = Session::instance()->passwordMaker();
+			changed = true;
+		}
+		else {
+			cout << "Whoops, that's not your current password. Try again.\n";
+		}
+	}
+	return;
 }

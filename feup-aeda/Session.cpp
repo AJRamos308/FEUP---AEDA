@@ -105,10 +105,11 @@ void Session::loginAsGuest() {
 	string guestUsername = "guest_";
 	
 	for (size_t i = 0; i < 6; i++) {
-		int foo = rand() % 9;
+		int foo = rand() % 10;
 		guestUsername.append(to_string(foo));
 	}
 	username = guestUsername;
+	cout << username;
 	return;
 }
 

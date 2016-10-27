@@ -18,6 +18,7 @@ class Registered : public User{
 private:
 	string name, password;
 	unsigned int age;
+	double balance;
 
 	vector<Vehicle> garage;
 	vector<Route> allTrips; //vector with all registered trips.
@@ -32,6 +33,8 @@ public:
 	void hostJourney();
 	void addBuddy();
 	void addVehicle();
+	void removeVehicle();
+	void changePassword();
 };
 
 class Guest : public User{
