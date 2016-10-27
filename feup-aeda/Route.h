@@ -12,4 +12,6 @@ private:
 	string host;
 public:
 	Route(string host, vector<string> stops);
+	float getPrice();
+	vector<string> getStops();
 };

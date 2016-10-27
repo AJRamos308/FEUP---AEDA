@@ -25,7 +25,7 @@ void Menu::manager() {
 		}
 		if (currentMenu == 13) {
 			Session::instance()->loginAsGuest();
-			currentMenu = 20;
+			currentMenu = 30; //TODO: guest menu
 			continue;
 		}
 		if (currentMenu == 20) {

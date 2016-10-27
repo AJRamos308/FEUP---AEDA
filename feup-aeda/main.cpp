@@ -13,6 +13,7 @@ Session* Session::singleton_instance = 0;
 int main() {
 	Session::instance()->importUsers();
 	Session::instance()->importDistricts();
+	//Session::instance()->registered[0].changePassword();
 	//TEST MAIN
 	Menu m;
 	//m.journeyMenu();
