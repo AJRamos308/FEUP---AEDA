@@ -8,32 +8,39 @@ using namespace std;
 
 class Vehicle {
 private:
-	const unsigned int maxSeats;
+	unsigned int maxSeats;
 	unsigned int emptySeats;
 	string model;
 	string licensePlate;
 public:
 	Vehicle(unsigned int maximumSeats, unsigned int availableSeats, string model, string licensePlate);
+	Vehicle();
 	unsigned int getMaxSeats();
 	unsigned int getEmptySeats();
 	string getLicensePlate();
 	string getModel();
+	void setMaxSeats(unsigned int maxSeats);
+	void setEmptySeats(unsigned int emptySeats);
+	void setModel(string model);
+	void setLicensePlate(string licensePlate);
 };
 
 class Compact : public Vehicle {
 private:
 public:
-	//Compact();
+	Compact(unsigned int maxSeats, string model, string licensePlate);
+	
 };
 
 class Midsize : public Vehicle {
 private:
-	
 public:
+	Midsize(unsigned int maxSeats, string model, string licensePlate);
 };
 
 class Van : public Vehicle {
 private:
 	
 public:
+	Van(unsigned int maxSeats, string model, string licensePlate);
 };

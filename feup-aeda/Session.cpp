@@ -32,7 +32,6 @@ bool Session::importUsers() {
 		getline(f, password);
 		getline(f, name);
 		getline(f, age);
-
 		Registered token(name, stoi(age), username, password);
 		registered.push_back(token);
 	}

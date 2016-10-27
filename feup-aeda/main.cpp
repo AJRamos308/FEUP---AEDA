@@ -12,6 +12,7 @@ Session* Session::singleton_instance = 0;
 
 int main() {
 	Session::instance()->importUsers();
+	//Session::instance()->registered[0].addVehicle();
 	Session::instance()->importDistricts();
 	//TEST MAIN
 	Menu m;

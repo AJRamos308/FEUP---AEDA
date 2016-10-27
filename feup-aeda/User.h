@@ -28,7 +28,7 @@ public:
 	string getUsername();
 	string getPassword();
 	vector<Route> getAllTrips();
-
+	
 	void hostJourney();
 	void addBuddy();
 	void addVehicle();
