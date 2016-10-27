@@ -85,9 +85,23 @@ void Registered::addVehicle() {
 
 void Registered::removeVehicle() {
 	string license;
-
-	cout << "Type in the license plate of the vehicle you wish to remove: ";
-
+	bool found = false;
+	while (!found) {
+		cout << "Type in the license plate of the vehicle you wish to remove: ";
+		cin >> license;
+		for (size_t i; i < garage.size(); i++) {
+			if (garage[i].getLicensePlate == license) {
+				garage.erase(garage.begin() + i);
+				cout << "Vehicle successfully deleted!\n";
+				found = true;
+				break;
+			}
+		}
+		if (!found) {
+			cout << "Vehicle not found, please try again.\n";
+		}
+	}
+	return;
 }
 void Registered::changePassword() {
 	string pass, newpass, newpass2;
@@ -104,6 +118,5 @@ void Registered::changePassword() {
 			cout << "Whoops, that's not your current password. Try again.\n";
 		}
 	}
-	Sleep(10000);
 	return;
 }
