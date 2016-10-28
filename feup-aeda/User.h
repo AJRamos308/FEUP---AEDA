@@ -31,6 +31,8 @@ public:
 	vector<Route> getAllTrips();
 	
 	void hostJourney();
+	void joinJourney();
+
 	void addBuddy();
 	void addVehicle();
 	void removeVehicle();

@@ -22,6 +22,28 @@ vector<Route> Registered::getAllTrips() {
 	return allTrips;
 }
 
+void Registered::joinJourney() {
+	Menu m;
+
+	vector<string> localDistricts = m.journeyMenu();
+
+	vector<Route> activeRoutes;
+	for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
+		for (size_t j = 0; j < Session::instance()->registered.at(i).getAllTrips().size(); j++) {
+			if (Session::instance()->registered.at(i).getAllTrips().at(j).getActive()) {
+				activeRoutes.push_back(Session::instance()->registered.at(i).getAllTrips().at(j));
+			}
+		}
+	}
+	for (size_t i = 0; localDistricts.size(); i++) {
+		for (size_t j = 0; activeRoutes.size(); j++) {
+			for (size_t k = 0; activeRoutes.at(i).getStops().size(); k++) {
+
+			}
+		}
+	}
+}
+
 void Registered::hostJourney() {
 	if (age < 18) {
 		cout << "  Sorry, under 18 can't host journeys.\n";

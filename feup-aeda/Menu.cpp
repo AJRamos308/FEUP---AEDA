@@ -185,6 +185,77 @@ void Menu::menu2() {
 	return;
 }
 
+void Menu::menu3() {
+
+	fstream f;
+	string token;
+	bool menuMatched = false, pushUpdate = true;
+	vector<string> menuOptions;
+	unsigned int selectedIndex = 0;
+
+	u.hideCursor();
+
+	f.open("menu.txt");
+
+	while (getline(f, token)) {
+		if (token == "3") {
+			menuMatched = true;
+			continue;
+		}
+		if (menuMatched && token != "") {
+			menuOptions.push_back(token);
+			continue;
+		}
+		if (menuMatched && token == "") {
+			break;
+		}
+	}
+	while (GetAsyncKeyState(VK_RETURN)) {}
+
+	while (!GetAsyncKeyState(VK_RETURN)) {
+		if (pushUpdate) {
+			u.clearScreen();
+			u.showLogo();
+			for (size_t i = 0; i < menuOptions.size(); i++) {
+				if (i == selectedIndex) {
+					u.whiteBG();
+					cout << menuOptions.at(i) << endl;
+					u.blackBG();
+				}
+				else {
+					cout << menuOptions.at(i) << endl;
+				}
+			}
+			pushUpdate = false;
+		}
+		else if (GetAsyncKeyState(VK_UP)) {
+			while (GetAsyncKeyState(VK_UP)) {}
+
+			if (selectedIndex != 0) {
+				selectedIndex--;
+				pushUpdate = true;
+			}
+		}
+		else if (GetAsyncKeyState(VK_DOWN)) {
+			while (GetAsyncKeyState(VK_DOWN)) {}
+
+			if (selectedIndex != menuOptions.size() - 1) {
+				selectedIndex++;
+				pushUpdate = true;
+			}
+		}
+	}
+	u.showCursor();
+	currentMenu = 31 + selectedIndex;
+
+	cin.ignore(50, '\n');
+	return;
+}
+
+void Menu::joinJourneyMenu() {
+
+}
+
 vector<string> Menu::journeyMenu() {
 	u.hideCursor();
 
