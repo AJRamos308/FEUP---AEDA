@@ -138,8 +138,22 @@ void Session::registration() {
 
 	cout << "  Age: ";
 	cin >> age;
-	cout << "  Username: ";
-	cin >> username;
+	bool userTaken = true;
+	while (userTaken)
+	{
+		bool userTakenVector = false;
+		cout << "  Username: "; 
+		cin >> username;
+		for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
+			if (username == Session::instance()->registered[i].getUsername()) {
+				cout << "  Whoops! Username taken! Sorry for the inconvenience!\n";
+				userTakenVector = true;
+				break;
+			}
+		}
+		if (!userTakenVector)
+			userTaken = false;
+	}
 	password = passwordMaker();
 
 	Registered token(name, age, username, password);
@@ -149,6 +163,7 @@ void Session::registration() {
 	f << endl << username << endl << password << endl << name << endl << age;
 
 	cout << "  User created with success!\n";
+	Sleep(1000);
 	return;
 }
 
@@ -159,17 +174,17 @@ string Session::passwordMaker() {
 	while (true) {
 
 		cin.clear();
-		cout << "Password: ";
+		cout << "  Password: ";
 		cin >> pw1;
 
 		if (pw1.length() < 5) {
-			cout << "ERROR: Password's too short. Please try again\n";
+			cout << "  ERROR: Password's too short. Please try again\n";
 			continue;
 		}
 
 		for (size_t i = 0; i < pw1.length(); i++) {
 			if (pw1[i] == ' ') {
-				cout << "ERROR: Passwords do not support white spaces. Please try again\n";
+				cout << "  ERROR: Passwords do not support white spaces. Please try again\n";
 				whiteSpaceFound = true;
 				break;
 			}
@@ -179,13 +194,13 @@ string Session::passwordMaker() {
 			continue;
 		}
 
-		cout << "Confirm password: ";
+		cout << "  Confirm password: ";
 		cin >> pw2;
 
 		if (pw1 == pw2)
 			break;
 		else {
-			cout << "ERROR: Passwords do not match. Please try again\n";
+			cout << "  ERROR: Passwords do not match. Please try again\n";
 			continue;
 		}
 	}
