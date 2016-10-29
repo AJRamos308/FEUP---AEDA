@@ -122,13 +122,26 @@ void Registered::addBuddy() {
 void Registered::addVehicle() {
 	string model, licensePlate;
 	int maxSeats;
-	bool car = false;
+	bool validLicense=false, car = false;
 
 	cout << "  Type in the Model of the car you intend to add to your garage: ";
 	getline(cin, model);
-	cout << "  Type in the License Plate: ";
-	cin >> licensePlate; //TODO: Adicionar funcao que verifica matricula
-
+	while (!validLicense) {
+		cout << "  Type in the License Plate (XX-XX-XX): ";
+		cin >> licensePlate;
+		if (licensePlate.size() == 8)
+			if (isalpha(licensePlate.at(0)) || isdigit(licensePlate.at(0)))
+				if (isalpha(licensePlate.at(1)) || isdigit(licensePlate.at(1)))
+					if (licensePlate.at(2) == char(45))
+						if (isalpha(licensePlate.at(3)) || isdigit(licensePlate.at(3)))
+							if (isalpha(licensePlate.at(4)) || isdigit(licensePlate.at(4)))
+								if (licensePlate.at(5) == char(45))
+									if (isalpha(licensePlate.at(6)) || isdigit(licensePlate.at(6)))
+										if (isalpha(licensePlate.at(7)) || isdigit(licensePlate.at(7)))
+											validLicense = true;
+		if (!validLicense)
+			cout << "  Invalid License Plate structure!\n";
+	}
 	while (!car) {
 	cout << "  How many seats does your car have? (Including the driver): ";
 	cin >> maxSeats;
