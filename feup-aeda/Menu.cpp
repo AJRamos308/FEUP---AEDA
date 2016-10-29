@@ -28,6 +28,9 @@ void Menu::manager() {
 			currentMenu = 30; //TODO: guest menu
 			continue;
 		}
+		if (currentMenu == 14) {
+			return;
+		}
 		if (currentMenu == 20) {
 			menu2();
 			continue;
@@ -42,9 +45,77 @@ void Menu::manager() {
 			currentMenu = 20;
 			continue;
 		}
+		if (currentMenu == 22) {
+			for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
+				if (Session::instance()->username == Session::instance()->registered.at(i).getUsername()) {
+					Session::instance()->registered.at(i).joinJourney();
+					break;
+				}
+			}
+			currentMenu = 20;
+			continue;
+		}
+		if (currentMenu == 23) {
+			currentMenu = 40;
+			continue;
+		}
 		if (currentMenu == 24) {
 			Session::instance()->logout();
-			menu1();
+			currentMenu = 10;
+			continue;
+		}
+		if (currentMenu == 30) {
+			menu3();
+			continue;
+		}
+		if (currentMenu == 31) {
+			/*Guest g(Session::instance()->username);
+			g.joinJourney();*/
+
+			currentMenu = 30;
+			continue;
+		}
+		if (currentMenu == 32) {
+			Session::instance()->logout();
+			currentMenu = 10;
+			continue;
+		}
+		if (currentMenu == 40) {
+			menu4();
+			continue;
+		}
+		if (currentMenu == 41) {
+			for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
+				if (Session::instance()->username == Session::instance()->registered.at(i).getUsername()) {
+					Session::instance()->registered.at(i).addVehicle();
+					break;
+				}
+			}
+			currentMenu = 40;
+			continue;
+		}
+		if (currentMenu == 42) {
+			for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
+				if (Session::instance()->username == Session::instance()->registered.at(i).getUsername()) {
+					Session::instance()->registered.at(i).removeVehicle();
+					break;
+				}
+			}
+			currentMenu = 40;
+			continue;
+		}
+		if (currentMenu == 43) {
+			for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
+				if (Session::instance()->username == Session::instance()->registered.at(i).getUsername()) {
+					Session::instance()->registered.at(i).changePassword();
+					break;
+				}
+			}
+			currentMenu = 40;
+			continue;
+		}
+		if (currentMenu == 44) {
+			currentMenu = 20;
 			continue;
 		}
 	}
@@ -149,6 +220,7 @@ void Menu::menu2() {
 		if (pushUpdate) {
 			u.clearScreen();
 			u.showLogo();
+			cout << "  Welcome, " << Session::instance()->username << ".\n\n";
 			for (size_t i = 0; i < menuOptions.size(); i++) {
 				if (i == selectedIndex) {
 					u.whiteBG();
@@ -216,6 +288,7 @@ void Menu::menu3() {
 		if (pushUpdate) {
 			u.clearScreen();
 			u.showLogo();
+			cout << "  Welcome, " << Session::instance()->username << ".\n\n";
 			for (size_t i = 0; i < menuOptions.size(); i++) {
 				if (i == selectedIndex) {
 					u.whiteBG();
@@ -247,6 +320,73 @@ void Menu::menu3() {
 	}
 	u.showCursor();
 	currentMenu = 31 + selectedIndex;
+
+	cin.ignore(50, '\n');
+	return;
+}
+
+void Menu::menu4() {
+
+	fstream f;
+	string token;
+	bool menuMatched = false, pushUpdate = true;
+	vector<string> menuOptions;
+	unsigned int selectedIndex = 0;
+
+	u.hideCursor();
+
+	f.open("menu.txt");
+
+	while (getline(f, token)) {
+		if (token == "4") {
+			menuMatched = true;
+			continue;
+		}
+		if (menuMatched && token != "") {
+			menuOptions.push_back(token);
+			continue;
+		}
+		if (menuMatched && token == "") {
+			break;
+		}
+	}
+	while (GetAsyncKeyState(VK_RETURN)) {}
+
+	while (!GetAsyncKeyState(VK_RETURN)) {
+		if (pushUpdate) {
+			u.clearScreen();
+			u.showLogo();
+			for (size_t i = 0; i < menuOptions.size(); i++) {
+				if (i == selectedIndex) {
+					u.whiteBG();
+					cout << menuOptions.at(i) << endl;
+					u.blackBG();
+				}
+				else {
+					cout << menuOptions.at(i) << endl;
+				}
+			}
+			pushUpdate = false;
+		}
+		else if (GetAsyncKeyState(VK_UP)) {
+			while (GetAsyncKeyState(VK_UP)) {}
+
+			if (selectedIndex != 0) {
+				selectedIndex--;
+				pushUpdate = true;
+			}
+		}
+		else if (GetAsyncKeyState(VK_DOWN)) {
+			while (GetAsyncKeyState(VK_DOWN)) {}
+
+			if (selectedIndex != menuOptions.size() - 1) {
+				selectedIndex++;
+				pushUpdate = true;
+			}
+		}
+	}
+	u.showCursor();
+	currentMenu = 41 + selectedIndex;
 
 	cin.ignore(50, '\n');
 	return;

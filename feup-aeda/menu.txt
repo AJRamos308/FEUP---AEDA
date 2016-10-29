@@ -2,6 +2,7 @@
   1. Register
   2. Login
   3. Login as Guest
+  4. Exit
 
 2
   1. Host journey
@@ -11,7 +12,7 @@
 
 3
   1. Join journey
-  2. Exit application
+  2. Logout
 
 4
   1. Add vehicle

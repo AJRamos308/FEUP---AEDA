@@ -1,5 +1,7 @@
 #include "Date.h"
 
+Date::Date() {
+}
 Date::Date(unsigned int hour, unsigned int minutes, unsigned int day, unsigned int month, unsigned int year){
 	this->hour = hour;
 	this->minutes = minutes;

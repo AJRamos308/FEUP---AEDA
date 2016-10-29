@@ -22,7 +22,7 @@ vector<Route> Registered::getAllTrips() {
 	return allTrips;
 }
 
-void Registered::joinJourney() {
+void User::joinJourney() {
 	Menu m;
 
 	vector<string> selectedRoute = m.journeyMenu();
@@ -142,7 +142,7 @@ void Registered::addVehicle() {
 			garage.push_back(midsize);
 			car = true;
 		}
-		else if (maxSeats <= 7) {
+		else if (maxSeats <= 9) {
 			Van van(maxSeats, model, licensePlate);
 			garage.push_back(van);
 			car = true;
