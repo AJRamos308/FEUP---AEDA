@@ -12,6 +12,8 @@ Session* Session::instance() {
 void Session::logout(){
 	delete singleton_instance;
 	singleton_instance = NULL;
+	Session::instance()->importUsers();
+	Session::instance()->importDistricts();
 }
 
 //Imports users (registered) from "members.txt" and saves to registered vector.
@@ -23,7 +25,7 @@ bool Session::importUsers() {
 	
 	//try
 	if (!f.is_open()) {
-		//EXCEPTION.
+		//TODO EXCEPTION.
 		return false;
 	}
 	

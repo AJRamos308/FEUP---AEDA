@@ -8,11 +8,11 @@ User::User() {
 }
 
 /*REGISTERED CLASS*/
-Registered::Registered(string name, unsigned int age, string username, string password){
+Registered::Registered(string name, unsigned int age, string username, string password) {
 	this->username = username;
 	this->password = password;
 }
-string Registered::getPassword(){
+string Registered::getPassword() {
 	return password;
 }
 string Registered::getUsername() {
@@ -27,7 +27,7 @@ void User::joinJourney() {
 
 	vector<string> selectedRoute = m.journeyMenu();
 
-	vector<Route> activeRoutes, perfectRoutes, similarRoutes;
+	vector<Route> activeRoutes, perfectRoutes, similarRoutes, separateRoutes;
 
 	for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
 		for (size_t j = 0; j < Session::instance()->registered.at(i).getAllTrips().size(); j++) {
@@ -37,12 +37,12 @@ void User::joinJourney() {
 		}
 	}
 	//Para viagens com match perfeita (PORTO/LISBOA/FARO, PORTO/COIMBRA/LISBOA/FARO, AVEIRO/PORTO/LISBOA/FARO).
-	for (size_t i = 0; i < activeRoutes.size(); i++) {
+	for (size_t i = 0; i < activeRoutes.size(); i++) { //Comeca por ver todas as rotas ativas
 		unsigned int matches = 0;
-		for (size_t j = 0; j < activeRoutes.at(i).getStops().size(); j++) {
-			for (size_t k = 0; k < selectedRoute.size(); k++) {
-				if (selectedRoute.at(k) == activeRoutes.at(i).getStops().at(j)) {
-					matches++;
+		for (size_t j = 0; j < activeRoutes.at(i).getStops().size(); j++) { // Vai a uma rota especifica ver cada paragem
+			for (size_t k = 0; k < selectedRoute.size(); k++) { // Vai percorrer cada elemento da rota escolhida pelo utilizador
+				if (selectedRoute.at(k) == activeRoutes.at(i).getStops().at(j)) { //Se o elemento da rota escolhida for igual ao da rota ativa
+					matches++; //Da match
 				}
 			}
 		}
@@ -50,16 +50,19 @@ void User::joinJourney() {
 			perfectRoutes.push_back(activeRoutes.at(i));
 			activeRoutes.erase(activeRoutes.begin() + i);
 			i--;
+			cout << "viagem perfeita";
+			Sleep(1000);
 		}
 	}
 	//Para viagens apenas com início e fim (PORTO/COIMBRA/FARO, PORTO/FARO).
-	for (size_t i = 0; i < activeRoutes.size(); i++) {
-		bool foundStart, foundDest;
-		for (size_t j = 0; j < activeRoutes.at(i).getStops().size(); j++) {
-			if (selectedRoute.at(0) == activeRoutes.at(i).getStops().at(j)) {
+	for (size_t i = 0; i < activeRoutes.size(); i++) { //Comeca por ver todas as rotas ativas
+		bool foundStart = false;
+		bool foundDest = false;
+		for (size_t j = 0; j < activeRoutes.at(i).getStops().size(); j++) { // Vai a uma rota especifica ver cada paragem
+			if (selectedRoute.at(0) == activeRoutes.at(i).getStops().at(j)) { //Procura o primeiro elemento da rota selecionada nas paragens das active routes
 				foundStart = true;
 			}
-			if (selectedRoute.at(selectedRoute.size() - 1) == activeRoutes.at(i).getStops().at(j)) {
+			if (selectedRoute.at(selectedRoute.size() - 1) == activeRoutes.at(i).getStops().at(j)) { //Same que antes so que com o ultimo
 				foundDest = true;
 			}
 		}
@@ -67,10 +70,105 @@ void User::joinJourney() {
 			similarRoutes.push_back(activeRoutes.at(i));
 		}
 	}
+
+	//Para viagens intermedias
+	for (size_t i = 0; i < activeRoutes.size(); i++) {
+		bool foundStart = false;
+		bool foundMiddle = false;
+		bool first = false;
+		bool foundStart2 = false;
+		bool foundDest = false;
+		string districtFound;
+
+
+		//Primeira rota
+		for (size_t j = 0; j < activeRoutes.at(i).getStops().size(); j++) {
+			if (selectedRoute.at(0) == activeRoutes.at(i).getStops().at(j)) { //Procura o primeiro elemento da rota selecionada nas paragens das active routes
+				foundStart = true;
+			}
+			if (selectedRoute.at(selectedRoute.size() - 2) == activeRoutes.at(i).getStops().at(activeRoutes.at(i).getStops().size() - 1)) { //Pega no penultimo elemento e ve se e o ultimo na outra rota
+				foundMiddle = true;
+				districtFound = activeRoutes.at(i).getStops().at(j);
+				activeRoutes.erase(activeRoutes.begin() + i);
+			}
+
+			//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA SO CONFUSING
+
+
+			//Segunda rota
+			if (foundStart && foundMiddle) { //Se encontrou o do inicio e o do meio
+				for (size_t k = 0; k < activeRoutes.size(); i++) {
+					for (size_t l = 0; l < activeRoutes.at(k).getStops().size(); l++) { // Vai a uma rota especifica ver cada paragem
+						if (districtFound == activeRoutes.at(k).getStops().at(l)) { //Procura o primeiro elemento da rota selecionada nas paragens das active routes
+							foundStart2 = true;
+						}
+						if (selectedRoute.at(selectedRoute.size() - 1) == activeRoutes.at(k).getStops().at(l)) { //Same que antes so que com o ultimo
+							foundDest = true;
+						}
+					}
+					if (foundStart2 && foundDest) { //Se encontrou a segunda rota
+						separateRoutes.push_back(activeRoutes.at(i)); //Primeiro fica a primeira rota ( a que tem o inicio e o meio)
+						separateRoutes.push_back(activeRoutes.at(k)); //Depois fica a segunda rota (meio e fim)
+					}
+				}
+			}
+		}
+
+		
+
+	}
+
 	//Verifica se está ordenado.
-	
 
+	//Perfect Routes
+	for (size_t i = 0; i < perfectRoutes.size(); i++) {
+		int indexStart;
+		int indexEnd;
+		for (size_t j = 0; j < selectedRoute.size(); j++) {
+			if (perfectRoutes.at(i).getStops().at(0) == selectedRoute.at(j)) {
+				indexStart = j;
+			}
+			if (perfectRoutes.at(i).getStops().at(perfectRoutes.at(i).getStops().size - 1) == selectedRoute.at(j))
+				indexEnd = j;
+		}
+		if (indexStart > indexEnd) {
+			perfectRoutes.erase(perfectRoutes.begin() + i);
+		}
+	}
 
+	//Similar Routes
+
+	for (size_t i = 0; i < similarRoutes.size(); i++) {
+		int indexStart;
+		int indexEnd;
+		for (size_t j = 0; j < selectedRoute.size(); j++) {
+			if (similarRoutes.at(i).getStops().at(0) == selectedRoute.at(j)) {
+				indexStart = j;
+			}
+			if (similarRoutes.at(i).getStops().at(similarRoutes.at(i).getStops().size - 1) == selectedRoute.at(j))
+				indexEnd = j;
+		}
+		if (indexStart > indexEnd) {
+			similarRoutes.erase(similarRoutes.begin() + i);
+		}
+	}
+
+	//Separate Routes
+
+	for (size_t i = 0; i < separateRoutes.size(); i++) {
+		int indexStart;
+		int indexEnd;
+		for (size_t j = 0; j < selectedRoute.size(); j++) {
+			if (separateRoutes.at(i).getStops().at(0) == selectedRoute.at(j)) {
+				indexStart = j;
+			}
+			if (separateRoutes.at(i).getStops().at(separateRoutes.at(i).getStops().size - 1) == selectedRoute.at(j))
+				indexEnd = j;
+		}
+		if (indexStart > indexEnd) {
+			separateRoutes.erase(separateRoutes.begin() + i);
+		}
+	}
 
 }
 
