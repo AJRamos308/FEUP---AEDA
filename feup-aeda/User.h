@@ -12,6 +12,7 @@ protected:
 	string username;
 public:
 	User();
+	void joinJourney();
 };
 
 class Registered : public User{
@@ -31,6 +32,7 @@ public:
 	vector<Route> getAllTrips();
 	
 	void hostJourney();
+
 	void addBuddy();
 	void addVehicle();
 	void removeVehicle();

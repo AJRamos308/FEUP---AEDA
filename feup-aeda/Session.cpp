@@ -97,6 +97,7 @@ void Session::login() {
 	return;
 }
 
+//Processes login as guest.
 void Session::loginAsGuest() {
 	
 	//Gera um número aleatório com 8 dígitos.
@@ -108,7 +109,6 @@ void Session::loginAsGuest() {
 		guestUsername.append(to_string(foo));
 	}
 	username = guestUsername;
-	cout << username;
 	return;
 }
 
@@ -163,6 +163,7 @@ void Session::registration() {
 	f << endl << username << endl << password << endl << name << endl << age;
 
 	cout << "  User created with success!\n";
+	Session::instance()->username = username;
 	Sleep(1000);
 	return;
 }

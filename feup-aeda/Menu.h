@@ -10,5 +10,9 @@ public:
 	void manager();
 	void menu1();
 	void menu2();
+	void menu3();
+	void menu4();
+	void joinJourneyMenu();
 	vector<string> journeyMenu();
+
 };
