@@ -25,9 +25,10 @@ vector<Route> Registered::getAllTrips() {
 void Registered::joinJourney() {
 	Menu m;
 
-	vector<string> localDistricts = m.journeyMenu();
+	vector<string> selectedRoute = m.journeyMenu();
 
-	vector<Route> activeRoutes;
+	vector<Route> activeRoutes, perfectRoutes, similarRoutes;
+
 	for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
 		for (size_t j = 0; j < Session::instance()->registered.at(i).getAllTrips().size(); j++) {
 			if (Session::instance()->registered.at(i).getAllTrips().at(j).getActive()) {
@@ -35,13 +36,41 @@ void Registered::joinJourney() {
 			}
 		}
 	}
-	for (size_t i = 0; localDistricts.size(); i++) {
-		for (size_t j = 0; activeRoutes.size(); j++) {
-			for (size_t k = 0; activeRoutes.at(i).getStops().size(); k++) {
-
+	//Para viagens com match perfeita (PORTO/LISBOA/FARO, PORTO/COIMBRA/LISBOA/FARO, AVEIRO/PORTO/LISBOA/FARO).
+	for (size_t i = 0; i < activeRoutes.size(); i++) {
+		unsigned int matches = 0;
+		for (size_t j = 0; j < activeRoutes.at(i).getStops().size(); j++) {
+			for (size_t k = 0; k < selectedRoute.size(); k++) {
+				if (selectedRoute.at(k) == activeRoutes.at(i).getStops().at(j)) {
+					matches++;
+				}
 			}
 		}
+		if (matches == selectedRoute.size()) {
+			perfectRoutes.push_back(activeRoutes.at(i));
+			activeRoutes.erase(activeRoutes.begin() + i);
+			i--;
+		}
 	}
+	//Para viagens apenas com início e fim (PORTO/COIMBRA/FARO, PORTO/FARO).
+	for (size_t i = 0; i < activeRoutes.size(); i++) {
+		bool foundStart, foundDest;
+		for (size_t j = 0; j < activeRoutes.at(i).getStops().size(); j++) {
+			if (selectedRoute.at(0) == activeRoutes.at(i).getStops().at(j)) {
+				foundStart = true;
+			}
+			if (selectedRoute.at(selectedRoute.size() - 1) == activeRoutes.at(i).getStops().at(j)) {
+				foundDest = true;
+			}
+		}
+		if (foundStart && foundDest) {
+			similarRoutes.push_back(activeRoutes.at(i));
+		}
+	}
+
+
+
+
 }
 
 void Registered::hostJourney() {
