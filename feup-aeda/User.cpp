@@ -67,7 +67,8 @@ void Registered::joinJourney() {
 			similarRoutes.push_back(activeRoutes.at(i));
 		}
 	}
-
+	//Verifica se está ordenado.
+	
 
 
 
