@@ -19,4 +19,6 @@ public:
 	float getPrice();
 	vector<string> getStops();
 	bool getActive();
+	Date getStartingTime();
+	Date getEndingTime();
 };

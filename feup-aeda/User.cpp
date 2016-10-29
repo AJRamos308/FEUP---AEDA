@@ -21,6 +21,12 @@ string Registered::getUsername() {
 vector<Route> Registered::getAllTrips() {
 	return allTrips;
 }
+void Registered::addTrip(Route trip) {
+	allTrips.push_back(trip);
+}
+unsigned int Registered::getAge() {
+	return age;
+}
 
 void User::joinJourney() {
 	Menu m;
@@ -68,6 +74,8 @@ void User::joinJourney() {
 		}
 		if (foundStart && foundDest) {
 			similarRoutes.push_back(activeRoutes.at(i));
+			cout << "viagem similar";
+			Sleep(1000);
 		}
 	}
 
@@ -109,6 +117,7 @@ void User::joinJourney() {
 					if (foundStart2 && foundDest) { //Se encontrou a segunda rota
 						separateRoutes.push_back(activeRoutes.at(i)); //Primeiro fica a primeira rota ( a que tem o inicio e o meio)
 						separateRoutes.push_back(activeRoutes.at(k)); //Depois fica a segunda rota (meio e fim)
+						cout << "viagem coiso";
 					}
 				}
 			}
@@ -128,7 +137,7 @@ void User::joinJourney() {
 			if (perfectRoutes.at(i).getStops().at(0) == selectedRoute.at(j)) {
 				indexStart = j;
 			}
-			if (perfectRoutes.at(i).getStops().at(perfectRoutes.at(i).getStops().size - 1) == selectedRoute.at(j))
+			if (perfectRoutes.at(i).getStops().at(perfectRoutes.at(i).getStops().size() - 1) == selectedRoute.at(j))
 				indexEnd = j;
 		}
 		if (indexStart > indexEnd) {
@@ -145,7 +154,7 @@ void User::joinJourney() {
 			if (similarRoutes.at(i).getStops().at(0) == selectedRoute.at(j)) {
 				indexStart = j;
 			}
-			if (similarRoutes.at(i).getStops().at(similarRoutes.at(i).getStops().size - 1) == selectedRoute.at(j))
+			if (similarRoutes.at(i).getStops().at(similarRoutes.at(i).getStops().size() - 1) == selectedRoute.at(j))
 				indexEnd = j;
 		}
 		if (indexStart > indexEnd) {
@@ -162,7 +171,7 @@ void User::joinJourney() {
 			if (separateRoutes.at(i).getStops().at(0) == selectedRoute.at(j)) {
 				indexStart = j;
 			}
-			if (separateRoutes.at(i).getStops().at(separateRoutes.at(i).getStops().size - 1) == selectedRoute.at(j))
+			if (separateRoutes.at(i).getStops().at(separateRoutes.at(i).getStops().size() - 1) == selectedRoute.at(j))
 				indexEnd = j;
 		}
 		if (indexStart > indexEnd) {
@@ -173,8 +182,9 @@ void User::joinJourney() {
 }
 
 void Registered::hostJourney() {
-	if (age < 18) {
+	if (getAge() < 18) {
 		cout << "  Sorry, under 18 can't host journeys.\n";
+		//return;
 	}
 
 	Menu m;
@@ -184,7 +194,7 @@ void Registered::hostJourney() {
 
 	for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
 		if (Session::instance()->registered.at(i).getUsername() == Session::instance()->username) {
-			Session::instance()->registered.at(i).getAllTrips().push_back(r);
+			Session::instance()->registered.at(i).addTrip(r);
 			break;
 		}
 	}

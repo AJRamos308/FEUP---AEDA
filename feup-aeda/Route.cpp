@@ -14,3 +14,9 @@ vector<string>Route::getStops() {
 bool Route::getActive() {
 	return active;
 }
+Date Route::getStartingTime() {
+	return startingTime;
+}
+Date Route::getEndingTime() {
+	return endingTime;
+}

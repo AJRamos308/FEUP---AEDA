@@ -32,11 +32,14 @@ public:
 	vector<Route> getAllTrips();
 	
 	void hostJourney();
-
+	void addTrip(Route trip);
 	void addBuddy();
 	void addVehicle();
 	void removeVehicle();
 	void changePassword();
+
+	unsigned int getAge();
+
 };
 
 class Guest : public User{
