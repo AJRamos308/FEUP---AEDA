@@ -146,10 +146,10 @@ void User::joinJourney() {
 	//Verifica se está ordenado.
 
 	//Perfect Routes
-	for (size_t i = 0; i < perfectRoutes.size(); i++) {
-		int indexStart;
-		int indexEnd;
-		for (size_t j = 0; j < selectedRoute.size(); j++) {
+	for (unsigned int i = 0; i < perfectRoutes.size(); i++) {
+		unsigned int indexStart;
+		unsigned int indexEnd;
+		for (unsigned int j = 0; j < selectedRoute.size(); j++) {
 			if (perfectRoutes.at(i).getStops().at(0) == selectedRoute.at(j)) {
 				indexStart = j;
 			}
@@ -164,10 +164,10 @@ void User::joinJourney() {
 
 	//Similar Routes
 
-	for (size_t i = 0; i < similarRoutes.size(); i++) {
+	for (unsigned int i = 0; i < similarRoutes.size(); i++) {
 		int indexStart;
 		int indexEnd;
-		for (size_t j = 0; j < selectedRoute.size(); j++) {
+		for (unsigned int j = 0; j < selectedRoute.size(); j++) {
 			if (similarRoutes.at(i).getStops().at(0) == selectedRoute.at(j)) {
 				indexStart = j;
 			}
@@ -183,10 +183,10 @@ void User::joinJourney() {
 
 	//Separate Routes
 
-	for (size_t i = 0; i < separateRoutes.size(); i++) {
-		int indexStart;
-		int indexEnd;
-		for (size_t j = 0; j < selectedRoute.size(); j++) {
+	for (unsigned int i = 0; i < separateRoutes.size(); i++) {
+		unsigned int indexStart;
+		unsigned int indexEnd;
+		for (unsigned int j = 0; j < selectedRoute.size(); j++) {
 			if (separateRoutes.at(i).getStops().at(0) == selectedRoute.at(j)) {
 				indexStart = j;
 			}
