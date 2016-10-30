@@ -30,6 +30,7 @@ unsigned int Registered::getAge() {
 
 void User::joinJourney() {
 	Menu m;
+	Date time;
 
 	vector<string> selectedRoute = m.journeyMenu();
 
@@ -42,13 +43,16 @@ void User::joinJourney() {
 			}
 		}
 	}
+
+
 	//Para viagens com match perfeita (PORTO/LISBOA/FARO, PORTO/COIMBRA/LISBOA/FARO, AVEIRO/PORTO/LISBOA/FARO).
 	for (size_t i = 0; i < activeRoutes.size(); i++) { //Comeca por ver todas as rotas ativas
 		unsigned int matches = 0;
 		for (size_t j = 0; j < activeRoutes.at(i).getStops().size(); j++) { // Vai a uma rota especifica ver cada paragem
 			for (size_t k = 0; k < selectedRoute.size(); k++) { // Vai percorrer cada elemento da rota escolhida pelo utilizador
 				if (selectedRoute.at(k) == activeRoutes.at(i).getStops().at(j)) { //Se o elemento da rota escolhida for igual ao da rota ativa
-					matches++; //Da match
+					if (time.getHour() >= activeRoutes.at(i).getStartingTime().getHour() && time.getMinutes() >= activeRoutes.at(i).getStartingTime().getMinutes() && time.getHour() < activeRoutes.at(i).getEndingTime().getHour() && time.getHour() < activeRoutes.at(i).getEndingTime().getMinutes())
+						matches++; //Da match
 				}
 			}
 		}
@@ -60,15 +64,19 @@ void User::joinJourney() {
 			Sleep(1000);
 		}
 	}
+
+
 	//Para viagens apenas com início e fim (PORTO/COIMBRA/FARO, PORTO/FARO).
 	for (size_t i = 0; i < activeRoutes.size(); i++) { //Comeca por ver todas as rotas ativas
 		bool foundStart = false;
 		bool foundDest = false;
 		for (size_t j = 0; j < activeRoutes.at(i).getStops().size(); j++) { // Vai a uma rota especifica ver cada paragem
 			if (selectedRoute.at(0) == activeRoutes.at(i).getStops().at(j)) { //Procura o primeiro elemento da rota selecionada nas paragens das active routes
+				if (time.getHour() >= activeRoutes.at(i).getStartingTime().getHour() && time.getMinutes() >= activeRoutes.at(i).getStartingTime().getMinutes() && time.getHour() < activeRoutes.at(i).getEndingTime().getHour() && time.getHour() < activeRoutes.at(i).getEndingTime().getMinutes())
 				foundStart = true;
 			}
 			if (selectedRoute.at(selectedRoute.size() - 1) == activeRoutes.at(i).getStops().at(j)) { //Same que antes so que com o ultimo
+				if (time.getHour() >= activeRoutes.at(i).getStartingTime().getHour() && time.getMinutes() >= activeRoutes.at(i).getStartingTime().getMinutes() && time.getHour() < activeRoutes.at(i).getEndingTime().getHour() && time.getHour() < activeRoutes.at(i).getEndingTime().getMinutes())
 				foundDest = true;
 			}
 		}
@@ -92,12 +100,15 @@ void User::joinJourney() {
 		//Primeira rota
 		for (size_t j = 0; j < activeRoutes.at(i).getStops().size(); j++) {
 			if (selectedRoute.at(0) == activeRoutes.at(i).getStops().at(j)) { //Procura o primeiro elemento da rota selecionada nas paragens das active routes
+				if (time.getHour() >= activeRoutes.at(i).getStartingTime().getHour() && time.getMinutes() >= activeRoutes.at(i).getStartingTime().getMinutes() && time.getHour() < activeRoutes.at(i).getEndingTime().getHour() && time.getHour() < activeRoutes.at(i).getEndingTime().getMinutes())
 				foundStart = true;
 			}
 			if (selectedRoute.at(selectedRoute.size() - 2) == activeRoutes.at(i).getStops().at(activeRoutes.at(i).getStops().size() - 1)) { //Pega no penultimo elemento e ve se e o ultimo na outra rota
-				foundMiddle = true;
-				districtFound = activeRoutes.at(i).getStops().at(j);
-				activeRoutes.erase(activeRoutes.begin() + i);
+				if (time.getHour() >= activeRoutes.at(i).getStartingTime().getHour() && time.getMinutes() >= activeRoutes.at(i).getStartingTime().getMinutes() && time.getHour() < activeRoutes.at(i).getEndingTime().getHour() && time.getHour() < activeRoutes.at(i).getEndingTime().getMinutes()) {
+					foundMiddle = true;
+					districtFound = activeRoutes.at(i).getStops().at(j);
+					activeRoutes.erase(activeRoutes.begin() + i);
+				}
 			}
 
 			//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA SO CONFUSING
@@ -105,12 +116,16 @@ void User::joinJourney() {
 
 			//Segunda rota
 			if (foundStart && foundMiddle) { //Se encontrou o do inicio e o do meio
-				for (size_t k = 0; k < activeRoutes.size(); i++) {
+				for (size_t k = 0; k < activeRoutes.size(); k++) {
+					foundStart2 = false;
+					foundDest = false;
 					for (size_t l = 0; l < activeRoutes.at(k).getStops().size(); l++) { // Vai a uma rota especifica ver cada paragem
 						if (districtFound == activeRoutes.at(k).getStops().at(l)) { //Procura o primeiro elemento da rota selecionada nas paragens das active routes
+							if (time.getHour() >= activeRoutes.at(i).getStartingTime().getHour() && time.getMinutes() >= activeRoutes.at(i).getStartingTime().getMinutes() && time.getHour() < activeRoutes.at(i).getEndingTime().getHour() && time.getHour() < activeRoutes.at(i).getEndingTime().getMinutes())
 							foundStart2 = true;
 						}
 						if (selectedRoute.at(selectedRoute.size() - 1) == activeRoutes.at(k).getStops().at(l)) { //Same que antes so que com o ultimo
+							if (time.getHour() >= activeRoutes.at(i).getStartingTime().getHour() && time.getMinutes() >= activeRoutes.at(i).getStartingTime().getMinutes() && time.getHour() < activeRoutes.at(i).getEndingTime().getHour() && time.getHour() < activeRoutes.at(i).getEndingTime().getMinutes())
 							foundDest = true;
 						}
 					}
@@ -118,6 +133,7 @@ void User::joinJourney() {
 						separateRoutes.push_back(activeRoutes.at(i)); //Primeiro fica a primeira rota ( a que tem o inicio e o meio)
 						separateRoutes.push_back(activeRoutes.at(k)); //Depois fica a segunda rota (meio e fim)
 						cout << "viagem coiso";
+						Sleep(1000);
 					}
 				}
 			}
@@ -143,6 +159,7 @@ void User::joinJourney() {
 		if (indexStart > indexEnd) {
 			perfectRoutes.erase(perfectRoutes.begin() + i);
 		}
+		cout << "Ordena primeiro\n";
 	}
 
 	//Similar Routes
@@ -160,6 +177,8 @@ void User::joinJourney() {
 		if (indexStart > indexEnd) {
 			similarRoutes.erase(similarRoutes.begin() + i);
 		}
+		cout << "Ordena segundo\n";
+
 	}
 
 	//Separate Routes
@@ -178,16 +197,23 @@ void User::joinJourney() {
 			separateRoutes.erase(separateRoutes.begin() + i);
 		}
 	}
-
+	cout << "Ordena terceiro\n";
+	Sleep(10000);
 }
 
 void Registered::hostJourney() {
+	string startingTime, destTime;
 	if (getAge() < 18) {
 		cout << "  Sorry, under 18 can't host journeys.\n";
 		//return;
 	}
 
 	Menu m;
+
+	cout << "Time your trip begins: ";
+	cin >> startingTime;
+	cout << "Approximate time you reach your destination: ";
+	cin >> destTime;
 
 	Route r(Session::instance()->username, m.journeyMenu()); //Creating route with all the districts the user will go through
 
