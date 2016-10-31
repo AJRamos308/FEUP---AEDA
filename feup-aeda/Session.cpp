@@ -120,11 +120,11 @@ void Session::registration() {
 	unsigned int age;
 	fstream f;
 
-	bool validName = false; //Um nome não pode conter números.
+	bool validName = false, validAge = false; //Um nome não pode conter números.
 
 	us.clearScreen();
 	us.showLogo();
-	
+
 	while (!validName) {
 		cout << "  Name: ";
 		getline(cin, name);
@@ -140,6 +140,19 @@ void Session::registration() {
 
 	cout << "  Age: ";
 	cin >> age;
+	while (!validAge) {
+		if (age < 18 || age > 100 || cin.fail()) {
+			cin.clear();
+			cin.ignore(1000, '\n');
+			us.setcolor(12);
+			cerr << "\a  Not a valid age!\n";
+			us.setcolor(15);
+			cout << "\n  Please reinsert age: ";
+			cin >> age;
+		}
+		else
+			validAge = true;
+	}
 	bool userTaken = true;
 	while (userTaken)
 	{
