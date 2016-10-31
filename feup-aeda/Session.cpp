@@ -16,18 +16,31 @@ void Session::logout(){
 	Session::instance()->importDistricts();
 }
 
+bool Session::Valid(string File)
+{
+	fstream f;
+	f.open(File);
+	if (f.is_open()) { //Tests whether the file was found.
+		f.close();
+		return true;
+	}
+	return false;
+}
+
 //Imports users (registered) from "members.txt" and saves to registered vector.
 bool Session::importUsers() {
 	fstream f;
 	string username, password, name, age;
 
-	f.open("members.txt");
-	
-	//try
-	if (!f.is_open()) {
-		//TODO EXCEPTION.
-		return false;
+	if (!Valid("members.txt")) {
+		us.setcolor(12);
+		cerr << "\a  Error! 'members.txt' could not be found!\n\n"; //Displays error if txt was not found.
+		us.setcolor(15);
+		Sleep(10000);
+		exit(0); // Todo: too EXTREMEME?
 	}
+	else
+		f.open("members.txt");
 	
 	while (!f.eof()) {
 		getline(f, username);
@@ -46,7 +59,15 @@ bool Session::importDistricts() {
 	fstream f;
 	string token;
 
-	f.open("districts.txt");
+	if (!Valid("districts.txt")) {
+		us.setcolor(12);
+		cerr << "\a  Error! 'districts.txt' could not be found!\n\n"; //Displays error if txt was not found.
+		us.setcolor(15);
+		Sleep(10000);
+		exit(0); // Todo: too EXTREMEME?
+	}
+	else
+		f.open("districts.txt");
 
 	while (getline(f, token)) {
 		districts.push_back(token);
