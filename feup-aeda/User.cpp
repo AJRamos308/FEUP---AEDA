@@ -33,9 +33,9 @@ void User::joinJourney() {
 	Date time;
 
 	vector<string> selectedRoute = m.journeyMenu();
-
 	vector<Route> activeRoutes, perfectRoutes, similarRoutes, separateRoutes;
 
+	//Carrega o vetor activeRoutes com as viagens ativas.
 	for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
 		for (size_t j = 0; j < Session::instance()->registered.at(i).getAllTrips().size(); j++) {
 			if (Session::instance()->registered.at(i).getAllTrips().at(j).getActive()) {
@@ -43,7 +43,6 @@ void User::joinJourney() {
 			}
 		}
 	}
-
 
 	//Para viagens com match perfeita (PORTO/LISBOA/FARO, PORTO/COIMBRA/LISBOA/FARO, AVEIRO/PORTO/LISBOA/FARO).
 	for (size_t i = 0; i < activeRoutes.size(); i++) { //Comeca por ver todas as rotas ativas
@@ -64,7 +63,6 @@ void User::joinJourney() {
 			Sleep(1000);
 		}
 	}
-
 
 	//Para viagens apenas com início e fim (PORTO/COIMBRA/FARO, PORTO/FARO).
 	for (size_t i = 0; i < activeRoutes.size(); i++) { //Comeca por ver todas as rotas ativas

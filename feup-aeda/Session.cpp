@@ -94,7 +94,7 @@ void Session::login() {
 		}
 	}
 	this->username = username;
-	cout << "  Login successful!\n"; Sleep(1000);
+	cout << "\n  Login successful!\n"; Sleep(1000);
 
 	return;
 }

@@ -14,5 +14,5 @@ public:
 	void menu4();
 	void joinJourneyMenu();
 	vector<string> journeyMenu();
-
+	void deleteVehicleMenu();
 };

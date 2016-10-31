@@ -477,3 +477,7 @@ vector<string> Menu::journeyMenu() {
 	cin.ignore(50, '\n');
 	return selectedDistricts;
 }
+
+void Menu::deleteVehicleMenu() {
+
+}

@@ -76,5 +76,11 @@
     <Text Include="menu.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="trips.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="garage.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>
