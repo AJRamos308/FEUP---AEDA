@@ -171,41 +171,64 @@ void Session::registration() {
 }
 
 string Session::passwordMaker() {
-	string pw1, pw2;
-	bool whiteSpaceFound = false;
-
+	string password1, password2;
 	while (true) {
 
-		cin.clear();
-		cout << "  Password: ";
-		cin >> pw1;
-
-		if (pw1.length() < 5) {
-			cout << "  ERROR: Password's too short. Please try again\n";
-			continue;
-		}
-
-		for (size_t i = 0; i < pw1.length(); i++) {
-			if (pw1[i] == ' ') {
-				cout << "  ERROR: Passwords do not support white spaces. Please try again\n";
-				whiteSpaceFound = true;
+		cout << "  Enter Password : ";
+		char pass1[32], pass2[32];
+		int i = 0;
+		char a;
+		for (i = 0;;)
+		{
+			a = _getch();
+			if (isdigit(a) || isalpha(a))
+			{
+				pass1[i] = a;
+				++i;
+				cout << "*";
+			}
+			if (a == '\b'&&i >= 1)
+			{
+				cout << "\b \b";
+				--i;
+			}
+			if (a == '\r')
+			{
+				pass1[i] = '\0';
 				break;
 			}
 		}
-		if (whiteSpaceFound) {
-			whiteSpaceFound = false;
-			continue;
+		cout << "\n  Please Confirm Password : ";
+
+		for (i = 0;;)
+		{
+			a = _getch();
+			if (isdigit(a) || isalpha(a))
+			{
+				pass2[i] = a;
+				++i;
+				cout << "*";
+			}
+			if (a == '\b'&&i >= 1)
+			{
+				cout << "\b \b";
+				--i;
+			}
+			if (a == '\r')
+			{
+				pass2[i] = '\0';
+				break;
+			}
 		}
-
-		cout << "  Confirm password: ";
-		cin >> pw2;
-
-		if (pw1 == pw2)
+		password1 = pass1;
+		password2 = pass2;
+		if (password1 == password2) {
 			break;
+		}
 		else {
 			cout << "  ERROR: Passwords do not match. Please try again\n";
 			continue;
 		}
 	}
-	return pw1;
+	return password1;
 }
