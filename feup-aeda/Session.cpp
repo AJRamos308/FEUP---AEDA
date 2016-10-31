@@ -30,17 +30,23 @@ bool Session::Valid(string File)
 //Imports users (registered) from "members.txt" and saves to registered vector.
 bool Session::importUsers() {
 	fstream f;
-	string username, password, name, age;
+	string username, password, name, age, file;
 
-	if (!Valid("members.txt")) {
+	us.showLogo();
+	file = "members.txt";
+
+	while (!Valid(file)) {
 		us.setcolor(12);
-		cerr << "\a  Error! 'members.txt' could not be found!\n\n"; //Displays error if txt was not found.
+		cerr << "\a  Error! File 'members.txt' could not be found!\n\n"; //Displays error if txt was not found.
 		us.setcolor(15);
-		Sleep(10000);
-		exit(0); // Todo: too EXTREMEME?
+		cout << "  Please type in the new members file name : ";
+		cin >> file;
+		us.clearScreen();
+		if (cin.eof())
+			exit(0);
 	}
-	else
-		f.open("members.txt");
+
+	f.open(file);
 	
 	while (!f.eof()) {
 		getline(f, username);
@@ -57,17 +63,23 @@ bool Session::importUsers() {
 //Imports districts from "districts.txt" and saves to districts vector.
 bool Session::importDistricts() {
 	fstream f;
-	string token;
+	string token, file;
 
-	if (!Valid("districts.txt")) {
+	us.showLogo();
+	file = "districts.txt";
+
+	while (!Valid(file)) {
 		us.setcolor(12);
-		cerr << "\a  Error! 'districts.txt' could not be found!\n\n"; //Displays error if txt was not found.
+		cerr << "\a  Error! File 'districts.txt' could not be found!\n\n"; //Displays error if txt was not found.
 		us.setcolor(15);
-		Sleep(10000);
-		exit(0); // Todo: too EXTREMEME?
+		cout << "  Please type in the new districts file name : ";
+		cin >> file;
+		us.clearScreen();
+		if (cin.eof())
+			exit(0);
 	}
-	else
-		f.open("districts.txt");
+	
+	f.open(file);
 
 	while (getline(f, token)) {
 		districts.push_back(token);
