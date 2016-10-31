@@ -32,10 +32,10 @@ bool Session::importUsers() {
 	fstream f;
 	string username, password, name, age, file;
 
-	us.showLogo();
 	file = "members.txt";
 
 	while (!Valid(file)) {
+		us.showLogo();
 		us.setcolor(12);
 		cerr << "\a  Error! File 'members.txt' could not be found!\n\n"; //Displays error if txt was not found.
 		us.setcolor(15);
@@ -65,10 +65,10 @@ bool Session::importDistricts() {
 	fstream f;
 	string token, file;
 
-	us.showLogo();
 	file = "districts.txt";
 
 	while (!Valid(file)) {
+		us.showLogo();
 		us.setcolor(12);
 		cerr << "\a  Error! File 'districts.txt' could not be found!\n\n"; //Displays error if txt was not found.
 		us.setcolor(15);
