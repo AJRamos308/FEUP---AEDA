@@ -29,6 +29,10 @@ void Menu::manager() {
 			continue;
 		}
 		if (currentMenu == 14) {
+			u.clearScreen();
+			u.showLogo();
+			cout << "  Thank you for using our program!";
+			Sleep(1000);
 			return;
 		}
 		if (currentMenu == 20) {

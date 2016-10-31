@@ -102,10 +102,40 @@ void Session::login() {
 
 		cout << "  Username: ";
 		cin >> username;
-
+		while (cin.fail()) {
+			cin.clear();
+			cin.ignore(1000, '\n');
+			us.setcolor(12);
+			cerr << "\a  Not a valid username!\n";
+			us.setcolor(15);
+			cout << "\n  Please reinsert username: ";
+			cin >> username;
+		}
 		cout << "  Password: ";
-		cin >> password;
-
+		char pass[32];
+		int i = 0;
+		char a;
+		for (i = 0;;)
+		{
+			a = _getch();
+			if ((a >= 'a'&&a <= 'z') || (a >= 'A'&&a <= 'Z') || (a >= '0'&&a <= '9'))
+			{
+				pass[i] = a;
+				++i;
+				cout << "*";
+			}
+			if (a == '\b'&&i >= 1)
+			{
+				cout << "\b \b";
+				--i;
+			}
+			if (a == '\r')
+			{
+				pass[i] = '\0';
+				break;
+			}
+		}
+		password = pass;
 		cin.clear();
 		cin.ignore();
 
@@ -192,6 +222,15 @@ void Session::registration() {
 		bool userTakenVector = false;
 		cout << "  Username: "; 
 		cin >> username;
+		while (cin.fail()) {
+			cin.clear();
+			cin.ignore(1000, '\n');
+			us.setcolor(12);
+			cerr << "\a  Not a valid username!\n";
+			us.setcolor(15);
+			cout << "\n  Please reinsert username: ";
+			cin >> username;
+		}
 		for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
 			if (username == Session::instance()->registered[i].getUsername()) {
 				cout << "  Whoops! Username taken! Sorry for the inconvenience!\n";
@@ -227,7 +266,7 @@ string Session::passwordMaker() {
 		for (i = 0;;)
 		{
 			a = _getch();
-			if (isdigit(a) || isalpha(a))
+			if ((a >= 'a'&&a <= 'z') || (a >= 'A'&&a <= 'Z') || (a >= '0'&&a <= '9'))
 			{
 				pass1[i] = a;
 				++i;
@@ -249,7 +288,7 @@ string Session::passwordMaker() {
 		for (i = 0;;)
 		{
 			a = _getch();
-			if (isdigit(a) || isalpha(a))
+			if ((a >= 'a'&&a <= 'z') || (a >= 'A'&&a <= 'Z') || (a >= '0'&&a <= '9'))
 			{
 				pass2[i] = a;
 				++i;
