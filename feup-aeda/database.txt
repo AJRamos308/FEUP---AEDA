@@ -1,0 +1,15 @@
+MEMBERS
+teste1|teste2|Teste Teste|1
+ephons|qwerty|Afonso Ramos|19
+zepedrob|qwerty|Ze Borges|19
+blinkroot|qwerty|Miguel Fernandes|19
+
+BUDDIES
+teste1:ephons|zepedrob|blinkroot
+blinkroot:ephons|zepedrob
+
+TRIPS
+teste1:
+
+DISTRICTS
+Aveiro|Beja|Braga|Braganca|Castelo Branco|Coimbra|Evora|Faro|Guarda|Leiria|Lisboa|Portalegre|Porto|Santarem|Setubal|Viana do Castelo|Vila Real|Viseu

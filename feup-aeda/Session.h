@@ -24,8 +24,8 @@ public:
 
 	static void logout();
 	bool Valid(string File);
-	bool importUsers();
-	bool importDistricts();
+	
+	bool importInfo();
 	
 	void login();
 	void loginAsGuest();

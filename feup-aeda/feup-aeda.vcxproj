@@ -38,12 +38,9 @@
     <ClInclude Include="Vehicle.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="buddies.txt" />
     <Text Include="districts.txt" />
-    <Text Include="garage.txt" />
-    <Text Include="members.txt" />
+    <Text Include="database.txt" />
     <Text Include="menu.txt" />
-    <Text Include="trips.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{3900274F-D143-4C83-A7DC-5BEC230FC8FC}</ProjectGuid>

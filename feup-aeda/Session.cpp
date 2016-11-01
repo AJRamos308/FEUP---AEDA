@@ -2,6 +2,7 @@
 
 Utilities us;
 
+//Cria uma nova instância.
 Session* Session::instance() {
 	if (!singleton_instance) {
 		singleton_instance = new Session;
@@ -9,11 +10,11 @@ Session* Session::instance() {
 	return singleton_instance;
 }
 
+//Elimina a instância atual e cria outra.
 void Session::logout(){
 	delete singleton_instance;
 	singleton_instance = NULL;
-	Session::instance()->importUsers();
-	Session::instance()->importDistricts();
+	Session::instance()->importInfo();
 }
 
 bool Session::Valid(string File)
@@ -27,66 +28,79 @@ bool Session::Valid(string File)
 	return false;
 }
 
-//Imports users (registered) from "members.txt" and saves to registered vector.
-bool Session::importUsers() {
+bool Session::importInfo() {
 	fstream f;
-	string username, password, name, age, file;
+	string category, token = ".";
+	f.open("database.txt");
 
-	file = "members.txt";
-
-	while (!Valid(file)) {
-		us.showLogo();
-		us.setcolor(12);
-		cerr << "\a  Error! File 'members.txt' could not be found!\n\n"; //Displays error if txt was not found.
-		us.setcolor(15);
-		cout << "  Please type in the new members file name : ";
-		cin >> file;
-		us.clearScreen();
-		if (cin.eof())
-			exit(0);
-	}
-
-	f.open(file);
-	
 	while (!f.eof()) {
-		getline(f, username);
-		getline(f, password);
-		getline(f, name);
-		getline(f, age);
-		Registered token(name, stoi(age), username, password);
-		registered.push_back(token);
+		getline(f, category);
+
+		if (category == "MEMBERS") {
+			while (true) {
+				getline(f, token);
+
+				if (token != "") {
+					string username = token.substr(0, token.find("|"));
+					token.erase(0, token.find("|") + 1);
+					string password = token.substr(0, token.find("|"));
+					token.erase(0, token.find("|") + 1);
+					string name = token.substr(0, token.find("|"));
+					token.erase(0, token.find("|") + 1);
+					string age = token;
+
+					Registered reg(name, stoi(age), username, password);
+					registered.push_back(reg);
+					continue;
+				}
+				break;
+			}
+			continue;
+		}
+		if (category == "BUDDIES") {
+			while (true) {
+				getline(f, token);
+
+				if (token != "") {
+					vector<string> buddies;
+					string node = token.substr(0, token.find(":"));
+					token.erase(0, token.find(":") + 1);
+
+
+					while (true) {
+						if (token.find("|") == -1) {
+							buddies.push_back(token);
+							break;
+						}
+						string branch = token.substr(0, token.find("|"));
+						token.erase(0, token.find("|") + 1);
+						cout << branch;
+						buddies.push_back(branch);
+					}
+				}
+				else {
+					break;
+				}
+			}
+			continue;
+		}
+		if (category == "TRIPS") {
+			//TODO...
+		}
+		if (category == "DISTRICTS") {
+			getline(f, token);
+
+			while (token.find("|") != -1) {
+				string district = token.substr(0, token.find("|"));
+				token.erase(0, token.find("|"));
+				districts.push_back(district);
+			}
+			continue;
+		}
 	}
-	f.close();
 	return true;
 }
 
-//Imports districts from "districts.txt" and saves to districts vector.
-bool Session::importDistricts() {
-	fstream f;
-	string token, file;
-
-	file = "districts.txt";
-
-	while (!Valid(file)) {
-		us.showLogo();
-		us.setcolor(12);
-		cerr << "\a  Error! File 'districts.txt' could not be found!\n\n"; //Displays error if txt was not found.
-		us.setcolor(15);
-		cout << "  Please type in the new districts file name : ";
-		cin >> file;
-		us.clearScreen();
-		if (cin.eof())
-			exit(0);
-	}
-	
-	f.open(file);
-
-	while (getline(f, token)) {
-		districts.push_back(token);
-	}
-	f.close();
-	return true;
-}
 
 //Processes login.
 void Session::login() {
@@ -247,7 +261,7 @@ void Session::registration() {
 	registered.push_back(token);
 
 	f.open("members.txt", ios::app);
-	f << endl << username << endl << password << endl << name << endl << age;
+	f << endl << username << "|" << password << "|" << name << "|" << age;
 
 	cout << "  User created with success!\n";
 	Session::instance()->username = username;

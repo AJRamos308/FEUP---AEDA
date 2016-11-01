@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <windows.h>
+#include <cmath>
 
 #include "Session.h"
 #include "Menu.h"
@@ -11,9 +12,8 @@ Session* Session::singleton_instance = 0;
 //TODO: Implementar algoritmo de ordenação para ficheiros!
 
 int main() {
-	Session::instance()->importUsers();
 	//Session::instance()->registered[0].addVehicle();
-	Session::instance()->importDistricts();
+	Session::instance()->importInfo();
 	//Session::instance()->registered[0].changePassword();
 	//TEST MAIN
 	Menu m;

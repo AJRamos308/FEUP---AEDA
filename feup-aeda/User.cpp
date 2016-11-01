@@ -30,7 +30,7 @@ unsigned int Registered::getAge() {
 
 void User::joinJourney() {
 	Menu m;
-	Date time;
+	Date currentTime; //TODO: função que extrai data do computador.
 
 	vector<string> selectedRoute = m.journeyMenu();
 	vector<Route> activeRoutes, perfectRoutes, similarRoutes, separateRoutes;
@@ -43,15 +43,16 @@ void User::joinJourney() {
 			}
 		}
 	}
-
 	//Para viagens com match perfeita (PORTO/LISBOA/FARO, PORTO/COIMBRA/LISBOA/FARO, AVEIRO/PORTO/LISBOA/FARO).
-	for (size_t i = 0; i < activeRoutes.size(); i++) { //Comeca por ver todas as rotas ativas
+	for (size_t i = 0; i < activeRoutes.size(); i++) {
+		
 		unsigned int matches = 0;
-		for (size_t j = 0; j < activeRoutes.at(i).getStops().size(); j++) { // Vai a uma rota especifica ver cada paragem
-			for (size_t k = 0; k < selectedRoute.size(); k++) { // Vai percorrer cada elemento da rota escolhida pelo utilizador
-				if (selectedRoute.at(k) == activeRoutes.at(i).getStops().at(j)) { //Se o elemento da rota escolhida for igual ao da rota ativa
-					if (time.getHour() >= activeRoutes.at(i).getStartingTime().getHour() && time.getMinutes() >= activeRoutes.at(i).getStartingTime().getMinutes() && time.getHour() < activeRoutes.at(i).getEndingTime().getHour() && time.getHour() < activeRoutes.at(i).getEndingTime().getMinutes())
-						matches++; //Da match
+
+		for (size_t j = 0; j < activeRoutes.at(i).getStops().size(); j++) { // Vai a uma rota especifica ver cada paragem.
+			for (size_t k = 0; k < selectedRoute.size(); k++) { // Vai percorrer cada elemento da rota escolhida pelo utilizador.
+				if (selectedRoute.at(k) == activeRoutes.at(i).getStops().at(j)) { //Se o elemento da rota escolhida for igual ao da rota ativa.
+					if (currentTime.getCompactDate() <= activeRoutes.at(i).getStartingTime().getCompactDate())
+						matches++; //Dá match.
 				}
 			}
 		}
@@ -63,20 +64,20 @@ void User::joinJourney() {
 			Sleep(1000);
 		}
 	}
-
 	//Para viagens apenas com início e fim (PORTO/COIMBRA/FARO, PORTO/FARO).
 	for (size_t i = 0; i < activeRoutes.size(); i++) { //Comeca por ver todas as rotas ativas
-		bool foundStart = false;
-		bool foundDest = false;
+		
+		bool foundStart = false, foundDest = false;
+
 		for (size_t j = 0; j < activeRoutes.at(i).getStops().size(); j++) { // Vai a uma rota especifica ver cada paragem
 			if (selectedRoute.at(0) == activeRoutes.at(i).getStops().at(j)) { //Procura o primeiro elemento da rota selecionada nas paragens das active routes
-				if (time.getHour() >= activeRoutes.at(i).getStartingTime().getHour() && time.getMinutes() >= activeRoutes.at(i).getStartingTime().getMinutes() && time.getHour() < activeRoutes.at(i).getEndingTime().getHour() && time.getHour() < activeRoutes.at(i).getEndingTime().getMinutes())
-				foundStart = true;
+				if (currentTime.getCompactDate() <= activeRoutes.at(i).getStartingTime().getCompactDate()) {
+					foundStart = true;
+				}
 			}
 			if (selectedRoute.at(selectedRoute.size() - 1) == activeRoutes.at(i).getStops().at(j)) { //Same que antes so que com o ultimo
-				if (time.getHour() >= activeRoutes.at(i).getStartingTime().getHour() && time.getMinutes() >= activeRoutes.at(i).getStartingTime().getMinutes() && time.getHour() < activeRoutes.at(i).getEndingTime().getHour() && time.getHour() < activeRoutes.at(i).getEndingTime().getMinutes())
 				foundDest = true;
-			}
+			}	
 		}
 		if (foundStart && foundDest) {
 			similarRoutes.push_back(activeRoutes.at(i));
@@ -84,6 +85,48 @@ void User::joinJourney() {
 			Sleep(1000);
 		}
 	}
+	//Verifica ordenação das perfectRoutes.
+	for (size_t i = 0; i < perfectRoutes.size(); i++) {
+
+		size_t orderPos = 0;
+		bool outOfOrder = false;
+
+		for (size_t j = 0; selectedRoute.size(); j++) {
+			for (size_t k = 0; perfectRoutes.at(i).getStops().size(); k++) {
+				if (selectedRoute.at(j) == perfectRoutes.at(i).getStops().at(k)) {
+					if (orderPos > k) { //Ordem incorreta.
+						outOfOrder = true;
+						break;
+					}
+					orderPos = k;
+				}
+			}
+		}
+		if (outOfOrder) {
+			perfectRoutes.erase(perfectRoutes.begin() + i);
+			i--;
+		}
+	}
+	//Verifica ordenação das similarRoutes.
+	for (unsigned int i = 0; i < similarRoutes.size(); i++) {
+		
+		int indexStart, indexEnd;
+
+		for (unsigned int j = 0; j < selectedRoute.size(); j++) {
+			if (similarRoutes.at(i).getStops().at(0) == selectedRoute.at(j)) {
+				indexStart = j;
+			}
+			if (similarRoutes.at(i).getStops().at(similarRoutes.at(i).getStops().size() - 1) == selectedRoute.at(j))
+				indexEnd = j;
+		}
+		if (indexStart > indexEnd) {
+			similarRoutes.erase(similarRoutes.begin() + i);
+			i--;
+		}
+	}
+
+	/* 
+	GOODNIGHT SWEET PRINCE
 
 	//Para viagens intermedias
 	for (size_t i = 0; i < activeRoutes.size(); i++) {
@@ -136,9 +179,6 @@ void User::joinJourney() {
 				}
 			}
 		}
-
-		
-
 	}
 
 	//Verifica se está ordenado.
@@ -196,6 +236,8 @@ void User::joinJourney() {
 		}
 	}
 	cout << "Ordena terceiro\n";
+	*/
+
 	Sleep(10000);
 }
 

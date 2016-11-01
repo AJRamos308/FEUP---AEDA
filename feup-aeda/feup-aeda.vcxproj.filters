@@ -64,22 +64,13 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="buddies.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
     <Text Include="districts.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="members.txt">
       <Filter>Resource Files</Filter>
     </Text>
     <Text Include="menu.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="trips.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="garage.txt">
+    <Text Include="database.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>

@@ -31,7 +31,7 @@ void Menu::manager() {
 		if (currentMenu == 14) {
 			u.clearScreen();
 			u.showLogo();
-			cout << "  Thank you for using our program!";
+			cout << "  Thank you for using our service!";
 			Sleep(1000);
 			return;
 		}
