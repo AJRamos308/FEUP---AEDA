@@ -74,7 +74,6 @@ bool Session::importInfo() {
 						}
 						string branch = token.substr(0, token.find("|"));
 						token.erase(0, token.find("|") + 1);
-						cout << branch;
 						buddies.push_back(branch);
 					}
 				}
@@ -85,14 +84,30 @@ bool Session::importInfo() {
 			continue;
 		}
 		if (category == "TRIPS") {
-			//TODO...
+			while (true) {
+				getline(f, token);
+
+				if (token != "") {
+					string user = token.substr(0, token.find(":"));
+					token.erase(0, token.find(":") + 1);
+					string departureTime = token.substr(0, token.find("|"));
+					token.erase(0, token.find("|") + 1);
+					string arrivalTime = token.substr(0, token.find("|"));
+					token.erase(0, token.find("|") + 1);
+					string departureAt = token.substr(0, token.find("|"));
+					token.erase(0, token.find("|") + 1);
+					string arrivalAt = token;
+					continue;
+				}
+				break;
+			}
 		}
 		if (category == "DISTRICTS") {
 			getline(f, token);
 
 			while (token.find("|") != -1) {
 				string district = token.substr(0, token.find("|"));
-				token.erase(0, token.find("|"));
+				token.erase(0, token.find("|") + 1);
 				districts.push_back(district);
 			}
 			continue;

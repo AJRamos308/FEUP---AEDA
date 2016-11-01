@@ -9,7 +9,7 @@ teste1:ephons|zepedrob|blinkroot
 blinkroot:ephons|zepedrob
 
 TRIPS
-teste1:
+teste1:201611012045|201611012125|Porto|Lisboa
 
 DISTRICTS
 Aveiro|Beja|Braga|Braganca|Castelo Branco|Coimbra|Evora|Faro|Guarda|Leiria|Lisboa|Portalegre|Porto|Santarem|Setubal|Viana do Castelo|Vila Real|Viseu

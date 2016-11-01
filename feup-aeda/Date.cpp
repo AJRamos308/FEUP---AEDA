@@ -8,7 +8,7 @@ Date::Date(unsigned int hour, unsigned int minutes, unsigned int day, unsigned i
 	this->day = day;
 	this->month = month;
 	this->year = year;
-	compactDate = year * 10 ^ 8 + month * 10 ^ 6 + day * 10 ^ 4 + hour * 10 ^ 2 + minutes;
+	compactDate = year * 10 ^ 10 + month * 10 ^ 6 + day * 10 ^ 4 + hour * 10 ^ 2 + minutes;
 }
 unsigned int Date::getHour() {
 	return hour;
