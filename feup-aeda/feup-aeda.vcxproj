@@ -38,7 +38,6 @@
     <ClInclude Include="Vehicle.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="districts.txt" />
     <Text Include="database.txt" />
     <Text Include="menu.txt" />
   </ItemGroup>

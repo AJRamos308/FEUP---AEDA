@@ -64,9 +64,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="districts.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
     <Text Include="menu.txt">
       <Filter>Resource Files</Filter>
     </Text>
