@@ -3,20 +3,22 @@
 #include "Utilities.h"
 #include "Menu.h"
 
-/*USER CLASS*/
 User::User() {
 }
-
-/*REGISTERED CLASS*/
-Registered::Registered(string name, unsigned int age, string username, string password) {
+Registered::Registered(string username, string password, string name, unsigned int age) {
 	this->username = username;
 	this->password = password;
+	this->name = name;
+	this->age = age;
 }
 string Registered::getPassword() {
 	return password;
 }
 string Registered::getUsername() {
 	return username;
+}
+vector<Registered> Registered::getBuddies() {
+	return buddies;
 }
 vector<Route> Registered::getAllTrips() {
 	return allTrips;

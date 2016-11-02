@@ -19,16 +19,17 @@ class Registered : public User{
 private:
 	string name, password;
 	unsigned int age;
-	double balance;
+	float balance;
 
 	vector<Vehicle> garage;
 	vector<Route> allTrips; //vector with all registered trips.
 	vector<Registered> buddies;
 public:
-	Registered(string name, unsigned int age, string username, string password);
+	Registered(string username, string password, string name, unsigned int age);
 
 	string getUsername();
 	string getPassword();
+	vector<Registered> getBuddies();
 	vector<Route> getAllTrips();
 	
 	void hostJourney();

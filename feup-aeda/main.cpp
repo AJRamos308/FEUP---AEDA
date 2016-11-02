@@ -12,24 +12,12 @@ Session* Session::singleton_instance = 0;
 //TODO: Implementar algoritmo de ordenação para ficheiros!
 
 int main() {
-	//Session::instance()->registered[0].addVehicle();
-	Session::instance()->importInfo();
-	//Session::instance()->registered[0].changePassword();
-	//TEST MAIN
 	Menu m;
-	//m.journeyMenu();
-	m.manager();
-	//m.manager();
-	//Session::instance()->loginAsGuest();
-	//cout << Session::instance()->username << endl;
-	//Session::instance()->importDistricts();
-	//m.journeyMenu();
+	Date d(201611012045);
 	Sleep(1000);
-	//Session::instance()->logout();
-	//Session::instance()->importUsers();
-	//Session::instance()->login();
-	//cout << Session::instance()->username;
-	//Sleep(1000);
+
+	Session::instance()->importInfo();
+	m.manager();
 
 	return 0;
 }

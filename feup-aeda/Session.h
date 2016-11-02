@@ -23,9 +23,9 @@ public:
 	bool lang; //TODO: Do we really want to do this?.
 
 	static void logout();
-	bool Valid(string File);
 	
 	bool importInfo();
+	bool exportInfo();
 	
 	void login();
 	void loginAsGuest();

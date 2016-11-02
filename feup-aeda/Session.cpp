@@ -17,17 +17,7 @@ void Session::logout(){
 	Session::instance()->importInfo();
 }
 
-bool Session::Valid(string File)
-{
-	fstream f;
-	f.open(File);
-	if (f.is_open()) { //Tests whether the file was found.
-		f.close();
-		return true;
-	}
-	return false;
-}
-
+//Importa informação de database.txt para os vetores respetivos.
 bool Session::importInfo() {
 	fstream f;
 	string category, token = ".";
@@ -49,7 +39,7 @@ bool Session::importInfo() {
 					token.erase(0, token.find("|") + 1);
 					string age = token;
 
-					Registered reg(name, stoi(age), username, password);
+					Registered reg(username, password, name, stoi(age));
 					registered.push_back(reg);
 					continue;
 				}
@@ -66,7 +56,6 @@ bool Session::importInfo() {
 					string node = token.substr(0, token.find(":"));
 					token.erase(0, token.find(":") + 1);
 
-
 					while (true) {
 						if (token.find("|") == -1) {
 							buddies.push_back(token);
@@ -75,6 +64,22 @@ bool Session::importInfo() {
 						string branch = token.substr(0, token.find("|"));
 						token.erase(0, token.find("|") + 1);
 						buddies.push_back(branch);
+					}
+					//Tenta encontrar o node.
+					size_t nodePos;
+					for (size_t i = 0; i < registered.size(); i++) {
+						if (registered.at(i).getUsername() == node) {
+							nodePos = i;
+							break;
+						}
+					}
+					//Se o buddy existir no vetor geral dos registados, carregá-lo para o vetor de buddies do node.
+					for (size_t i = 0; i < buddies.size(); i++) {
+						for (size_t j = 0; j < registered.size(); j++) {
+							if (buddies.at(i) == registered.at(j).getUsername()) {
+								registered.at(nodePos).getBuddies().push_back(registered.at(j));
+							}
+						}
 					}
 				}
 				else {
@@ -97,6 +102,14 @@ bool Session::importInfo() {
 					string departureAt = token.substr(0, token.find("|"));
 					token.erase(0, token.find("|") + 1);
 					string arrivalAt = token;
+
+					//Subdivide as datas.
+
+					for (size_t i = 0; i < registered.size(); i++) {
+						if (registered.at(i).getUsername() == user) {
+							//registered.at(i).getAllTrips().push_back();
+						}
+					}
 					continue;
 				}
 				break;
@@ -116,8 +129,11 @@ bool Session::importInfo() {
 	return true;
 }
 
+bool Session::exportInfo() {
+	return true;
+}
 
-//Processes login.
+//Processa o login.
 void Session::login() {
 	string username, password;
 	bool foundUsername = false, foundPassword = false;
@@ -191,7 +207,7 @@ void Session::login() {
 	return;
 }
 
-//Processes login as guest.
+//Processa o login como guest.
 void Session::loginAsGuest() {
 	
 	//Gera um número aleatório com 8 dígitos.
@@ -206,6 +222,7 @@ void Session::loginAsGuest() {
 	return;
 }
 
+//Processa o registo.
 void Session::registration() {
 
 	string name, username, password;
@@ -272,11 +289,8 @@ void Session::registration() {
 	}
 	password = passwordMaker();
 
-	Registered token(name, age, username, password);
+	Registered token(username, password, name, age);
 	registered.push_back(token);
-
-	f.open("members.txt", ios::app);
-	f << endl << username << "|" << password << "|" << name << "|" << age;
 
 	cout << "  User created with success!\n";
 	Session::instance()->username = username;
@@ -284,6 +298,7 @@ void Session::registration() {
 	return;
 }
 
+//Trata da criação de password e restrições.
 string Session::passwordMaker() {
 	string password1, password2;
 	while (true) {
