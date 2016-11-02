@@ -15,10 +15,11 @@ private:
 	Date startingTime;
 	Date endingTime;
 public:
-	Route(string host, vector<string> stops);
+	Route(string host, Date startingTime, Date endingTime, vector<string> stops);
 	float getPrice();
 	vector<string> getStops();
 	bool getActive();
+	void switchActive();
 	Date getStartingTime();
 	Date getEndingTime();
 };

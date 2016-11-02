@@ -16,6 +16,6 @@ public:
 	unsigned int getDay();
 	unsigned int getMonth();
 	unsigned int getYear();
-	unsigned int getCompactDate();
+	unsigned long long getCompactDate();
 };
 

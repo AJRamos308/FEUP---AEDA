@@ -77,7 +77,7 @@ bool Session::importInfo() {
 					for (size_t i = 0; i < buddies.size(); i++) {
 						for (size_t j = 0; j < registered.size(); j++) {
 							if (buddies.at(i) == registered.at(j).getUsername()) {
-								registered.at(nodePos).getBuddies().push_back(registered.at(j));
+								registered.at(nodePos).addBuddyToVec(registered.at(j));
 							}
 						}
 					}
@@ -89,6 +89,7 @@ bool Session::importInfo() {
 			continue;
 		}
 		if (category == "TRIPS") {
+
 			while (true) {
 				getline(f, token);
 
@@ -103,17 +104,26 @@ bool Session::importInfo() {
 					token.erase(0, token.find("|") + 1);
 					string arrivalAt = token;
 
-					//Subdivide as datas.
+					Date d1(stoull(departureTime));
+					Date d2(stoull(arrivalTime));
 
+					vector<string> stops;
+					stops.push_back(departureAt);
+					stops.push_back(arrivalAt);
+
+					Route r(user, d1, d2, stops);
+					r.switchActive();
+					
 					for (size_t i = 0; i < registered.size(); i++) {
 						if (registered.at(i).getUsername() == user) {
-							//registered.at(i).getAllTrips().push_back();
+							registered.at(i).addTripToVec(r);
 						}
 					}
 					continue;
 				}
 				break;
 			}
+			continue;
 		}
 		if (category == "DISTRICTS") {
 			getline(f, token);
@@ -123,6 +133,7 @@ bool Session::importInfo() {
 				token.erase(0, token.find("|") + 1);
 				districts.push_back(district);
 			}
+			districts.push_back(token);
 			continue;
 		}
 	}
@@ -130,6 +141,47 @@ bool Session::importInfo() {
 }
 
 bool Session::exportInfo() {
+	fstream f;
+
+	f.open("database.txt");
+	
+	f << "MEMBERS" << endl;
+	for (size_t i = 0; i < registered.size(); i++) {
+		f << registered.at(i).getUsername() << "|" << registered.at(i).getPassword() << "|" << registered.at(i).getName() << "|" << registered.at(i).getAge() << endl;
+	}
+
+	f << endl << "BUDDIES" << endl;
+	for (size_t i = 0; i < registered.size(); i++) {
+		
+		f << registered.at(i).getUsername() << ":";
+
+		for (size_t j = 0; j < registered.at(i).getBuddies().size(); j++) {
+			if (j == registered.at(i).getBuddies().size() - 1) {
+				f << registered.at(i).getBuddies().at(j).getUsername();
+				break;
+			}
+			f << registered.at(i).getBuddies().at(j).getUsername() << "|";
+		}
+		f << endl;
+	}
+	f << endl << "TRIPS" << endl;
+	for (size_t i = 0; i < registered.size(); i++) {
+		for (size_t j = 0; j < registered.at(i).getAllTrips().size(); j++) {
+			f << registered.at(i).getUsername() << ":";
+			f << registered.at(i).getAllTrips().at(j).getStartingTime().getCompactDate() << "|";
+			f << registered.at(i).getAllTrips().at(j).getEndingTime().getCompactDate() << "|";
+			f << registered.at(i).getAllTrips().at(j).getStops().at(0) << "|";
+			f << registered.at(i).getAllTrips().at(j).getStops().at(registered.at(i).getAllTrips().at(j).getStops().size() - 1) << endl;
+		}
+	}
+	f << endl << "DISTRICTS" << endl;
+	for (size_t i = 0; i < districts.size(); i++) {
+		if (i == districts.size() - 1) {
+			f << districts.at(i);
+			break;
+		}
+		f << districts.at(i) << "|";
+	}
 	return true;
 }
 

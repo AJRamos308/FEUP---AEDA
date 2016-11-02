@@ -17,11 +17,20 @@ string Registered::getPassword() {
 string Registered::getUsername() {
 	return username;
 }
+string Registered::getName() {
+	return name;
+}
 vector<Registered> Registered::getBuddies() {
 	return buddies;
 }
+void Registered::addBuddyToVec(Registered r) {
+	buddies.push_back(r);
+}
 vector<Route> Registered::getAllTrips() {
 	return allTrips;
+}
+void Registered::addTripToVec(Route r) {
+	allTrips.push_back(r);
 }
 void Registered::addTrip(Route trip) {
 	allTrips.push_back(trip);
@@ -256,7 +265,7 @@ void Registered::hostJourney() {
 	cin >> startingTime;
 	cout << "Approximate time you reach your destination: ";
 	cin >> destTime;
-
+	/*
 	Route r(Session::instance()->username, m.journeyMenu()); //Creating route with all the districts the user will go through
 
 
@@ -266,6 +275,7 @@ void Registered::hostJourney() {
 			break;
 		}
 	}
+	*/
 	return;
 }
 

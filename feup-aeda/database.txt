@@ -6,10 +6,13 @@ blinkroot|qwerty|Miguel Fernandes|19
 
 BUDDIES
 teste1:ephons|zepedrob|blinkroot
+ephons:
+zepedrob:
 blinkroot:ephons|zepedrob
 
 TRIPS
 teste1:201611012045|201611012125|Porto|Lisboa
+zepedrob:201611012046|201611012126|Coimbra|Faro
 
 DISTRICTS
 Aveiro|Beja|Braga|Braganca|Castelo Branco|Coimbra|Evora|Faro|Guarda|Leiria|Lisboa|Portalegre|Porto|Santarem|Setubal|Viana do Castelo|Vila Real|Viseu

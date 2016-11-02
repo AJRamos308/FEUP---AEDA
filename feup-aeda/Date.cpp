@@ -14,9 +14,12 @@ Date::Date(unsigned long long compactDate) {
 	this->compactDate = compactDate;
 	
 	string compactString = to_string(compactDate);
-	cout << compactString << endl;
-	year = stoi(compactString.substr(0, 4));
 
+	year = stoi(compactString.substr(0, 4));
+	month = stoi(compactString.substr(4, 2));
+	day = stoi(compactString.substr(6, 2));
+	hour = stoi(compactString.substr(8, 2));
+	minutes = stoi(compactString.substr(10, 2));
 }
 unsigned int Date::getHour() {
 	return hour;
@@ -33,6 +36,6 @@ unsigned int Date::getMonth() {
 unsigned int Date::getYear() {
 	return year;
 }
-unsigned int Date::getCompactDate() {
+unsigned long long Date::getCompactDate() {
 	return compactDate;
 }

@@ -29,11 +29,14 @@ public:
 
 	string getUsername();
 	string getPassword();
+	string getName();
 	vector<Registered> getBuddies();
 	vector<Route> getAllTrips();
 	
 	void hostJourney();
 	void addTrip(Route trip);
+	void addBuddyToVec(Registered r);
+	void addTripToVec(Route r);
 	void addBuddy();
 	void addVehicle();
 	void removeVehicle();
