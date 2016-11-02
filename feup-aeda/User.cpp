@@ -11,32 +11,32 @@ Registered::Registered(string username, string password, string name, unsigned i
 	this->name = name;
 	this->age = age;
 }
-string Registered::getPassword() {
-	return password;
-}
 string Registered::getUsername() {
 	return username;
+}
+string Registered::getPassword() {
+	return password;
 }
 string Registered::getName() {
 	return name;
 }
+unsigned int Registered::getAge() {
+	return age;
+}
 vector<Registered> Registered::getBuddies() {
 	return buddies;
 }
-void Registered::addBuddyToVec(Registered r) {
-	buddies.push_back(r);
-}
 vector<Route> Registered::getAllTrips() {
 	return allTrips;
+}
+void Registered::addBuddyToVec(Registered r) {
+	buddies.push_back(r);
 }
 void Registered::addTripToVec(Route r) {
 	allTrips.push_back(r);
 }
 void Registered::addTrip(Route trip) {
 	allTrips.push_back(trip);
-}
-unsigned int Registered::getAge() {
-	return age;
 }
 
 void User::joinJourney() {
@@ -256,7 +256,7 @@ void Registered::hostJourney() {
 	string startingTime, destTime;
 	if (getAge() < 18) {
 		cout << "  Sorry, under 18 can't host journeys.\n";
-		//return;
+		return;
 	}
 
 	Menu m;
@@ -265,6 +265,8 @@ void Registered::hostJourney() {
 	cin >> startingTime;
 	cout << "Approximate time you reach your destination: ";
 	cin >> destTime;
+	//TODO: handle a time.
+
 	/*
 	Route r(Session::instance()->username, m.journeyMenu()); //Creating route with all the districts the user will go through
 
@@ -371,6 +373,10 @@ void Registered::removeVehicle() {
 		}
 	}
 	return;
+}
+void Registered::changeBalance(float price) {
+	balance += price;
+	//TODO: taxa 5, fator 1.5.
 }
 void Registered::changePassword() {
 	string pass, newpass, newpass2;

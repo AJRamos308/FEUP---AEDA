@@ -1,5 +1,5 @@
 MEMBERS
-teste1|teste2|Teste Teste|1
+teste1|teste2|Teste Teste|99
 ephons|qwerty|Afonso Ramos|19
 zepedrob|qwerty|Ze Borges|19
 blinkroot|qwerty|Miguel Fernandes|19

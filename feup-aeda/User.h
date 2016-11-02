@@ -30,6 +30,7 @@ public:
 	string getUsername();
 	string getPassword();
 	string getName();
+	unsigned int getAge();
 	vector<Registered> getBuddies();
 	vector<Route> getAllTrips();
 	
@@ -42,7 +43,7 @@ public:
 	void removeVehicle();
 	void changePassword();
 
-	unsigned int getAge();
+	void changeBalance(float price);
 
 };
 

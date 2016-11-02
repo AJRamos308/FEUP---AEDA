@@ -15,7 +15,6 @@ int main() {
 	Menu m;
 
 	Session::instance()->importInfo();
-	Session::instance()->exportInfo();
 
 	//cout << Session::instance()->registered.at(0).getBuddies().at(2).getBuddies().at(0).getUsername(); ROSSETTI PLS
 	//Sleep(5000);

@@ -12,6 +12,7 @@ Session* Session::instance() {
 
 //Elimina a instância atual e cria outra.
 void Session::logout(){
+	Session::instance()->exportInfo();
 	delete singleton_instance;
 	singleton_instance = NULL;
 	Session::instance()->importInfo();
@@ -140,6 +141,7 @@ bool Session::importInfo() {
 	return true;
 }
 
+//Exporta informação de memória para o ficheiro.
 bool Session::exportInfo() {
 	fstream f;
 

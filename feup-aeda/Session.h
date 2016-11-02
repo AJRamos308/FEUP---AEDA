@@ -21,7 +21,6 @@ public:
 	vector<Registered> registered;
 	vector<string> districts;
 	string username;
-	bool lang; //TODO: Do we really want to do this?.
 
 	static void logout();
 	
