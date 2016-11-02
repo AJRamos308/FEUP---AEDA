@@ -10,14 +10,12 @@ Date::Date(unsigned int hour, unsigned int minutes, unsigned int day, unsigned i
 	this->year = year;
 	compactDate = year * 10 ^ 8 + month * 10 ^ 6 + day * 10 ^ 4 + hour * 10 ^ 2 + minutes;
 }
-Date::Date(unsigned long int compactDate) {
+Date::Date(unsigned long long compactDate) {
 	this->compactDate = compactDate;
 	
 	string compactString = to_string(compactDate);
-	//201611012045
 	cout << compactString << endl;
 	year = stoi(compactString.substr(0, 4));
-	cout << year;
 
 }
 unsigned int Date::getHour() {
