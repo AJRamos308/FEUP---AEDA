@@ -66,7 +66,7 @@ void User::joinJourney() {
 					if (currentTime.getCompactDate() <= activeRoutes.at(i).getStartingTime().getCompactDate()) {
 						for (size_t l = 0; l < Session::instance()->registered.size(); l++) {
 							if (Session::instance()->registered.at(j).getUsername() == activeRoutes.at(i).getHost()) {
-								Session::instance()->registered.at(j).addBalance(payTrip(activeRoutes.at(i).getPrice()));
+								Session::instance()->registered.at(j).modifyBalance(payTrip(activeRoutes.at(i).getPrice()));
 							}
 						}
 						matches++; //Dá match.
@@ -264,10 +264,6 @@ void User::joinJourney() {
 void Registered::hostJourney() {
 	string startingTime, destTime;
 	float price;
-	if (getAge() < 18) {
-		cout << "  Sorry, under 18 can't host journeys.\n";
-		return;
-	}
 
 	Menu m;
 
@@ -279,18 +275,18 @@ void Registered::hostJourney() {
 	cout << "Aproximate price of trip: ";
 	cin >> price;
 
-	addBalance(price);
+	modifyBalance(price);
 
-	/*
-	Route r(Session::instance()->username, m.journeyMenu()); //Creating route with all the districts the user will go through
+	//TODO: IMPLEMENTAR O INPUT DECENTE DA DATA, COM AUTOCOMPLETE DE ":" E "/".
+	//ASSUMINDO QUE AQUI OS ARGUMENTOS SÃO FORMATADOS PARA COMPACT DATE.
+	//FUNÇÃO QUE TRANSFORMA STARTINGTIME E DESTTIME EM COMPACTDATES.
+	
+	/*unsigned long long startingTC, destTC;
+	
+	Date departure(startingTC);
+	Date arrival(destTC);
 
-
-	for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
-		if (Session::instance()->registered.at(i).getUsername() == Session::instance()->username) {
-			Session::instance()->registered.at(i).addTrip(r);
-			break;
-		}
-	}
+	Route r(Session::instance()->username, departure, arrival, m.journeyMenu());
 	*/
 	return;
 }
@@ -388,7 +384,7 @@ void Registered::removeVehicle() {
 	}
 	return;
 }
-void Registered::addBalance(float price) {
+void Registered::modifyBalance(float price) {
 	balance += price;
 	//TODO: taxa 5, fator 1.5.
 }

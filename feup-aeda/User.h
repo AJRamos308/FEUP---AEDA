@@ -44,7 +44,7 @@ public:
 	void removeVehicle();
 	void changePassword();
 
-	void addBalance(float price);
+	void modifyBalance(float price);
 	void extractPayment();
 	float payTrip(float price);
 };
