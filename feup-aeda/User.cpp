@@ -66,7 +66,7 @@ void User::joinJourney() {
 					if (currentTime.getCompactDate() <= activeRoutes.at(i).getStartingTime().getCompactDate()) {
 						for (size_t l = 0; l < Session::instance()->registered.size(); l++) {
 							if (Session::instance()->registered.at(j).getUsername() == activeRoutes.at(i).getHost()) {
-								Session::instance()->registered.at(j).addBalance(payTrip(activeRoutes.at(i).getPrice());
+								Session::instance()->registered.at(j).addBalance(payTrip(activeRoutes.at(i).getPrice()));
 							}
 						}
 						matches++; //Dá match.
