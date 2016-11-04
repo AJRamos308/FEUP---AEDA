@@ -256,6 +256,7 @@ void Session::login() {
 		}
 	}
 	this->username = username;
+	Session::instance()->setAdmin();
 	cout << "\n  Login successful!\n"; Sleep(1000);
 
 	return;
@@ -414,4 +415,11 @@ string Session::passwordMaker() {
 		}
 	}
 	return password1;
+}
+
+void Session::setAdmin() {
+	admin = true;
+}
+bool Session::getAdmin() {
+	return admin;
 }

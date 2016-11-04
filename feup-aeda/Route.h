@@ -22,4 +22,5 @@ public:
 	void switchActive();
 	Date getStartingTime();
 	Date getEndingTime();
+	string getHost();
 };
