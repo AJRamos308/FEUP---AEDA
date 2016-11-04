@@ -262,32 +262,91 @@ void User::joinJourney() {
 }
 
 void Registered::hostJourney() {
-	string startingTime, destTime;
+	bool ValidDate = false;
 	float price;
-
 	Menu m;
+	int startHour, startMin, endHour, endMin;
+	bool validStart = false, validEnd = false;
+	char c;
 
-	cout << "Time your trip begins: ";
-	cin >> startingTime;
-	cout << "Approximate time you reach your destination: ";
-	cin >> destTime;
+	while (!validStart) {
+		cout << "  Please enter your destination travel start time (HH:MM): ";
+		cin >> startHour;
+		if ((startHour > -1) && (startHour < 24)) {
+			cin >> c;
+			if ((c == ':')) {
+				cin >> startMin;
+				cin.clear();
+				cin.ignore(1000, '\n');
+				if ((startMin > -1) && (startMin < 60))
+					validStart = true;
+				else {
+					cout << "\a\n  Invalid start time!\n\n";
+				}
+			}
+			else {
+				cout << "\a\n  Invalid start time!\n\n";
+			}
+		}
+		else {
+			cout << "\a\n  Invalid start time!\n\n";
+		}
+	}
 
-	cout << "Aproximate price of trip: ";
+	while (!validEnd) {
+		cout << "  Please enter your destination travel start time (HH:MM): ";
+		cin >> endHour;
+		if ((endHour > -1) && (endHour < 24)) {
+			cin >> c;
+			if ((c == ':')) {
+				cin >> endMin;
+				cin.clear();
+				cin.ignore(1000, '\n');
+				if ((endMin > -1) && (endMin < 60))
+					validEnd = true;
+				else {
+					cout << "\a\n  Invalid end time!\n\n";
+				}
+			}
+			else {
+				cout << "\a\n  Invalid end time!\n\n";
+			}
+		}
+		else {
+			cout << "\a\n  Invalid end time!\n\n";
+		}
+	}
+
+	int total_mins2 = (endHour * 60) + (endMin), total_mins1 = (startHour * 60) + (startMin);
+	int hourdif = ((total_mins2 - total_mins1) / 60.00), mindif = remainder((total_mins2 - total_mins1), 60);
+	cout << endl;
+	ostringstream start, end;
+	cout << "  Start time : " << setw(2) << setfill('0') << startHour << ":" << setw(2) << setfill('0') << startMin << " , Arrival time : " << setw(2) << setfill('0') << endHour << ":" << setw(2) << setfill('0') << endMin << ". " << endl; 
+	start << setw(2) << setfill('0') << startHour << setw(2) << setfill('0') << startMin;
+	end << setw(2) << setfill('0') << endHour << setw(2) << setfill('0') << endMin;
+	if (hourdif < 0)
+		hourdif = 24 + hourdif;
+	if (hourdif == 1 && mindif == 1)
+		cout << "  Travel time : " << hourdif << " hour and " << mindif << " minute" << endl;
+	if (hourdif == 1 && mindif != 1)
+		cout << "  Travel time : " << hourdif << " hour and " << mindif << " minutes" << endl;
+	if (hourdif != 1 && mindif == 1)
+		cout << "  Travel time : " << hourdif << " hours and " << mindif << " minute" << endl;
+	if (hourdif != 1 && mindif != 1)
+		cout << "  Travel time : " << hourdif << " hours and " << mindif << " minutes" << endl;
+
+	cout << "  Aproximate price of trip: ";
 	cin >> price;
 
 	modifyBalance(price);
-
-	//TODO: IMPLEMENTAR O INPUT DECENTE DA DATA, COM AUTOCOMPLETE DE ":" E "/".
-	//ASSUMINDO QUE AQUI OS ARGUMENTOS SÃO FORMATADOS PARA COMPACT DATE.
-	//FUNÇÃO QUE TRANSFORMA STARTINGTIME E DESTTIME EM COMPACTDATES.
 	
-	/*unsigned long long startingTC, destTC;
-	
+	//TODO: Perguntar dia, mes, ano do start
+	/*
 	Date departure(startingTC);
 	Date arrival(destTC);
 
-	Route r(Session::instance()->username, departure, arrival, m.journeyMenu());
-	*/
+	Route r(Session::instance()->username, departure, arrival, m.journeyMenu());*/
+	
 	return;
 }
 

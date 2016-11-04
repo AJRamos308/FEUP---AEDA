@@ -4,6 +4,13 @@
 #include <fstream>
 #include "WINDOWS.H"
 #include <string>
+#include <iostream>
+#include <conio.h>
+#include <stdlib.h>
+#include <iomanip>
+#include <Windows.h>
+#include <sstream>
+#include <math.h>
 
 using namespace std;
 
