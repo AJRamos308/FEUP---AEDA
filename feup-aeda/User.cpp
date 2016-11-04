@@ -263,6 +263,7 @@ void User::joinJourney() {
 
 void Registered::hostJourney() {
 	string startingTime, destTime;
+	float price;
 	if (getAge() < 18) {
 		cout << "  Sorry, under 18 can't host journeys.\n";
 		return;
@@ -274,6 +275,12 @@ void Registered::hostJourney() {
 	cin >> startingTime;
 	cout << "Approximate time you reach your destination: ";
 	cin >> destTime;
+
+	cout << "Aproximate price of trip: ";
+	cin >> price;
+
+	addBalance(price);
+
 	//TODO: handle a time.
 
 	/*
@@ -383,10 +390,33 @@ void Registered::removeVehicle() {
 	}
 	return;
 }
-void Registered::changeBalance(float price) {
+void Registered::addBalance(float price) {
 	balance += price;
 	//TODO: taxa 5, fator 1.5.
 }
+void Registered::extractPayment() { //So o admin tem acesso
+	for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
+		if (Session::instance()->registered.at(i).balance < 5)
+			blocked = true;
+		Session::instance()->registered.at(i).balance -= 5;
+		cout << "Monthly payment withdrawn!";
+	}
+}
+
+float User::payTrip(float price) {
+	return price;
+}
+
+float Registered::payTrip(float price) {
+	balance -= price;
+	return price;
+}
+
+float Guest::payTrip(float price) {
+	return 1.5*price;
+}
+
+
 void Registered::changePassword() {
 	string pass, newpass, newpass2;
 	bool changed = false;
