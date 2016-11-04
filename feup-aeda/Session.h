@@ -9,7 +9,7 @@
 class Session {
 private:
 	static Session* singleton_instance;
-	bool admin = false;
+
 public:
 	static Session* instance();
 	
@@ -21,8 +21,7 @@ public:
 	vector<Registered> registered;
 	vector<string> districts;
 	string username;
-	void setAdmin();
-	bool getAdmin();
+
 	static void logout();
 	
 	bool importInfo();

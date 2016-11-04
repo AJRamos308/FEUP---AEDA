@@ -20,10 +20,7 @@ void Menu::manager() {
 		}
 		if (currentMenu == 12) {
 			Session::instance()->login();
-			if (Session::instance()->getAdmin())
-				currentMenu = 50;
-			else
-				currentMenu = 20;
+			currentMenu = 20;
 			continue;
 		}
 		if (currentMenu == 13) {

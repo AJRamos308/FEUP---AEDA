@@ -30,6 +30,3 @@ Date Route::getStartingTime() {
 Date Route::getEndingTime() {
 	return endingTime;
 }
-string Route::getHost() {
-	return host;
-}

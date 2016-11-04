@@ -13,7 +13,6 @@ protected:
 public:
 	User();
 	void joinJourney();
-	virtual float payTrip(float price);
 };
 
 class Registered : public User{
@@ -21,7 +20,7 @@ private:
 	string name, password;
 	unsigned int age;
 	float balance;
-	bool blocked;
+
 	vector<Vehicle> garage;
 	vector<Route> allTrips; //vector with all registered trips.
 	vector<Registered> buddies;
@@ -44,13 +43,11 @@ public:
 	void removeVehicle();
 	void changePassword();
 
-	void addBalance(float price);
-	void extractPayment();
-	float payTrip(float price);
+	void changeBalance(float price);
+
 };
 
 class Guest : public User{
 public:
 	Guest(string username);
-	float payTrip(float price);
 };
