@@ -1,5 +1,7 @@
 #include "Route.h"
 
+Route::Route() {
+}
 Route::Route(string host, Date startingTime, Date endingTime, vector<string> stops) {
 	this->host = host;
 	this->startingTime = startingTime;
@@ -13,16 +15,11 @@ float Route::getPrice() {
 vector<string>Route::getStops() {
 	return stops;
 }
+string Route::getHost() {
+	return host;
+}
 bool Route::getActive() {
 	return active;
-}
-void Route::switchActive() {
-	if (active) {
-		active = false;
-		return;
-	}
-	active = true;
-	return;
 }
 Date Route::getStartingTime() {
 	return startingTime;
@@ -30,6 +27,12 @@ Date Route::getStartingTime() {
 Date Route::getEndingTime() {
 	return endingTime;
 }
-string Route::getHost() {
-	return host;
+
+void Route::switchActive() {
+	if (active) {
+		active = false;
+		return;
+	}
+	active = true;
+	return;
 }
