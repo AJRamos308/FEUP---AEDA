@@ -44,7 +44,7 @@ void User::joinJourney() {
 	Date currentTime; //TODO: função que extrai data do computador.
 
 	vector<string> selectedRoute = m.journeyMenu();
-	vector<Route> activeRoutes, perfectRoutes, similarRoutes, separateRoutes;
+	vector<Route> activeRoutes, perfectRoutes, similarRoutes, separateRoutes, activeRoutesCopy;
 
 	//Carrega o vetor activeRoutes com as viagens ativas.
 	for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
@@ -54,6 +54,7 @@ void User::joinJourney() {
 			}
 		}
 	}
+	activeRoutesCopy = activeRoutes;
 	//Para viagens com match perfeita (PORTO/LISBOA/FARO, PORTO/COIMBRA/LISBOA/FARO, AVEIRO/PORTO/LISBOA/FARO).
 	for (size_t i = 0; i < activeRoutes.size(); i++) {
 		
@@ -62,8 +63,14 @@ void User::joinJourney() {
 		for (size_t j = 0; j < activeRoutes.at(i).getStops().size(); j++) { // Vai a uma rota especifica ver cada paragem.
 			for (size_t k = 0; k < selectedRoute.size(); k++) { // Vai percorrer cada elemento da rota escolhida pelo utilizador.
 				if (selectedRoute.at(k) == activeRoutes.at(i).getStops().at(j)) { //Se o elemento da rota escolhida for igual ao da rota ativa.
-					if (currentTime.getCompactDate() <= activeRoutes.at(i).getStartingTime().getCompactDate())
+					if (currentTime.getCompactDate() <= activeRoutes.at(i).getStartingTime().getCompactDate()) {
+						for (size_t l = 0; l < Session::instance()->registered.size(); l++) {
+							if (Session::instance()->registered.at(j).getUsername() == activeRoutes.at(i).getHost()) {
+								Session::instance()->registered.at(j).addBalance(payTrip(activeRoutes.at(i).getPrice());
+							}
+						}
 						matches++; //Dá match.
+					}
 				}
 			}
 		}
@@ -135,6 +142,8 @@ void User::joinJourney() {
 			i--;
 		}
 	}
+
+	m.joinJourneyMenu(activeRoutesCopy, perfectRoutes, similarRoutes);
 
 	/* 
 	GOODNIGHT SWEET PRINCE

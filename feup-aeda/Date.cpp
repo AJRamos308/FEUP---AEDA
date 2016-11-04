@@ -9,6 +9,7 @@ Date::Date(unsigned int hour, unsigned int minutes, unsigned int day, unsigned i
 	this->month = month;
 	this->year = year;
 	compactDate = year * 10 ^ 8 + month * 10 ^ 6 + day * 10 ^ 4 + hour * 10 ^ 2 + minutes;
+	formattedDate = to_string(day) + "/" + to_string(month) + "/" + to_string(year) + " " + to_string(hour) + ":" + to_string(minutes);
 }
 Date::Date(unsigned long long compactDate) {
 	this->compactDate = compactDate;
@@ -20,6 +21,8 @@ Date::Date(unsigned long long compactDate) {
 	day = stoi(compactString.substr(6, 2));
 	hour = stoi(compactString.substr(8, 2));
 	minutes = stoi(compactString.substr(10, 2));
+
+	formattedDate = to_string(day) + "/" + to_string(month) + "/" + to_string(year) + " " + to_string(hour) + ":" + to_string(minutes);
 }
 unsigned int Date::getHour() {
 	return hour;

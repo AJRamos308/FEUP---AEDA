@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <string>
+#include "Route.h"
 using namespace std;
 
 class Menu {
@@ -12,7 +13,7 @@ public:
 	void menu2();
 	void menu3();
 	void menu4();
-	void joinJourneyMenu();
+	Route joinJourneyMenu(vector<Route> activeRoutesCopy, vector<Route> perfectRoutes, vector<Route> similarRoutes);
 	vector<string> journeyMenu();
 	void deleteVehicleMenu();
 };

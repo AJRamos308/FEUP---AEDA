@@ -7,6 +7,7 @@ class Date {
 private:
 	unsigned int hour, minutes, day, month, year;
 	unsigned long long compactDate;
+	string formattedDate;
 public:
 	Date();
 	Date(unsigned int hour, unsigned int minutes, unsigned int day, unsigned int month, unsigned int year);
@@ -17,5 +18,6 @@ public:
 	unsigned int getMonth();
 	unsigned int getYear();
 	unsigned long long getCompactDate();
+	string getFormattedDate();
 };
 

@@ -396,8 +396,119 @@ void Menu::menu4() {
 	return;
 }
 
-void Menu::joinJourneyMenu() {
+Route Menu::joinJourneyMenu(vector<Route> activeRoutes, vector<Route> perfectRoutes, vector<Route> similarRoutes) {
+	u.hideCursor();
 
+	bool menuUpdate = true;
+	size_t selectedIndex1 = 0, selectedIndex2 = -1;
+	size_t userIndex;
+	Route selectedRoute;
+
+	//Encontra a posição do usuário no vetor de Registered
+	for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
+		if (Session::instance()->registered.at(i).getUsername() == Session::instance()->username) {
+			userIndex = i;
+		}
+	}
+
+	while (GetAsyncKeyState(VK_RETURN)) {}
+
+	while (!(GetAsyncKeyState(VK_RETURN))) {
+		if (menuUpdate) {
+			u.clearScreen();
+			u.showLogo();
+
+			cout << "PERFECT MATCHES: ";
+
+			for (size_t i = 0; i < perfectRoutes.size(); i++) {
+				if (i == selectedIndex1) {
+					selectedRoute = perfectRoutes.at(i);
+					u.whiteBG();
+				}
+				cout << "HOSTED BY: " << perfectRoutes.at(i).getHost() << endl;
+				cout << "DEPARTURE: " << perfectRoutes.at(i).getStartingTime().getFormattedDate() << endl;
+				cout << "ARRIVAL: " << perfectRoutes.at(i).getEndingTime().getFormattedDate() << endl;
+				cout << "STOPS: ";
+				
+				for (size_t j = 0; j < perfectRoutes.at(i).getStops().size(); j++) {
+					if (j == perfectRoutes.at(i).getStops().size() - 1) {
+						cout << perfectRoutes.at(i).getStops().at(j) << endl;
+					}
+					cout << perfectRoutes.at(i).getStops().at(j) << " -> ";
+				}
+				u.blackBG();
+			}
+			cout << "SIMILAR MATCHES: ";
+			for (size_t i = 0; i < similarRoutes.size(); i++) {
+				if (i == selectedIndex2) {
+					selectedRoute = similarRoutes.at(i);
+					u.whiteBG();
+				}
+				cout << "HOSTED BY: " << similarRoutes.at(i).getHost() << endl;
+				cout << "DEPARTURE: " << similarRoutes.at(i).getStartingTime().getFormattedDate() << endl;
+				cout << "ARRIVAL: " << similarRoutes.at(i).getEndingTime().getFormattedDate() << endl;
+				cout << "STOPS: ";
+
+				for (size_t j = 0; j < similarRoutes.at(i).getStops().size(); j++) {
+					if (j == similarRoutes.at(i).getStops().size() - 1) {
+						cout << similarRoutes.at(i).getStops().at(j) << endl;
+					}
+					cout << similarRoutes.at(i).getStops().at(j) << " -> ";
+				}
+				u.blackBG();
+			}
+			menuUpdate = false;
+		}
+		if (GetAsyncKeyState(VK_RETURN)) {
+			return selectedRoute;
+		}
+		else if (GetAsyncKeyState(VK_DOWN)) {
+			while (GetAsyncKeyState(VK_DOWN)) {}
+
+			if (selectedIndex2 == -1) {
+				if (selectedIndex1 != perfectRoutes.size() - 1) {
+					menuUpdate = true;
+					selectedIndex1 += 1;
+				}
+				else {
+					selectedIndex1 = -1;
+					menuUpdate = true;
+					selectedIndex2 = 0;
+				}
+				continue;
+			}
+			if (selectedIndex1 == -1) {
+				if (selectedIndex2 != similarRoutes.size() - 1) {
+					menuUpdate = true;
+					selectedIndex1 += 1;
+				}
+			}
+		}
+		else if (GetAsyncKeyState(VK_UP)) {
+			while (GetAsyncKeyState(VK_UP)) {}
+
+			if (selectedIndex2 == -1) {
+				if (selectedIndex1 != 0) {
+					menuUpdate = true;
+					selectedIndex1 -= 1;
+				}
+				continue;
+			}
+			if (selectedIndex1 == -1) {
+				if (selectedIndex2 != 0) {
+					menuUpdate = true;
+					selectedIndex2 += 1;
+				}
+				else {
+					menuUpdate = true;
+					selectedIndex1 = 2;
+					selectedIndex2 = -1;
+				}
+			}
+		}
+	}
+	u.showCursor();
+	cin.ignore(50, '\n');
 }
 
 vector<string> Menu::journeyMenu() {
