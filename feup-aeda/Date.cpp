@@ -42,3 +42,6 @@ unsigned int Date::getYear() {
 unsigned long long Date::getCompactDate() {
 	return compactDate;
 }
+string Date::getFormattedDate() {
+	return formattedDate;
+}
