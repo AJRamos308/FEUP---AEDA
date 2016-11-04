@@ -17,7 +17,7 @@ private:
 public:
 	Route();
 	Route(string host, Date startingTime, Date endingTime, vector<string> stops);
-	
+
 	float getPrice();
 	vector<string> getStops();
 	string getHost();
