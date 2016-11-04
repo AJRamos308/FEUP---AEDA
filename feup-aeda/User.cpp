@@ -281,8 +281,6 @@ void Registered::hostJourney() {
 
 	addBalance(price);
 
-	//TODO: handle a time.
-
 	/*
 	Route r(Session::instance()->username, m.journeyMenu()); //Creating route with all the districts the user will go through
 

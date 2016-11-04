@@ -256,7 +256,9 @@ void Session::login() {
 		}
 	}
 	this->username = username;
-	Session::instance()->setAdmin();
+	if (username == "admin") {
+		Session::instance()->setAdmin();
+	}
 	cout << "\n  Login successful!\n"; Sleep(1000);
 
 	return;
