@@ -4,6 +4,7 @@
 #include "Menu.h"
 
 Utilities u1;
+Menu m1;
 
 User::User() {
 }
@@ -36,9 +37,6 @@ void Registered::addBuddyToVec(Registered r) {
 }
 void Registered::addTripToVec(Route r) {
 	allTrips.push_back(r);
-}
-void Registered::addTrip(Route trip) {
-	allTrips.push_back(trip);
 }
 
 void User::joinJourney() {
@@ -316,8 +314,15 @@ void Registered::hostJourney() {
 			displayOrder = -1;
 		}
 	}
+	//TODO: ERROR HANDLING NO INPUT DA DATE.
 	Sleep(1000);
-	
+
+	Date d1(startingDate);
+	Date d2(endingDate);
+
+	Route r(Session::instance()->username, d1, d2, m1.journeyMenu());
+	addTripToVec(r);
+
 	/*
 	bool ValidDate = false;
 	float price;

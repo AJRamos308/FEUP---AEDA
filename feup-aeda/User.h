@@ -36,7 +36,6 @@ public:
 	vector<Route> getAllTrips();
 	
 	void hostJourney();
-	void addTrip(Route trip);
 	void addBuddyToVec(Registered r);
 	void addTripToVec(Route r);
 	void addBuddy();
