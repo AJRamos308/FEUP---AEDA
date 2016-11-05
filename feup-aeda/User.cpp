@@ -3,6 +3,8 @@
 #include "Utilities.h"
 #include "Menu.h"
 
+Utilities u1;
+
 User::User() {
 }
 Registered::Registered(string username, string password, string name, unsigned int age) {
@@ -262,6 +264,61 @@ void User::joinJourney() {
 }
 
 void Registered::hostJourney() {
+	
+	u1.clearScreen();
+	u1.showLogo();
+
+	char token, date[12];
+	unsigned long long startingDate, endingDate;
+	int displayOrder = 0;
+
+	while (displayOrder != -1) {
+
+		if (displayOrder == 0) {
+			cout << "  Starting at: ";
+		}
+		else if (displayOrder == 1) {
+			cout << "\n  Ending at: ";
+		}
+
+		for (size_t i = 0; true;) {
+			token = _getch();
+
+			if (token >= '0' && token <= '9') {
+				date[i] = token;
+				i++;
+				cout << token;
+			}
+			if (token == '\b'&& i >= 1) {
+				cout << "\b \b";
+				i--;
+			}
+
+			if (i == 4 || i == 6) {
+				cout << "/";
+			}
+			else if (i == 8) {
+				cout << " ";
+			}
+			else if (i == 10) {
+				cout << ":";
+			}
+			else if (i == 12) {
+				break;
+			}
+		}
+		if (displayOrder == 0) {
+			startingDate = atoll(date);
+			displayOrder++;
+		}
+		else if (displayOrder == 1) {
+			endingDate = atoll(date);
+			displayOrder = -1;
+		}
+	}
+	Sleep(1000);
+	
+	/*
 	bool ValidDate = false;
 	float price;
 	Menu m;
@@ -346,7 +403,7 @@ void Registered::hostJourney() {
 	Date arrival(destTC);
 
 	Route r(Session::instance()->username, departure, arrival, m.journeyMenu());*/
-	
+
 	return;
 }
 
