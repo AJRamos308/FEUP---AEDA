@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include "Date.h"
+#include "Vehicle.h"
 using namespace std;
 
 class Route {
@@ -14,6 +15,7 @@ private:
 	bool active;
 	Date startingTime;
 	Date endingTime;
+	Vehicle car;
 public:
 	Route();
 	Route(string host, Date startingTime, Date endingTime, vector<string> stops);
@@ -24,6 +26,7 @@ public:
 	bool getActive();
 	Date getStartingTime();
 	Date getEndingTime();
+	Vehicle getCar();
 
 	void switchActive();
 };

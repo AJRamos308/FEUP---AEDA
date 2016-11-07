@@ -27,6 +27,9 @@ Date Route::getStartingTime() {
 Date Route::getEndingTime() {
 	return endingTime;
 }
+Vehicle Route::getCar() {
+	return car;
+}
 
 void Route::switchActive() {
 	if (active) {

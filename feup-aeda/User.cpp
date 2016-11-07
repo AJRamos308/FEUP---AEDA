@@ -57,20 +57,20 @@ void User::joinJourney() {
 	activeRoutesCopy = activeRoutes;
 	//Para viagens com match perfeita (PORTO/LISBOA/FARO, PORTO/COIMBRA/LISBOA/FARO, AVEIRO/PORTO/LISBOA/FARO).
 	for (size_t i = 0; i < activeRoutes.size(); i++) {
-		
+
 		unsigned int matches = 0;
 
 		for (size_t j = 0; j < activeRoutes.at(i).getStops().size(); j++) { // Vai a uma rota especifica ver cada paragem.
 			for (size_t k = 0; k < selectedRoute.size(); k++) { // Vai percorrer cada elemento da rota escolhida pelo utilizador.
 				if (selectedRoute.at(k) == activeRoutes.at(i).getStops().at(j)) { //Se o elemento da rota escolhida for igual ao da rota ativa.
-					if (currentTime.getCompactDate() <= activeRoutes.at(i).getStartingTime().getCompactDate()) {
-						for (size_t l = 0; l < Session::instance()->registered.size(); l++) {
-							if (Session::instance()->registered.at(j).getUsername() == activeRoutes.at(i).getHost()) {
-								Session::instance()->registered.at(j).modifyBalance(payTrip(activeRoutes.at(i).getPrice()));
-							}
+					//if (currentTime.getCompactDate() <= activeRoutes.at(i).getStartingTime().getCompactDate()) {
+					for (size_t l = 0; l < Session::instance()->registered.size(); l++) {
+						if (Session::instance()->registered.at(j).getUsername() == activeRoutes.at(i).getHost()) {
+							Session::instance()->registered.at(j).modifyBalance(payTrip(activeRoutes.at(i).getPrice()));
 						}
-						matches++; //Dá match.
+						//}
 					}
+					matches++; //Dá match.
 				}
 			}
 		}
@@ -89,9 +89,9 @@ void User::joinJourney() {
 
 		for (size_t j = 0; j < activeRoutes.at(i).getStops().size(); j++) { // Vai a uma rota especifica ver cada paragem
 			if (selectedRoute.at(0) == activeRoutes.at(i).getStops().at(j)) { //Procura o primeiro elemento da rota selecionada nas paragens das active routes
-				if (currentTime.getCompactDate() <= activeRoutes.at(i).getStartingTime().getCompactDate()) {
+				//if (currentTime.getCompactDate() <= activeRoutes.at(i).getStartingTime().getCompactDate()) {
 					foundStart = true;
-				}
+				//}
 			}
 			if (selectedRoute.at(selectedRoute.size() - 1) == activeRoutes.at(i).getStops().at(j)) { //Same que antes so que com o ultimo
 				foundDest = true;
@@ -105,12 +105,11 @@ void User::joinJourney() {
 	}
 	//Verifica ordenação das perfectRoutes.
 	for (size_t i = 0; i < perfectRoutes.size(); i++) {
-
 		size_t orderPos = 0;
 		bool outOfOrder = false;
 
-		for (size_t j = 0; selectedRoute.size(); j++) {
-			for (size_t k = 0; perfectRoutes.at(i).getStops().size(); k++) {
+		for (size_t j = 0; j < selectedRoute.size(); j++) {
+			for (size_t k = 0; k < perfectRoutes.at(i).getStops().size(); k++) {
 				if (selectedRoute.at(j) == perfectRoutes.at(i).getStops().at(k)) {
 					if (orderPos > k) { //Ordem incorreta.
 						outOfOrder = true;
@@ -128,7 +127,7 @@ void User::joinJourney() {
 	//Verifica ordenação das similarRoutes.
 	for (unsigned int i = 0; i < similarRoutes.size(); i++) {
 		
-		int indexStart, indexEnd;
+		int indexStart = 0, indexEnd = 0;
 
 		for (unsigned int j = 0; j < selectedRoute.size(); j++) {
 			if (similarRoutes.at(i).getStops().at(0) == selectedRoute.at(j)) {
@@ -267,7 +266,7 @@ void Registered::hostJourney() {
 	u1.showLogo();
 
 	char token, date[12];
-	unsigned long long startingDate, endingDate;
+	string startingDate, endingDate;
 	int displayOrder = 0;
 
 	while (displayOrder != -1) {
@@ -287,7 +286,7 @@ void Registered::hostJourney() {
 				i++;
 				cout << token;
 			}
-			if (token == '\b'&& i >= 1) {
+			if (token == '\b' && i >= 1) {
 				cout << "\b \b";
 				i--;
 			}
@@ -306,19 +305,20 @@ void Registered::hostJourney() {
 			}
 		}
 		if (displayOrder == 0) {
-			startingDate = atoll(date);
+			startingDate = date;
 			displayOrder++;
 		}
 		else if (displayOrder == 1) {
-			endingDate = atoll(date);
+			endingDate = date;
 			displayOrder = -1;
 		}
 	}
+	
 	//TODO: ERROR HANDLING NO INPUT DA DATE.
 	Sleep(1000);
 
-	Date d1(startingDate);
-	Date d2(endingDate);
+	Date d1(stoull(startingDate));
+	Date d2(stoull(endingDate));
 
 	Route r(Session::instance()->username, d1, d2, m1.journeyMenu());
 	addTripToVec(r);
