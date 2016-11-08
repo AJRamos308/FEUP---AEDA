@@ -28,7 +28,7 @@ void Menu::manager() {
 		}
 		if (currentMenu == 13) {
 			Session::instance()->loginAsGuest();
-			currentMenu = 30; //TODO: guest menu
+			currentMenu = 30;
 			continue;
 		}
 		if (currentMenu == 14) {
@@ -76,8 +76,8 @@ void Menu::manager() {
 			continue;
 		}
 		if (currentMenu == 31) {
-			/*Guest g(Session::instance()->username);
-			g.joinJourney();*/
+			Guest g;
+			g.joinJourney();
 
 			currentMenu = 30;
 			continue;

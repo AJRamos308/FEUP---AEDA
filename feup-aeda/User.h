@@ -50,6 +50,7 @@ public:
 
 class Guest : public User{
 public:
+	Guest();
 	Guest(string username);
 	float payTrip(float price);
 };
