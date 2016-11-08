@@ -1,5 +1,6 @@
 #include "Route.h"
 
+/*CONSTRUCTORS*/
 Route::Route() {
 }
 Route::Route(string host, Date startingTime, Date endingTime, vector<string> stops) {
@@ -9,6 +10,8 @@ Route::Route(string host, Date startingTime, Date endingTime, vector<string> sto
 	this->stops = stops;
 	active = true;
 }
+
+/*GET*/
 float Route::getPrice() {
 	return price;
 }
@@ -31,6 +34,7 @@ Vehicle Route::getCar() {
 	return car;
 }
 
+/*FUNCTIONS*/
 void Route::switchActive() {
 	if (active) {
 		active = false;

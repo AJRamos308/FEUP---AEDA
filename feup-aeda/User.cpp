@@ -142,7 +142,8 @@ void User::joinJourney() {
 		}
 	}
 
-	m.joinJourneyMenu(activeRoutesCopy, perfectRoutes, similarRoutes);
+	Route r = m.joinJourneyMenu(activeRoutesCopy, perfectRoutes, similarRoutes);
+
 
 	/* 
 	GOODNIGHT SWEET PRINCE
@@ -256,8 +257,6 @@ void User::joinJourney() {
 	}
 	cout << "Ordena terceiro\n";
 	*/
-
-	Sleep(10000);
 }
 
 void Registered::hostJourney() {

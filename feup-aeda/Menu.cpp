@@ -422,48 +422,47 @@ Route Menu::joinJourneyMenu(vector<Route> activeRoutes, vector<Route> perfectRou
 			u.clearScreen();
 			u.showLogo();
 
-			cout << "PERFECT MATCHES\n";
-
-			for (size_t i = 0; i < perfectRoutes.size(); i++) {
-				if (i == selectedIndex1) {
-					selectedRoute = perfectRoutes.at(i);
-					u.whiteBG();
-				}
-				cout << "  HOST: " << setw(22) << left << perfectRoutes.at(i).getHost() << perfectRoutes.at(i).getStartingTime().getFormattedDate() << endl;
-				cout << setw(30) << left << "  CAR: Ford Fiesta (3/4)" << perfectRoutes.at(i).getEndingTime().getFormattedDate() << endl;
-				cout << "  STOPS: ";
-
-				for (size_t j = 0; j < perfectRoutes.at(i).getStops().size(); j++) {
-					if (j == perfectRoutes.at(i).getStops().size() - 1) {
-						cout << perfectRoutes.at(i).getStops().at(j) << endl;
-						break;
+			if (perfectRoutes.size() != 0) {
+				cout << "PERFECT MATCHES\n";
+				for (size_t i = 0; i < perfectRoutes.size(); i++) {
+					if (i == selectedIndex1) {
+						selectedRoute = perfectRoutes.at(i);
+						u.whiteBG();
 					}
-					cout << perfectRoutes.at(i).getStops().at(j) << " -> ";
-				}
-				u.blackBG();
-			}
-			if (similarRoutes.size() == 0) {
-				menuUpdate = false;
-				continue;
-			}
-			cout << "\n\nSIMILAR MATCHES\n";
-			for (size_t i = 0; i < similarRoutes.size(); i++) {
-				if (i == selectedIndex2) {
-					selectedRoute = similarRoutes.at(i);
-					u.whiteBG();
-				}
-				cout << "  HOST: " << setw(22) << left << similarRoutes.at(i).getHost() << similarRoutes.at(i).getStartingTime().getFormattedDate() << endl;
-				cout << setw(30) << left << "  CAR: Ford Fiesta (3/4)" << similarRoutes.at(i).getEndingTime().getFormattedDate() << endl;
-				cout << "  STOPS: ";
+					cout << "  HOST: " << setw(22) << left << perfectRoutes.at(i).getHost() << perfectRoutes.at(i).getStartingTime().getFormattedDate() << endl;
+					cout << setw(30) << left << "  CAR: Ford Fiesta (3/4)" << perfectRoutes.at(i).getEndingTime().getFormattedDate() << endl;
+					cout << "  STOPS: ";
 
-				for (size_t j = 0; j < similarRoutes.at(i).getStops().size(); j++) {
-					if (j == similarRoutes.at(i).getStops().size() - 1) {
-						cout << similarRoutes.at(i).getStops().at(j) << endl;
-						break;
+					for (size_t j = 0; j < perfectRoutes.at(i).getStops().size(); j++) {
+						if (j == perfectRoutes.at(i).getStops().size() - 1) {
+							cout << perfectRoutes.at(i).getStops().at(j) << endl;
+							break;
+						}
+						cout << perfectRoutes.at(i).getStops().at(j) << " -> ";
 					}
-					cout << similarRoutes.at(i).getStops().at(j) << " -> ";
+					u.blackBG();
 				}
-				u.blackBG();
+			}
+			if (similarRoutes.size() != 0) {
+				cout << "\n\nSIMILAR MATCHES\n";
+				for (size_t i = 0; i < similarRoutes.size(); i++) {
+					if (i == selectedIndex2) {
+						selectedRoute = similarRoutes.at(i);
+						u.whiteBG();
+					}
+					cout << "  HOST: " << setw(22) << left << similarRoutes.at(i).getHost() << similarRoutes.at(i).getStartingTime().getFormattedDate() << endl;
+					cout << setw(30) << left << "  CAR: Ford Fiesta (3/4)" << similarRoutes.at(i).getEndingTime().getFormattedDate() << endl;
+					cout << "  STOPS: ";
+
+					for (size_t j = 0; j < similarRoutes.at(i).getStops().size(); j++) {
+						if (j == similarRoutes.at(i).getStops().size() - 1) {
+							cout << similarRoutes.at(i).getStops().at(j) << endl;
+							break;
+						}
+						cout << similarRoutes.at(i).getStops().at(j) << " -> ";
+					}
+					u.blackBG();
+				}
 			}
 			menuUpdate = false;
 		}
