@@ -20,7 +20,7 @@ public:
 	Date();
 	Date(unsigned int hour, unsigned int minutes, unsigned int day, unsigned int month, unsigned int year);
 	Date(unsigned long long compactDate);
-	bool Valid(int hour, int minutes, int day, int month, int year);
+	bool Valid();
 	unsigned int getHour();
 	unsigned int getMinutes();
 	unsigned int getDay();

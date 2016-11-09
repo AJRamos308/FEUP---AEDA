@@ -26,17 +26,17 @@ Date::Date(unsigned long long compactDate) {
 	formattedDate = to_string(day) + "/" + to_string(month) + "/" + to_string(year) + " " + to_string(hour) + ":" + to_string(minutes);
 }
 
-bool Date::Valid(int hour, int minutes, int day, int month, int year)
+bool Date::Valid()
 {
 	time_t tt = time(0);   // get time now
 	struct tm * now = localtime(&tt);
-	if ((year <= (now->tm_year + 1900)) & (1900 < year)){
+	if (year >= (now->tm_year + 1900)){
 		if (year == (now->tm_year + 1900))
 		{
-			if (month > now->tm_mon + 1)
+			if (month < now->tm_mon + 1)
 				return false;
 			if (month == now->tm_mon + 1)
-				if (day > now->tm_mday)
+				if (day < now->tm_mday)
 					return false;
 		}
 		if ((0 < month) & (month < 13))	{

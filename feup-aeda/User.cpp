@@ -184,6 +184,8 @@ void Registered::hostJourney() {
 	char token, date[12];
 	string startingDate, endingDate;
 	int displayOrder = 0;
+	Date d1;
+	Date d2;
 
 	while (displayOrder != -1) {
 
@@ -202,11 +204,11 @@ void Registered::hostJourney() {
 				i++;
 				cout << token;
 			}
-			if (token == '\b' && i >= 1) {
+			/*if (token == '\b' && i >= 1) {
 				cout << "\b \b";
 				i--;
 			}
-
+			*/
 			if (i == 4 || i == 6) {
 				cout << "/";
 			}
@@ -222,110 +224,28 @@ void Registered::hostJourney() {
 		}
 		if (displayOrder == 0) {
 			startingDate = date;
-			displayOrder++;
+			Date D(stoull(startingDate));
+			d1 = D;
+			if (d1.Valid()){
+				displayOrder++;
+			}
 		}
 		else if (displayOrder == 1) {
 			endingDate = date;
-			displayOrder = -1;
+			Date D(stoull(endingDate));
+			d1 = D;
+			if (d1.Valid()) {
+				displayOrder = -1;
+			}
 		}
 	}
 	size_t vehicleChosen = m1.chooseVehicle();
 
-	//TODO: ERROR HANDLING NO INPUT DA DATE.
 	Sleep(1000);
 
-	Date d1(stoull(startingDate));
-	Date d2(stoull(endingDate));
-
 	Route r(Session::instance()->username, d1, d2, m1.journeyMenu(), Session::instance()->registered.at(Session::instance()->userPos).getGarage().at(vehicleChosen));
-	addTripToVec(r);
-
-	/*
-	bool ValidDate = false;
-	float price;
-	Menu m;
-	int startHour, startMin, endHour, endMin;
-	bool validStart = false, validEnd = false;
-	char c;
-
-	while (!validStart) {
-		cout << "  Please enter your destination travel start time (HH:MM): ";
-		cin >> startHour;
-		if ((startHour > -1) && (startHour < 24)) {
-			cin >> c;
-			if ((c == ':')) {
-				cin >> startMin;
-				cin.clear();
-				cin.ignore(1000, '\n');
-				if ((startMin > -1) && (startMin < 60))
-					validStart = true;
-				else {
-					cout << "\a\n  Invalid start time!\n\n";
-				}
-			}
-			else {
-				cout << "\a\n  Invalid start time!\n\n";
-			}
-		}
-		else {
-			cout << "\a\n  Invalid start time!\n\n";
-		}
-	}
-
-	while (!validEnd) {
-		cout << "  Please enter your destination travel start time (HH:MM): ";
-		cin >> endHour;
-		if ((endHour > -1) && (endHour < 24)) {
-			cin >> c;
-			if ((c == ':')) {
-				cin >> endMin;
-				cin.clear();
-				cin.ignore(1000, '\n');
-				if ((endMin > -1) && (endMin < 60))
-					validEnd = true;
-				else {
-					cout << "\a\n  Invalid end time!\n\n";
-				}
-			}
-			else {
-				cout << "\a\n  Invalid end time!\n\n";
-			}
-		}
-		else {
-			cout << "\a\n  Invalid end time!\n\n";
-		}
-	}
-
-	int total_mins2 = (endHour * 60) + (endMin), total_mins1 = (startHour * 60) + (startMin);
-	int hourdif = ((total_mins2 - total_mins1) / 60.00), mindif = remainder((total_mins2 - total_mins1), 60);
-	cout << endl;
-	ostringstream start, end;
-	cout << "  Start time : " << setw(2) << setfill('0') << startHour << ":" << setw(2) << setfill('0') << startMin << " , Arrival time : " << setw(2) << setfill('0') << endHour << ":" << setw(2) << setfill('0') << endMin << ". " << endl; 
-	start << setw(2) << setfill('0') << startHour << setw(2) << setfill('0') << startMin;
-	end << setw(2) << setfill('0') << endHour << setw(2) << setfill('0') << endMin;
-	if (hourdif < 0)
-		hourdif = 24 + hourdif;
-	if (hourdif == 1 && mindif == 1)
-		cout << "  Travel time : " << hourdif << " hour and " << mindif << " minute" << endl;
-	if (hourdif == 1 && mindif != 1)
-		cout << "  Travel time : " << hourdif << " hour and " << mindif << " minutes" << endl;
-	if (hourdif != 1 && mindif == 1)
-		cout << "  Travel time : " << hourdif << " hours and " << mindif << " minute" << endl;
-	if (hourdif != 1 && mindif != 1)
-		cout << "  Travel time : " << hourdif << " hours and " << mindif << " minutes" << endl;
-
-	cout << "  Aproximate price of trip: ";
-	cin >> price;
-
-	modifyBalance(price);
 	
-	//TODO: Perguntar dia, mes, ano do start
-	/*
-	Date departure(startingTC);
-	Date arrival(destTC);
-
-	Route r(Session::instance()->username, departure, arrival, m.journeyMenu());*/
-
+	addTripToVec(r);
 	return;
 }
 
