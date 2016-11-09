@@ -25,6 +25,84 @@ Date::Date(unsigned long long compactDate) {
 
 	formattedDate = to_string(day) + "/" + to_string(month) + "/" + to_string(year) + " " + to_string(hour) + ":" + to_string(minutes);
 }
+
+bool Date::Valid(int hour, int minutes, int day, int month, int year)
+{
+	time_t tt = time(0);   // get time now
+	struct tm * now = localtime(&tt);
+	if ((year <= (now->tm_year + 1900)) & (1900 < year)){
+		if (year == (now->tm_year + 1900))
+		{
+			if (month > now->tm_mon + 1)
+				return false;
+			if (month == now->tm_mon + 1)
+				if (day > now->tm_mday)
+					return false;
+		}
+		if ((0 < month) & (month < 13))	{
+			if ((month == 1) || (month == 3) || (month == 5) || (month == 7) || (month == 8) || (month == 10) || (month == 12))	{
+				if ((0 < day) & (day < 32))	{ 
+					if ((-1 < hour) & (hour < 25))	{
+						if ((-1 < minutes) & (minutes < 61))
+							return true;
+						else
+							return false;
+					}
+					else
+						return false;
+				}
+				else
+					return false;
+			}
+			if (month == 2){
+				if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)){
+					if ((0 < day) & (day < 30))
+						if ((-1 < hour) & (hour < 25)){
+							if ((-1 < minutes) & (minutes < 61))
+								return true;
+							else
+								return false;
+						}
+						else
+							return false;
+					else
+						return false;
+				}
+				else if ((0 < day) & (day < 29)){
+					if ((-1 < hour) & (hour < 25)){
+						if ((-1 < minutes) & (minutes < 61))
+							return true;
+						else
+							return false;
+					}
+					else
+						return false;
+				}
+				else
+					return false;
+			}
+			else{
+				if ((0 < day) & (day < 31)){
+					if ((-1 < hour) & (hour < 25)){
+						if ((-1 < minutes) & (minutes < 61))
+							return true;
+						else
+							return false;
+					}
+					else
+						return false;
+				}
+				else
+					return false;
+			}
+		}
+		else
+			return false;
+	}
+	else
+		return false;
+}
+
 unsigned int Date::getHour() {
 	return hour;
 }
