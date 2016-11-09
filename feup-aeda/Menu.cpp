@@ -430,7 +430,9 @@ Route Menu::joinJourneyMenu(vector<Route> activeRoutes, vector<Route> perfectRou
 						u.whiteBG();
 					}
 					cout << "  HOST: " << setw(22) << left << perfectRoutes.at(i).getHost() << perfectRoutes.at(i).getStartingTime().getFormattedDate() << endl;
-					cout << setw(30) << left << "  CAR: Ford Fiesta (3/4)" << perfectRoutes.at(i).getEndingTime().getFormattedDate() << endl;
+					cout << setw(30) << left << perfectRoutes.at(i).getCar().getModel() << " [" << perfectRoutes.at(i).getCar().getLicensePlate() << "]  " <<
+							perfectRoutes.at(i).getCar().getEmptySeats() << "/" << perfectRoutes.at(i).getCar().getMaxSeats() << ")" <<
+							perfectRoutes.at(i).getEndingTime().getFormattedDate() << endl;
 					cout << "  STOPS: ";
 
 					for (size_t j = 0; j < perfectRoutes.at(i).getStops().size(); j++) {
@@ -451,7 +453,9 @@ Route Menu::joinJourneyMenu(vector<Route> activeRoutes, vector<Route> perfectRou
 						u.whiteBG();
 					}
 					cout << "  HOST: " << setw(22) << left << similarRoutes.at(i).getHost() << similarRoutes.at(i).getStartingTime().getFormattedDate() << endl;
-					cout << setw(30) << left << "  CAR: Ford Fiesta (3/4)" << similarRoutes.at(i).getEndingTime().getFormattedDate() << endl;
+					cout << setw(30) << left << similarRoutes.at(i).getCar().getModel() << " [" << similarRoutes.at(i).getCar().getLicensePlate() << "]  (" <<
+						    similarRoutes.at(i).getCar().getEmptySeats() << "/" << similarRoutes.at(i).getCar().getMaxSeats() << ")" <<
+						    similarRoutes.at(i).getEndingTime().getFormattedDate() << endl;
 					cout << "  STOPS: ";
 
 					for (size_t j = 0; j < similarRoutes.at(i).getStops().size(); j++) {
@@ -608,6 +612,137 @@ vector<string> Menu::journeyMenu() {
 	return selectedDistricts;
 }
 
-void Menu::deleteVehicleMenu() {
+size_t Menu::chooseVehicle() {
+	u.hideCursor();
 
+	bool menuUpdate = true;
+	
+	vector<Vehicle> localVehicles = Session::instance()->registered.at(Session::instance()->userPos).getGarage();
+	size_t selectedIndex = 0;
+
+	while (GetAsyncKeyState(VK_RETURN)) {}
+
+	while (!(GetAsyncKeyState(VK_SHIFT) && GetAsyncKeyState(VK_RETURN))) {
+
+		if (menuUpdate == true) {
+			u.clearScreen();
+			u.showLogo();
+
+			for (size_t i = 0; i < localVehicles.size(); i++) {
+
+				if (i == selectedIndex) {
+					u.whiteBG();
+				}
+				cout << "  " << i + 1 << ". " << localVehicles.at(i).getModel() << " [" << localVehicles.at(i).getLicensePlate() << "]\n";
+				u.blackBG();
+			}
+			menuUpdate = false;
+		}
+		if (GetAsyncKeyState(VK_RETURN)) {
+
+			while (GetAsyncKeyState(VK_RETURN)) {}
+			return selectedIndex;
+		}
+		else if (GetAsyncKeyState(VK_DOWN)) {
+			while (GetAsyncKeyState(VK_DOWN)) {}
+
+			if (selectedIndex != localVehicles.size() - 1) {
+				menuUpdate = true;
+				selectedIndex += 1;
+			}
+		}
+		else if (GetAsyncKeyState(VK_UP)) {
+			while (GetAsyncKeyState(VK_UP)) {}
+
+			if (selectedIndex != 0) {
+				menuUpdate = true;
+				selectedIndex -= 1;
+			}
+		}
+	}
+	u.showCursor();
+
+	cin.ignore(50, '\n');
 }
+/*
+void Menu::deleteVehicleMenu() {
+	u.hideCursor();
+
+	bool menuUpdate = true;
+	vector<string> localDistricts = Session::instance()->districts;
+	vector<string> selectedDistricts;
+	size_t selectedIndex = 0;
+
+	while (GetAsyncKeyState(VK_RETURN)) {}
+
+	while (!(GetAsyncKeyState(VK_SHIFT) && GetAsyncKeyState(VK_RETURN))) {
+
+		if (menuUpdate == true) {
+			u.clearScreen();
+			u.showLogo();
+
+			for (size_t i = 0; i < localDistricts.size(); i++) {
+
+				if (i == selectedIndex) {
+					u.whiteBG();
+				}
+				if (find(selectedDistricts.begin(), selectedDistricts.end(), localDistricts.at(i)) != selectedDistricts.end()) {
+					u.greenBG();
+				}
+				cout << "  " << i + 1 << ". " << localDistricts.at(i) << endl;
+				u.blackBG();
+			}
+
+			cout << "\n\n  You are stopping at: ";
+			for (size_t i = 0; i < selectedDistricts.size(); i++) {
+				cout << selectedDistricts.at(i);
+				if (i == selectedDistricts.size() - 1) {
+					cout << ".";
+				}
+				else {
+					cout << ", ";
+				}
+			}
+
+			menuUpdate = false;
+		}
+		if (GetAsyncKeyState(VK_RETURN)) {
+			bool breakCicle = false;
+
+			for (size_t i = 0; i < selectedDistricts.size(); i++) {
+				if (localDistricts.at(selectedIndex) == selectedDistricts.at(i)) {
+					selectedDistricts.erase(selectedDistricts.begin() + i);
+					breakCicle = true;
+					menuUpdate = true;
+				}
+			}
+			while (GetAsyncKeyState(VK_RETURN)) {}
+
+			if (breakCicle) {
+				continue;
+			}
+			menuUpdate = true;
+			selectedDistricts.push_back(localDistricts.at(selectedIndex));
+		}
+		else if (GetAsyncKeyState(VK_DOWN)) {
+			while (GetAsyncKeyState(VK_DOWN)) {}
+
+			if (selectedIndex != localDistricts.size() - 1) {
+				menuUpdate = true;
+				selectedIndex += 1;
+			}
+		}
+		else if (GetAsyncKeyState(VK_UP)) {
+			while (GetAsyncKeyState(VK_UP)) {}
+
+			if (selectedIndex != 0) {
+				menuUpdate = true;
+				selectedIndex -= 1;
+			}
+		}
+	}
+	u.showCursor();
+
+	cin.ignore(50, '\n');
+	return selectedDistricts;
+}*/

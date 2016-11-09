@@ -18,7 +18,7 @@ private:
 	Vehicle car;
 public:
 	Route();
-	Route(string host, Date startingTime, Date endingTime, vector<string> stops);
+	Route(string host, Date startingTime, Date endingTime, vector<string> stops, Vehicle car);
 
 	float getPrice();
 	vector<string> getStops();

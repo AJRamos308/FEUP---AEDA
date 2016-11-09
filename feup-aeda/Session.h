@@ -19,6 +19,7 @@ public:
 	*/
 	
 	vector<Registered> registered;
+	size_t userPos;
 	vector<string> districts;
 	string username;
 	void setAdmin();

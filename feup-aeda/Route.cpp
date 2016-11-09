@@ -3,11 +3,12 @@
 /*CONSTRUCTORS*/
 Route::Route() {
 }
-Route::Route(string host, Date startingTime, Date endingTime, vector<string> stops) {
+Route::Route(string host, Date startingTime, Date endingTime, vector<string> stops, Vehicle car) {
 	this->host = host;
 	this->startingTime = startingTime;
 	this->endingTime = endingTime;
 	this->stops = stops;
+	this->car = car;
 	active = true;
 }
 

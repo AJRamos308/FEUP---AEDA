@@ -16,5 +16,6 @@ public:
 	void menu4();
 	Route joinJourneyMenu(vector<Route> activeRoutesCopy, vector<Route> perfectRoutes, vector<Route> similarRoutes);
 	vector<string> journeyMenu();
+	size_t chooseVehicle();
 	void deleteVehicleMenu();
 };

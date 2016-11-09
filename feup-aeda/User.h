@@ -34,6 +34,7 @@ public:
 	unsigned int getAge();
 	vector<Registered> getBuddies();
 	vector<Route> getAllTrips();
+	vector<Vehicle> getGarage();
 	
 	void hostJourney();
 	void addBuddyToVec(Registered r);

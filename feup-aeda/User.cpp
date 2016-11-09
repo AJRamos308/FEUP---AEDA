@@ -34,6 +34,9 @@ vector<Registered> Registered::getBuddies() {
 vector<Route> Registered::getAllTrips() {
 	return allTrips;
 }
+vector<Vehicle> Registered::getGarage() {
+	return garage;
+}
 void Registered::addBuddyToVec(Registered r) {
 	buddies.push_back(r);
 }
@@ -226,14 +229,15 @@ void Registered::hostJourney() {
 			displayOrder = -1;
 		}
 	}
-	
+	size_t vehicleChosen = m1.chooseVehicle();
+
 	//TODO: ERROR HANDLING NO INPUT DA DATE.
 	Sleep(1000);
 
 	Date d1(stoull(startingDate));
 	Date d2(stoull(endingDate));
 
-	Route r(Session::instance()->username, d1, d2, m1.journeyMenu());
+	Route r(Session::instance()->username, d1, d2, m1.journeyMenu(), Session::instance()->registered.at(Session::instance()->userPos).getGarage().at(vehicleChosen));
 	addTripToVec(r);
 
 	/*
@@ -355,6 +359,7 @@ void Registered::addVehicle() {
 	string model, licensePlate;
 	int maxSeats;
 	bool validLicense=false, car = false;
+	int emptySeats = 0;
 
 	cout << "  Type in the Model of the car you intend to add to your garage: ";
 	getline(cin, model);
@@ -378,17 +383,17 @@ void Registered::addVehicle() {
 	cout << "  How many seats does your car have? (Including the driver): ";
 	cin >> maxSeats;
 		if (maxSeats < 5) {
-			Compact compact(maxSeats, model, licensePlate);
+			Compact compact(maxSeats, model, licensePlate, emptySeats);
 			garage.push_back(compact);
 			car = true;
 		}
 		else if (maxSeats == 5) {
-			Midsize midsize(maxSeats, model, licensePlate);
+			Midsize midsize(maxSeats, model, licensePlate, emptySeats);
 			garage.push_back(midsize);
 			car = true;
 		}
 		else if (maxSeats <= 9) {
-			Van van(maxSeats, model, licensePlate);
+			Van van(maxSeats, model, licensePlate, emptySeats);
 			garage.push_back(van);
 			car = true;
 		}

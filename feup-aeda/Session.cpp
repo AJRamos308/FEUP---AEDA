@@ -111,8 +111,9 @@ bool Session::importInfo() {
 					vector<string> stops;
 					stops.push_back(departureAt);
 					stops.push_back(arrivalAt);
+					Vehicle v;
 
-					Route r(user, d1, d2, stops);
+					Route r(user, d1, d2, stops, v);
 					r.switchActive();
 					
 					for (size_t i = 0; i < registered.size(); i++) {
@@ -260,6 +261,7 @@ void Session::login() {
 		Session::instance()->setAdmin();
 	}
 	cout << "\n  Login successful!\n"; Sleep(1000);
+	userPos = passwordIndex;
 
 	return;
 }
