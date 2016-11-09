@@ -8,7 +8,8 @@ Date::Date(unsigned int hour, unsigned int minutes, unsigned int day, unsigned i
 	this->day = day;
 	this->month = month;
 	this->year = year;
-	compactDate = year * 10 ^ 8 + month * 10 ^ 6 + day * 10 ^ 4 + hour * 10 ^ 2 + minutes;
+	long long year2 = year * pow(10,8);
+	compactDate = year * pow(10,8) + month * pow(10,6) + day * pow(10,4) + hour * pow(10,2) + minutes;
 	formattedDate = to_string(day) + "/" + to_string(month) + "/" + to_string(year) + " " + to_string(hour) + ":" + to_string(minutes);
 }
 Date::Date(unsigned long long compactDate) {

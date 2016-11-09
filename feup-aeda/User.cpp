@@ -43,10 +43,14 @@ void Registered::addTripToVec(Route r) {
 
 void User::joinJourney() {
 	Menu m;
-	Date currentTime; //TODO: função que extrai data do computador.
-
 	vector<string> selectedRoute;
 	vector<Route> activeRoutes, perfectRoutes, similarRoutes, separateRoutes, activeRoutesCopy;
+
+
+	time_t t = time(0);   // get time now
+	struct tm now;
+	localtime_s(&now, &t);
+	Date currentTime(now.tm_hour, now.tm_min, now.tm_mday, (now.tm_mon + 1), (now.tm_year +1900));
 
 	//Carrega o vetor activeRoutes com as viagens ativas.
 	for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
@@ -68,23 +72,23 @@ void User::joinJourney() {
 
 	//Para viagens com match perfeita (PORTO/LISBOA/FARO, PORTO/COIMBRA/LISBOA/FARO, AVEIRO/PORTO/LISBOA/FARO).
 	for (size_t i = 0; i < activeRoutes.size(); i++) {
-
 		unsigned int matches = 0;
 
 		for (size_t j = 0; j < activeRoutes.at(i).getStops().size(); j++) {
 			for (size_t k = 0; k < selectedRoute.size(); k++) {
 				if (selectedRoute.at(k) == activeRoutes.at(i).getStops().at(j)) {
-					//if (currentTime.getCompactDate() <= activeRoutes.at(i).getStartingTime().getCompactDate()) {
-					for (size_t l = 0; l < Session::instance()->registered.size(); l++) {
-						if (Session::instance()->registered.at(j).getUsername() == activeRoutes.at(i).getHost()) {
-							Session::instance()->registered.at(j).modifyBalance(payTrip(activeRoutes.at(i).getPrice()));
+					if (currentTime.getCompactDate() <= activeRoutes.at(i).getEndingTime().getCompactDate()) {
+						for (size_t l = 0; l < Session::instance()->registered.size(); l++) {
+							if (Session::instance()->registered.at(j).getUsername() == activeRoutes.at(i).getHost()) {
+								Session::instance()->registered.at(j).modifyBalance(payTrip(activeRoutes.at(i).getPrice()));
+							}
 						}
-						//}
-					}
 					matches++;
+					}
 				}
 			}
 		}
+
 		if (matches == selectedRoute.size()) {
 			perfectRoutes.push_back(activeRoutes.at(i));
 			activeRoutes.erase(activeRoutes.begin() + i);
@@ -100,12 +104,14 @@ void User::joinJourney() {
 
 		for (size_t j = 0; j < activeRoutes.at(i).getStops().size(); j++) {
 			if (selectedRoute.at(0) == activeRoutes.at(i).getStops().at(j)) {
-				//if (currentTime.getCompactDate() <= activeRoutes.at(i).getStartingTime().getCompactDate()) {
+				if (currentTime.getCompactDate() <= activeRoutes.at(i).getEndingTime().getCompactDate()) {
 					foundStart = true;
-				//}
+				}
 			}
 			if (selectedRoute.at(selectedRoute.size() - 1) == activeRoutes.at(i).getStops().at(j)) {
-				foundDest = true;
+				if (currentTime.getCompactDate() <= activeRoutes.at(i).getEndingTime().getCompactDate()) {
+					foundDest = true;
+				}
 			}	
 		}
 		if (foundStart && foundDest) {
@@ -152,6 +158,14 @@ void User::joinJourney() {
 			similarRoutes.erase(similarRoutes.begin() + i);
 			i--;
 		}
+	}
+
+	if (perfectRoutes.size() == 0 && similarRoutes.size() == 0) {
+		u1.clearScreen();
+		u1.showLogo();
+		cout << "  Whoops, looks like there aren't any active routes to join.\n  Try hosting one!";
+		Sleep(4000);
+		return;
 	}
 
 	//Criação de uma nova route.
