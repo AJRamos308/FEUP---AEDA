@@ -35,15 +35,24 @@ bool Date::Valid()
 		{
 			if (month < now->tm_mon + 1)
 				return false;
-			if (month == now->tm_mon + 1)
+			if (month == now->tm_mon + 1) {
 				if (day < now->tm_mday)
 					return false;
+				if (day == now->tm_mday) {
+					if (hour < now->tm_hour)
+						return false;
+					if (hour == now->tm_hour) {
+						if (minutes < now->tm_min)
+							return false;
+					}
+				}
+			}
 		}
 		if ((0 < month) & (month < 13))	{
 			if ((month == 1) || (month == 3) || (month == 5) || (month == 7) || (month == 8) || (month == 10) || (month == 12))	{
 				if ((0 < day) & (day < 32))	{ 
-					if ((-1 < hour) & (hour < 25))	{
-						if ((-1 < minutes) & (minutes < 61))
+					if ((0 <= hour) & (hour < 24))	{
+						if ((0 <= minutes) & (minutes < 60))
 							return true;
 						else
 							return false;
@@ -57,8 +66,8 @@ bool Date::Valid()
 			if (month == 2){
 				if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)){
 					if ((0 < day) & (day < 30))
-						if ((-1 < hour) & (hour < 25)){
-							if ((-1 < minutes) & (minutes < 61))
+						if ((0 <= hour) & (hour < 24)){
+							if ((0 <= minutes) & (minutes < 60))
 								return true;
 							else
 								return false;
@@ -69,8 +78,8 @@ bool Date::Valid()
 						return false;
 				}
 				else if ((0 < day) & (day < 29)){
-					if ((-1 < hour) & (hour < 25)){
-						if ((-1 < minutes) & (minutes < 61))
+					if ((0 <= hour) & (hour < 24)) {
+						if ((0 <= minutes) & (minutes < 60))
 							return true;
 						else
 							return false;
@@ -83,8 +92,8 @@ bool Date::Valid()
 			}
 			else{
 				if ((0 < day) & (day < 31)){
-					if ((-1 < hour) & (hour < 25)){
-						if ((-1 < minutes) & (minutes < 61))
+					if ((0 <= hour) & (hour < 24)){
+						if ((0 <= minutes) & (minutes < 60))
 							return true;
 						else
 							return false;

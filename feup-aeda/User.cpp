@@ -181,7 +181,7 @@ void Registered::hostJourney() {
 	u1.clearScreen();
 	u1.showLogo();
 
-	char token, date[12];
+	char token, date[13];
 	string startingDate, endingDate;
 	int displayOrder = 0;
 	Date d1;
@@ -190,10 +190,10 @@ void Registered::hostJourney() {
 	while (displayOrder != -1) {
 
 		if (displayOrder == 0) {
-			cout << "  Starting at: ";
+			cout << "  Starting at [year/month/day hour:minutes] : ";
 		}
 		else if (displayOrder == 1) {
-			cout << "\n  Ending at: ";
+			cout << "\n  Ending at [year/month/day hour:minutes] : ";
 		}
 
 		for (size_t i = 0; true;) {
@@ -219,6 +219,7 @@ void Registered::hostJourney() {
 				cout << ":";
 			}
 			else if (i == 12) {
+				date[i] = '\0';
 				break;
 			}
 		}
@@ -226,16 +227,26 @@ void Registered::hostJourney() {
 			startingDate = date;
 			Date D(stoull(startingDate));
 			d1 = D;
-			if (d1.Valid()){
+			if (D.Valid()) {
 				displayOrder++;
+			}
+			else {
+				u1.setcolor(12);
+				cout << "\n  \aWait a second! That's not a valid date!\n";
+				u1.setcolor(15);
 			}
 		}
 		else if (displayOrder == 1) {
 			endingDate = date;
 			Date D(stoull(endingDate));
-			d1 = D;
-			if (d1.Valid()) {
+			d2 = D;
+			if (D.Valid()) {
 				displayOrder = -1;
+			}
+			else {
+				u1.setcolor(12);
+				cout << "\n  \aWait a second! That's not a valid date!\n";
+				u1.setcolor(15);
 			}
 		}
 	}
