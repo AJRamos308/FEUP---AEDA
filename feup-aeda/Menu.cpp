@@ -423,16 +423,18 @@ Route Menu::joinJourneyMenu(vector<Route> activeRoutes, vector<Route> perfectRou
 			u.showLogo();
 
 			if (perfectRoutes.size() != 0) {
+				u.setcolor(10);
 				cout << "PERFECT MATCHES\n";
+				u.setcolor(15);
 				for (size_t i = 0; i < perfectRoutes.size(); i++) {
 					if (i == selectedIndex1) {
 						selectedRoute = perfectRoutes.at(i);
 						u.whiteBG();
 					}
-					cout << "  HOST: " << setw(22) << left << perfectRoutes.at(i).getHost() << perfectRoutes.at(i).getStartingTime().getFormattedDate() << endl;
-					cout << setw(30) << left << perfectRoutes.at(i).getCar().getModel() << " [" << perfectRoutes.at(i).getCar().getLicensePlate() << "]  " <<
+					cout << "  HOST: " << setw(32) << left << perfectRoutes.at(i).getHost() << perfectRoutes.at(i).getStartingTime().getFormattedDate() << endl;
+					cout << "  " << perfectRoutes.at(i).getCar().getModel() << " [" << perfectRoutes.at(i).getCar().getLicensePlate() << "] (" <<
 							perfectRoutes.at(i).getCar().getEmptySeats() << "/" << perfectRoutes.at(i).getCar().getMaxSeats() << ")" <<
-							perfectRoutes.at(i).getEndingTime().getFormattedDate() << endl;
+							setw(30) << right << perfectRoutes.at(i).getEndingTime().getFormattedDate() << endl;
 					cout << "  STOPS: ";
 
 					for (size_t j = 0; j < perfectRoutes.at(i).getStops().size(); j++) {
@@ -446,16 +448,18 @@ Route Menu::joinJourneyMenu(vector<Route> activeRoutes, vector<Route> perfectRou
 				}
 			}
 			if (similarRoutes.size() != 0) {
+				u.setcolor(14);
 				cout << "\n\nSIMILAR MATCHES\n";
+				u.setcolor(15);
 				for (size_t i = 0; i < similarRoutes.size(); i++) {
 					if (i == selectedIndex2) {
 						selectedRoute = similarRoutes.at(i);
 						u.whiteBG();
 					}
-					cout << "  HOST: " << setw(22) << left << similarRoutes.at(i).getHost() << similarRoutes.at(i).getStartingTime().getFormattedDate() << endl;
-					cout << setw(30) << left << similarRoutes.at(i).getCar().getModel() << " [" << similarRoutes.at(i).getCar().getLicensePlate() << "]  (" <<
-						    similarRoutes.at(i).getCar().getEmptySeats() << "/" << similarRoutes.at(i).getCar().getMaxSeats() << ")" <<
-						    similarRoutes.at(i).getEndingTime().getFormattedDate() << endl;
+					cout << "  HOST: " << setw(32) << left << similarRoutes.at(i).getHost() << similarRoutes.at(i).getStartingTime().getFormattedDate() << endl;
+					cout << "  " << similarRoutes.at(i).getCar().getModel() << " [" << similarRoutes.at(i).getCar().getLicensePlate() << "] (" <<
+						similarRoutes.at(i).getCar().getEmptySeats() << "/" << similarRoutes.at(i).getCar().getMaxSeats() << ")" <<
+						setw(30) << right << similarRoutes.at(i).getEndingTime().getFormattedDate() << endl;
 					cout << "  STOPS: ";
 
 					for (size_t j = 0; j < similarRoutes.at(i).getStops().size(); j++) {
@@ -475,10 +479,6 @@ Route Menu::joinJourneyMenu(vector<Route> activeRoutes, vector<Route> perfectRou
 		}
 		else if (GetAsyncKeyState(VK_DOWN)) {
 			while (GetAsyncKeyState(VK_DOWN)) {}
-			
-			if (similarRoutes.size() == 0) {
-				continue;
-			}
 
 			if (selectedIndex2 == -1) {
 				if (selectedIndex1 != perfectRoutes.size() - 1) {

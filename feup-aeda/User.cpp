@@ -204,12 +204,19 @@ void Registered::hostJourney() {
 				i++;
 				cout << token;
 			}
-			/*if (token == '\b' && i >= 1) {
+			if (token == '\\') {
+				return;
+			}
+			if (token == '\b' && (i == 4 || i == 6 || i == 8 || i == 10)) {
+				cout << "\b \b";
 				cout << "\b \b";
 				i--;
 			}
-			*/
-			if (i == 4 || i == 6) {
+			else if (token == '\b' && i > 0) {
+				cout << "\b \b";
+				i--;
+			}
+			else if (i == 4 || i == 6) {
 				cout << "/";
 			}
 			else if (i == 8) {
@@ -240,7 +247,7 @@ void Registered::hostJourney() {
 			endingDate = date;
 			Date D(stoull(endingDate));
 			d2 = D;
-			if (D.Valid()) {
+			if (D.Valid() && (d2.getCompactDate() > d1.getCompactDate())) {
 				displayOrder = -1;
 			}
 			else {
@@ -250,9 +257,12 @@ void Registered::hostJourney() {
 			}
 		}
 	}
+	cout << "\nHello\n\n";
+	Sleep(1000);
+
 	size_t vehicleChosen = m1.chooseVehicle();
 
-	Sleep(1000);
+	
 
 	Route r(Session::instance()->username, d1, d2, m1.journeyMenu(), Session::instance()->registered.at(Session::instance()->userPos).getGarage().at(vehicleChosen));
 	
@@ -263,7 +273,7 @@ void Registered::hostJourney() {
 void Registered::addBuddy() {
 	string username;
 	bool foundUsername = false;
-
+		
 	while (!foundUsername) {
 
 		cout << "  Add friend : ";
@@ -289,29 +299,54 @@ void Registered::addBuddy() {
 void Registered::addVehicle() {
 	string model, licensePlate;
 	int maxSeats;
-	bool validLicense=false, car = false;
+	bool validLicense = false, car = false;
+	char token, license[9];
 	int emptySeats = 0;
 
 	cout << "  Type in the Model of the car you intend to add to your garage: ";
 	getline(cin, model);
 	while (!validLicense) {
 		cout << "  Type in the License Plate (XX-XX-XX): ";
-		cin >> licensePlate;
-		if (licensePlate.size() == 8)
-			if (isalpha(licensePlate.at(0)) || isdigit(licensePlate.at(0)))
-				if (isalpha(licensePlate.at(1)) || isdigit(licensePlate.at(1)))
-					if (licensePlate.at(2) == char(45))
-						if (isalpha(licensePlate.at(3)) || isdigit(licensePlate.at(3)))
-							if (isalpha(licensePlate.at(4)) || isdigit(licensePlate.at(4)))
-								if (licensePlate.at(5) == char(45))
-									if (isalpha(licensePlate.at(6)) || isdigit(licensePlate.at(6)))
-										if (isalpha(licensePlate.at(7)) || isdigit(licensePlate.at(7)))
-											validLicense = true;
+		for (size_t i = 0; true;) {
+			token = _getch();
+
+			if ((token >= '0' && token <= '9') || isalpha(token)) {
+				if (token >= 'a' && token <= 'z')
+					license[i] = toupper(token);
+				else 
+					license[i] = token;
+				cout << license[i];
+				i++;
+			}
+			if (token == '\\') {
+				return;
+			}
+			if (token == '\b' && (i == 3 || i == 6)) {
+				cout << "\b \b";
+				cout << "\b \b";
+				i--;
+			}
+			else if (token == '\b' && i > 0) {
+				cout << "\b \b";
+				i--;
+			}
+			else if (i == 2 || i == 5) {
+				cout << "-";
+				license[i] = '-';
+				i++;
+			}
+			else if (i == 8) {
+				license[i] = '\0';
+				licensePlate = license;
+				validLicense = true;
+				break;
+			}
+		}
 		if (!validLicense)
 			cout << "  Invalid License Plate structure!\n";
 	}
 	while (!car) {
-	cout << "  How many seats does your car have? (Including the driver): ";
+	cout << "\n  How many seats does your car have? (Including the driver): ";
 	cin >> maxSeats;
 		if (maxSeats < 5) {
 			Compact compact(maxSeats, model, licensePlate, emptySeats);
@@ -329,7 +364,7 @@ void Registered::addVehicle() {
 			car = true;
 		}
 		else {
-			cout << "  Invalid number of seats chosen, please try again";
+			cout << "\n  Invalid number of seats chosen, please try again";
 		}
 	}
 }
