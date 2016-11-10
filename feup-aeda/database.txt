@@ -6,7 +6,7 @@ blinkroot|qwerty|Miguel Fernandes|19
 
 BUDDIES
 teste1:ephons|zepedrob|blinkroot
-ephons:
+ephons:blinkroot|zepedrob
 zepedrob:
 blinkroot:ephons|zepedrob
 

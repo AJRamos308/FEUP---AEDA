@@ -417,13 +417,37 @@ float Guest::payTrip(float price) {
 
 
 void Registered::changePassword() {
-	string pass, newpass, newpass2;
+	string oldpass;
+	char pass[32], a;
 	bool changed = false;
 	while (!changed) {
 		cout << "  Type in your old password: ";
-		cin >> pass;
-		if (pass == password) {
-			cout << "  Please enter your new credentials. \n";
+		for (size_t i = 0;;)
+		{
+			a = _getch();
+			if ((a >= 'a'&&a <= 'z') || (a >= 'A'&&a <= 'Z') || (a >= '0'&&a <= '9'))
+			{
+				pass[i] = a;
+				++i;
+				cout << "*";
+			}
+			if (a == '\b'&&i >= 1)
+			{
+				cout << "\b \b";
+				--i;
+			}
+			if (a == '\\') {
+				return;
+			}
+			if (a == '\r')
+			{
+				pass[i] = '\0';
+				oldpass = pass;
+				break;
+			}
+		}
+		if (oldpass == password) {
+			cout << "\n  Please enter your new credentials. \n";
 			password = Session::instance()->passwordMaker();
 			changed = true;
 		}
