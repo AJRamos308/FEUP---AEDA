@@ -37,6 +37,9 @@ vector<Route> Registered::getAllTrips() {
 vector<Vehicle> Registered::getGarage() {
 	return garage;
 }
+float Registered::getBalance() {
+	return balance;
+}
 void Registered::addBuddyToVec(Registered r) {
 	buddies.push_back(r);
 }
@@ -84,12 +87,7 @@ void User::joinJourney() {
 			for (size_t k = 0; k < selectedRoute.size(); k++) {
 				if (selectedRoute.at(k) == activeRoutes.at(i).getStops().at(j).getStop()) {
 					if (currentTime.getCompactDate() <= activeRoutes.at(i).getEndingTime().getCompactDate()) {
-						for (size_t l = 0; l < Session::instance()->registered.size(); l++) {
-							if (Session::instance()->registered.at(j).getUsername() == activeRoutes.at(i).getHost()) {
-								Session::instance()->registered.at(j).modifyBalance(payTrip(activeRoutes.at(i).getPrice()));
-							}
-						}
-					matches++;
+						matches++;
 					}
 				}
 			}
@@ -191,7 +189,7 @@ void User::joinJourney() {
 			}
 		}
 	}
-
+	
 	//Criação de uma nova route.
 	Route r = m.joinJourneyMenu(activeRoutesCopy, perfectRoutes, similarRoutes);
 
@@ -208,6 +206,13 @@ void User::joinJourney() {
 					r.getStops().at(j).subSeats();
 				}
 			}
+		}
+	}
+	//Incrementa dinheiro ao usuário que está a dar host e, simultaneamente, retira ao que está a entrar.
+	for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
+		if (Session::instance()->registered.at(i).getUsername() == r.getHost()) {
+			Session::instance()->registered.at(i).modifyBalance(Session::instance()->registered.at(Session::instance()->userPos).payTrip(r.getPrice()));
+			break;
 		}
 	}
 	return;
@@ -433,10 +438,24 @@ void Registered::removeVehicle() {
 	}
 	return;
 }
+void Registered::addFunds() {
+	float amount;
+
+	u1.clearScreen();
+	u1.showLogo();
+
+	cout << "  Amount: ";
+	cin >> amount;
+
+	balance += amount;
+	return;
+}
+
 void Registered::modifyBalance(float price) {
 	balance += price;
 	//TODO: taxa 5, fator 1.5.
 }
+
 void Registered::extractPayment() { //So o admin tem acesso
 	for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
 		if (Session::instance()->registered.at(i).balance < 5)
@@ -445,7 +464,6 @@ void Registered::extractPayment() { //So o admin tem acesso
 		cout << "Monthly payment withdrawn!";
 	}
 }
-
 float User::payTrip(float price) {
 	return price;
 }

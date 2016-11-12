@@ -35,6 +35,7 @@ public:
 	vector<Registered> getBuddies();
 	vector<Route> getAllTrips();
 	vector<Vehicle> getGarage();
+	float getBalance();
 	
 	void hostJourney();
 	void addBuddyToVec(Registered r);
@@ -45,9 +46,10 @@ public:
 	void removeVehicle();
 	void changePassword();
 
+	void addFunds();
+	float payTrip(float price);
 	void modifyBalance(float price);
 	void extractPayment();
-	float payTrip(float price);
 };
 
 class Guest : public User{

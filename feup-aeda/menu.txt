@@ -15,10 +15,11 @@
   2. Logout
 
 4
-  1. Add vehicle
-  2. Remove vehicle
-  3. Change password
-  4. Back
+  1. Add funds
+  2. Add vehicle
+  3. Remove vehicle
+  4. Change password
+  5. Back
 
 5
   1. 

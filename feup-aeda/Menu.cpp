@@ -92,6 +92,11 @@ void Menu::manager() {
 			continue;
 		}
 		if (currentMenu == 41) {
+			Session::instance()->registered.at(Session::instance()->userPos).addFunds();
+			currentMenu = 40;
+			continue;
+		}
+		if (currentMenu == 42) {
 			for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
 				if (Session::instance()->username == Session::instance()->registered.at(i).getUsername()) {
 					Session::instance()->registered.at(i).addVehicle();
@@ -101,7 +106,7 @@ void Menu::manager() {
 			currentMenu = 40;
 			continue;
 		}
-		if (currentMenu == 42) {
+		if (currentMenu == 43) {
 			for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
 				if (Session::instance()->username == Session::instance()->registered.at(i).getUsername()) {
 					Session::instance()->registered.at(i).removeVehicle();
@@ -111,7 +116,7 @@ void Menu::manager() {
 			currentMenu = 40;
 			continue;
 		}
-		if (currentMenu == 43) {
+		if (currentMenu == 44) {
 			for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
 				if (Session::instance()->username == Session::instance()->registered.at(i).getUsername()) {
 					Session::instance()->registered.at(i).changePassword();
@@ -121,7 +126,7 @@ void Menu::manager() {
 			currentMenu = 40;
 			continue;
 		}
-		if (currentMenu == 44) {
+		if (currentMenu == 45) {
 			currentMenu = 20;
 			continue;
 		}
@@ -227,7 +232,7 @@ void Menu::menu2() {
 		if (pushUpdate) {
 			u.clearScreen();
 			u.showLogo();
-			cout << "  Welcome, " << Session::instance()->username << ".\n\n";
+			cout << "  Welcome, " << Session::instance()->username << setw(14) << Session::instance()->registered.at(Session::instance()->userPos).getBalance() << ".00 EUR\n\n";
 			for (size_t i = 0; i < menuOptions.size(); i++) {
 				if (i == selectedIndex) {
 					u.whiteBG();
