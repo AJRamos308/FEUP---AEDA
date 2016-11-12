@@ -43,6 +43,9 @@ void Registered::addBuddyToVec(Registered r) {
 void Registered::addTripToVec(Route r) {
 	allTrips.push_back(r);
 }
+void Registered::addVehicleToVec(Vehicle v) {
+	garage.push_back(v);
+}
 
 void User::joinJourney() {
 	Menu m;
@@ -265,9 +268,6 @@ void Registered::hostJourney() {
 	}
 	
 	size_t vehicleChosen = m1.chooseVehicle();
-
-	
-
 	Route r(Session::instance()->username, d1, d2, m1.journeyMenu(), Session::instance()->registered.at(Session::instance()->userPos).getGarage().at(vehicleChosen));
 	
 	addTripToVec(r);

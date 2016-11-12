@@ -4,6 +4,11 @@ ephons|qwerty|Afonso Ramos|19
 zepedrob|qwerty|Ze Borges|19
 blinkroot|qwerty|Miguel Fernandes|19
 
+GARAGE
+teste1:Ford Fiesta|69-69-LM|5
+teste1:Ford Transit|96-96-AO|7
+ephons:Chevrolet Azul|OH-SH-IT|5
+
 BUDDIES
 teste1:ephons|zepedrob|blinkroot
 ephons:blinkroot|zepedrob

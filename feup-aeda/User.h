@@ -39,6 +39,7 @@ public:
 	void hostJourney();
 	void addBuddyToVec(Registered r);
 	void addTripToVec(Route r);
+	void addVehicleToVec(Vehicle v);
 	void addBuddy();
 	void addVehicle();
 	void removeVehicle();

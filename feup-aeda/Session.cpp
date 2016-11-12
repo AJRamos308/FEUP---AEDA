@@ -48,6 +48,27 @@ bool Session::importInfo() {
 			}
 			continue;
 		}
+		if (category == "GARAGE") {
+			while (true) {
+				getline(f, token);
+
+				if (token != "") {
+					string username = token.substr(0, token.find(":"));
+					token.erase(0, token.find("|") + 1);
+					string brand = token.substr(0, token.find("|"));
+					token.erase(0, token.find("|") + 1);
+					string licensePlate = token.substr(0, token.find("|"));
+					token.erase(0, token.find("|") + 1);
+					string maxSeats = token;
+
+					Vehicle v(stoul(maxSeats), brand, licensePlate);
+					Session::instance()->registered.at(Session::instance()->userPos).addVehicleToVec(v);
+					continue;
+				}
+				break;
+			}
+			continue;
+		}
 		if (category == "BUDDIES") {
 			while (true) {
 				getline(f, token);
@@ -153,6 +174,14 @@ bool Session::exportInfo() {
 		f << registered.at(i).getUsername() << "|" << registered.at(i).getPassword() << "|" << registered.at(i).getName() << "|" << registered.at(i).getAge() << endl;
 	}
 
+	f << endl << "GARAGE" << endl;
+	for (size_t i = 0; i < registered.size(); i++) {
+		for (size_t j = 0; j < registered.at(i).getGarage().size(); j++) {
+			f << registered.at(i).getUsername() << ":" << registered.at(i).getGarage().at(j).getModel() << "|" << registered.at(i).getGarage().at(j).getLicensePlate() <<
+				"|" << registered.at(i).getGarage().at(j).getMaxSeats() << endl;
+		}
+	}
+
 	f << endl << "BUDDIES" << endl;
 	for (size_t i = 0; i < registered.size(); i++) {
 		
@@ -167,6 +196,7 @@ bool Session::exportInfo() {
 		}
 		f << endl;
 	}
+
 	f << endl << "TRIPS" << endl;
 	for (size_t i = 0; i < registered.size(); i++) {
 		for (size_t j = 0; j < registered.at(i).getAllTrips().size(); j++) {
