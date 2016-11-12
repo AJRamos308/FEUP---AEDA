@@ -10,7 +10,7 @@ using namespace std;
 class Route {
 private:
 	float price;
-	vector<string> stops;
+	vector<seatsHandler> stops;
 	string host;
 	bool active;
 	Date startingTime;
@@ -18,10 +18,10 @@ private:
 	Vehicle car;
 public:
 	Route();
-	Route(string host, Date startingTime, Date endingTime, vector<string> stops, Vehicle car);
+	Route(string host, Date startingTime, Date endingTime, vector<seatsHandler> stops, Vehicle car);
 
 	float getPrice();
-	vector<string> getStops();
+	vector<seatsHandler> getStops();
 	string getHost();
 	bool getActive();
 	Date getStartingTime();
@@ -29,4 +29,16 @@ public:
 	Vehicle getCar();
 
 	void switchActive();
+};
+
+class seatsHandler : public Route {
+private:
+	unsigned int emptySeats;
+	string stop;
+public:
+	seatsHandler(string stop, unsigned int emptySeats);
+	unsigned int getEmptySeats();
+	string getStop();
+	void subSeats();
+	void addSeats();
 };

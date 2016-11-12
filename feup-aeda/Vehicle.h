@@ -9,14 +9,12 @@ using namespace std;
 class Vehicle {
 private:
 	unsigned int maxSeats;
-	unsigned int emptySeats;
 	string model;
 	string licensePlate;
 public:
 	Vehicle(unsigned int maximumSeats, unsigned int availableSeats, string model, string licensePlate);
 	Vehicle();
 	unsigned int getMaxSeats();
-	unsigned int getEmptySeats();
 	string getLicensePlate();
 	string getModel();
 	void setMaxSeats(unsigned int maxSeats);

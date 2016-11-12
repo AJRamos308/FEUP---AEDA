@@ -79,7 +79,7 @@ void User::joinJourney() {
 
 		for (size_t j = 0; j < activeRoutes.at(i).getStops().size(); j++) {
 			for (size_t k = 0; k < selectedRoute.size(); k++) {
-				if (selectedRoute.at(k) == activeRoutes.at(i).getStops().at(j)) {
+				if (selectedRoute.at(k) == activeRoutes.at(i).getStops().at(j).getStop()) {
 					if (currentTime.getCompactDate() <= activeRoutes.at(i).getEndingTime().getCompactDate()) {
 						for (size_t l = 0; l < Session::instance()->registered.size(); l++) {
 							if (Session::instance()->registered.at(j).getUsername() == activeRoutes.at(i).getHost()) {
@@ -106,12 +106,12 @@ void User::joinJourney() {
 		bool foundStart = false, foundDest = false;
 
 		for (size_t j = 0; j < activeRoutes.at(i).getStops().size(); j++) {
-			if (selectedRoute.at(0) == activeRoutes.at(i).getStops().at(j)) {
+			if (selectedRoute.at(0) == activeRoutes.at(i).getStops().at(j).getStop()) {
 				if (currentTime.getCompactDate() <= activeRoutes.at(i).getEndingTime().getCompactDate()) {
 					foundStart = true;
 				}
 			}
-			if (selectedRoute.at(selectedRoute.size() - 1) == activeRoutes.at(i).getStops().at(j)) {
+			if (selectedRoute.at(selectedRoute.size() - 1) == activeRoutes.at(i).getStops().at(j).getStop()) {
 				if (currentTime.getCompactDate() <= activeRoutes.at(i).getEndingTime().getCompactDate()) {
 					foundDest = true;
 				}
@@ -130,7 +130,7 @@ void User::joinJourney() {
 
 		for (size_t j = 0; j < selectedRoute.size(); j++) {
 			for (size_t k = 0; k < perfectRoutes.at(i).getStops().size(); k++) {
-				if (selectedRoute.at(j) == perfectRoutes.at(i).getStops().at(k)) {
+				if (selectedRoute.at(j) == perfectRoutes.at(i).getStops().at(k).getStop()) {
 					if (orderPos > k) { //Ordem incorreta.
 						outOfOrder = true;
 						break;
@@ -151,10 +151,10 @@ void User::joinJourney() {
 		int indexStart = 0, indexEnd = 0;
 
 		for (unsigned int j = 0; j < selectedRoute.size(); j++) {
-			if (similarRoutes.at(i).getStops().at(0) == selectedRoute.at(j)) {
+			if (similarRoutes.at(i).getStops().at(0).getStop() == selectedRoute.at(j)) {
 				indexStart = j;
 			}
-			if (similarRoutes.at(i).getStops().at(similarRoutes.at(i).getStops().size() - 1) == selectedRoute.at(j))
+			if (similarRoutes.at(i).getStops().at(similarRoutes.at(i).getStops().size() - 1).getStop() == selectedRoute.at(j))
 				indexEnd = j;
 		}
 		if (indexStart > indexEnd) {
@@ -265,10 +265,16 @@ void Registered::hostJourney() {
 	}
 	
 	size_t vehicleChosen = m1.chooseVehicle();
+	vector<string>journeyStops = m1.journeyMenu();
+	vector<seatsHandler> handler;
 
-	
+	for (size_t i = 0; i < journeyStops.size(); i++) {
+		seatsHandler s(journeyStops.at(i), Session::instance()->registered.at(Session::instance()->userPos).getGarage().at(vehicleChosen).getMaxSeats() - 1);
+		handler.push_back(s);
+	}
 
-	Route r(Session::instance()->username, d1, d2, m1.journeyMenu(), Session::instance()->registered.at(Session::instance()->userPos).getGarage().at(vehicleChosen));
+
+	Route r(Session::instance()->username, d1, d2, handler, Session::instance()->registered.at(Session::instance()->userPos).getGarage().at(vehicleChosen));
 	
 	addTripToVec(r);
 	return;
