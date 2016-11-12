@@ -12,6 +12,7 @@ blinkroot:ephons|zepedrob
 
 TRIPS
 teste1:201611012045|201611012125|Porto|Lisboa
+teste1:201611121230|201611122000|Aveiro|Braga
 zepedrob:201611012046|201611012126|Coimbra|Faro
 
 DISTRICTS

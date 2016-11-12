@@ -187,6 +187,12 @@ void Registered::hostJourney() {
 	Date d1;
 	Date d2;
 
+	if (getGarage().size() == 0) {
+		cout << "  Sorry, you don't have any vehicles available so you can't host a trip. Try adding one!";
+		Sleep(4000);
+		return;
+	}
+
 	while (displayOrder != -1) {
 
 		if (displayOrder == 0) {
@@ -257,9 +263,7 @@ void Registered::hostJourney() {
 			}
 		}
 	}
-	cout << "\nHello\n\n";
-	Sleep(1000);
-
+	
 	size_t vehicleChosen = m1.chooseVehicle();
 
 	

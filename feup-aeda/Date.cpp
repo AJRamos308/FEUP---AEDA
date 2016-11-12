@@ -31,6 +31,7 @@ bool Date::Valid()
 	time_t tt = time(0);   // get time now
 	struct tm * now = localtime(&tt);
 	if (year >= (now->tm_year + 1900)){
+		cout << year;
 		if (year == (now->tm_year + 1900))
 		{
 			if (month < now->tm_mon + 1)
