@@ -438,10 +438,10 @@ Route Menu::joinJourneyMenu(vector<Route> activeRoutes, vector<Route> perfectRou
 
 					for (size_t j = 0; j < perfectRoutes.at(i).getStops().size(); j++) {
 						if (j == perfectRoutes.at(i).getStops().size() - 1) {
-							cout << perfectRoutes.at(i).getStops().at(j) << endl;
+							cout << perfectRoutes.at(i).getStops().at(j).getStop() << endl;
 							break;
 						}
-						cout << perfectRoutes.at(i).getStops().at(j) << " -> ";
+						cout << perfectRoutes.at(i).getStops().at(j).getStop() << " -> ";
 					}
 					u.blackBG();
 				}
@@ -462,10 +462,10 @@ Route Menu::joinJourneyMenu(vector<Route> activeRoutes, vector<Route> perfectRou
 
 					for (size_t j = 0; j < similarRoutes.at(i).getStops().size(); j++) {
 						if (j == similarRoutes.at(i).getStops().size() - 1) {
-							cout << similarRoutes.at(i).getStops().at(j) << endl;
+							cout << similarRoutes.at(i).getStops().at(j).getStop() << endl;
 							break;
 						}
-						cout << similarRoutes.at(i).getStops().at(j) << " -> ";
+						cout << similarRoutes.at(i).getStops().at(j).getStop() << " -> ";
 					}
 					u.blackBG();
 				}

@@ -12,13 +12,12 @@ private:
 	string model;
 	string licensePlate;
 public:
-	Vehicle(unsigned int maximumSeats, unsigned int availableSeats, string model, string licensePlate);
 	Vehicle();
+	Vehicle(unsigned int maximumSeats, string model, string licensePlate);
 	unsigned int getMaxSeats();
 	string getLicensePlate();
 	string getModel();
 	void setMaxSeats(unsigned int maxSeats);
-	void setEmptySeats(unsigned int emptySeats);
 	void setModel(string model);
 	void setLicensePlate(string licensePlate);
 };
@@ -26,19 +25,19 @@ public:
 class Compact : public Vehicle {
 private:
 public:
-	Compact(unsigned int maxSeats, string model, string licensePlate, unsigned int emptySeats);
+	Compact(unsigned int maxSeats, string model, string licensePlate);
 	
 };
 
 class Midsize : public Vehicle {
 private:
 public:
-	Midsize(unsigned int maxSeats, string model, string licensePlate, unsigned int emptySeats);
+	Midsize(unsigned int maxSeats, string model, string licensePlate);
 };
 
 class Van : public Vehicle {
 private:
 	
 public:
-	Van(unsigned int maxSeats, string model, string licensePlate, unsigned int emptySeats);
+	Van(unsigned int maxSeats, string model, string licensePlate);
 };

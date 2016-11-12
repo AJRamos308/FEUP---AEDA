@@ -7,6 +7,8 @@
 #include "Vehicle.h"
 using namespace std;
 
+class seatsHandler;
+
 class Route {
 private:
 	float price;
@@ -27,7 +29,8 @@ public:
 	Date getStartingTime();
 	Date getEndingTime();
 	Vehicle getCar();
-
+	
+	float randomPrice();
 	void switchActive();
 };
 

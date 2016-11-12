@@ -129,12 +129,16 @@ bool Session::importInfo() {
 					Date d1(stoull(departureTime));
 					Date d2(stoull(arrivalTime));
 
-					vector<string> stops;
-					stops.push_back(departureAt);
-					stops.push_back(arrivalAt);
 					Vehicle v;
+					
+					vector<seatsHandler> s;
+					seatsHandler s1(departureAt, 0);
+					seatsHandler s2(arrivalAt, 0);
 
-					Route r(user, d1, d2, stops, v);
+					s.push_back(s1);
+					s.push_back(s2);
+
+					Route r(user, d1, d2, s, v);
 					r.switchActive();
 					
 					for (size_t i = 0; i < registered.size(); i++) {
@@ -203,8 +207,8 @@ bool Session::exportInfo() {
 			f << registered.at(i).getUsername() << ":";
 			f << registered.at(i).getAllTrips().at(j).getStartingTime().getCompactDate() << "|";
 			f << registered.at(i).getAllTrips().at(j).getEndingTime().getCompactDate() << "|";
-			f << registered.at(i).getAllTrips().at(j).getStops().at(0) << "|";
-			f << registered.at(i).getAllTrips().at(j).getStops().at(registered.at(i).getAllTrips().at(j).getStops().size() - 1) << endl;
+			f << registered.at(i).getAllTrips().at(j).getStops().at(0).getStop() << "|";
+			f << registered.at(i).getAllTrips().at(j).getStops().at(registered.at(i).getAllTrips().at(j).getStops().size() - 1).getStop() << endl;
 		}
 	}
 	f << endl << "DISTRICTS" << endl;

@@ -174,8 +174,42 @@ void User::joinJourney() {
 		return;
 	}
 
+	//Verifica se as viagens têm empty seats.
+	for (size_t i = 0; i < perfectRoutes.size(); i++) {
+		for (size_t j = 0; j < perfectRoutes.at(i).getStops().size(); j++) {
+			if (perfectRoutes.at(i).getStops().at(j).getEmptySeats() == 0) {
+				perfectRoutes.erase(perfectRoutes.begin() + i);
+				i--;
+			}
+		}
+	}
+	for (size_t i = 0; i < similarRoutes.size(); i++) {
+		for (size_t j = 0; j < similarRoutes.at(i).getStops().size(); j++) {
+			if (similarRoutes.at(i).getStops().at(j).getEmptySeats() == 0) {
+				similarRoutes.erase(similarRoutes.begin() + i);
+				i--;
+			}
+		}
+	}
+
 	//Criação de uma nova route.
 	Route r = m.joinJourneyMenu(activeRoutesCopy, perfectRoutes, similarRoutes);
+
+	//Adiciona e subtrai emptySeats.
+	for (size_t i = 0; i < selectedRoute.size(); i++) {
+		for (size_t j = 0; j < r.getStops().size(); j++) {
+			if (i == selectedRoute.size() - 1) {
+				if (selectedRoute.at(i) == r.getStops().at(j).getStop()) {
+					r.getStops().at(j).addSeats();
+				}
+			}
+			else {
+				if (selectedRoute.at(i) == r.getStops().at(j).getStop()) {
+					r.getStops().at(j).subSeats();
+				}
+			}
+		}
+	}
 	return;
 }
 
@@ -275,8 +309,6 @@ void Registered::hostJourney() {
 		seatsHandler s(journeyStops.at(i), Session::instance()->registered.at(Session::instance()->userPos).getGarage().at(vehicleChosen).getMaxSeats() - 1);
 		handler.push_back(s);
 	}
-
-
 	Route r(Session::instance()->username, d1, d2, handler, Session::instance()->registered.at(Session::instance()->userPos).getGarage().at(vehicleChosen));
 	
 	addTripToVec(r);
@@ -314,7 +346,6 @@ void Registered::addVehicle() {
 	int maxSeats;
 	bool validLicense = false, car = false;
 	char token, license[9];
-	int emptySeats = 0;
 
 	cout << "  Type in the Model of the car you intend to add to your garage: ";
 	getline(cin, model);
@@ -362,17 +393,17 @@ void Registered::addVehicle() {
 	cout << "\n  How many seats does your car have? (Including the driver): ";
 	cin >> maxSeats;
 		if (maxSeats < 5) {
-			Compact compact(maxSeats, model, licensePlate, emptySeats);
+			Compact compact(maxSeats, model, licensePlate);
 			garage.push_back(compact);
 			car = true;
 		}
 		else if (maxSeats == 5) {
-			Midsize midsize(maxSeats, model, licensePlate, emptySeats);
+			Midsize midsize(maxSeats, model, licensePlate);
 			garage.push_back(midsize);
 			car = true;
 		}
 		else if (maxSeats <= 9) {
-			Van van(maxSeats, model, licensePlate, emptySeats);
+			Van van(maxSeats, model, licensePlate);
 			garage.push_back(van);
 			car = true;
 		}

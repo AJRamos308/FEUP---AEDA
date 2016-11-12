@@ -9,6 +9,7 @@ Route::Route(string host, Date startingTime, Date endingTime, vector<seatsHandle
 	this->endingTime = endingTime;
 	this->stops = stops;
 	this->car = car;
+	this->price = randomPrice();
 	active = true;
 }
 
@@ -43,6 +44,15 @@ void Route::switchActive() {
 	}
 	active = true;
 	return;
+}
+float Route::randomPrice() {
+
+	float totalPrice = 0;
+	for (size_t i = 0; i < stops.size() - 1; i++) {
+		srand(time(NULL)); //Generates seed.
+		totalPrice += rand() % 6 + 10;
+	}
+	return totalPrice;
 }
 
 //SEATSHANDLER
