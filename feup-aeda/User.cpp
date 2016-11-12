@@ -59,7 +59,7 @@ void User::joinJourney() {
 	time_t t = time(0);   // get time now
 	struct tm now;
 	localtime_s(&now, &t);
-	Date currentTime(now.tm_hour, now.tm_min, now.tm_mday, (now.tm_mon + 1), (now.tm_year +1900));
+	Date currentTime(now.tm_hour, now.tm_min, now.tm_mday, (now.tm_mon + 1), (now.tm_year + 1900));
 
 	//Carrega o vetor activeRoutes com as viagens ativas.
 	for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
@@ -97,13 +97,11 @@ void User::joinJourney() {
 			perfectRoutes.push_back(activeRoutes.at(i));
 			activeRoutes.erase(activeRoutes.begin() + i);
 			i--;
-			cout << "viagem perfeita";
-			Sleep(1000);
 		}
 	}
 	//Para viagens apenas com início e fim (PORTO/COIMBRA/FARO, PORTO/FARO).
 	for (size_t i = 0; i < activeRoutes.size(); i++) {
-		
+
 		bool foundStart = false, foundDest = false;
 
 		for (size_t j = 0; j < activeRoutes.at(i).getStops().size(); j++) {
@@ -116,12 +114,10 @@ void User::joinJourney() {
 				if (currentTime.getCompactDate() <= activeRoutes.at(i).getEndingTime().getCompactDate()) {
 					foundDest = true;
 				}
-			}	
+			}
 		}
 		if (foundStart && foundDest) {
 			similarRoutes.push_back(activeRoutes.at(i));
-			cout << "viagem similar";
-			Sleep(1000);
 		}
 	}
 	//Verifica ordenação das perfectRoutes.
@@ -145,10 +141,9 @@ void User::joinJourney() {
 			i--;
 		}
 	}
-
 	//Verifica ordenação das similarRoutes.
 	for (unsigned int i = 0; i < similarRoutes.size(); i++) {
-		
+
 		int indexStart = 0, indexEnd = 0;
 
 		for (unsigned int j = 0; j < selectedRoute.size(); j++) {
@@ -171,7 +166,6 @@ void User::joinJourney() {
 		Sleep(4000);
 		return;
 	}
-
 	//Verifica se as viagens têm empty seats.
 	for (size_t i = 0; i < perfectRoutes.size(); i++) {
 		for (size_t j = 0; j < perfectRoutes.at(i).getStops().size(); j++) {
@@ -189,25 +183,48 @@ void User::joinJourney() {
 			}
 		}
 	}
-	
 	//Criação de uma nova route.
 	Route r = m.joinJourneyMenu(activeRoutesCopy, perfectRoutes, similarRoutes);
 
+	Route *found;
 	//Adiciona e subtrai emptySeats.
-	for (size_t i = 0; i < selectedRoute.size(); i++) {
-		for (size_t j = 0; j < r.getStops().size(); j++) {
-			if (i == selectedRoute.size() - 1) {
-				if (selectedRoute.at(i) == r.getStops().at(j).getStop()) {
-					r.getStops().at(j).addSeats();
-				}
-			}
-			else {
-				if (selectedRoute.at(i) == r.getStops().at(j).getStop()) {
-					r.getStops().at(j).subSeats();
+	for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
+		if (Session::instance()->registered.at(i).getUsername() == r.getHost()) {
+			for (size_t j = 0; j < Session::instance()->registered.at(i).getAllTrips().size(); j++) {
+				if (Session::instance()->registered.at(i).getAllTrips().at(j).getStops() == r.getStops() &&
+					Session::instance()->registered.at(i).getAllTrips().at(j).getStartingTime().getCompactDate() == r.getStartingTime().getCompactDate() &&
+					Session::instance()->registered.at(i).getAllTrips().at(j).getEndingTime().getCompactDate() == r.getEndingTime().getCompactDate() &&
+					Session::instance()->registered.at(i).getAllTrips().at(j).getCar().getLicensePlate() == r.getCar().getLicensePlate()) {
+
+					found = &Session::instance()->registered.at(i).getAllTrips().at(j);
 				}
 			}
 		}
 	}
+	bool foundStart = false, foundEnd = false;
+
+	for (size_t i = 0; i < selectedRoute.size(); i++) {
+		for (size_t j = 0; found->getStops().size() ; j++) {
+			if (!foundStart) {
+				if (selectedRoute.at(0) == found->getStops().at(j).getStop()) {
+					foundStart = true;
+					found->getStops().at(j).subSeats();
+				}
+			}
+			if (!foundEnd) {
+				if (selectedRoute.at(selectedRoute.size() - 1) == found->getStops().at(j).getStop()) {
+					foundEnd = true;
+				}
+			}
+			if (!foundEnd && foundStart) {
+				found->getStops().at(j).subSeats();
+			}
+			
+		}
+	}
+
+
+	
 	//Incrementa dinheiro ao usuário que está a dar host e, simultaneamente, retira ao que está a entrar.
 	for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
 		if (Session::instance()->registered.at(i).getUsername() == r.getHost()) {
@@ -307,7 +324,7 @@ void Registered::hostJourney() {
 	}
 	
 	size_t vehicleChosen = m1.chooseVehicle();
-	vector<string>journeyStops = m1.journeyMenu();
+	vector<string> journeyStops = m1.journeyMenu();
 	vector<seatsHandler> handler;
 
 	for (size_t i = 0; i < journeyStops.size(); i++) {
@@ -351,6 +368,9 @@ void Registered::addVehicle() {
 	int maxSeats;
 	bool validLicense = false, car = false;
 	char token, license[9];
+
+	u1.clearScreen();
+	u1.showLogo();
 
 	cout << "  Type in the Model of the car you intend to add to your garage: ";
 	getline(cin, model);

@@ -2,6 +2,8 @@
 
 /*VEHICLE CLASS*/
 Vehicle::Vehicle(unsigned int maximumSeats, string model, string licensePlate) : maxSeats(maximumSeats){
+	this->model = model;
+	this->licensePlate = licensePlate;
 }
 unsigned int Vehicle::getMaxSeats() {
 	return maxSeats;
