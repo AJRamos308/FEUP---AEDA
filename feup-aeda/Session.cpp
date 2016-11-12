@@ -54,7 +54,7 @@ bool Session::importInfo() {
 
 				if (token != "") {
 					string username = token.substr(0, token.find(":"));
-					token.erase(0, token.find("|") + 1);
+					token.erase(0, token.find(":") + 1);
 					string brand = token.substr(0, token.find("|"));
 					token.erase(0, token.find("|") + 1);
 					string licensePlate = token.substr(0, token.find("|"));
@@ -62,7 +62,12 @@ bool Session::importInfo() {
 					string maxSeats = token;
 
 					Vehicle v(stoul(maxSeats), brand, licensePlate);
-					Session::instance()->registered.at(Session::instance()->userPos).addVehicleToVec(v);
+					
+					for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
+						if (Session::instance()->registered.at(i).getUsername() == username) {
+							Session::instance()->registered.at(i).addVehicleToVec(v);
+						}
+					}
 					continue;
 				}
 				break;
@@ -132,7 +137,7 @@ bool Session::importInfo() {
 					Vehicle v;
 					
 					vector<seatsHandler> s;
-					seatsHandler s1(departureAt, 0);
+					seatsHandler s1(departureAt, 5);
 					seatsHandler s2(arrivalAt, 0);
 
 					s.push_back(s1);

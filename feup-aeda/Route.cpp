@@ -56,7 +56,7 @@ float Route::randomPrice() {
 }
 
 //SEATSHANDLER
-seatsHandler::seatsHandler(string stop, unsigned int emtpySeats) {
+seatsHandler::seatsHandler(string stop, unsigned int emptySeats) {
 	this->stop = stop;
 	this->emptySeats = emptySeats;
 }
