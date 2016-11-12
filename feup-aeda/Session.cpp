@@ -263,7 +263,7 @@ void Session::login() {
 				cout << "\b \b";
 				--i;
 			}
-			if (a == '\r')
+			if (a == '\r' || i == 31)
 			{
 				pass[i] = '\0';
 				break;
@@ -285,7 +285,7 @@ void Session::login() {
 			}
 		}
 		if (!foundUsername || !foundPassword) {
-			cout << "  Wrong username or password!"; Sleep(1000);
+			cout << "\n  Wrong username or password!"; Sleep(1000);
 			us.clearScreen();
 			continue;
 		}
@@ -356,10 +356,10 @@ void Session::registration() {
 			validAge = true;
 	}
 	bool userTaken = true;
+	cout << "  Username: ";
 	while (userTaken)
 	{
 		bool userTakenVector = false;
-		cout << "  Username: "; 
 		cin >> username;
 		while (cin.fail()) {
 			cin.clear();
@@ -372,13 +372,22 @@ void Session::registration() {
 		}
 		for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
 			if (username == Session::instance()->registered[i].getUsername()) {
+				us.setcolor(12);
 				cout << "  Whoops! Username taken! Sorry for the inconvenience!\n";
+				us.setcolor(15);
 				userTakenVector = true;
 				break;
 			}
 		}
-		if (!userTakenVector)
+		if (!userTakenVector && username.size() < 17) {
 			userTaken = false;
+		}
+		else {
+			us.setcolor(12);
+			cerr << "\a  Not a valid username!\n";
+			us.setcolor(15);
+			cout << "\n  Please reinsert username: ";
+		}
 	}
 	password = passwordMaker();
 
@@ -414,7 +423,7 @@ string Session::passwordMaker() {
 				cout << "\b \b";
 				--i;
 			}
-			if (a == '\r')
+			if (a == '\r' || i == 31)
 			{
 				pass1[i] = '\0';
 				break;
@@ -436,7 +445,7 @@ string Session::passwordMaker() {
 				cout << "\b \b";
 				--i;
 			}
-			if (a == '\r')
+			if (a == '\r' || i == 31)
 			{
 				pass2[i] = '\0';
 				break;

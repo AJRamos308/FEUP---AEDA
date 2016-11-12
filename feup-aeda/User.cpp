@@ -501,7 +501,7 @@ void Registered::changePassword() {
 			if (a == '\\') {
 				return;
 			}
-			if (a == '\r')
+			if (a == '\r' || i == 31)
 			{
 				pass[i] = '\0';
 				oldpass = pass;

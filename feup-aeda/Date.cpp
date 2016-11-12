@@ -30,6 +30,9 @@ bool Date::Valid()
 {
 	time_t tt = time(0);   // get time now
 	struct tm * now = localtime(&tt);
+	string compactString = to_string(compactDate);
+	if (compactString.size() != 12)
+		return false;
 	if (year >= (now->tm_year + 1900)){
 		if (year == (now->tm_year + 1900))
 		{
