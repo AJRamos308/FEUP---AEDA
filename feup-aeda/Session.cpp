@@ -263,20 +263,18 @@ void Session::login() {
 				++i;
 				cout << "*";
 			}
-			if (a == '\b'&&i >= 1)
+			else if (a == '\b'&&i >= 1)
 			{
 				cout << "\b \b";
 				--i;
 			}
-			if (a == '\r' || i == 31)
+			else if (a == '\r' || i == 31)
 			{
 				pass[i] = '\0';
 				break;
 			}
 		}
 		password = pass;
-		cin.clear();
-		cin.ignore();
 
 		for (size_t i = 0; i < registered.size(); i++) {
 			if (registered.at(i).getUsername() == username) {
@@ -290,7 +288,8 @@ void Session::login() {
 			}
 		}
 		if (!foundUsername || !foundPassword) {
-			cout << "\n  Wrong username or password!"; Sleep(1000);
+			cout << "\n  Wrong username or password!"; 
+			Sleep(1000);
 			us.clearScreen();
 			continue;
 		}
@@ -299,7 +298,10 @@ void Session::login() {
 	if (username == "admin") {
 		Session::instance()->setAdmin();
 	}
-	cout << "\n  Login successful!\n"; Sleep(1000);
+	cin.clear();
+	cin.ignore(1000, '\n');
+	cout << "\n  Login successful!\n"; 
+	Sleep(1000);
 	userPos = passwordIndex;
 
 	return;

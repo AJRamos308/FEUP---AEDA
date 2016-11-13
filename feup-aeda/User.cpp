@@ -451,7 +451,7 @@ void Registered::removeVehicle() {
 	size_t removeIndex = m1.chooseVehicle();
 	char verification;
 	
-	cout << "  Are you sure you want to delete?";
+	cout << "  Are you sure you want to delete (Y/N)?";
 	cin >> verification;
 
 	if (verification == 'Y' || verification == 'y') {
@@ -468,6 +468,17 @@ void Registered::addFunds() {
 
 	cout << "  Amount: ";
 	cin >> amount;
+	while (cin.fail()) {
+		if (cin.eof())
+			return;
+		cin.clear();
+		cin.ignore();
+		u1.setcolor(12);
+		cerr << "\a  Not a valid amount!\n";
+		u1.setcolor(15);
+		cout << "\n  Please reinsert amount: ";
+		cin >> amount;
+	}
 
 	balance += amount;
 	return;

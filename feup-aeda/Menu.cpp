@@ -136,6 +136,7 @@ void Menu::manager() {
 			continue;
 		}
 	}
+	cin.clear();
 	return;
 }
 
@@ -201,7 +202,7 @@ void Menu::menu1() {
 	}
 	u.showCursor();
 	currentMenu = 11 + selectedIndex;
-
+	cin.clear();
 	cin.ignore(50, '\n');
 	return;
 }
@@ -269,7 +270,7 @@ void Menu::menu2() {
 	}
 	u.showCursor();
 	currentMenu = 21 + selectedIndex;
-
+	cin.clear();
 	cin.ignore(50, '\n');
 	return;
 }
@@ -337,7 +338,7 @@ void Menu::menu3() {
 	}
 	u.showCursor();
 	currentMenu = 31 + selectedIndex;
-
+	cin.clear();
 	cin.ignore(50, '\n');
 	return;
 }
@@ -404,7 +405,7 @@ void Menu::menu4() {
 	}
 	u.showCursor();
 	currentMenu = 41 + selectedIndex;
-
+	cin.clear();
 	cin.ignore(50, '\n');
 	return;
 }
@@ -543,6 +544,7 @@ Route Menu::joinJourneyMenu(vector<Route> activeRoutes, vector<Route> perfectRou
 		}
 	}
 	u.showCursor();
+	cin.clear();
 	cin.ignore(50, '\n');
 }
 
@@ -623,7 +625,7 @@ vector<string> Menu::journeyMenu() {
 		}
 	}
 	u.showCursor();
-
+	cin.clear();
 	cin.ignore(50, '\n');
 	return selectedDistricts;
 }
@@ -677,7 +679,7 @@ size_t Menu::chooseVehicle() {
 		}
 	}
 	u.showCursor();
-
+	cin.clear();
 	cin.ignore(50, '\n');
 	return -1;
 }
