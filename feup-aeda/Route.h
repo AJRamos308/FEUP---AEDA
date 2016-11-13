@@ -34,7 +34,7 @@ public:
 	void switchActive();
 };
 
-class seatsHandler : public Route {
+class seatsHandler {
 private:
 	unsigned int emptySeats;
 	string stop;

@@ -97,6 +97,11 @@ void Menu::manager() {
 			continue;
 		}
 		if (currentMenu == 42) {
+			Session::instance()->registered.at(Session::instance()->userPos).addBuddy();
+			currentMenu = 40;
+			continue;
+		}
+		if (currentMenu == 43) {
 			for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
 				if (Session::instance()->username == Session::instance()->registered.at(i).getUsername()) {
 					Session::instance()->registered.at(i).addVehicle();
@@ -106,7 +111,7 @@ void Menu::manager() {
 			currentMenu = 40;
 			continue;
 		}
-		if (currentMenu == 43) {
+		if (currentMenu == 44) {
 			for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
 				if (Session::instance()->username == Session::instance()->registered.at(i).getUsername()) {
 					Session::instance()->registered.at(i).removeVehicle();
@@ -116,7 +121,7 @@ void Menu::manager() {
 			currentMenu = 40;
 			continue;
 		}
-		if (currentMenu == 44) {
+		if (currentMenu == 45) {
 			for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
 				if (Session::instance()->username == Session::instance()->registered.at(i).getUsername()) {
 					Session::instance()->registered.at(i).changePassword();
@@ -126,7 +131,7 @@ void Menu::manager() {
 			currentMenu = 40;
 			continue;
 		}
-		if (currentMenu == 45) {
+		if (currentMenu == 46) {
 			currentMenu = 20;
 			continue;
 		}
@@ -675,85 +680,3 @@ size_t Menu::chooseVehicle() {
 
 	cin.ignore(50, '\n');
 }
-/*
-void Menu::deleteVehicleMenu() {
-	u.hideCursor();
-
-	bool menuUpdate = true;
-	vector<string> localDistricts = Session::instance()->districts;
-	vector<string> selectedDistricts;
-	size_t selectedIndex = 0;
-
-	while (GetAsyncKeyState(VK_RETURN)) {}
-
-	while (!(GetAsyncKeyState(VK_SHIFT) && GetAsyncKeyState(VK_RETURN))) {
-
-		if (menuUpdate == true) {
-			u.clearScreen();
-			u.showLogo();
-
-			for (size_t i = 0; i < localDistricts.size(); i++) {
-
-				if (i == selectedIndex) {
-					u.whiteBG();
-				}
-				if (find(selectedDistricts.begin(), selectedDistricts.end(), localDistricts.at(i)) != selectedDistricts.end()) {
-					u.greenBG();
-				}
-				cout << "  " << i + 1 << ". " << localDistricts.at(i) << endl;
-				u.blackBG();
-			}
-
-			cout << "\n\n  You are stopping at: ";
-			for (size_t i = 0; i < selectedDistricts.size(); i++) {
-				cout << selectedDistricts.at(i);
-				if (i == selectedDistricts.size() - 1) {
-					cout << ".";
-				}
-				else {
-					cout << ", ";
-				}
-			}
-
-			menuUpdate = false;
-		}
-		if (GetAsyncKeyState(VK_RETURN)) {
-			bool breakCicle = false;
-
-			for (size_t i = 0; i < selectedDistricts.size(); i++) {
-				if (localDistricts.at(selectedIndex) == selectedDistricts.at(i)) {
-					selectedDistricts.erase(selectedDistricts.begin() + i);
-					breakCicle = true;
-					menuUpdate = true;
-				}
-			}
-			while (GetAsyncKeyState(VK_RETURN)) {}
-
-			if (breakCicle) {
-				continue;
-			}
-			menuUpdate = true;
-			selectedDistricts.push_back(localDistricts.at(selectedIndex));
-		}
-		else if (GetAsyncKeyState(VK_DOWN)) {
-			while (GetAsyncKeyState(VK_DOWN)) {}
-
-			if (selectedIndex != localDistricts.size() - 1) {
-				menuUpdate = true;
-				selectedIndex += 1;
-			}
-		}
-		else if (GetAsyncKeyState(VK_UP)) {
-			while (GetAsyncKeyState(VK_UP)) {}
-
-			if (selectedIndex != 0) {
-				menuUpdate = true;
-				selectedIndex -= 1;
-			}
-		}
-	}
-	u.showCursor();
-
-	cin.ignore(50, '\n');
-	return selectedDistricts;
-}*/

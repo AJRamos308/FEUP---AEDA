@@ -7,13 +7,14 @@ blinkroot|qwerty|Miguel Fernandes|19
 GARAGE
 teste1:Ford Fiesta|69-69-LM|5
 teste1:Ford Transit|96-96-AO|7
+teste1:Seat Ibiza|BE-RN-IE|6
 ephons:Chevrolet Azul|OH-SH-IT|5
 
 BUDDIES
-teste1:ephons|zepedrob|blinkroot
-ephons:blinkroot|zepedrob
+teste1:
+ephons:
 zepedrob:
-blinkroot:ephons|zepedrob
+blinkroot:
 
 TRIPS
 teste1:201611012045|201611012125|Porto|Lisboa

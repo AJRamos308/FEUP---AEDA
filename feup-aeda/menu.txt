@@ -16,10 +16,11 @@
 
 4
   1. Add funds
-  2. Add vehicle
-  3. Remove vehicle
-  4. Change password
-  5. Back
+  2. Send friend request
+  3. Add vehicle
+  4. Remove vehicle
+  5. Change password
+  6. Back
 
 5
   1. 

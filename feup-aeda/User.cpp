@@ -199,8 +199,8 @@ void User::joinJourney() {
 
 							if (!foundStart) {
 								if (selectedRoute.at(0) == Session::instance()->registered.at(i).getAllTrips().at(j).getStops().at(l).getStop()) {
-									foundStart = true;
 									Session::instance()->registered.at(i).getAllTrips().at(j).getStops().at(l).subSeats();
+									foundStart = true;
 								}
 								continue;
 							}
@@ -332,27 +332,40 @@ void Registered::hostJourney() {
 
 void Registered::addBuddy() {
 	string username;
-	bool foundUsername = false;
-		
-	while (!foundUsername) {
-
-		cout << "  Add friend : ";
-		cin >> username;
-
-		for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
-			if (Session::instance()->registered.at(i).getUsername() == username) {
-				buddies.push_back(Session::instance()->registered.at(i));
-				foundUsername = true;
-				cout << "  Buddy added!\n";
-				break;
-			}
-
-			if (!foundUsername) {
-				cout << "  That user does not exist. Please try again.";
-				continue;
-			}
+	size_t usernamePos = -1;
+	
+	cout << "  Add friend : ";
+	cin >> username;
+	cin.clear();
+	cin.ignore(1000, '\n');
+	
+	//Verifica se o username pode ser encontrado.
+	for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
+		if (Session::instance()->registered.at(i).getUsername() == username) {
+			usernamePos = i;
+			break;
 		}
 	}
+	if (usernamePos == -1) {
+		cout << "  That user does not exist!\n";
+		Sleep(2000);
+		return;
+	}
+
+	//Verificação se já são amigos.
+	for (size_t i = 0; i < Session::instance()->registered.at(Session::instance()->userPos).getBuddies().size(); i++) {
+		if (Session::instance()->registered.at(Session::instance()->userPos).getBuddies().at(i).getUsername() == Session::instance()->registered.at(usernamePos).getUsername()) {
+			cout << "  You are already friends with this user!\n";
+			Sleep(2000);
+			return;
+		}
+	}
+
+	//Se as duas condições acima se verificam, adiciona a ambos a amizade.
+	Session::instance()->registered.at(Session::instance()->userPos).addBuddyToVec(Session::instance()->registered.at(usernamePos));
+	Session::instance()->registered.at(usernamePos).addBuddyToVec(Session::instance()->registered.at(Session::instance()->userPos));
+
+	Sleep(2000);
 	return;
 }
 
@@ -365,10 +378,10 @@ void Registered::addVehicle() {
 	u1.clearScreen();
 	u1.showLogo();
 
-	cout << "  Type in the Model of the car you intend to add to your garage: ";
+	cout << "  What is the MODEL of the car?\n  > ";
 	getline(cin, model);
 	while (!validLicense) {
-		cout << "  Type in the License Plate (XX-XX-XX): ";
+		cout << "\n  What is its LICENSE PLATE? (XX-XX-XX)\n  > ";
 		for (size_t i = 0; true;) {
 			token = _getch();
 
@@ -408,7 +421,7 @@ void Registered::addVehicle() {
 			cout << "  Invalid License Plate structure!\n";
 	}
 	while (!car) {
-	cout << "\n  How many seats does your car have? (Including the driver): ";
+	cout << "\n\n  How many SEATS does your car have? (Including the driver)\n  > ";
 	cin >> maxSeats;
 		if (maxSeats < 5) {
 			Compact compact(maxSeats, model, licensePlate);
@@ -426,28 +439,22 @@ void Registered::addVehicle() {
 			car = true;
 		}
 		else {
-			cout << "\n  Invalid number of seats chosen, please try again";
+			cout << "\n  Invalid number of seats chosen, please try again.";
 		}
 	}
 }
 
 void Registered::removeVehicle() {
-	string license;
-	bool found = false;
-	while (!found) {
-		cout << "  Type in the license plate of the vehicle you wish to remove: ";
-		cin >> license;
-		for (size_t i = 0; i < garage.size(); i++) {
-			if (garage[i].getLicensePlate() == license) {
-				garage.erase(garage.begin() + i);
-				cout << "  Vehicle successfully deleted!\n";
-				found = true;
-				break;
-			}
-		}
-		if (!found) {
-			cout << "  Vehicle not found, please try again.\n";
-		}
+
+	size_t removeIndex = m1.chooseVehicle();
+	char verification;
+	
+	cout << "  Are you sure you want to delete?";
+	cin >> verification;
+
+	if (verification == 'Y' || verification == 'y') {
+		Session::instance()->registered.at(Session::instance()->userPos).getGarage().erase(Session::instance()->registered.at(Session::instance()->userPos).getGarage().begin() + removeIndex);
+		cout << "\n  Vehicle deleted!";
 	}
 	return;
 }
@@ -489,7 +496,6 @@ float Registered::payTrip(float price) {
 float Guest::payTrip(float price) {
 	return 1.5*price;
 }
-
 
 void Registered::changePassword() {
 	string oldpass;
