@@ -199,13 +199,15 @@ void User::joinJourney() {
 
 							if (!foundStart) {
 								if (selectedRoute.at(0) == Session::instance()->registered.at(i).getAllTrips().at(j).getStops().at(l).getStop()) {
-									Session::instance()->registered.at(i).getAllTrips().at(j).getStops().at(l).subSeats();
+									Session::instance()->registered.at(i).allTrips.at(j).stops.at(l).subSeats();
+									//Session::instance()->registered.at(i).getAllTrips().at(j).getStops().at(l).subSeats();
 									foundStart = true;
 								}
 								continue;
 							}
 							if (selectedRoute.at(selectedRoute.size() - 1) == Session::instance()->registered.at(i).getAllTrips().at(j).getStops().at(l).getStop()) {
-								Session::instance()->registered.at(i).getAllTrips().at(j).getStops().at(l).subSeats();
+								//Session::instance()->registered.at(i).getAllTrips().at(j).getStops().at(l).subSeats();
+								Session::instance()->registered.at(i).allTrips.at(j).stops.at(l).subSeats();
 								foundEnd = true;
 								goto loopExit;
 							}

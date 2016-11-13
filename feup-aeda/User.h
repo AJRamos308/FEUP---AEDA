@@ -23,9 +23,10 @@ private:
 	float balance;
 	bool blocked;
 	vector<Vehicle> garage;
-	vector<Route> allTrips; //vector with all registered trips.
+	//vector<Route> allTrips; //vector with all registered trips.
 	vector<Registered> buddies;
 public:
+	vector<Route> allTrips; //vector with all registered trips.
 	Registered(string username, string password, string name, unsigned int age);
 
 	string getUsername();

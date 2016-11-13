@@ -12,13 +12,14 @@ class seatsHandler;
 class Route {
 private:
 	float price;
-	vector<seatsHandler> stops;
+	//vector<seatsHandler> stops;
 	string host;
 	bool active;
 	Date startingTime;
 	Date endingTime;
 	Vehicle car;
 public:
+	vector<seatsHandler> stops;
 	Route();
 	Route(string host, Date startingTime, Date endingTime, vector<seatsHandler> stops, Vehicle car);
 
