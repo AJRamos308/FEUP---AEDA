@@ -55,7 +55,6 @@ void User::joinJourney() {
 	vector<string> selectedRoute;
 	vector<Route> activeRoutes, perfectRoutes, similarRoutes, separateRoutes, activeRoutesCopy;
 
-
 	time_t t = time(0);   // get time now
 	struct tm now;
 	localtime_s(&now, &t);
@@ -186,45 +185,39 @@ void User::joinJourney() {
 	//Criação de uma nova route.
 	Route r = m.joinJourneyMenu(activeRoutesCopy, perfectRoutes, similarRoutes);
 
-	Route *found;
 	//Adiciona e subtrai emptySeats.
+	bool foundStart = false, foundEnd = false;
+
 	for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
 		if (Session::instance()->registered.at(i).getUsername() == r.getHost()) {
 			for (size_t j = 0; j < Session::instance()->registered.at(i).getAllTrips().size(); j++) {
-				if (Session::instance()->registered.at(i).getAllTrips().at(j).getStops() == r.getStops() &&
-					Session::instance()->registered.at(i).getAllTrips().at(j).getStartingTime().getCompactDate() == r.getStartingTime().getCompactDate() &&
-					Session::instance()->registered.at(i).getAllTrips().at(j).getEndingTime().getCompactDate() == r.getEndingTime().getCompactDate() &&
+				if (Session::instance()->registered.at(i).getAllTrips().at(j).getStartingTime().getCompactDate() == r.getStartingTime().getCompactDate() &&
 					Session::instance()->registered.at(i).getAllTrips().at(j).getCar().getLicensePlate() == r.getCar().getLicensePlate()) {
 
-					found = &Session::instance()->registered.at(i).getAllTrips().at(j);
+					for (size_t k = 0; k < selectedRoute.size(); k++) {
+						for (size_t l = 0; Session::instance()->registered.at(i).getAllTrips().at(j).getStops().size(); l++) {
+
+							if (!foundStart) {
+								if (selectedRoute.at(0) == Session::instance()->registered.at(i).getAllTrips().at(j).getStops().at(l).getStop()) {
+									foundStart = true;
+									Session::instance()->registered.at(i).getAllTrips().at(j).getStops().at(l).subSeats();
+								}
+								continue;
+							}
+							if (selectedRoute.at(selectedRoute.size() - 1) == Session::instance()->registered.at(i).getAllTrips().at(j).getStops().at(l).getStop()) {
+								Session::instance()->registered.at(i).getAllTrips().at(j).getStops().at(l).subSeats();
+								foundEnd = true;
+								goto loopExit;
+							}
+							Session::instance()->registered.at(i).getAllTrips().at(j).getStops().at(l).subSeats();
+						}
+					}
 				}
 			}
 		}
 	}
-	bool foundStart = false, foundEnd = false;
+	loopExit:
 
-	for (size_t i = 0; i < selectedRoute.size(); i++) {
-		for (size_t j = 0; found->getStops().size() ; j++) {
-			if (!foundStart) {
-				if (selectedRoute.at(0) == found->getStops().at(j).getStop()) {
-					foundStart = true;
-					found->getStops().at(j).subSeats();
-				}
-			}
-			if (!foundEnd) {
-				if (selectedRoute.at(selectedRoute.size() - 1) == found->getStops().at(j).getStop()) {
-					foundEnd = true;
-				}
-			}
-			if (!foundEnd && foundStart) {
-				found->getStops().at(j).subSeats();
-			}
-			
-		}
-	}
-
-
-	
 	//Incrementa dinheiro ao usuário que está a dar host e, simultaneamente, retira ao que está a entrar.
 	for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
 		if (Session::instance()->registered.at(i).getUsername() == r.getHost()) {
@@ -332,8 +325,8 @@ void Registered::hostJourney() {
 		handler.push_back(s);
 	}
 	Route r(Session::instance()->username, d1, d2, handler, Session::instance()->registered.at(Session::instance()->userPos).getGarage().at(vehicleChosen));
-	
-	addTripToVec(r);
+
+	Session::instance()->registered.at(Session::instance()->userPos).addTripToVec(r);
 	return;
 }
 
