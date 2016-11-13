@@ -9,6 +9,7 @@ class Menu {
 private:
 	static unsigned int currentMenu;
 public:
+	//Functions
 	void manager();
 	void menu1();
 	void menu2();

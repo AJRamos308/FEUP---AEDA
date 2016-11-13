@@ -1,11 +1,7 @@
 #pragma once
-
-#include <iostream>
-#include <string>
 #include <vector>
 #include "Date.h"
 #include "Vehicle.h"
-using namespace std;
 
 class seatsHandler;
 
@@ -19,10 +15,14 @@ private:
 	Date endingTime;
 	Vehicle car;
 public:
-	vector<seatsHandler> stops;
+	//Constructors
 	Route();
 	Route(string host, Date startingTime, Date endingTime, vector<seatsHandler> stops, Vehicle car);
 
+	//Public variable while no solution is implemented.
+	vector<seatsHandler> stops;
+
+	//Get Methods
 	float getPrice();
 	vector<seatsHandler> getStops();
 	string getHost();
@@ -31,6 +31,7 @@ public:
 	Date getEndingTime();
 	Vehicle getCar();
 	
+	//Functions
 	float randomPrice();
 	void switchActive();
 };
@@ -40,9 +41,14 @@ private:
 	unsigned int emptySeats;
 	string stop;
 public:
+	//Constructors
 	seatsHandler(string stop, unsigned int emptySeats);
+
+	//Get Methods
 	unsigned int getEmptySeats();
 	string getStop();
+
+	//Functions
 	void subSeats();
 	void addSeats();
 };

@@ -1,6 +1,5 @@
 #pragma once
 #include <iostream>
-#include <iostream>
 #include <string>
 #include <sstream>
 #include <stdio.h>
@@ -17,10 +16,12 @@ private:
 	unsigned long long compactDate;
 	string formattedDate;
 public:
+	//Constructors
 	Date();
 	Date(unsigned int hour, unsigned int minutes, unsigned int day, unsigned int month, unsigned int year);
 	Date(unsigned long long compactDate);
-	bool Valid();
+
+	//Get Methods
 	unsigned int getHour();
 	unsigned int getMinutes();
 	unsigned int getDay();
@@ -28,5 +29,8 @@ public:
 	unsigned int getYear();
 	unsigned long long getCompactDate();
 	string getFormattedDate();
+
+	//Functions
+	bool Valid();
 };
 

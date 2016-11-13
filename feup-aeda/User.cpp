@@ -496,7 +496,7 @@ float Registered::payTrip(float price) {
 }
 
 float Guest::payTrip(float price) {
-	return 1.5*price;
+	return 1.5f * price;
 }
 
 void Registered::changePassword() {

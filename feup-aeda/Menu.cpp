@@ -679,4 +679,5 @@ size_t Menu::chooseVehicle() {
 	u.showCursor();
 
 	cin.ignore(50, '\n');
+	return -1;
 }

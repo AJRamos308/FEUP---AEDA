@@ -1,8 +1,4 @@
 #pragma once
-
-#include <string>
-#include <vector>
-
 #include "Vehicle.h"
 #include "Route.h"
 using namespace std;
@@ -11,7 +7,10 @@ class User{
 protected:
 	string username;
 public:
+	//Constructors
 	User();
+
+	//Functions
 	void joinJourney();
 	virtual float payTrip(float price);
 };
@@ -23,12 +22,16 @@ private:
 	float balance;
 	bool blocked;
 	vector<Vehicle> garage;
-	//vector<Route> allTrips; //vector with all registered trips.
+	//vector<Route> allTrips;
 	vector<Registered> buddies;
 public:
-	vector<Route> allTrips; //vector with all registered trips.
+	//Public variable while no solution is implemented.
+	vector<Route> allTrips;
+
+	//Constructors
 	Registered(string username, string password, string name, unsigned int age);
 
+	//Get Methods
 	string getUsername();
 	string getPassword();
 	string getName();
@@ -38,6 +41,7 @@ public:
 	vector<Vehicle> getGarage();
 	float getBalance();
 	
+	//Functions
 	void hostJourney();
 	void addBuddyToVec(Registered r);
 	void addTripToVec(Route r);
@@ -46,16 +50,17 @@ public:
 	void addVehicle();
 	void removeVehicle();
 	void changePassword();
-
 	void addFunds();
-	float payTrip(float price);
 	void modifyBalance(float price);
 	void extractPayment();
+	virtual float payTrip(float price);
 };
 
 class Guest : public User{
 public:
+	//Constructors
 	Guest();
-	Guest(string username);
-	float payTrip(float price);
+
+	//Functions
+	virtual float payTrip(float price);
 };

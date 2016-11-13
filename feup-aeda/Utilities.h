@@ -11,12 +11,14 @@
 #include <Windows.h>
 #include <sstream>
 #include <math.h>
-
 using namespace std;
 
 class Utilities {
 public:
+	//Constructors
 	Utilities();
+
+	//Functions
 	void clearScreen();
 	void setcolor(unsigned int color);
 	void whiteBG();

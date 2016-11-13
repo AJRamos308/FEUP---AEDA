@@ -11,26 +11,27 @@ private:
 	static Session* singleton_instance;
 	bool admin = false;
 public:
+	//Singleton initialization
 	static Session* instance();
 	
-	/*
-	Singleton, apenas uma instanciação de Session permitida.
-	Para aceder a uma função desta classe, usar p.e., Session::instance()->importDistricts();
-	*/
-	
+	//Variables
 	vector<Registered> registered;
 	size_t userPos;
 	vector<string> districts;
 	string username;
-	void setAdmin();
+
+	//Admin Get & Set Functions
 	bool getAdmin();
-	static void logout();
+	void setAdmin();
 	
+	//File Extraction Functions
 	bool importInfo();
 	bool exportInfo();
 	
+	//Functions
 	void login();
 	void loginAsGuest();
 	void registration();
+	void logout();
 	string passwordMaker();
 };
