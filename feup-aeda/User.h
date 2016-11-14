@@ -29,7 +29,7 @@ public:
 	vector<Route> allTrips;
 
 	//Constructors
-	Registered(string username, string password, string name, unsigned int age);
+	Registered(string username, string password, string name, unsigned int age, float balance);
 
 	//Get Methods
 	string getUsername();

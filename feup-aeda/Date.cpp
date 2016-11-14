@@ -10,7 +10,10 @@ Date::Date(unsigned int hour, unsigned int minutes, unsigned int day, unsigned i
 	this->year = year;
 	long long year2 = year * pow(10,8);
 	compactDate = year * pow(10,8) + month * pow(10,6) + day * pow(10,4) + hour * pow(10,2) + minutes;
-	formattedDate = to_string(day) + "/" + to_string(month) + "/" + to_string(year) + " " + to_string(hour) + ":" + to_string(minutes);
+	if (minutes==0)
+		formattedDate = to_string(day) + "/" + to_string(month) + "/" + to_string(year) + " " + to_string(hour) + ":00";
+	else
+		formattedDate = to_string(day) + "/" + to_string(month) + "/" + to_string(year) + " " + to_string(hour) + ":" + to_string(minutes);
 }
 Date::Date(unsigned long long compactDate) {
 	this->compactDate = compactDate;
@@ -23,7 +26,10 @@ Date::Date(unsigned long long compactDate) {
 	hour = stoi(compactString.substr(8, 2));
 	minutes = stoi(compactString.substr(10, 2));
 
-	formattedDate = to_string(day) + "/" + to_string(month) + "/" + to_string(year) + " " + to_string(hour) + ":" + to_string(minutes);
+	if (minutes == 0)
+		formattedDate = to_string(day) + "/" + to_string(month) + "/" + to_string(year) + " " + to_string(hour) + ":00";
+	else
+		formattedDate = to_string(day) + "/" + to_string(month) + "/" + to_string(year) + " " + to_string(hour) + ":" + to_string(minutes);
 }
 
 bool Date::Valid()

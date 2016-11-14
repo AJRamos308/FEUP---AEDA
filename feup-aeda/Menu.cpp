@@ -414,7 +414,6 @@ Route Menu::joinJourneyMenu(vector<Route> activeRoutes, vector<Route> perfectRou
 	u.hideCursor();
 
 	bool menuUpdate = true;
-	Sleep(2000);
 	size_t selectedIndex1 = 0, selectedIndex2 = -1;
 	size_t userIndex;
 	Route selectedRoute;
@@ -435,25 +434,25 @@ Route Menu::joinJourneyMenu(vector<Route> activeRoutes, vector<Route> perfectRou
 
 			if (perfectRoutes.size() != 0) {
 				u.setcolor(10);
-				cout << "PERFECT MATCHES\n";
+				cout << "  PERFECT MATCHES\n";
 				u.setcolor(15);
 				for (size_t i = 0; i < perfectRoutes.size(); i++) {
 					if (i == selectedIndex1) {
 						selectedRoute = perfectRoutes.at(i);
 						u.whiteBG();
 					}
-					cout << "  HOST: " << setw(32) << left << perfectRoutes.at(i).getHost() << perfectRoutes.at(i).getStartingTime().getFormattedDate() << endl;
-					cout << "  " << perfectRoutes.at(i).getCar().getModel() << " [" << perfectRoutes.at(i).getCar().getLicensePlate() << "] (";
+					cout << "  HOST: " << setw(26) << left << perfectRoutes.at(i).getHost() << perfectRoutes.at(i).getStartingTime().getFormattedDate() << endl;
+					cout << "  " << perfectRoutes.at(i).getCar().getModel() << " [" << perfectRoutes.at(i).getCar().getLicensePlate() << "]" <<
+						setw(26) << right << perfectRoutes.at(i).getEndingTime().getFormattedDate();
 					
+					cout << "\n  ";
 					for (size_t j = 0; j < perfectRoutes.at(i).getStops().size(); j++) {
 						if (perfectRoutes.at(i).getStops().at(j).getStop() == selectedRoute.getStops().at(0).getStop()) {
 							cout << perfectRoutes.at(i).getStops().at(j).getEmptySeats();
 							break;
 						}
 					}
-
-					cout << "/" << perfectRoutes.at(i).getCar().getMaxSeats() << " available!)" << setw(30) << right << perfectRoutes.at(i).getEndingTime().getFormattedDate() << endl;
-					cout << "  STOPS: ";
+					cout << "/" << perfectRoutes.at(i).getCar().getMaxSeats() << " available!\n  ";
 
 					for (size_t j = 0; j < perfectRoutes.at(i).getStops().size(); j++) {
 						if (j == perfectRoutes.at(i).getStops().size() - 1) {

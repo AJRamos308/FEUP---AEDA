@@ -15,14 +15,18 @@ void Session::logout(){
 	Session::instance()->exportInfo();
 	delete singleton_instance;
 	singleton_instance = NULL;
-	Session::instance()->importInfo(0);
+	Session::instance()->importInfo();
 }
 
 //Importa informação de database.txt para os vetores respetivos.
-bool Session::importInfo(int switchIt) {
+bool Session::importInfo() {
 	fstream f;
 	string category, token = ".";
 	f.open("database.txt");
+
+	if (!f.is_open()) {
+		throw 1;
+	}
 
 	while (!f.eof()) {
 		getline(f, category);
@@ -38,9 +42,11 @@ bool Session::importInfo(int switchIt) {
 					token.erase(0, token.find("|") + 1);
 					string name = token.substr(0, token.find("|"));
 					token.erase(0, token.find("|") + 1);
-					string age = token;
+					string age = token.substr(0, token.find("|"));
+					token.erase(0, token.find("|") + 1);
+					string balance = token;
 
-					Registered reg(username, password, name, stoi(age));
+					Registered reg(username, password, name, stoi(age), stof(balance));
 					registered.push_back(reg);
 					continue;
 				}
@@ -144,7 +150,7 @@ bool Session::importInfo(int switchIt) {
 					s.push_back(s2);
 
 					Route r(user, d1, d2, s, v);
-					if (switchIt == 1) {
+					if (!d1.Valid()) {
 						r.switchActive();
 					}
 					
@@ -182,7 +188,7 @@ bool Session::exportInfo() {
 	
 	f << "MEMBERS" << endl;
 	for (size_t i = 0; i < registered.size(); i++) {
-		f << registered.at(i).getUsername() << "|" << registered.at(i).getPassword() << "|" << registered.at(i).getName() << "|" << registered.at(i).getAge() << endl;
+		f << registered.at(i).getUsername() << "|" << registered.at(i).getPassword() << "|" << registered.at(i).getName() << "|" << registered.at(i).getAge() << "|" << registered.at(i).getBalance() << endl;
 	}
 
 	f << endl << "GARAGE" << endl;
@@ -399,8 +405,8 @@ void Session::registration() {
 		}
 	}
 	password = passwordMaker();
-
-	Registered token(username, password, name, age);
+	
+	Registered token(username, password, name, age, 0);
 	registered.push_back(token);
 
 	cout << "  User created with success!\n";

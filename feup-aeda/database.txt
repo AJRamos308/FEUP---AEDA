@@ -1,8 +1,8 @@
 MEMBERS
-teste1|teste2|Teste Teste|99
-ephons|qwerty|Afonso Ramos|19
-zepedrob|qwerty|Ze Borges|19
-blinkroot|qwerty|Miguel Fernandes|19
+teste1|teste2|Teste Teste|99|110
+ephons|qwerty|Afonso Ramos|19|1e+06
+zepedrob|qwerty|Ze Borges|19|-3
+blinkroot|qwerty|Miguel Fernandes|19|0
 
 GARAGE
 teste1:Ford Fiesta|69-69-LM|5
@@ -17,6 +17,9 @@ zepedrob:
 blinkroot:
 
 TRIPS
+teste1:201611141700|201611141800|Aveiro|Beja
+teste1:201611141800|201611141900|Aveiro|Beja
+teste1:201611141800|201611141900|Aveiro|Braga
 
 DISTRICTS
-Aveiro|Beja|Braga|Braganca|Castelo Branco|Coimbra|Evora|Faro|Guarda|Leiria|Lisboa|Portalegre|Porto|Santarem|Setubal|Viana do Castelo|Vila Real|Viseu
+Aveiro|Beja|Braga|Braganca|Castelo Branco|Coimbra|Evora|Faro|Guarda|Leiria|Lisboa|Portalegre|Porto|Santarem|Setubal|Viana do Castelo|Vila Real|Viseueu

@@ -25,9 +25,12 @@ public:
 	void setAdmin();
 	
 	//File Extraction Functions
-	bool importInfo(int switchIt);
+	bool importInfo();
 	bool exportInfo();
 	
+	//Sorting Algorithm
+	vector<string> sortDistrictsVector();
+
 	//Functions
 	void login();
 	void loginAsGuest();

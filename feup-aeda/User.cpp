@@ -8,11 +8,12 @@ Menu m1;
 
 User::User() {
 }
-Registered::Registered(string username, string password, string name, unsigned int age) {
+Registered::Registered(string username, string password, string name, unsigned int age, float balance) {
 	this->username = username;
 	this->password = password;
 	this->name = name;
 	this->age = age;
+	this->balance = balance;
 }
 Guest::Guest() {
 }
@@ -329,6 +330,7 @@ void Registered::hostJourney() {
 	Route r(Session::instance()->username, d1, d2, handler, Session::instance()->registered.at(Session::instance()->userPos).getGarage().at(vehicleChosen));
 
 	Session::instance()->registered.at(Session::instance()->userPos).addTripToVec(r);
+
 	return;
 }
 
