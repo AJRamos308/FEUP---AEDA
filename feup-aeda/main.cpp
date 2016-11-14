@@ -10,7 +10,7 @@ Session* Session::singleton_instance = 0;
 int main() {
 	Menu m;
 
-	Session::instance()->importInfo();
+	Session::instance()->importInfo(1);
 	m.manager();
 	Session::instance()->exportInfo();
 

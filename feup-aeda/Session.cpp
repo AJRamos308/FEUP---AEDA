@@ -15,11 +15,11 @@ void Session::logout(){
 	Session::instance()->exportInfo();
 	delete singleton_instance;
 	singleton_instance = NULL;
-	Session::instance()->importInfo();
+	Session::instance()->importInfo(0);
 }
 
 //Importa informação de database.txt para os vetores respetivos.
-bool Session::importInfo() {
+bool Session::importInfo(int switchIt) {
 	fstream f;
 	string category, token = ".";
 	f.open("database.txt");
@@ -144,7 +144,9 @@ bool Session::importInfo() {
 					s.push_back(s2);
 
 					Route r(user, d1, d2, s, v);
-					r.switchActive();
+					if (switchIt == 1) {
+						r.switchActive();
+					}
 					
 					for (size_t i = 0; i < registered.size(); i++) {
 						if (registered.at(i).getUsername() == user) {

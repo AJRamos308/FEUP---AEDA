@@ -25,7 +25,7 @@ public:
 	void setAdmin();
 	
 	//File Extraction Functions
-	bool importInfo();
+	bool importInfo(int switchIt);
 	bool exportInfo();
 	
 	//Functions
