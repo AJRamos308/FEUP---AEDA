@@ -50,6 +50,7 @@ public:
 	void addVehicle();
 	void removeVehicle();
 	void changePassword();
+	bool operator<(Registered r1) const;
 	void addFunds();
 	void modifyBalance(float price);
 	virtual float payTrip(float price);

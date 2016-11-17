@@ -202,6 +202,7 @@ bool Session::importInfo() {
 	}
 	//Sorts the districts vector.
 	quickSort(districts.begin(), districts.end());
+	quickSort(registered.begin(), registered.end());
 	return true;
 }
 

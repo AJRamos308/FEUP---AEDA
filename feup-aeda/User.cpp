@@ -554,3 +554,6 @@ void Registered::changePassword() {
 	}
 	return;
 }
+bool Registered::operator<(Registered r1) const {
+	return this->username < r1.username;
+}
