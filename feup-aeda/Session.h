@@ -1,7 +1,5 @@
 #pragma once
-#include <stdlib.h> 
-#include <time.h>  
-#include <conio.h>
+#include <time.h>
 #include "User.h"
 #include "Route.h"
 #include "Utilities.h"
@@ -27,9 +25,6 @@ public:
 	//File Extraction Functions
 	bool importInfo();
 	bool exportInfo();
-	
-	//Sorting Algorithm
-	vector<string> sortDistrictsVector();
 
 	//Functions
 	void login();

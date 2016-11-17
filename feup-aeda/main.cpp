@@ -10,7 +10,6 @@ Session* Session::singleton_instance = 0;
 
 int main() {
 	Menu m;
-	Utilities u;
 
 	//Exception Handling
 	try {
@@ -20,8 +19,8 @@ int main() {
 	}
 	catch (int e){
 		if (e == 1) {
-			u.clearScreen();
-			u.showLogo();
+			clearScreen();
+			showLogo();
 			cout << "\a  We couldn't find the database.\n  ERROR CODE 0x803f7001";
 			//Final window.
 			Sleep(3000);

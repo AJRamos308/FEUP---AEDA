@@ -3,7 +3,6 @@
 #include "Utilities.h"
 #include "Menu.h"
 
-Utilities u1;
 Menu m1;
 
 User::User() {
@@ -160,8 +159,8 @@ void User::joinJourney() {
 	}
 
 	if (perfectRoutes.size() == 0 && similarRoutes.size() == 0) {
-		u1.clearScreen();
-		u1.showLogo();
+		clearScreen();
+		showLogo();
 		cout << "  Whoops, looks like there aren't any active routes to join.\n  Try hosting one!";
 		Sleep(4000);
 		return;
@@ -233,8 +232,8 @@ void User::joinJourney() {
 
 void Registered::hostJourney() {
 	
-	u1.clearScreen();
-	u1.showLogo();
+	clearScreen();
+	showLogo();
 
 	char token, date[13];
 	string startingDate, endingDate;
@@ -299,9 +298,9 @@ void Registered::hostJourney() {
 				displayOrder++;
 			}
 			else {
-				u1.setcolor(12);
+				setcolor(12);
 				cout << "\n  \aWait a second! That's not a valid date!\n";
-				u1.setcolor(15);
+				setcolor(15);
 			}
 		}
 		else if (displayOrder == 1) {
@@ -312,9 +311,9 @@ void Registered::hostJourney() {
 				displayOrder = -1;
 			}
 			else {
-				u1.setcolor(12);
+				setcolor(12);
 				cout << "\n  \aWait a second! That's not a valid date!\n";
-				u1.setcolor(15);
+				setcolor(15);
 			}
 		}
 	}
@@ -379,8 +378,8 @@ void Registered::addVehicle() {
 	bool validLicense = false, car = false;
 	char token, license[9];
 
-	u1.clearScreen();
-	u1.showLogo();
+	clearScreen();
+	showLogo();
 
 	cout << "  What is the MODEL of the car?\n  > ";
 	getline(cin, model);
@@ -465,8 +464,8 @@ void Registered::removeVehicle() {
 void Registered::addFunds() {
 	float amount;
 
-	u1.clearScreen();
-	u1.showLogo();
+	clearScreen();
+	showLogo();
 
 	cout << "  Amount: ";
 	cin >> amount;
@@ -475,9 +474,9 @@ void Registered::addFunds() {
 			return;
 		cin.clear();
 		cin.ignore();
-		u1.setcolor(12);
+		setcolor(12);
 		cerr << "\a  Not a valid amount!\n";
-		u1.setcolor(15);
+		setcolor(15);
 		cout << "\n  Please reinsert amount: ";
 		cin >> amount;
 	}

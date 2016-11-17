@@ -1,11 +1,23 @@
-#include "utilities.h"
-
+#include "Utilities.h"
 using namespace std;
 
-Utilities::Utilities(){
+template<typename RandomAccessIterator, typename Order>
+void quickSort(RandomAccessIterator first, RandomAccessIterator last, Order order){
+	if (last - first > 1){
+		RandomAccessIterator split = std::partition(first + 1, last, std::bind2nd(order, *first));
+		std::iter_swap(first, split - 1);
+		quickSort(first, split - 1, order);
+		quickSort(split, last, order);
+	}
 }
 
-void Utilities::clearScreen() {
+template<typename RandomAccessIterator>
+void quickSort(RandomAccessIterator first, RandomAccessIterator last){
+	quickSort(first, last, std::less<typename std::iterator_traits<RandomAccessIterator>::value_type>());
+}
+
+
+void clearScreen() {
 	HANDLE                     hStdOut;
 	CONSOLE_SCREEN_BUFFER_INFO csbi;
 	DWORD                      count;
@@ -41,32 +53,32 @@ void Utilities::clearScreen() {
 	SetConsoleCursorPosition(hStdOut, homeCoords);
 }
 
-void Utilities::setcolor(unsigned int color){
+void setcolor(unsigned int color){
 	HANDLE hCon = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(hCon, color);
 }
 
-void Utilities::whiteBG(){
+void whiteBG(){
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(hConsole, BACKGROUND_INTENSITY | BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_BLUE);
 }
 
-void Utilities::blackBG(){
+void blackBG(){
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(hConsole, 15);
 }
 
-void Utilities::yellowBG() {
+void yellowBG() {
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(hConsole, BACKGROUND_INTENSITY | BACKGROUND_RED | BACKGROUND_GREEN);
 }
 
-void Utilities::greenBG() {
+void greenBG() {
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(hConsole, BACKGROUND_INTENSITY | BACKGROUND_GREEN);
 }
 
-void Utilities::hideCursor(){
+void hideCursor(){
    HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
    CONSOLE_CURSOR_INFO info;
    info.dwSize = 100;
@@ -74,7 +86,7 @@ void Utilities::hideCursor(){
    SetConsoleCursorInfo(consoleHandle, &info);
 }
 
-void Utilities::showCursor(){
+void showCursor(){
    HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
    CONSOLE_CURSOR_INFO info;
    info.dwSize = 100;
@@ -82,18 +94,7 @@ void Utilities::showCursor(){
    SetConsoleCursorInfo(consoleHandle, &info);
 }
 
-void Utilities::showLogo(){
-	/*setcolor(15);
-	cout << "=======================================================\n";
-	cout << "| "; setcolor(10); cout << "  ____    ___   ____    _____       __  __   _____ "; setcolor(15); cout << " |" << endl;
-	cout << "| "; setcolor(10); cout << " |  _ \\  |_ _| |  _ \\  | ____|     |  \\/  | | ____|"; setcolor(15); cout << " |" << endl;
-	cout << "| "; setcolor(10); cout << " | |_) |  | |  | | | | |  _|       | |\\/| | |  _|  "; setcolor(15); cout << " |" << endl;
-	cout << "| "; setcolor(10); cout << " |  _ <   | |  | |_| | | |___   _  | |  | | | |___ "; setcolor(15); cout << " |" << endl;
-	cout << "| "; setcolor(10); cout << " |_| \\_\\ |___| |____/  |_____|"; setcolor(12);cout << " (_) "; setcolor(12); cout << "|_|  |_| |_____|"; setcolor(15); cout << " |" << endl;
-	cout << "                 Ride Sharing Service                  \n";
-	cout << "=======================================================\n\n";
-	*/
-
+void showLogo(){
 	cout << "        _     _\n";
 	cout << "   _ __(_) __| | ___   _ __ ___   ___\n";
 	cout << "  | '__| |/ _` |/ _ \\ | '_ ` _ \\ / _ \\\n";

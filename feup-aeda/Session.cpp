@@ -1,7 +1,5 @@
 #include "Session.h"
 
-Utilities us;
-
 //Cria uma nova instância.
 Session* Session::instance() {
 	if (!singleton_instance) {
@@ -177,6 +175,8 @@ bool Session::importInfo() {
 			continue;
 		}
 	}
+	//Sorts the districts vector.
+	//quickSort(districts.begin(), districts.end());
 	return true;
 }
 
@@ -241,20 +241,20 @@ void Session::login() {
 	bool foundUsername = false, foundPassword = false;
 	size_t passwordIndex;
 
-	us.clearScreen();
+	clearScreen();
 
 	while (!foundUsername || !foundPassword) {
 		
-		us.showLogo();
+		showLogo();
 
 		cout << "  Username: ";
 		cin >> username;
 		while (cin.fail()) {
 			cin.clear();
 			cin.ignore(1000, '\n');
-			us.setcolor(12);
+			setcolor(12);
 			cerr << "\a  Not a valid username!\n";
-			us.setcolor(15);
+			setcolor(15);
 			cout << "\n  Please reinsert username: ";
 			cin >> username;
 		}
@@ -298,7 +298,7 @@ void Session::login() {
 		if (!foundUsername || !foundPassword) {
 			cout << "\n  Wrong username or password!"; 
 			Sleep(1000);
-			us.clearScreen();
+			clearScreen();
 			continue;
 		}
 	}
@@ -339,8 +339,8 @@ void Session::registration() {
 
 	bool validName = false, validAge = false; //Um nome não pode conter números.
 
-	us.clearScreen();
-	us.showLogo();
+	clearScreen();
+	showLogo();
 
 	while (!validName) {
 		cout << "  Name: ";
@@ -361,9 +361,9 @@ void Session::registration() {
 		if (age < 18 || age > 100 || cin.fail()) {
 			cin.clear();
 			cin.ignore(1000, '\n');
-			us.setcolor(12);
+			setcolor(12);
 			cerr << "\a  Not a valid age!\n";
-			us.setcolor(15);
+			setcolor(15);
 			cout << "\n  Please reinsert age: ";
 			cin >> age;
 		}
@@ -379,17 +379,17 @@ void Session::registration() {
 		while (cin.fail()) {
 			cin.clear();
 			cin.ignore(1000, '\n');
-			us.setcolor(12);
+			setcolor(12);
 			cerr << "\a  Not a valid username!\n";
-			us.setcolor(15);
+			setcolor(15);
 			cout << "\n  Please reinsert username: ";
 			cin >> username;
 		}
 		for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
 			if (username == Session::instance()->registered[i].getUsername()) {
-				us.setcolor(12);
+				setcolor(12);
 				cout << "  Whoops! Username taken! Sorry for the inconvenience!\n";
-				us.setcolor(15);
+				setcolor(15);
 				userTakenVector = true;
 				break;
 			}
@@ -398,9 +398,9 @@ void Session::registration() {
 			userTaken = false;
 		}
 		else {
-			us.setcolor(12);
+			setcolor(12);
 			cerr << "\a  Not a valid username!\n";
-			us.setcolor(15);
+			setcolor(15);
 			cout << "\n  Please reinsert username: ";
 		}
 	}

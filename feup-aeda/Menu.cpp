@@ -2,8 +2,6 @@
 #include "Utilities.h"
 #include "Session.h"
 
-Utilities u;
-
 unsigned int Menu::currentMenu = 10;
 
 void Menu::manager() {
@@ -32,8 +30,8 @@ void Menu::manager() {
 			continue;
 		}
 		if (currentMenu == 14) {
-			u.clearScreen();
-			u.showLogo();
+			clearScreen();
+			showLogo();
 			cout << "  Thank you for using our service!";
 			Sleep(1000);
 			return;
@@ -148,7 +146,7 @@ void Menu::menu1() {
 	vector<string> menuOptions;
 	unsigned int selectedIndex = 0;
 
-	u.hideCursor();
+	hideCursor();
 
 	f.open("menu.txt");
 
@@ -169,13 +167,13 @@ void Menu::menu1() {
 
 	while (!GetAsyncKeyState(VK_RETURN)) {
 		if (pushUpdate) {
-			u.clearScreen();
-			u.showLogo();
+			clearScreen();
+			showLogo();
 			for (size_t i = 0; i < menuOptions.size(); i++) {
 				if (i == selectedIndex) {
-					u.whiteBG();
+					whiteBG();
 					cout << menuOptions.at(i) << endl;
-					u.blackBG();
+					blackBG();
 				}
 				else {
 					cout << menuOptions.at(i) << endl;
@@ -200,7 +198,7 @@ void Menu::menu1() {
 			}
 		}
 	}
-	u.showCursor();
+	showCursor();
 	currentMenu = 11 + selectedIndex;
 	cin.clear();
 	cin.ignore(50, '\n');
@@ -215,9 +213,9 @@ void Menu::menu2() {
 	vector<string> menuOptions;
 	unsigned int selectedIndex = 0;
 
-	u.hideCursor();
+	hideCursor();
 
-	f.open("menu.txt");
+	f.open("mentxt");
 
 	while (getline(f, token)) {
 		if (token == "2") {
@@ -236,14 +234,14 @@ void Menu::menu2() {
 
 	while (!GetAsyncKeyState(VK_RETURN)) {
 		if (pushUpdate) {
-			u.clearScreen();
-			u.showLogo();
+			clearScreen();
+			showLogo();
 			cout << "  Welcome, " << Session::instance()->username << setw(14) << Session::instance()->registered.at(Session::instance()->userPos).getBalance() << ".00 EUR\n\n";
 			for (size_t i = 0; i < menuOptions.size(); i++) {
 				if (i == selectedIndex) {
-					u.whiteBG();
+					whiteBG();
 					cout << menuOptions.at(i) << endl;
-					u.blackBG();
+					blackBG();
 				}
 				else {
 					cout << menuOptions.at(i) << endl;
@@ -268,7 +266,7 @@ void Menu::menu2() {
 			}
 		}
 	}
-	u.showCursor();
+	showCursor();
 	currentMenu = 21 + selectedIndex;
 	cin.clear();
 	cin.ignore(50, '\n');
@@ -283,9 +281,9 @@ void Menu::menu3() {
 	vector<string> menuOptions;
 	unsigned int selectedIndex = 0;
 
-	u.hideCursor();
+	hideCursor();
 
-	f.open("menu.txt");
+	f.open("mentxt");
 
 	while (getline(f, token)) {
 		if (token == "3") {
@@ -304,14 +302,14 @@ void Menu::menu3() {
 
 	while (!GetAsyncKeyState(VK_RETURN)) {
 		if (pushUpdate) {
-			u.clearScreen();
-			u.showLogo();
+			clearScreen();
+			showLogo();
 			cout << "  Welcome, " << Session::instance()->username << ".\n\n";
 			for (size_t i = 0; i < menuOptions.size(); i++) {
 				if (i == selectedIndex) {
-					u.whiteBG();
+					whiteBG();
 					cout << menuOptions.at(i) << endl;
-					u.blackBG();
+					blackBG();
 				}
 				else {
 					cout << menuOptions.at(i) << endl;
@@ -336,7 +334,7 @@ void Menu::menu3() {
 			}
 		}
 	}
-	u.showCursor();
+	showCursor();
 	currentMenu = 31 + selectedIndex;
 	cin.clear();
 	cin.ignore(50, '\n');
@@ -351,9 +349,9 @@ void Menu::menu4() {
 	vector<string> menuOptions;
 	unsigned int selectedIndex = 0;
 
-	u.hideCursor();
+	hideCursor();
 
-	f.open("menu.txt");
+	f.open("mentxt");
 
 	while (getline(f, token)) {
 		if (token == "4") {
@@ -372,13 +370,13 @@ void Menu::menu4() {
 
 	while (!GetAsyncKeyState(VK_RETURN)) {
 		if (pushUpdate) {
-			u.clearScreen();
-			u.showLogo();
+			clearScreen();
+			showLogo();
 			for (size_t i = 0; i < menuOptions.size(); i++) {
 				if (i == selectedIndex) {
-					u.whiteBG();
+					whiteBG();
 					cout << menuOptions.at(i) << endl;
-					u.blackBG();
+					blackBG();
 				}
 				else {
 					cout << menuOptions.at(i) << endl;
@@ -403,7 +401,7 @@ void Menu::menu4() {
 			}
 		}
 	}
-	u.showCursor();
+	showCursor();
 	currentMenu = 41 + selectedIndex;
 	cin.clear();
 	cin.ignore(50, '\n');
@@ -411,7 +409,7 @@ void Menu::menu4() {
 }
 
 Route Menu::joinJourneyMenu(vector<Route> activeRoutes, vector<Route> perfectRoutes, vector<Route> similarRoutes) {
-	u.hideCursor();
+	hideCursor();
 
 	bool menuUpdate = true;
 	size_t selectedIndex1 = 0, selectedIndex2 = -1;
@@ -429,17 +427,17 @@ Route Menu::joinJourneyMenu(vector<Route> activeRoutes, vector<Route> perfectRou
 
 	while (true) {
 		if (menuUpdate) {
-			u.clearScreen();
-			u.showLogo();
+			clearScreen();
+			showLogo();
 
 			if (perfectRoutes.size() != 0) {
-				u.setcolor(10);
+				setcolor(10);
 				cout << "  PERFECT MATCHES\n";
-				u.setcolor(15);
+				setcolor(15);
 				for (size_t i = 0; i < perfectRoutes.size(); i++) {
 					if (i == selectedIndex1) {
 						selectedRoute = perfectRoutes.at(i);
-						u.whiteBG();
+						whiteBG();
 					}
 					cout << "  HOST: " << setw(26) << left << perfectRoutes.at(i).getHost() << perfectRoutes.at(i).getStartingTime().getFormattedDate() << endl;
 					cout << "  " << perfectRoutes.at(i).getCar().getModel() << " [" << perfectRoutes.at(i).getCar().getLicensePlate() << "]" <<
@@ -461,17 +459,17 @@ Route Menu::joinJourneyMenu(vector<Route> activeRoutes, vector<Route> perfectRou
 						}
 						cout << perfectRoutes.at(i).getStops().at(j).getStop() << " -> ";
 					}
-					u.blackBG();
+					blackBG();
 				}
 			}
 			if (similarRoutes.size() != 0) {
-				u.setcolor(14);
+				setcolor(14);
 				cout << "\n\nSIMILAR MATCHES\n";
-				u.setcolor(15);
+				setcolor(15);
 				for (size_t i = 0; i < similarRoutes.size(); i++) {
 					if (i == selectedIndex2) {
 						selectedRoute = similarRoutes.at(i);
-						u.whiteBG();
+						whiteBG();
 					}
 					cout << "  HOST: " << setw(32) << left << similarRoutes.at(i).getHost() << similarRoutes.at(i).getStartingTime().getFormattedDate() << endl;
 					cout << "  " << similarRoutes.at(i).getCar().getModel() << " [" << similarRoutes.at(i).getCar().getLicensePlate() << "] (" << "/" << similarRoutes.at(i).getCar().getMaxSeats() << ")" <<
@@ -485,7 +483,7 @@ Route Menu::joinJourneyMenu(vector<Route> activeRoutes, vector<Route> perfectRou
 						}
 						cout << similarRoutes.at(i).getStops().at(j).getStop() << " -> ";
 					}
-					u.blackBG();
+					blackBG();
 				}
 			}
 			menuUpdate = false;
@@ -542,13 +540,13 @@ Route Menu::joinJourneyMenu(vector<Route> activeRoutes, vector<Route> perfectRou
 			}
 		}
 	}
-	u.showCursor();
+	showCursor();
 	cin.clear();
 	cin.ignore(50, '\n');
 }
 
 vector<string> Menu::journeyMenu() {
-	u.hideCursor();
+	hideCursor();
 
 	bool menuUpdate = true;
 	vector<string> localDistricts = Session::instance()->districts;
@@ -560,19 +558,19 @@ vector<string> Menu::journeyMenu() {
 	while (!(GetAsyncKeyState(VK_SHIFT) && GetAsyncKeyState(VK_RETURN))) {
 		
 		if (menuUpdate == true) {
-			u.clearScreen();
-			u.showLogo();
+			clearScreen();
+			showLogo();
 
 			for (size_t i = 0; i < localDistricts.size(); i++) {
 				
 				if (i == selectedIndex) {
-					u.whiteBG();
+					whiteBG();
 				}
 				if (find(selectedDistricts.begin(), selectedDistricts.end(), localDistricts.at(i)) != selectedDistricts.end()) {
-					u.greenBG();
+					greenBG();
 				}
 				cout << "  " << i + 1 << ". " << localDistricts.at(i) << endl;
-				u.blackBG();
+				blackBG();
 			}
 			
 			cout << "\n\n  You are stopping at: ";
@@ -623,14 +621,14 @@ vector<string> Menu::journeyMenu() {
 			}
 		}
 	}
-	u.showCursor();
+	showCursor();
 	cin.clear();
 	cin.ignore(50, '\n');
 	return selectedDistricts;
 }
 
 size_t Menu::chooseVehicle() {
-	u.hideCursor();
+	hideCursor();
 
 	bool menuUpdate = true;
 	
@@ -642,16 +640,16 @@ size_t Menu::chooseVehicle() {
 	while (!(GetAsyncKeyState(VK_SHIFT) && GetAsyncKeyState(VK_RETURN))) {
 
 		if (menuUpdate == true) {
-			u.clearScreen();
-			u.showLogo();
+			clearScreen();
+			showLogo();
 
 			for (size_t i = 0; i < localVehicles.size(); i++) {
 
 				if (i == selectedIndex) {
-					u.whiteBG();
+					whiteBG();
 				}
 				cout << "  " << i + 1 << ". " << localVehicles.at(i).getModel() << " [" << localVehicles.at(i).getLicensePlate() << "]\n";
-				u.blackBG();
+				blackBG();
 			}
 			menuUpdate = false;
 		}
@@ -677,7 +675,7 @@ size_t Menu::chooseVehicle() {
 			}
 		}
 	}
-	u.showCursor();
+	showCursor();
 	cin.clear();
 	cin.ignore(50, '\n');
 	return -1;
