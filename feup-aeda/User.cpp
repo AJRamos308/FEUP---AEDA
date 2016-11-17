@@ -238,22 +238,22 @@ void Registered::hostJourney() {
 	char token, date[13];
 	string startingDate, endingDate;
 	int displayOrder = 0;
-	Date d1;
-	Date d2;
+	Date d1, d2;
 
 	if (getGarage().size() == 0) {
 		cout << "  Sorry, you don't have any vehicles available so you can't host a trip. Try adding one!";
 		Sleep(4000);
 		return;
 	}
-
+	
+	cout << "  At what time are you hitting the road? (YYYY/MM/DD hh:mm)\n\n";
 	while (displayOrder != -1) {
 
 		if (displayOrder == 0) {
-			cout << "  Starting at [year/month/day hour:minutes] : ";
+			cout << "  Departure : ";
 		}
 		else if (displayOrder == 1) {
-			cout << "\n  Ending at [year/month/day hour:minutes] : ";
+			cout << "\n  Arrival   : ";
 		}
 
 		for (size_t i = 0; true;) {

@@ -8,11 +8,9 @@ class seatsHandler;
 class Route {
 private:
 	float price;
-	//vector<seatsHandler> stops;
 	string host;
 	bool active;
-	Date startingTime;
-	Date endingTime;
+	Date startingTime, endingTime;
 	Vehicle car;
 public:
 	//Constructors

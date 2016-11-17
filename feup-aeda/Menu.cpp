@@ -150,6 +150,11 @@ void Menu::menu1() {
 
 	f.open("menu.txt");
 
+	if (!f.is_open()) {
+		throw 2;
+	}
+	showLogo();
+
 	while (getline(f, token)) {
 		if (token == "1") {
 			menuMatched = true;
@@ -215,7 +220,7 @@ void Menu::menu2() {
 
 	hideCursor();
 
-	f.open("mentxt");
+	f.open("menu.txt");
 
 	while (getline(f, token)) {
 		if (token == "2") {
@@ -236,7 +241,7 @@ void Menu::menu2() {
 		if (pushUpdate) {
 			clearScreen();
 			showLogo();
-			cout << "  Welcome, " << Session::instance()->username << setw(14) << Session::instance()->registered.at(Session::instance()->userPos).getBalance() << ".00 EUR\n\n";
+			cout << "  Welcome, " << Session::instance()->username << "." << setw(14) << Session::instance()->registered.at(Session::instance()->userPos).getBalance() << ".00 EUR\n\n";
 			for (size_t i = 0; i < menuOptions.size(); i++) {
 				if (i == selectedIndex) {
 					whiteBG();
@@ -283,7 +288,7 @@ void Menu::menu3() {
 
 	hideCursor();
 
-	f.open("mentxt");
+	f.open("menu.txt");
 
 	while (getline(f, token)) {
 		if (token == "3") {
@@ -351,7 +356,7 @@ void Menu::menu4() {
 
 	hideCursor();
 
-	f.open("mentxt");
+	f.open("menu.txt");
 
 	while (getline(f, token)) {
 		if (token == "4") {
@@ -560,6 +565,7 @@ vector<string> Menu::journeyMenu() {
 		if (menuUpdate == true) {
 			clearScreen();
 			showLogo();
+			cout << "  Where are you heading?\n\n";
 
 			for (size_t i = 0; i < localDistricts.size(); i++) {
 				
@@ -642,6 +648,7 @@ size_t Menu::chooseVehicle() {
 		if (menuUpdate == true) {
 			clearScreen();
 			showLogo();
+			cout << "  Which vehicle will you be driving?\n\n";
 
 			for (size_t i = 0; i < localVehicles.size(); i++) {
 

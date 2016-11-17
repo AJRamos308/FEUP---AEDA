@@ -14,7 +14,7 @@
 #include <functional> // for std::less
 using namespace std;
 
-//Functions
+//Text Display
 void clearScreen();
 void setcolor(unsigned int color);
 void whiteBG();
