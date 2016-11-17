@@ -36,17 +36,16 @@ public:
 
 class seatsHandler {
 private:
-	unsigned int emptySeats;
+	vector<string> passengers;
 	string stop;
 public:
 	//Constructors
-	seatsHandler(string stop, unsigned int emptySeats);
+	seatsHandler(string stop, vector<string> passengers);
 
 	//Get Methods
-	unsigned int getEmptySeats();
+	vector<string> getPassengers();
 	string getStop();
 
 	//Functions
-	void subSeats();
-	void addSeats();
+	void addSeats(string username);
 };
