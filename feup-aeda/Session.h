@@ -32,4 +32,8 @@ public:
 	void registration();
 	void logout();
 	string passwordMaker();
+
+	//Admin Functions
+
+	void showClientInformation();
 };

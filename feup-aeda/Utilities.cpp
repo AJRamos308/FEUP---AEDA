@@ -1,7 +1,7 @@
 #include "Utilities.h"
 using namespace std;
 
-template<typename RandomAccessIterator, typename Order>
+/*template<typename RandomAccessIterator, typename Order>
 void quickSort(RandomAccessIterator first, RandomAccessIterator last, Order order){
 	if (last - first > 1){
 		RandomAccessIterator split = std::partition(first + 1, last, std::bind2nd(order, *first));
@@ -14,7 +14,7 @@ void quickSort(RandomAccessIterator first, RandomAccessIterator last, Order orde
 template<typename RandomAccessIterator>
 void quickSort(RandomAccessIterator first, RandomAccessIterator last){
 	quickSort(first, last, std::less<typename std::iterator_traits<RandomAccessIterator>::value_type>());
-}
+}*/
 
 
 void clearScreen() {

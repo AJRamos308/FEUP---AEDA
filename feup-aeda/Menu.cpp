@@ -133,6 +133,15 @@ void Menu::manager() {
 			currentMenu = 20;
 			continue;
 		}
+		if (currentMenu == 50) {
+			menu5();
+			continue;
+		}
+		if (currentMenu == 51) {
+			Session::instance()->showClientInformation();
+			currentMenu = 50;
+			continue;
+		}
 	}
 	cin.clear();
 	return;
@@ -153,6 +162,8 @@ void Menu::menu1() {
 	if (!f.is_open()) {
 		throw 2;
 	}
+	while (GetAsyncKeyState(VK_RETURN)) {}
+	
 	showLogo();
 
 	while (getline(f, token)) {
@@ -408,6 +419,73 @@ void Menu::menu4() {
 	}
 	showCursor();
 	currentMenu = 41 + selectedIndex;
+	cin.clear();
+	cin.ignore(50, '\n');
+	return;
+}
+
+void Menu::menu5() {
+
+	fstream f;
+	string token;
+	bool menuMatched = false, pushUpdate = true;
+	vector<string> menuOptions;
+	unsigned int selectedIndex = 0;
+
+	hideCursor();
+
+	f.open("menu.txt");
+
+	while (getline(f, token)) {
+		if (token == "5") {
+			menuMatched = true;
+			continue;
+		}
+		if (menuMatched && token != "") {
+			menuOptions.push_back(token);
+			continue;
+		}
+		if (menuMatched && token == "") {
+			break;
+		}
+	}
+	while (GetAsyncKeyState(VK_RETURN)) {}
+
+	while (!GetAsyncKeyState(VK_RETURN)) {
+		if (pushUpdate) {
+			clearScreen();
+			showLogo();
+			for (size_t i = 0; i < menuOptions.size(); i++) {
+				if (i == selectedIndex) {
+					whiteBG();
+					cout << menuOptions.at(i) << endl;
+					blackBG();
+				}
+				else {
+					cout << menuOptions.at(i) << endl;
+				}
+			}
+			pushUpdate = false;
+		}
+		else if (GetAsyncKeyState(VK_UP)) {
+			while (GetAsyncKeyState(VK_UP)) {}
+
+			if (selectedIndex != 0) {
+				selectedIndex--;
+				pushUpdate = true;
+			}
+		}
+		else if (GetAsyncKeyState(VK_DOWN)) {
+			while (GetAsyncKeyState(VK_DOWN)) {}
+
+			if (selectedIndex != menuOptions.size() - 1) {
+				selectedIndex++;
+				pushUpdate = true;
+			}
+		}
+	}
+	showCursor();
+	currentMenu = 51 + selectedIndex;
 	cin.clear();
 	cin.ignore(50, '\n');
 	return;

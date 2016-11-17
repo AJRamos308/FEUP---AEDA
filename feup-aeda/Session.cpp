@@ -16,6 +16,21 @@ void Session::logout(){
 	Session::instance()->importInfo();
 }
 
+template<typename RandomAccessIterator, typename Order>
+void quickSort(RandomAccessIterator first, RandomAccessIterator last, Order order) {
+	if (last - first > 1) {
+		RandomAccessIterator split = std::partition(first + 1, last, std::bind2nd(order, *first));
+		std::iter_swap(first, split - 1);
+		quickSort(first, split - 1, order);
+		quickSort(split, last, order);
+	}
+}
+
+template<typename RandomAccessIterator>
+void quickSort(RandomAccessIterator first, RandomAccessIterator last) {
+	quickSort(first, last, std::less<typename std::iterator_traits<RandomAccessIterator>::value_type>());
+}
+
 //Importa informação de database.txt para os vetores respetivos.
 bool Session::importInfo() {
 	fstream f;
@@ -176,7 +191,7 @@ bool Session::importInfo() {
 		}
 	}
 	//Sorts the districts vector.
-	//quickSort(districts.begin(), districts.end());
+	quickSort(districts.begin(), districts.end());
 	return true;
 }
 
@@ -282,6 +297,7 @@ void Session::login() {
 				break;
 			}
 		}
+
 		password = pass;
 
 		for (size_t i = 0; i < registered.size(); i++) {
@@ -303,7 +319,7 @@ void Session::login() {
 		}
 	}
 	this->username = username;
-	if (username == "admin") {
+	if (username == "admin" && password == "admin") {
 		Session::instance()->setAdmin();
 	}
 	cin.clear();
@@ -479,9 +495,18 @@ string Session::passwordMaker() {
 	return password1;
 }
 
+
+//ADMIN
 void Session::setAdmin() {
 	admin = true;
 }
 bool Session::getAdmin() {
 	return admin;
 }
+void Session::showClientInformation() {
+	cout << "Yo";
+	Sleep(1000);
+
+
+}
+
