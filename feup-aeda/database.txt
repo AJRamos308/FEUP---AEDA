@@ -19,10 +19,11 @@ blinkroot:
 admin:
 
 TRIPS
-teste1:201611141700|201611141800|Aveiro|Beja
-teste1:201611141800|201611141900|Aveiro|Beja
-teste1:201611141800|201611141900|Aveiro|Braga
-teste1:201611161200|201611161300|Aveiro|Beja
+teste1:201611141700|201611141800|Aveiro()Beja()
+teste1:201611141800|201611141900|Aveiro()Beja()
+teste1:201611141800|201611141900|Aveiro()Braga()
+teste1:201611161200|201611161300|Aveiro()Beja()
+ephons:201711161200|201711161300|Aveiro(ephons)Beja()
 
 DISTRICTS
 Aveiro|Beja|Braga|Braganca|Castelo Branco|Coimbra|Evora|Faro|Guarda|Leiria|Lisboa|Portalegre|Porto|Santarem|Setubal|Viana do Castelo|Vila Real|Viseu

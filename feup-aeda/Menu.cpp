@@ -543,7 +543,7 @@ Route Menu::joinJourneyMenu(vector<Route> activeRoutes, vector<Route> perfectRou
 					cout << "\n  ";
 					for (size_t j = 0; j < perfectRoutes.at(i).getStops().size(); j++) {
 						if (perfectRoutes.at(i).getStops().at(j).getStop() == selectedRoute.getStops().at(0).getStop()) {
-							cout << perfectRoutes.at(i).getStops().at(j).getEmptySeats();
+							cout << perfectRoutes.at(i).getCar().getMaxSeats()-perfectRoutes.at(i).getStops().at(j).getPassengers().size();
 							break;
 						}
 					}

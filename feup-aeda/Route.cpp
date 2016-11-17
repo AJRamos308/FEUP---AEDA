@@ -56,20 +56,17 @@ float Route::randomPrice() {
 }
 
 //SEATSHANDLER
-seatsHandler::seatsHandler(string stop, unsigned int emptySeats) {
+seatsHandler::seatsHandler(string stop, vector<string> passengers) {
 	this->stop = stop;
-	this->emptySeats = emptySeats;
+	this->passengers = passengers;
 }
-unsigned int seatsHandler::getEmptySeats() {
-	return emptySeats;
+vector<string> seatsHandler::getPassengers() {
+	return passengers;
 }
 
 string seatsHandler::getStop() {
 	return stop;
 }
-void seatsHandler::subSeats() {
-	emptySeats--;
-}
-void seatsHandler::addSeats() {
-	emptySeats++;
+void seatsHandler::addSeats(string username) {
+	passengers.push_back(username);
 }

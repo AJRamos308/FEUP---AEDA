@@ -138,35 +138,45 @@ bool Session::importInfo() {
 
 			while (true) {
 				getline(f, token);
-
+				vector<seatsHandler> s;
 				if (token != "") {
 					string user = token.substr(0, token.find(":"));
-					token.erase(0, token.find(":") + 1);
+					token.erase(0, token.find(":") + 1); 
 					string departureTime = token.substr(0, token.find("|"));
 					token.erase(0, token.find("|") + 1);
 					string arrivalTime = token.substr(0, token.find("|"));
 					token.erase(0, token.find("|") + 1);
-					string departureAt = token.substr(0, token.find("|"));
-					token.erase(0, token.find("|") + 1);
-					string arrivalAt = token;
+					while (true) {
+						string stop = token.substr(0, token.find("("));
+						token.erase(0, token.find("(") + 1);
+						string passenger = token.substr(0, token.find(")"));
+						token.erase(0, token.find(")") + 1);
+						vector<string>passengers;
+						while (true) {
+							if (passenger.find(",") == -1 && passenger.length() == 0) {
+								break;
+							}
+							else if (passenger.find(",") == -1 && passenger.length() > 0) {
+								passengers.push_back(passenger);
+								seatsHandler s1(stop,passengers);
+								break;
+							}
+							string singlep = passenger.substr(0, token.find(","));
+							passenger.erase(0, token.find(",") + 1);
+							passengers.push_back(singlep);
+						}
+					}
 
 					Date d1(stoull(departureTime));
 					Date d2(stoull(arrivalTime));
 
 					Vehicle v;
-					
-					vector<seatsHandler> s;
-					seatsHandler s1(departureAt, 5);
-					seatsHandler s2(arrivalAt, 0);
-
-					s.push_back(s1);
-					s.push_back(s2);
 
 					Route r(user, d1, d2, s, v);
 					if (!d1.Valid()) {
 						r.switchActive();
 					}
-					
+					//TODO: When there are active routes abort is called()
 					for (size_t i = 0; i < registered.size(); i++) {
 						if (registered.at(i).getUsername() == user) {
 							registered.at(i).addTripToVec(r);
@@ -235,6 +245,17 @@ bool Session::exportInfo() {
 			f << registered.at(i).getUsername() << ":";
 			f << registered.at(i).getAllTrips().at(j).getStartingTime().getCompactDate() << "|";
 			f << registered.at(i).getAllTrips().at(j).getEndingTime().getCompactDate() << "|";
+			for (size_t k = 0; k < registered.at(i).getAllTrips().at(j).getStops().size(); k++) {
+				f << registered.at(i).getAllTrips().at(j).getStops().at(k).getStop() << "(";
+				for (size_t l = 0; l < registered.at(i).getAllTrips().at(j).getStops().at(k).getPassengers().size(); l++) {
+					if (l == registered.at(i).getAllTrips().at(j).getStops().at(k).getPassengers().size() - 1)
+						f << registered.at(i).getAllTrips().at(j).getStops().at(k).getPassengers().at(l);
+					else 
+						f << registered.at(i).getAllTrips().at(j).getStops().at(k).getPassengers().at(l) << ",";
+					
+				}
+				f << ")";
+			}
 			f << registered.at(i).getAllTrips().at(j).getStops().at(0).getStop() << "|";
 			f << registered.at(i).getAllTrips().at(j).getStops().at(registered.at(i).getAllTrips().at(j).getStops().size() - 1).getStop() << endl;
 		}
