@@ -165,7 +165,12 @@ bool Session::importInfo() {
 							passenger.erase(0, token.find(",") + 1);
 							passengers.push_back(singlep);
 						}
+						if (token.length() == 0) {
+							cout << "ay";
+							break;
+						}
 					}
+					cout << "ay";
 
 					Date d1(stoull(departureTime));
 					Date d2(stoull(arrivalTime));
