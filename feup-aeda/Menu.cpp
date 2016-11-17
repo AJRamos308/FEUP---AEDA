@@ -142,6 +142,20 @@ void Menu::manager() {
 			currentMenu = 50;
 			continue;
 		}
+		if (currentMenu == 52) {
+			Session::instance()->showTripInformation();
+			currentMenu = 50;
+			continue;
+		}
+		if (currentMenu == 53) {
+			Session::instance()->extractPayment();
+			currentMenu = 50;
+			continue;
+		}
+		if (currentMenu == 54) {
+			Session::instance()->logout();
+			currentMenu = 10;
+		}
 	}
 	cin.clear();
 	return;

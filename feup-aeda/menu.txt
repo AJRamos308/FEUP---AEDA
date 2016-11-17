@@ -26,3 +26,4 @@
   1. Show all client information
   2. Show all trips
   3. Extract monthly payment
+  4. Logout

@@ -34,6 +34,7 @@ public:
 	string passwordMaker();
 
 	//Admin Functions
-
+	void showTripInformation();
 	void showClientInformation();
+	void extractPayment();
 };

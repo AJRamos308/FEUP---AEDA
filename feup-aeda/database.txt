@@ -1,7 +1,7 @@
 MEMBERS
 teste1|teste2|Teste Teste|99|110
-ephons|qwerty|Afonso Ramos|19|1e+06
-zepedrob|qwerty|Ze Borges|19|-3
+ephons|qwerty|Afonso Ramos|19|70
+zepedrob|qwerty|Ze Borges|19|10
 blinkroot|qwerty|Miguel Fernandes|19|0
 admin|admin|Dono Disto Tudo|23|0
 
@@ -16,6 +16,7 @@ teste1:
 ephons:
 zepedrob:
 blinkroot:
+admin:
 
 TRIPS
 teste1:201611141700|201611141800|Aveiro|Beja

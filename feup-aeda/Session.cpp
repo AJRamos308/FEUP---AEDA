@@ -504,9 +504,36 @@ bool Session::getAdmin() {
 	return admin;
 }
 void Session::showClientInformation() {
-	cout << "Yo";
-	Sleep(1000);
+	cout << setw(20) << left << "Username" << setw(40) << left << "Full Name" << setw(15) << left << "Age" << setw(15) << left << "Balance" << endl;
+	for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
+		cout << endl << setw(20) << left << Session::instance()->registered.at(i).getUsername() << 
+			setw(40) << left << Session::instance()->registered.at(i).getName() << 
+			setw(15) << left << Session::instance()->registered.at(i).getAge() << 
+			setw(15) << Session::instance()->registered.at(i).getBalance();
+	}
 
+}
 
+void Session::showTripInformation() {
+	cout << setw(15) << left << "Host" << setw(25) << left << "Starting date" << setw(25) << left << "Ending date" << setw(15) << left << "Origin" << setw(15) << left << "Destination" << endl;
+	for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
+		for (size_t j = 0; j < Session::instance()->registered.at(i).allTrips.size(); j++) {
+			cout << endl << setw(15) << left << Session::instance()->registered.at(i).getAllTrips().at(j).getHost() <<
+				setw(25) << left << Session::instance()->registered.at(i).getAllTrips().at(j).getStartingTime().getFormattedDate() <<
+				setw(25) << left << Session::instance()->registered.at(i).getAllTrips().at(j).getEndingTime().getFormattedDate() <<
+				setw(15) << left << Session::instance()->registered.at(i).getAllTrips().at(j).getStops().at(0).getStop() << 
+				setw(15) << left << Session::instance()->registered.at(i).getAllTrips().at(j).getStops().at(Session::instance()->registered.at(i).getAllTrips().at(j).getStops().size() - 1).getStop();
+		}
+	}
+}
+
+void Session::extractPayment() { //So o admin tem acesso
+	for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
+		if (Session::instance()->registered.at(i).getBalance() < 5)
+			Session::instance()->registered.at(i).switchBlocked();
+		Session::instance()->registered.at(i).modifyBalance(-5);
+	}
+	cout << "Monthly payment withdrawn!";
+	Sleep(2000);
 }
 

@@ -490,16 +490,19 @@ void Registered::modifyBalance(float price) {
 	//TODO: taxa 5, fator 1.5.
 }
 
-void Registered::extractPayment() { //So o admin tem acesso
-	for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
-		if (Session::instance()->registered.at(i).balance < 5)
-			blocked = true;
-		Session::instance()->registered.at(i).balance -= 5;
-		cout << "Monthly payment withdrawn!";
-	}
-}
 float User::payTrip(float price) {
 	return price;
+}
+
+void Registered::switchBlocked() {
+	if (blocked) {
+		blocked = false;
+		return;
+	}
+	else {
+		blocked = true;
+		return;
+	}
 }
 
 float Registered::payTrip(float price) {

@@ -52,8 +52,8 @@ public:
 	void changePassword();
 	void addFunds();
 	void modifyBalance(float price);
-	void extractPayment();
 	virtual float payTrip(float price);
+	void switchBlocked();
 };
 
 class Guest : public User{
