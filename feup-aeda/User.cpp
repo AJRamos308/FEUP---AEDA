@@ -54,7 +54,7 @@ void User::joinJourney() {
 	Menu m;
 	vector<string> selectedRoute;
 	vector<Route> activeRoutes, perfectRoutes, similarRoutes, separateRoutes, activeRoutesCopy;
-
+	
 	time_t t = time(0);   // get time now
 	struct tm now;
 	localtime_s(&now, &t);
@@ -89,24 +89,26 @@ void User::joinJourney() {
 
 	//Para viagens com match perfeita (PORTO/LISBOA/FARO, PORTO/COIMBRA/LISBOA/FARO, AVEIRO/PORTO/LISBOA/FARO).
 	for (size_t i = 0; i < activeRoutes.size(); i++) {
-		unsigned int matches = 0;
+		unsigned int counter2 = 0;
 
 		for (size_t j = 0; j < activeRoutes.at(i).getStops().size(); j++) {
 			for (size_t k = 0; k < selectedRoute.size(); k++) {
 				if (selectedRoute.at(k) == activeRoutes.at(i).getStops().at(j).getStop()) {
-					//if (currentTime.getCompactDate() <= activeRoutes.at(i).getEndingTime().getCompactDate()) {
-						matches++;	
-					//}
+					if (activeRoutes.at(i).getStops().at(j).getPassengers().size() == activeRoutes.at(i).getCar().getMaxSeats() - 1) {
+						break;
+					}
+					counter2++;
 				}
 			}
 		}
 
-		if (matches == selectedRoute.size()) {
+		if (counter2 == selectedRoute.size()) {
 			perfectRoutes.push_back(activeRoutes.at(i));
 			activeRoutes.erase(activeRoutes.begin() + i);
 			i--;
 		}
 	}
+
 	//Para viagens apenas com início e fim (PORTO/COIMBRA/FARO, PORTO/FARO).
 	for (size_t i = 0; i < activeRoutes.size(); i++) {
 
@@ -115,12 +117,25 @@ void User::joinJourney() {
 		for (size_t j = 0; j < activeRoutes.at(i).getStops().size(); j++) {
 			if (selectedRoute.at(0) == activeRoutes.at(i).getStops().at(j).getStop()) {
 				if (currentTime.getCompactDate() <= activeRoutes.at(i).getEndingTime().getCompactDate()) {
+					if (activeRoutes.at(i).getStops().at(j).getPassengers().size() == activeRoutes.at(i).getCar().getMaxSeats() - 1) {
+						break;
+					}
 					foundStart = true;
+					continue;
 				}
 			}
 			if (selectedRoute.at(selectedRoute.size() - 1) == activeRoutes.at(i).getStops().at(j).getStop()) {
 				if (currentTime.getCompactDate() <= activeRoutes.at(i).getEndingTime().getCompactDate()) {
+					if (activeRoutes.at(i).getStops().at(j).getPassengers().size() == activeRoutes.at(i).getCar().getMaxSeats() - 1) {
+						break;
+					}
 					foundDest = true;
+					break;
+				}
+			}
+			if (foundStart && !foundDest) {
+				if (activeRoutes.at(i).getStops().at(j).getPassengers().size() == activeRoutes.at(i).getCar().getMaxSeats() - 1) {
+					break;
 				}
 			}
 		}
@@ -166,7 +181,6 @@ void User::joinJourney() {
 			i--;
 		}
 	}
-
 	if (perfectRoutes.size() == 0 && similarRoutes.size() == 0) {
 		clearScreen();
 		showLogo();
@@ -174,24 +188,8 @@ void User::joinJourney() {
 		Sleep(4000);
 		return;
 	}
-	//Verifica se as viagens têm empty seats.
-	for (size_t i = 0; i < perfectRoutes.size(); i++) {
-		for (size_t j = 0; j < perfectRoutes.at(i).getStops().size(); j++) {
-			if (perfectRoutes.at(i).getStops().at(j).getPassengers().size() == perfectRoutes.at(i).getCar().getMaxSeats() - 1) {
-				perfectRoutes.erase(perfectRoutes.begin() + i);
-				i--;				
-			}
-		}
-	}
-	for (size_t i = 0; i < similarRoutes.size(); i++) {
-		for (size_t j = 0; j < similarRoutes.at(i).getStops().size(); j++) {
-			if (similarRoutes.at(i).getStops().at(j).getPassengers().size() == similarRoutes.at(i).getCar().getMaxSeats() - 1) {
-				similarRoutes.erase(similarRoutes.begin() + i);
-				i--;
-			}
-		}
-	}
 	//Criação de uma nova route.
+
 	Route r = m.joinJourneyMenu(activeRoutesCopy, perfectRoutes, similarRoutes);
 
 	//Adiciona e subtrai emptySeats.

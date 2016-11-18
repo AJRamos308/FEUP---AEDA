@@ -829,6 +829,5 @@ void Menu::showBuddyMenu(vector<Route>buddyTrips) {
 			}
 			menuUpdate = false;
 		}
-
-
+	}
 }
