@@ -456,22 +456,17 @@ void Registered::removeVehicle() {
 
 	size_t removeIndex = m1.chooseVehicle();
 	char verification;
-	cin.clear();
-	cin.ignore(50, '\n');
+	
 	cout << "  Are you sure you want to delete (Y/N)?";
 	cin >> verification;
-	cin.clear();
-	cin.ignore(50, '\n');
+
 	if (verification == 'Y' || verification == 'y') {
-		Session::instance()->registered.at(Session::instance()->userPos).garage.erase(Session::instance()->registered.at(Session::instance()->userPos).garage.begin() + removeIndex);
+		Session::instance()->registered.at(Session::instance()->userPos).getGarage().erase(Session::instance()->registered.at(Session::instance()->userPos).getGarage().begin() + removeIndex);
 		cout << "\n  Vehicle deleted!";
 	}
 	return;
 }
 void Registered::addFunds() {
-
-
-
 	float amount;
 
 	clearScreen();
