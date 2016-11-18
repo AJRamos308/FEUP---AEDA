@@ -61,10 +61,13 @@ void Menu::manager() {
 			continue;
 		}
 		if (currentMenu == 23) {
+
+		}
+		if (currentMenu == 24) {
 			currentMenu = 40;
 			continue;
 		}
-		if (currentMenu == 24) {
+		if (currentMenu == 25) {
 			Session::instance()->logout();
 			currentMenu = 10;
 			continue;
@@ -509,8 +512,8 @@ Route Menu::joinJourneyMenu(vector<Route> activeRoutes, vector<Route> perfectRou
 	hideCursor();
 
 	bool menuUpdate = true;
-	size_t selectedIndex1 = 0, selectedIndex2 = -1;
 	size_t userIndex;
+	size_t selectedIndex1 = 0, selectedIndex2 = -1;
 	Route selectedRoute;
 
 	//Encontra a posição do usuário no vetor de Registered
@@ -729,7 +732,7 @@ size_t Menu::chooseVehicle() {
 	hideCursor();
 
 	bool menuUpdate = true;
-	
+
 	vector<Vehicle> localVehicles = Session::instance()->registered.at(Session::instance()->userPos).getGarage();
 	size_t selectedIndex = 0;
 
@@ -778,4 +781,54 @@ size_t Menu::chooseVehicle() {
 	cin.clear();
 	cin.ignore(50, '\n');
 	return -1;
+}
+void Menu::showBuddyMenu(vector<Route>buddyTrips) {
+	bool menuUpdate = true;
+	size_t userIndex;
+	size_t selectedIndex1 = 0, selectedIndex2 = -1;
+	Route selectedRoute;
+
+	while (GetAsyncKeyState(VK_RETURN)) {}
+
+	while (true) {
+		if (menuUpdate) {
+			clearScreen();
+			showLogo();
+
+			if (buddyTrips.size() != 0) {
+				setcolor(10);
+				cout << "  BUDDY MATCHES\n";
+				setcolor(15);
+				for (size_t i = 0; i < buddyTrips.size(); i++) {
+					if (i == selectedIndex1) {
+						selectedRoute = buddyTrips.at(i);
+						whiteBG();
+					}
+					cout << "  HOST: " << setw(26) << left << buddyTrips.at(i).getHost() << buddyTrips.at(i).getStartingTime().getFormattedDate() << endl;
+					cout << "  " << buddyTrips.at(i).getCar().getModel() << " [" << buddyTrips.at(i).getCar().getLicensePlate() << "]" <<
+						setw(26) << right << buddyTrips.at(i).getEndingTime().getFormattedDate();
+
+					cout << "\n  ";
+					for (size_t j = 0; j < buddyTrips.at(i).getStops().size(); j++) {
+						if (buddyTrips.at(i).getStops().at(j).getStop() == selectedRoute.getStops().at(0).getStop()) {
+							cout << buddyTrips.at(i).getCar().getMaxSeats() - buddyTrips.at(i).getStops().at(j).getPassengers().size();
+							break;
+						}
+					}
+					cout << "/" << buddyTrips.at(i).getCar().getMaxSeats() << " available!\n  ";
+
+					for (size_t j = 0; j < buddyTrips.at(i).getStops().size(); j++) {
+						if (j == buddyTrips.at(i).getStops().size() - 1) {
+							cout << buddyTrips.at(i).getStops().at(j).getStop() << endl;
+							break;
+						}
+						cout << buddyTrips.at(i).getStops().at(j).getStop() << " -> ";
+					}
+					blackBG();
+				}
+			}
+			menuUpdate = false;
+		}
+
+
 }

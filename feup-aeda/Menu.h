@@ -16,6 +16,7 @@ public:
 	void menu3();
 	void menu4();
 	void menu5();
+	void showBuddyMenu(vector<Route> buddyTrips);
 	Route joinJourneyMenu(vector<Route> activeRoutesCopy, vector<Route> perfectRoutes, vector<Route> similarRoutes);
 	vector<string> journeyMenu();
 	size_t chooseVehicle();

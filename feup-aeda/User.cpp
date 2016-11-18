@@ -563,3 +563,12 @@ void Registered::changePassword() {
 bool Registered::operator<(Registered r1) const {
 	return this->username < r1.username;
 }
+void Registered::showBuddyTrips() {
+	vector<Route> buddyTrips;
+	for (size_t i = 0; i < buddies.size(); i++) {
+		for (size_t j = 0; j < buddies.at(i).getAllTrips().size(); j++) {
+			buddyTrips.push_back(buddies.at(i).getAllTrips().at(j));
+		}
+	}
+	m1.showBuddyMenu(buddyTrips);
+}
