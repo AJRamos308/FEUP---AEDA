@@ -115,8 +115,15 @@ void Menu::manager() {
 		if (currentMenu == 44) {
 			for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
 				if (Session::instance()->username == Session::instance()->registered.at(i).getUsername()) {
-					Session::instance()->registered.at(i).removeVehicle();
-					break;
+					if (Session::instance()->registered.at(i).getGarage().size() > 0) {
+						Session::instance()->registered.at(i).removeVehicle();
+						break;
+					}
+					else {
+						cout << "You can't remove what is not there! Owning a vehicle is a big step!";
+						_getch();
+						break;
+					}
 				}
 			}
 			currentMenu = 40;
@@ -269,7 +276,7 @@ void Menu::menu2() {
 		if (pushUpdate) {
 			clearScreen();
 			showLogo();
-			cout << "  Welcome, " << Session::instance()->username << "." << setw(14) << Session::instance()->registered.at(Session::instance()->userPos).getBalance() << ".00 EUR\n\n";
+			cout << "  Welcome, " << Session::instance()->username << "." << setw(14) << right << (int)Session::instance()->registered.at(Session::instance()->userPos).getBalance() << ".00 EUR\n\n";
 			for (size_t i = 0; i < menuOptions.size(); i++) {
 				if (i == selectedIndex) {
 					whiteBG();
@@ -829,6 +836,5 @@ void Menu::showBuddyMenu(vector<Route>buddyTrips) {
 			}
 			menuUpdate = false;
 		}
-
-
+	}
 }
