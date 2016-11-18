@@ -54,7 +54,6 @@ public:
 	void modifyBalance(float price);
 	virtual float payTrip(float price);
 	void switchBlocked();
-	void showBuddyTrips();
 	bool operator<(Registered r1) const;
 };
 

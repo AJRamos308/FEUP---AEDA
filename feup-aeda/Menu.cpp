@@ -557,8 +557,19 @@ Route Menu::joinJourneyMenu(vector<Route> activeRoutes, vector<Route> perfectRou
 							break;
 						}
 					}
-					cout << "/" << perfectRoutes.at(i).getCar().getMaxSeats() << " available!\n  ";
+					cout << "/" << perfectRoutes.at(i).getCar().getMaxSeats() << " available!  ";
 
+					for (size_t j = 0; j < Session::instance()->registered.at(Session::instance()->userPos).getBuddies().size(); j++) {
+						for (size_t k = 0; k < perfectRoutes.at(i).getStops().size(); k++) {
+							for (size_t l = 0; l < perfectRoutes.at(i).getStops().at(k).getPassengers().size(); l++) {
+								if (Session::instance()->registered.at(Session::instance()->userPos).getBuddies().at(j).getUsername() == perfectRoutes.at(i).getStops().at(k).getPassengers().at(l)) {
+									cout << "  :]\n";
+									break;
+								}
+							}
+
+						}
+					}
 					for (size_t j = 0; j < perfectRoutes.at(i).getStops().size(); j++) {
 						if (j == perfectRoutes.at(i).getStops().size() - 1) {
 							cout << perfectRoutes.at(i).getStops().at(j).getStop() << endl;
@@ -571,18 +582,37 @@ Route Menu::joinJourneyMenu(vector<Route> activeRoutes, vector<Route> perfectRou
 			}
 			if (similarRoutes.size() != 0) {
 				setcolor(14);
-				cout << "\n\nSIMILAR MATCHES\n";
+				cout << "  SIMILAR MATCHES\n";
 				setcolor(15);
 				for (size_t i = 0; i < similarRoutes.size(); i++) {
 					if (i == selectedIndex2) {
 						selectedRoute = similarRoutes.at(i);
 						whiteBG();
 					}
-					cout << "  HOST: " << setw(32) << left << similarRoutes.at(i).getHost() << similarRoutes.at(i).getStartingTime().getFormattedDate() << endl;
-					cout << "  " << similarRoutes.at(i).getCar().getModel() << " [" << similarRoutes.at(i).getCar().getLicensePlate() << "] (" << "/" << similarRoutes.at(i).getCar().getMaxSeats() << ")" <<
-						setw(30) << right << similarRoutes.at(i).getEndingTime().getFormattedDate() << endl;
-					cout << "  STOPS: ";
+					cout << "  HOST: " << setw(26) << left << similarRoutes.at(i).getHost() << similarRoutes.at(i).getStartingTime().getFormattedDate() << endl;
+					cout << "  " << similarRoutes.at(i).getCar().getModel() << " [" << similarRoutes.at(i).getCar().getLicensePlate() << "]" <<
+						setw(26) << right << similarRoutes.at(i).getEndingTime().getFormattedDate();
 
+					cout << "\n  ";
+					for (size_t j = 0; j < similarRoutes.at(i).getStops().size(); j++) {
+						if (similarRoutes.at(i).getStops().at(j).getStop() == selectedRoute.getStops().at(0).getStop()) {
+							cout << similarRoutes.at(i).getCar().getMaxSeats() - similarRoutes.at(i).getStops().at(j).getPassengers().size() - 1;
+							break;
+						}
+					}
+					cout << "/" << similarRoutes.at(i).getCar().getMaxSeats() << " available!  ";
+
+					for (size_t j = 0; j < Session::instance()->registered.at(Session::instance()->userPos).getBuddies().size(); j++) {
+						for (size_t k = 0; k < similarRoutes.at(i).getStops().size(); k++) {
+							for (size_t l = 0; l < similarRoutes.at(i).getStops().at(k).getPassengers().size(); l++) {
+								if (Session::instance()->registered.at(Session::instance()->userPos).getBuddies().at(j).getUsername() == similarRoutes.at(i).getStops().at(k).getPassengers().at(l)) {
+									cout << "  :]";
+									break;
+								}
+							}
+						}
+					}
+					cout << endl;
 					for (size_t j = 0; j < similarRoutes.at(i).getStops().size(); j++) {
 						if (j == similarRoutes.at(i).getStops().size() - 1) {
 							cout << similarRoutes.at(i).getStops().at(j).getStop() << endl;
@@ -788,53 +818,4 @@ size_t Menu::chooseVehicle() {
 	cin.clear();
 	cin.ignore(50, '\n');
 	return -1;
-}
-void Menu::showBuddyMenu(vector<Route>buddyTrips) {
-	bool menuUpdate = true;
-	size_t userIndex;
-	size_t selectedIndex1 = 0, selectedIndex2 = -1;
-	Route selectedRoute;
-
-	while (GetAsyncKeyState(VK_RETURN)) {}
-
-	while (true) {
-		if (menuUpdate) {
-			clearScreen();
-			showLogo();
-
-			if (buddyTrips.size() != 0) {
-				setcolor(10);
-				cout << "  BUDDY MATCHES\n";
-				setcolor(15);
-				for (size_t i = 0; i < buddyTrips.size(); i++) {
-					if (i == selectedIndex1) {
-						selectedRoute = buddyTrips.at(i);
-						whiteBG();
-					}
-					cout << "  HOST: " << setw(26) << left << buddyTrips.at(i).getHost() << buddyTrips.at(i).getStartingTime().getFormattedDate() << endl;
-					cout << "  " << buddyTrips.at(i).getCar().getModel() << " [" << buddyTrips.at(i).getCar().getLicensePlate() << "]" <<
-						setw(26) << right << buddyTrips.at(i).getEndingTime().getFormattedDate();
-
-					cout << "\n  ";
-					for (size_t j = 0; j < buddyTrips.at(i).getStops().size(); j++) {
-						if (buddyTrips.at(i).getStops().at(j).getStop() == selectedRoute.getStops().at(0).getStop()) {
-							cout << buddyTrips.at(i).getCar().getMaxSeats() - buddyTrips.at(i).getStops().at(j).getPassengers().size();
-							break;
-						}
-					}
-					cout << "/" << buddyTrips.at(i).getCar().getMaxSeats() << " available!\n  ";
-
-					for (size_t j = 0; j < buddyTrips.at(i).getStops().size(); j++) {
-						if (j == buddyTrips.at(i).getStops().size() - 1) {
-							cout << buddyTrips.at(i).getStops().at(j).getStop() << endl;
-							break;
-						}
-						cout << buddyTrips.at(i).getStops().at(j).getStop() << " -> ";
-					}
-					blackBG();
-				}
-			}
-			menuUpdate = false;
-		}
-	}
 }
