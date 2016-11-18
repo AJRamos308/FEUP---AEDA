@@ -64,7 +64,16 @@ void User::joinJourney() {
 	for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
 		for (size_t j = 0; j < Session::instance()->registered.at(i).getAllTrips().size(); j++) {
 			if (Session::instance()->registered.at(i).getAllTrips().at(j).getActive()) {
-				activeRoutes.push_back(Session::instance()->registered.at(i).getAllTrips().at(j));
+				int counter = 0;
+				for (size_t k = 0; k < Session::instance()->registered.at(i).getAllTrips().at(j).getStops().size(); k++) {
+					if (Session::instance()->registered.at(i).getAllTrips().at(j).getStops().at(k).getPassengers().size() ==
+						Session::instance()->registered.at(i).getAllTrips().at(j).getCar().getMaxSeats() - 1) {
+						counter++;
+					}
+				}
+				if (counter != Session::instance()->registered.at(i).getAllTrips().at(j).getStops().size()) {
+					activeRoutes.push_back(Session::instance()->registered.at(i).getAllTrips().at(j));
+				}
 			}
 		}
 	}
@@ -168,7 +177,7 @@ void User::joinJourney() {
 	//Verifica se as viagens têm empty seats.
 	for (size_t i = 0; i < perfectRoutes.size(); i++) {
 		for (size_t j = 0; j < perfectRoutes.at(i).getStops().size(); j++) {
-			if (perfectRoutes.at(i).getStops().at(j).getPassengers().size() == perfectRoutes.at(i).getCar().getMaxSeats()) {
+			if (perfectRoutes.at(i).getStops().at(j).getPassengers().size() == perfectRoutes.at(i).getCar().getMaxSeats() - 1) {
 				perfectRoutes.erase(perfectRoutes.begin() + i);
 				i--;				
 			}
@@ -176,7 +185,7 @@ void User::joinJourney() {
 	}
 	for (size_t i = 0; i < similarRoutes.size(); i++) {
 		for (size_t j = 0; j < similarRoutes.at(i).getStops().size(); j++) {
-			if (similarRoutes.at(i).getStops().at(j).getPassengers().size() == similarRoutes.at(i).getCar().getMaxSeats()) {
+			if (similarRoutes.at(i).getStops().at(j).getPassengers().size() == similarRoutes.at(i).getCar().getMaxSeats() - 1) {
 				similarRoutes.erase(similarRoutes.begin() + i);
 				i--;
 			}
@@ -196,7 +205,6 @@ void User::joinJourney() {
 
 					for (size_t k = 0; k < selectedRoute.size(); k++) {
 						for (size_t l = 0; Session::instance()->registered.at(i).getAllTrips().at(j).getStops().size(); l++) {
-
 							if (!foundStart) {
 								if (selectedRoute.at(0) == Session::instance()->registered.at(i).getAllTrips().at(j).getStops().at(l).getStop()) {
 									Session::instance()->registered.at(i).allTrips.at(j).stops.at(l).addSeats(username);
@@ -205,12 +213,11 @@ void User::joinJourney() {
 								continue;
 							}
 							if (selectedRoute.at(selectedRoute.size() - 1) == Session::instance()->registered.at(i).getAllTrips().at(j).getStops().at(l).getStop()) {
-								//Session::instance()->registered.at(i).getAllTrips().at(j).getStops().at(l).subSeats();
 								Session::instance()->registered.at(i).allTrips.at(j).stops.at(l).addSeats(username);
 								foundEnd = true;
 								goto loopExit;
 							}
-							Session::instance()->registered.at(i).getAllTrips().at(j).getStops().at(l).addSeats(username);
+							Session::instance()->registered.at(i).allTrips.at(j).stops.at(l).addSeats(username);
 						}
 					}
 				}
@@ -325,10 +332,9 @@ void Registered::hostJourney() {
 		seatsHandler s(journeyStops.at(i), zeroPassengers);
 		handler.push_back(s);
 	}
+
 	Route r(Session::instance()->username, d1, d2, handler, Session::instance()->registered.at(Session::instance()->userPos).getGarage().at(vehicleChosen));
-
 	Session::instance()->registered.at(Session::instance()->userPos).addTripToVec(r);
-
 	return;
 }
 

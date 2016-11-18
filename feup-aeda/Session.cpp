@@ -138,6 +138,7 @@ bool Session::importInfo() {
 
 			while (true) {
 				getline(f, token);
+
 				vector<seatsHandler> s;
 				if (token != "") {
 					string user = token.substr(0, token.find(":"));
@@ -146,38 +147,52 @@ bool Session::importInfo() {
 					token.erase(0, token.find("|") + 1);
 					string arrivalTime = token.substr(0, token.find("|"));
 					token.erase(0, token.find("|") + 1);
+					string licensePlate = token.substr(0, token.find("|"));
+					token.erase(0, token.find("|") + 1);
+
 					while (true) {
 						string stop = token.substr(0, token.find("("));
 						token.erase(0, token.find("(") + 1);
 						string passenger = token.substr(0, token.find(")"));
 						token.erase(0, token.find(")") + 1);
-						vector<string>passengers;
+						vector<string> passengers;
 						while (true) {
-							if (passenger.find(",") == -1 && passenger.length() == 0) {
+							if (passenger.find(",") == -1 && passenger.size() == 0) {
+								seatsHandler s3(stop, passengers);
+								s.push_back(s3);
 								break;
 							}
 							else if (passenger.find(",") == -1 && passenger.length() > 0) {
 								passengers.push_back(passenger);
-								seatsHandler s1(stop,passengers);
+								seatsHandler s1(stop, passengers);
+								s.push_back(s1);
 								break;
 							}
-							string singlep = passenger.substr(0, token.find(","));
-							passenger.erase(0, token.find(",") + 1);
+							
+							string singlep = passenger.substr(0, passenger.find(","));
+							
+							passenger.erase(0, passenger.find(",") + 1);
 							passengers.push_back(singlep);
 						}
 						if (token.length() == 0) {
-							cout << "ay";
 							break;
 						}
 					}
-					cout << "ay";
-
+					
 					Date d1(stoull(departureTime));
 					Date d2(stoull(arrivalTime));
 
 					Vehicle v;
+					for (size_t i = 0; i < registered.size(); i++) {
+						for (size_t j = 0; j < registered.at(i).getGarage().size(); j++) {
+							if (registered.at(i).getGarage().at(j).getLicensePlate() == licensePlate) {
+								v = registered.at(i).getGarage().at(j);
+							}
+						}
+					}
 
 					Route r(user, d1, d2, s, v);
+					
 					if (!d1.Valid()) {
 						r.switchActive();
 					}
@@ -251,6 +266,7 @@ bool Session::exportInfo() {
 			f << registered.at(i).getUsername() << ":";
 			f << registered.at(i).getAllTrips().at(j).getStartingTime().getCompactDate() << "|";
 			f << registered.at(i).getAllTrips().at(j).getEndingTime().getCompactDate() << "|";
+			f << registered.at(i).getAllTrips().at(j).getCar().getLicensePlate() << "|";
 			for (size_t k = 0; k < registered.at(i).getAllTrips().at(j).getStops().size(); k++) {
 				f << registered.at(i).getAllTrips().at(j).getStops().at(k).getStop() << "(";
 				for (size_t l = 0; l < registered.at(i).getAllTrips().at(j).getStops().at(k).getPassengers().size(); l++) {
@@ -262,8 +278,7 @@ bool Session::exportInfo() {
 				}
 				f << ")";
 			}
-			f << registered.at(i).getAllTrips().at(j).getStops().at(0).getStop() << "|";
-			f << registered.at(i).getAllTrips().at(j).getStops().at(registered.at(i).getAllTrips().at(j).getStops().size() - 1).getStop() << endl;
+			f << endl;
 		}
 	}
 	f << endl << "DISTRICTS" << endl;
