@@ -1,9 +1,9 @@
 MEMBERS
-admin|admin|Dono Disto Tudo|23|0
-blinkroot|qwerty|Miguel Fernandes|19|-39
-ephons|qwerty|Afonso Ramos|19|10
-teste1|teste2|Teste Teste|99|272
-zepedrob|qwerty|Ze Borges|19|-53
+admin|admin|Dono Disto Tudo|23|-5
+blinkroot|qwerty|Miguel Fernandes|19|-44
+ephons|qwerty|Afonso Ramos|19|1e+06
+teste1|teste2|Teste Teste|99|267
+zepedrob|qwerty|Ze Borges|19|-58
 
 GARAGE
 ephons:Chevrolet Azul|OH-SH-IT|5
@@ -28,4 +28,4 @@ teste1:201711121100|201711121200|96-96-AO|Faro(zepedrob)Guarda()Leiria(zepedrob,
 teste1:201611190100|201611190200|96-96-AO|Castelo Branco(teste1,ephons)Coimbra(teste1,ephons,zepedrob)Evora(ephons,zepedrob)Faro(zepedrob)
 
 DISTRICTS
-Aveiro|Beja|Braga|Braganca|Castelo Branco|Coimbra|Evora|Faro|Guarda|Leiria|Lisboa|Portalegre|Porto|Santarem|Setubal|Viana do Castelo|Vila Real|Viseu
+Aveiro|Beja|Braga|Braganca|Castelo Branco|Coimbra|Evora|Faro|Guarda|Leiria|Lisboa|Portalegre|Porto|Santarem|Setubal|Viana do Castelo|Vila Real|Viseueu
