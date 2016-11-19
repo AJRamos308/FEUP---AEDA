@@ -75,7 +75,7 @@ public:
 	vector<Route> getAllTrips();
 	vector<Vehicle> getGarage();
 	float getBalance();
-	
+	//as
 	/*!
 	* **Description:** Handles the creation of a new journey. Asks for a departure time, arrival time, the selected vehicle from the garage and where the user will stop.
 	*/
