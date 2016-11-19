@@ -96,7 +96,6 @@ void User::joinJourney() {
 				if (selectedRoute.at(k) == activeRoutes.at(i).getStops().at(j).getStop()) {
 					if (activeRoutes.at(i).getStops().at(j).getPassengers().size() == activeRoutes.at(i).getCar().getMaxSeats() - 1) {
 						break;
-						
 					}
 					counter2++;
 				}

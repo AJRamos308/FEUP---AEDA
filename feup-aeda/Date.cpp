@@ -32,8 +32,7 @@ Date::Date(unsigned long long compactDate) {
 		formattedDate = to_string(day) + "/" + to_string(month) + "/" + to_string(year) + " " + to_string(hour) + ":" + to_string(minutes);
 }
 
-bool Date::Valid()
-{
+bool Date::Valid(){
 	time_t tt = time(0);   // get time now
 	struct tm * now = localtime(&tt);
 	string compactString = to_string(compactDate);

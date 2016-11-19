@@ -518,9 +518,9 @@ void Menu::menu5() {
 Route Menu::joinJourneyMenu(vector<Route> activeRoutes, vector<Route> perfectRoutes, vector<Route> similarRoutes) {
 	hideCursor();
 
-	bool menuUpdate = true;
+	bool menuUpdate = true, index1Exists = false, index2Exists = false;
+	size_t selectedIndex1, selectedIndex2;
 	size_t userIndex;
-	size_t selectedIndex1 = 0, selectedIndex2 = -1;
 	Route selectedRoute;
 
 	//Encontra a posição do usuário no vetor de Registered
@@ -528,6 +528,20 @@ Route Menu::joinJourneyMenu(vector<Route> activeRoutes, vector<Route> perfectRou
 		if (Session::instance()->registered.at(i).getUsername() == Session::instance()->username) {
 			userIndex = i;
 		}
+	}
+
+	//Index initialization
+	if (perfectRoutes.size() != 0 && similarRoutes.size() != 0) {
+		selectedIndex1 = 0;
+		selectedIndex2 = 0;
+	}
+	else if (perfectRoutes.size() == 0 && similarRoutes.size() != 0) {
+		selectedIndex1 = -1;
+		selectedIndex2 = 0;
+	}
+	else if (perfectRoutes.size() != 0 && similarRoutes.size() == 0) {
+		selectedIndex1 = 0;
+		selectedIndex2 = -1;
 	}
 
 	while (GetAsyncKeyState(VK_RETURN)) {}
@@ -631,6 +645,10 @@ Route Menu::joinJourneyMenu(vector<Route> activeRoutes, vector<Route> perfectRou
 		else if (GetAsyncKeyState(VK_DOWN)) {
 			while (GetAsyncKeyState(VK_DOWN)) {}
 
+			//If index reaches the end and similarRoutes is empty, it ignores the keypress.
+			if (similarRoutes.size() == 0 && selectedIndex1 == perfectRoutes.size() - 1) {
+				continue;
+			}
 			if (selectedIndex2 == -1) {
 				if (selectedIndex1 != perfectRoutes.size() - 1) {
 					menuUpdate = true;
@@ -653,10 +671,9 @@ Route Menu::joinJourneyMenu(vector<Route> activeRoutes, vector<Route> perfectRou
 		else if (GetAsyncKeyState(VK_UP)) {
 			while (GetAsyncKeyState(VK_UP)) {}
 
-			if (perfectRoutes.size() == 0) {
+			if (perfectRoutes.size() == 0 && selectedIndex2 == 0) {
 				continue;
 			}
-
 			if (selectedIndex2 == -1) {
 				if (selectedIndex1 != 0) {
 					menuUpdate = true;
