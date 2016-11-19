@@ -77,13 +77,12 @@ void User::joinJourney() {
 			}
 		}
 	}
-	//Se não houver viagens para juntar, dá display a mensagem de erro.
+	//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\Se não houver viagens para juntar, dá display a mensagem de erro.
 	if (activeRoutes.size() == 0) {
 		cout << "  Whoops, looks like there aren't any active routes to join.\n  Try hosting one!";
 		Sleep(2000);
 		return;
 	}
-
 	selectedRoute = m.journeyMenu(); //Isto carrega o vetor selectedRoute com a escolha do usuário.
 	activeRoutesCopy = activeRoutes;
 
@@ -428,7 +427,7 @@ void Registered::addVehicle() {
 			cout << "  Invalid License Plate structure!\n";
 	}
 	while (!car) {
-	cout << "\n\n  How many SEATS does your car have? (Including the driver)\n  > ";
+	cout << "\n\n  How many seats does your car have? (Including the driver)\n  > ";
 	cin >> maxSeats;
 		if (maxSeats < 5) {
 			Compact compact(maxSeats, model, licensePlate);

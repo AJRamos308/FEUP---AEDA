@@ -518,11 +518,20 @@ string Session::passwordMaker() {
 		}
 		password1 = pass1;
 		password2 = pass2;
-		if (password1 == password2) {
+		if (password1 == password2 && password1.size() > 5) {
 			break;
 		}
+		else if (password1 == password2 && password1.size() < 5)
+		{
+			setcolor(12);
+			cout << "\n\a  ERROR: Password too small. Please try again\n";
+			setcolor(15);
+			continue;
+		}
 		else {
-			cout << "  ERROR: Passwords do not match. Please try again\n";
+			setcolor(12);
+			cout << "\n\a  ERROR: Passwords do not match. Please try again\n";
+			setcolor(15);
 			continue;
 		}
 	}
@@ -538,9 +547,11 @@ bool Session::getAdmin() {
 void Session::showClientInformation() {
 	clearScreen();
 	showLogo();
-	cout << setw(20) << left << "Username" << setw(40) << left << "Full Name" << setw(15) << left << "Age" << setw(15) << left << "Balance" << endl;
+	setcolor(11);
+	cout << setw(20) << left << "  Username" << setw(40) << left << "Full Name" << setw(15) << left << "Age" << setw(15) << left << "Balance" << endl;
+	setcolor(15);
 	for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
-		cout << endl << setw(20) << left << Session::instance()->registered.at(i).getUsername() << 
+		cout << endl << "  " << setw(20) << left << Session::instance()->registered.at(i).getUsername() <<
 			setw(40) << left << Session::instance()->registered.at(i).getName() << 
 			setw(15) << left << Session::instance()->registered.at(i).getAge() << 
 			setw(15) << Session::instance()->registered.at(i).getBalance();
@@ -551,10 +562,12 @@ void Session::showClientInformation() {
 void Session::showTripInformation() {
 	clearScreen();
 	showLogo();
-	cout << setw(15) << left << "Host" << setw(25) << left << "Starting date" << setw(25) << left << "Ending date" << setw(15) << left << "Origin" << setw(15) << left << "Destination" << endl;
+	setcolor(11);
+	cout << setw(15) << left << "  Host" << setw(25) << left << "Starting date" << setw(25) << left << "Ending date" << setw(15) << left << "Origin" << setw(15) << left << "Destination" << endl;
+	setcolor(15);
 	for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
 		for (size_t j = 0; j < Session::instance()->registered.at(i).allTrips.size(); j++) {
-			cout << endl << setw(15) << left << Session::instance()->registered.at(i).getAllTrips().at(j).getHost() <<
+			cout << endl << "  " << setw(15) << left << Session::instance()->registered.at(i).getAllTrips().at(j).getHost() <<
 				setw(25) << left << Session::instance()->registered.at(i).getAllTrips().at(j).getStartingTime().getFormattedDate() <<
 				setw(25) << left << Session::instance()->registered.at(i).getAllTrips().at(j).getEndingTime().getFormattedDate() <<
 				setw(15) << left << Session::instance()->registered.at(i).getAllTrips().at(j).getStops().at(0).getStop() << 
@@ -565,6 +578,7 @@ void Session::showTripInformation() {
 }
 
 void Session::showStops() {
+	cin.clear();
 	clearScreen();
 	showLogo();
 	cout << setw(15) << left << "District Stops\n\n";
@@ -578,23 +592,34 @@ void Session::showStops() {
 }
 
 void Session::showCars() {
+	cin.clear();
 	clearScreen();
 	showLogo();
-	cout << setw(15) << left << "Cars Associated\n";
+	setcolor(11);
+	cout << setw(15) << left << "  Cars Associated\n\n";
+	setcolor(15);
 	for (size_t i = 0; i < registered.size(); i++) {
 		for (size_t j = 0; j < registered.at(i).getGarage().size(); j++) {
-			cout << setw(20) << registered.at(i).getGarage().at(j).getModel() << "[" << registered.at(i).getGarage().at(j).getLicensePlate() << "]      with " << registered.at(i).getGarage().at(j).getMaxSeats() << " seats owned by " << registered.at(i).getUsername() << endl;
+			setcolor(11);
+			cout << "  " << setw(20) << registered.at(i).getGarage().at(j).getModel();
+			setcolor(15);
+			cout << "[" << registered.at(i).getGarage().at(j).getLicensePlate() << "] with " << registered.at(i).getGarage().at(j).getMaxSeats() << " seats owned by " << registered.at(i).getUsername() << endl;
 		}
 	}
 	_getch();
 }
 
 void Session::showBuddies() {
+	cin.clear();
 	clearScreen();
 	showLogo();
+	setcolor(14);
+	cout << setw(15) << left << "  Friendships\n\n";
+	setcolor(15);
 	for (size_t i = 0; i < registered.size(); i++) {
 		if (registered.at(i).getBuddies().size() > 0) {
 			setcolor(14);
+			cout << "  ";
 			cout << setw(15) << left << registered.at(i).getUsername();
 			setcolor(15);
 			cout << " is buddies with: ";
@@ -614,7 +639,7 @@ void Session::extractPayment() { //So o admin tem acesso
 	for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
 		Session::instance()->registered.at(i).modifyBalance(-5);
 	}
-	cout << "Monthly payment withdrawn!";
+	cout << "  Monthly payment withdrawn!";
 	Sleep(2000);
 }
 

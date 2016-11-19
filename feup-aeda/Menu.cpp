@@ -573,9 +573,7 @@ Route Menu::joinJourneyMenu(vector<Route> activeRoutes, vector<Route> perfectRou
 						whiteBG();
 					}
 					cout << "  HOST: " << setw(35) << left << perfectRoutes.at(i).getHost() << perfectRoutes.at(i).getStartingTime().getFormattedDate() << endl;
-					cout << "  " << perfectRoutes.at(i).getCar().getModel() << " [" << perfectRoutes.at(i).getCar().getLicensePlate() << "]" <<
-						setw(35) << right << perfectRoutes.at(i).getEndingTime().getFormattedDate();
-					
+					cout << "  " << setw(20) << perfectRoutes.at(i).getCar().getModel() << " [" << perfectRoutes.at(i).getCar().getLicensePlate() << "]" << setw(26) << right << perfectRoutes.at(i).getEndingTime().getFormattedDate();
 					cout << "\n  ";
 					for (size_t j = 0; j < perfectRoutes.at(i).getStops().size(); j++) {
 						if (perfectRoutes.at(i).getStops().at(j).getStop() == selectedRoute.getStops().at(0).getStop()) {
@@ -583,7 +581,7 @@ Route Menu::joinJourneyMenu(vector<Route> activeRoutes, vector<Route> perfectRou
 							break;
 						}
 					}
-					cout << "/" << perfectRoutes.at(i).getCar().getMaxSeats() << " available!  ";
+					cout << "/" << perfectRoutes.at(i).getCar().getMaxSeats() << left << setw(54) << " available!  ";
 
 					for (size_t j = 0; j < Session::instance()->registered.at(Session::instance()->userPos).getBuddies().size(); j++) {
 						for (size_t k = 0; k < perfectRoutes.at(i).getStops().size(); k++) {
@@ -617,9 +615,7 @@ Route Menu::joinJourneyMenu(vector<Route> activeRoutes, vector<Route> perfectRou
 						whiteBG();
 					}
 					cout << "  HOST: " << setw(35) << left << similarRoutes.at(i).getHost() << similarRoutes.at(i).getStartingTime().getFormattedDate() << endl;
-					cout << "  " << similarRoutes.at(i).getCar().getModel() << " [" << similarRoutes.at(i).getCar().getLicensePlate() << "]" <<
-						setw(35) << right << similarRoutes.at(i).getEndingTime().getFormattedDate();
-
+					cout << "  " << setw(20) << similarRoutes.at(i).getCar().getModel() << " [" << similarRoutes.at(i).getCar().getLicensePlate() << "]" << setw(26) << right << similarRoutes.at(i).getEndingTime().getFormattedDate();
 					cout << "\n  ";
 					for (size_t j = 0; j < similarRoutes.at(i).getStops().size(); j++) {
 						if (similarRoutes.at(i).getStops().at(j).getStop() == selectedRoute.getStops().at(0).getStop()) {
@@ -627,7 +623,7 @@ Route Menu::joinJourneyMenu(vector<Route> activeRoutes, vector<Route> perfectRou
 							break;
 						}
 					}
-					cout << "/" << similarRoutes.at(i).getCar().getMaxSeats() << " available!  ";
+					cout << "/" << similarRoutes.at(i).getCar().getMaxSeats() << left << setw(54) << " available!  ";
 
 					for (size_t j = 0; j < Session::instance()->registered.at(Session::instance()->userPos).getBuddies().size(); j++) {
 						for (size_t k = 0; k < similarRoutes.at(i).getStops().size(); k++) {
