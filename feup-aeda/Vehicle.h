@@ -7,8 +7,17 @@ using namespace std;
 
 class Vehicle {
 private:
+	/*!
+	* **Description:** The vehicle's maximum capacity (including the driver).
+	*/
 	unsigned int maxSeats;
+	/*!
+	* **Description:** The vehicle's model, for identification purposes.
+	*/
 	string model;
+	/*!
+	* **Description:** The vehicle's license plate, for identification purposes.
+	*/
 	string licensePlate;
 public:
 	Vehicle();
@@ -21,6 +30,9 @@ public:
 	void setLicensePlate(string licensePlate);
 };
 
+/*!
+* **Description:** A compact vehicle has less than 5 seats.
+*/
 class Compact : public Vehicle {
 private:
 public:
@@ -28,12 +40,18 @@ public:
 	
 };
 
+/*!
+* **Description:** A midsize vehicle has 5 to 7 seats.
+*/
 class Midsize : public Vehicle {
 private:
 public:
 	Midsize(unsigned int maxSeats, string model, string licensePlate);
 };
 
+/*!
+* **Description:** A van vehicle has 7 to 9 seats.
+*/
 class Van : public Vehicle {
 private:
 	

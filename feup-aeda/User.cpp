@@ -503,17 +503,6 @@ float User::payTrip(float price) {
 	return price;
 }
 
-void Registered::switchBlocked() {
-	if (blocked) {
-		blocked = false;
-		return;
-	}
-	else {
-		blocked = true;
-		return;
-	}
-}
-
 float Registered::payTrip(float price) {
 	balance -= price;
 	return price;

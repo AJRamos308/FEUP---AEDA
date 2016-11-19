@@ -8,7 +8,7 @@ using namespace std;
 class Menu {
 private:
 	/*!
-	* **Description:** An static tracker of the menu that the user is currently on. Its syntax is 'xy' (both integers), which reads 'the user selected the option y of the menu x'. For instance, '13' would mean that the user wants to access option number 3 of the first menu. '20' would simply display the second menu to the user.
+	* **Description:** A static tracker of the menu that the user is currently on. Its syntax is 'xy' (both integers), which reads 'the user selected the option y of the menu x'. For instance, '13' would mean that the user wants to access option number 3 of the first menu. '20' would simply display the second menu to the user.
 	*
 	* **Notes:** This approach is vital to ensure that no extra processes are open when switching menus. This also allows great flexibility with the code.
 	*/

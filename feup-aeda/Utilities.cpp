@@ -1,22 +1,6 @@
 #include "Utilities.h"
 using namespace std;
 
-/*template<typename RandomAccessIterator, typename Order>
-void quickSort(RandomAccessIterator first, RandomAccessIterator last, Order order){
-	if (last - first > 1){
-		RandomAccessIterator split = std::partition(first + 1, last, std::bind2nd(order, *first));
-		std::iter_swap(first, split - 1);
-		quickSort(first, split - 1, order);
-		quickSort(split, last, order);
-	}
-}
-
-template<typename RandomAccessIterator>
-void quickSort(RandomAccessIterator first, RandomAccessIterator last){
-	quickSort(first, last, std::less<typename std::iterator_traits<RandomAccessIterator>::value_type>());
-}*/
-
-
 void clearScreen() {
 	HANDLE                     hStdOut;
 	CONSOLE_SCREEN_BUFFER_INFO csbi;
