@@ -36,5 +36,8 @@ public:
 	//Admin Functions
 	void showTripInformation();
 	void showClientInformation();
+	void showStops();
+	void showCars();
+	void showBuddies();
 	void extractPayment();
 };
