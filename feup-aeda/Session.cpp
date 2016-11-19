@@ -1,8 +1,5 @@
 #include "Session.h"
 
-/*!
- * Creates a new singleton instance.
- */
 Session* Session::instance() {
 	if (!singleton_instance) {
 		singleton_instance = new Session;
@@ -10,9 +7,6 @@ Session* Session::instance() {
 	return singleton_instance;
 }
 
-/*!
- * Deletes the active singleton instance, updates the database and imports it again.
- */
 void Session::logout(){
 	Session::instance()->exportInfo();
 	delete singleton_instance;
@@ -21,10 +15,15 @@ void Session::logout(){
 }
 
 /*!
- * Quick Sorting algorithm, courtesy of rosettacode.org.
+ * ##Description
+ * Quick Sort algorithm, courtesy of [rosettacode.org](http://rosettacode.org/wiki/Rosetta_Code).
+ * the freshly updated information to the respective classes.
+ *
+ * ##Arguments
+ * Please consult [rosettacode.org](http://rosettacode.org/wiki/Rosetta_Code).
  */
 template<typename RandomAccessIterator, typename Order>
-void quickSort(RandomAccessIterator first, RandomAccessIterator last, Order order) {
+void Session::quickSort(RandomAccessIterator first, RandomAccessIterator last, Order order) {
 	if (last - first > 1) {
 		RandomAccessIterator split = std::partition(first + 1, last, std::bind2nd(order, *first));
 		std::iter_swap(first, split - 1);
@@ -34,13 +33,25 @@ void quickSort(RandomAccessIterator first, RandomAccessIterator last, Order orde
 }
 
 /*!
-* Quick Sorting algorithm, courtesy of rosettacode.org.
-*/
+ * ##Description
+ * Quick Sort algorithm, courtesy of [rosettacode.org](http://rosettacode.org/wiki/Rosetta_Code).
+ * the freshly updated information to the respective classes.
+ *
+ * ##Arguments
+ * Please consult [rosettacode.org](http://rosettacode.org/wiki/Rosetta_Code).
+ */
 template<typename RandomAccessIterator>
-void quickSort(RandomAccessIterator first, RandomAccessIterator last) {
+void Session::quickSort(RandomAccessIterator first, RandomAccessIterator last) {
 	quickSort(first, last, std::less<typename std::iterator_traits<RandomAccessIterator>::value_type>());
 }
 
+/*!
+* ##Description
+* Imports the database file and sorts its content, distributing it amongst the respective classes.
+*
+* ##Arguments
+* _None._
+*/
 bool Session::importInfo() {
 	fstream f;
 	string category, token = ".";
@@ -235,7 +246,13 @@ bool Session::importInfo() {
 	return true;
 }
 
-//Exporta informação de memória para o ficheiro.
+/*!
+* ##Description
+* Exports every change to the database's content to the database file.
+*
+* ##Arguments
+* _None._
+*/
 bool Session::exportInfo() {
 	fstream f;
 
@@ -301,7 +318,13 @@ bool Session::exportInfo() {
 	return true;
 }
 
-//Processa o login.
+/*!
+* ##Description
+* Processes a registered user's login, asking for a username and password. Saves its username on the singleton's username attribute in order to keep track of the logged in user.
+*
+* ##Arguments
+* _None._
+*/
 void Session::login() {
 	string username, password;
 	bool foundUsername = false, foundPassword = false;
@@ -371,7 +394,7 @@ void Session::login() {
 	}
 	this->username = username;
 	if (username == "admin" && password == "admin") {
-		Session::instance()->setAdmin();
+		setAdmin();
 	}
 	cin.clear();
 	cin.ignore(1000, '\n');
@@ -382,7 +405,13 @@ void Session::login() {
 	return;
 }
 
-//Processa o login como guest.
+/*!
+* ##Description
+* Processes a guest's login, assigning it a random number with 6 digits with the prefix 'guest_'.
+*
+* ##Arguments
+* _None._
+*/
 void Session::loginAsGuest() {
 	
 	//Gera um número aleatório com 8 dígitos.
@@ -397,7 +426,13 @@ void Session::loginAsGuest() {
 	return;
 }
 
-//Processa o registo.
+/*!
+* ##Description
+* Registers a new user. The new user is asked for its name, age, desired username and password.
+*
+* ##Arguments
+* _None._
+*/
 void Session::registration() {
 
 	string name, username, password;
@@ -482,7 +517,13 @@ void Session::registration() {
 	return;
 }
 
-//Trata da criação de password e restrições.
+/*!
+* ##Description
+* Serves as an auxiliary function for both 'login' and 'register' functions. Features character checking and hiding the password from sight with asterisks.
+*
+* ##Arguments
+* _None._
+*/
 string Session::passwordMaker() {
 	string password1, password2;
 	while (true) {
@@ -546,8 +587,6 @@ string Session::passwordMaker() {
 	return password1;
 }
 
-
-//ADMIN
 void Session::setAdmin() {
 	admin = true;
 }
