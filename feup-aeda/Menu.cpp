@@ -61,13 +61,10 @@ void Menu::manager() {
 			continue;
 		}
 		if (currentMenu == 23) {
-
-		}
-		if (currentMenu == 24) {
 			currentMenu = 40;
 			continue;
 		}
-		if (currentMenu == 25) {
+		if (currentMenu == 24) {
 			Session::instance()->logout();
 			currentMenu = 10;
 			continue;
