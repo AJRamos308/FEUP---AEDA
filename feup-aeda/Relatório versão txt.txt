@@ -1,0 +1,97 @@
+Introdução
+
+No âmbito da disciplina de Algoritmos e Estruturas de Dados, foi-nos proposto implementar em 
+C++ uma aplicação que permita a gestão de um serviço de boleias partilhadas, explorando os conc
+eitos de car-pooling e ride-sharing, explorando, também, a gestão de uma rede social dentro desta aplicação.
+Dentro da aplicação existem dois tipos de utilizadores: os registados no sistema, que utilizam
+ a aplicação com uma maior regularidade e aqueles que utilizam o sistema ocasionalmente, sendo por
+ isso considerados guests. Entre os utilizadores registados, também haverá aqueles que desejam
+ disponibilizar as suas viaturas para a partilha da viagem, e aqueles que não têm viaturas para 
+partilhar, mas continuam a partilhar as viagens.
+Sendo construído em torno do conceito de redes socais, o sistema também privilegia de uma funcionalidade
+ de se associarem como buddy entre si – desta forma é possível criar uma rede de relações diretas e 
+indiretas entre utilizadores.
+As viagens são criadas apenas pelos utilizadores com carro sendo necessário a escolha de uma data de 
+partida e de chegada aproximada, carro escolhido e paragens.
+
+
+Casos de utilização
+
+Existem três tipos de utilizadores diferentes:
+•	Cliente registado sem carro;
+•	Cliente registado com carro;
+•	Guest (cliente ocasional).
+Inicialmente temos três opções de “entrada no programa":
+•	Registar como cliente;
+•	Login de cliente;
+•	Entrar como guest.
+Como cliente registado com e sem carro:
+•	Juntar-se a uma viagem;
+•	Mostrar viagens dos amigos;
+•	Adicionar fundos à conta;
+•	Adicionar utilizador como amigo;
+•	Adicionar veículo à conta;
+•	Mudar password;
+•	Logout.
+Um utilizador com carro ganha a funcionalidade de hospedar uma viagem e de remover os seus veículos.
+Já o guest apenas se pode juntar a viagens pagando a mesma no momento.
+Temos também uma função de administrador que pode:
+•	Ver a informação de todos os clientes ordenado por nome do cliente;
+•	Ver todas as viagens ordenadas por nome do cliente;
+•	Extrair a quota mensal.
+
+
+
+Principais Dificuldades
+
+Ao longo do trabalho fomos tendo várias dificuldades que foram resolvidas em conjunto,
+ unindo as nossas capacidades de resolução de problemas. Uma das nossas dificuldades foi
+ causada pelo nosso desejo de tornar o programa o menos aborrecido possível para o utilizador,
+ mas mantendo a simplicidade de pedido de input. Por exemplo, na solicitação da data de partida
+ e chegada aproximada, evitando pedir hora, minuto, dia, mês e ano separado, criando inúmeros 
+pedidos de input, passámos a pedir toda esta informação de uma só vez, auto preenchendo também
+ as divisórias entre os dados, como por exemplo com ‘/’ e ‘:’, para evitar que o utilizador 
+tenha de proceder ao entediante ato de preencher datas com formatos obrigatórios. Utilizando
+ este mesmo método, mas de uma maneira muito mais simplificada, permitimos que todos os 
+utilizadores tenham privacidade aquando do login, substituindo os caracteres da password por ‘*’.
+Outra dificuldade que tivemos foi na implementação de um algoritmo de ordenação, neste 
+caso, o Quick Sort, não pela dificuldade do algoritmo, mas devido a problemas de implementação 
+que nem ambos os nossos monitores conseguiram detetar. Mas o problema era, na verdade, bastante
+ simples de resolver, no entanto, percebermos o porquê de não funcionar foi o verdadeiro desafio. 
+Ao nível da lógica por detrás do programa deparámo-nos com um problema também ligeiramente complexo, 
+como definir o preço por viagem. A nossa primeira ideia foi definir um preço fixo por paragem, mas
+ tal não faz sentido em vários casos, por exemplo, se uma viagem for definida com as paragens Porto
+ e Faro, não pode, de todo, pagar o mesmo que uma viagem com as paragens Porto e Coimbra. Então, 
+pensámos que talvez pudesse ser definida pelo utilizador, mas tal poderia ser abusado por parte do 
+utilizador, pois daríamos completo controlo do mercado dentro do nosso serviço, algo que não poderíamos
+ permitir. Então, chegámos, finalmente, à conclusão de que teria de ser definido um preço entre todas 
+as paragens para que possamos, também, permitir que uma viagem, de Porto, Lisboa, Faro custe, 
+aproximadamente, o mesmo que uma viagem Porto a Faro, no entanto, esta funcionalidade ainda não
+ foi implementada devido à falta de tempo para realizar o cálculo do preço entre distritos.
+Mas as verdadeiras dificuldades, que exigiram mais de nós, foram estas duas últimas. 
+A funcionalidade de um utilizador se juntar a uma rota foi complicada, pois era necessário 
+verificarmos se existiam as viagens ativas, e, depois, verificar se destas existia alguma 
+que tivesse todas as paragens definidas pelo utilizador, definindo estas como “perfect matches”. 
+Depois tínhamos de verificar se, das viagens ativas restantes (todas as ativas menos as perfect),
+ existia ainda alguma que possuísse o ponto de partida e o ponto de chegada final do utilizador, 
+atribuindo a estas o termo de “similar matches”. Ainda dentro desta função tivemos de verificar a 
+ordenação apresentada ao utilizador, se têm lugares vagos nas paragens desejadas e, finalmente,
+ adicionar o utilizador aos passageiros da viagem.
+Por último, outro obstáculo foi como verificar a disponibilidade para novos passageiros por parte 
+das viagens, porque, por exemplo, uma viagem Porto, Lisboa, Faro pode estar cheia entre Porto e Lisboa, 
+mas ainda ter lugares vagos até Faro porque muitos apenas se queriam deslocar até Lisboa. Então definimos
+ que os lugares vagos têm de ser implementados entre cada paragem das viagens. O que pode parecer simples 
+no inicio, mas quando descobrimos que tal iria ser um problema já tínhamos o código bastante avançado então
+ houve a necessidade de editar inúmeras linhas de código para guardar tal informação. 
+
+
+Conclusão e Distribuição do Trabalho Pelos Membros do Grupo
+
+Ao longo de toda esta primeira parte do projeto de Algoritmos e Estruturas de Dados, o trabalho foi 
+dividido igualmente por todos os elementos do grupo, sendo que estiveram sempre todos presentes nas 
+múltiplas reuniões de grupo semanais, visto que, tentámos ao máximo programar em conjunto, mas também
+ dividindo tarefas entre nós para uma melhor segmentação de o que fazer.
+Em suma, o grupo considera que todo este projeto ajudou a sedimentar as várias noções introduzidas
+ em aula ajudando na aquisição de conhecimentos e na sua sedimentação. Para além disso, consideramos
+ que teve um resultado positivo do qual nos podemos orgulhar, apesar de, existir sempre algo que possamos
+ melhorar. Melhorias estas que estamos a planear implementar aproveitando a segunda parte deste projeto para tal.
