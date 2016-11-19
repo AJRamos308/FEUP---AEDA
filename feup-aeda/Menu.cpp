@@ -160,6 +160,21 @@ void Menu::manager() {
 			continue;
 		}
 		if (currentMenu == 54) {
+			Session::instance()->showCars();
+			currentMenu = 50;
+			continue;
+		}
+		if (currentMenu == 55) {
+			Session::instance()->showStops();
+			currentMenu = 50;
+			continue;
+		}
+		if (currentMenu == 56) {
+			Session::instance()->showBuddies();
+			currentMenu = 50;
+			continue;
+		}
+		if (currentMenu == 57) {
 			Session::instance()->logout();
 			currentMenu = 10;
 		}
