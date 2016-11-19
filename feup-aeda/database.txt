@@ -17,7 +17,6 @@ blinkroot:
 ephons:
 teste1:
 zepedrob:
-sswhatever:
 
 TRIPS
 ephons:201711161200|201711161300|OH-SH-IT|Aveiro(ephons)Beja()
@@ -29,4 +28,3 @@ teste1:201711121100|201711121200|96-96-AO|Faro(zepedrob)Guarda()Leiria(zepedrob,
 teste1:201611190100|201611190200|96-96-AO|Castelo Branco(teste1,ephons)Coimbra(teste1,ephons,zepedrob)Evora(ephons,zepedrob)Faro(zepedrob)
 
 DISTRICTS
-Aveiro|Beja|Braga|Braganca|Castelo Branco|Coimbra|Evora|Faro|Guarda|Leiria|Lisboa|Portalegre|Porto|Santarem|Setubal|Viana do Castelo|Vila Real|Viseueu

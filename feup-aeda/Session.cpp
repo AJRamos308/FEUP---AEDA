@@ -1,8 +1,5 @@
 #include "Session.h"
 
-/*!
- * Creates a new singleton instance.
- */
 Session* Session::instance() {
 	if (!singleton_instance) {
 		singleton_instance = new Session;
@@ -10,9 +7,6 @@ Session* Session::instance() {
 	return singleton_instance;
 }
 
-/*!
- * Deletes the active singleton instance, updates the database and imports it again.
- */
 void Session::logout(){
 	Session::instance()->exportInfo();
 	delete singleton_instance;
@@ -20,11 +14,8 @@ void Session::logout(){
 	Session::instance()->importInfo();
 }
 
-/*!
- * Quick Sorting algorithm, courtesy of rosettacode.org.
- */
 template<typename RandomAccessIterator, typename Order>
-void quickSort(RandomAccessIterator first, RandomAccessIterator last, Order order) {
+void Session::quickSort(RandomAccessIterator first, RandomAccessIterator last, Order order) {
 	if (last - first > 1) {
 		RandomAccessIterator split = std::partition(first + 1, last, std::bind2nd(order, *first));
 		std::iter_swap(first, split - 1);
@@ -33,11 +24,8 @@ void quickSort(RandomAccessIterator first, RandomAccessIterator last, Order orde
 	}
 }
 
-/*!
-* Quick Sorting algorithm, courtesy of rosettacode.org.
-*/
 template<typename RandomAccessIterator>
-void quickSort(RandomAccessIterator first, RandomAccessIterator last) {
+void Session::quickSort(RandomAccessIterator first, RandomAccessIterator last) {
 	quickSort(first, last, std::less<typename std::iterator_traits<RandomAccessIterator>::value_type>());
 }
 
@@ -235,7 +223,6 @@ bool Session::importInfo() {
 	return true;
 }
 
-//Exporta informação de memória para o ficheiro.
 bool Session::exportInfo() {
 	fstream f;
 
@@ -301,7 +288,6 @@ bool Session::exportInfo() {
 	return true;
 }
 
-//Processa o login.
 void Session::login() {
 	string username, password;
 	bool foundUsername = false, foundPassword = false;
@@ -371,7 +357,7 @@ void Session::login() {
 	}
 	this->username = username;
 	if (username == "admin" && password == "admin") {
-		Session::instance()->setAdmin();
+		setAdmin();
 	}
 	cin.clear();
 	cin.ignore(1000, '\n');
@@ -382,7 +368,6 @@ void Session::login() {
 	return;
 }
 
-//Processa o login como guest.
 void Session::loginAsGuest() {
 	
 	//Gera um número aleatório com 8 dígitos.
@@ -397,7 +382,6 @@ void Session::loginAsGuest() {
 	return;
 }
 
-//Processa o registo.
 void Session::registration() {
 
 	string name, username, password;
@@ -482,7 +466,6 @@ void Session::registration() {
 	return;
 }
 
-//Trata da criação de password e restrições.
 string Session::passwordMaker() {
 	string password1, password2;
 	while (true) {
@@ -546,8 +529,6 @@ string Session::passwordMaker() {
 	return password1;
 }
 
-
-//ADMIN
 void Session::setAdmin() {
 	admin = true;
 }
@@ -565,43 +546,6 @@ void Session::showClientInformation() {
 
 }
 
-void Session::showStops() {
-	cout << setw(15) << left << "District Stops\n\n";
-	for (size_t i = 0; i < Session::instance()->districts.size(); i++) {
-		setcolor(9);
-		cout << "  " << i << setw(3) << ".";
-		setcolor(15);
-		cout << Session::instance()->districts.at(i) << endl;
-	}
-}
-
-void Session::showCars() {
-	cout << setw(15) << left << "Cars Associated\n";
-	for (size_t i = 0; i < registered.size(); i++) {
-		for (size_t j = 0; j < registered.at(i).getGarage().size(); j++) {
-			cout << setw(20) << registered.at(i).getGarage().at(j).getModel() << "[" << registered.at(i).getGarage().at(j).getLicensePlate() << "]      with " << registered.at(i).getGarage().at(j).getMaxSeats() << " seats owned by " << registered.at(i).getUsername() << endl;
-		}
-	}
-}
-
-void Session::showBuddies() {
-	for (size_t i = 0; i < registered.size(); i++) {
-		setcolor(14);
-		if (registered.at(i).getBuddies().size() > 0) {
-			cout << setw(15) << left << registered.at(i).getUsername();
-			setcolor(15);
-			cout << " is buddies with: ";
-		}
-		for (size_t j = 0; j < registered.at(i).getBuddies().size(); j++) {
-			if (j == registered.at(i).getBuddies().size() - 1) {
-				cout << registered.at(i).getBuddies().at(j).getUsername() << ".\n";
-				break;
-			}
-			cout << registered.at(i).getBuddies().at(j).getUsername() << ", ";
-		}
-	}
-}
-
 void Session::showTripInformation() {
 	cout << setw(15) << left << "Host" << setw(25) << left << "Starting date" << setw(25) << left << "Ending date" << setw(15) << left << "Origin" << setw(15) << left << "Destination" << endl;
 	for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
@@ -617,8 +561,6 @@ void Session::showTripInformation() {
 
 void Session::extractPayment() { //So o admin tem acesso
 	for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
-		if (Session::instance()->registered.at(i).getBalance() < 5)
-			Session::instance()->registered.at(i).switchBlocked();
 		Session::instance()->registered.at(i).modifyBalance(-5);
 	}
 	cout << "Monthly payment withdrawn!";
