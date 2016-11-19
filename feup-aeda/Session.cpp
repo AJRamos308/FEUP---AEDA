@@ -559,6 +559,43 @@ void Session::showTripInformation() {
 	}
 }
 
+void Session::showStops() {
+	cout << setw(15) << left << "District Stops\n\n";
+	for (size_t i = 0; i < Session::instance()->districts.size(); i++) {
+		setcolor(9);
+		cout << "  " << i << setw(3) << ".";
+		setcolor(15);
+		cout << Session::instance()->districts.at(i) << endl;
+	}
+}
+
+void Session::showCars() {
+	cout << setw(15) << left << "Cars Associated\n";
+	for (size_t i = 0; i < registered.size(); i++) {
+		for (size_t j = 0; j < registered.at(i).getGarage().size(); j++) {
+			cout << setw(20) << registered.at(i).getGarage().at(j).getModel() << "[" << registered.at(i).getGarage().at(j).getLicensePlate() << "]      with " << registered.at(i).getGarage().at(j).getMaxSeats() << " seats owned by " << registered.at(i).getUsername() << endl;
+		}
+	}
+}
+
+void Session::showBuddies() {
+	for (size_t i = 0; i < registered.size(); i++) {
+		setcolor(14);
+		if (registered.at(i).getBuddies().size() > 0) {
+			cout << setw(15) << left << registered.at(i).getUsername();
+			setcolor(15);
+			cout << " is buddies with: ";
+		}
+		for (size_t j = 0; j < registered.at(i).getBuddies().size(); j++) {
+			if (j == registered.at(i).getBuddies().size() - 1) {
+				cout << registered.at(i).getBuddies().at(j).getUsername() << ".\n";
+				break;
+			}
+			cout << registered.at(i).getBuddies().at(j).getUsername() << ", ";
+		}
+	}
+}
+
 void Session::extractPayment() { //So o admin tem acesso
 	for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
 		Session::instance()->registered.at(i).modifyBalance(-5);

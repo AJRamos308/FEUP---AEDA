@@ -75,7 +75,19 @@ public:
 	*/
 	void showTripInformation();
 	/*!
-	* **Description:** Shows every client's information present in the database file.
+	* **Description:** Shows every trip's information present in the database file.
+	*/
+	void showStops();
+	/*!
+	* **Description:** Shows every stop present in the database file.
+	*/
+	void showCars();
+	/*!
+	* **Description:** Shows every car present in the database file.
+	*/
+	void showBuddies();
+	/*!
+	* **Description:** Shows every client's buddies present in the database file.
 	*/
 	void showClientInformation();
 	/*!
