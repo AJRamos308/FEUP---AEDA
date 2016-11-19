@@ -1,6 +1,8 @@
 #include "Session.h"
 
-//Cria uma nova instância.
+/*!
+ * Creates a new singleton instance.
+ */
 Session* Session::instance() {
 	if (!singleton_instance) {
 		singleton_instance = new Session;
@@ -8,7 +10,9 @@ Session* Session::instance() {
 	return singleton_instance;
 }
 
-//Elimina a instância atual e cria outra.
+/*!
+ * Deletes the active singleton instance, updates the database and imports it again.
+ */
 void Session::logout(){
 	Session::instance()->exportInfo();
 	delete singleton_instance;
@@ -16,6 +20,9 @@ void Session::logout(){
 	Session::instance()->importInfo();
 }
 
+/*!
+ * Quick Sorting algorithm, courtesy of rosettacode.org.
+ */
 template<typename RandomAccessIterator, typename Order>
 void quickSort(RandomAccessIterator first, RandomAccessIterator last, Order order) {
 	if (last - first > 1) {
@@ -26,12 +33,14 @@ void quickSort(RandomAccessIterator first, RandomAccessIterator last, Order orde
 	}
 }
 
+/*!
+* Quick Sorting algorithm, courtesy of rosettacode.org.
+*/
 template<typename RandomAccessIterator>
 void quickSort(RandomAccessIterator first, RandomAccessIterator last) {
 	quickSort(first, last, std::less<typename std::iterator_traits<RandomAccessIterator>::value_type>());
 }
 
-//Importa informação de database.txt para os vetores respetivos.
 bool Session::importInfo() {
 	fstream f;
 	string category, token = ".";

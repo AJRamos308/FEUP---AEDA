@@ -17,11 +17,12 @@ blinkroot:
 ephons:
 teste1:
 zepedrob:
+sswhatever:
 
 TRIPS
 ephons:201711161200|201711161300|OH-SH-IT|Aveiro(ephons)Beja()
-teste1:201611141700|201611141800|69-69-LM|Aveiro(ephons)Beja(blinkroot)Castelo Branco(zepedrob,blinkroot)
-teste1:201611141800|201611141900|96-96-AO|Aveiro()Beja()
+teste1:201711141700|201611141800|69-69-LM|Aveiro(ephons)Beja(blinkroot)Castelo Branco(zepedrob,blinkroot)
+teste1:201711141800|201611141900|96-96-AO|Aveiro()Castelo Branco()Beja()
 teste1:201611141800|201611141900|BE-RN-IE|Aveiro()Braga()
 teste1:201611161200|201511161300|96-96-AO|Aveiro()Beja()
 teste1:201711121100|201711121200|96-96-AO|Faro(zepedrob)Guarda()Leiria(zepedrob,blinkroot)Lisboa(blinkroot)
