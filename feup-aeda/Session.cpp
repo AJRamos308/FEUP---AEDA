@@ -561,8 +561,6 @@ void Session::showTripInformation() {
 
 void Session::extractPayment() { //So o admin tem acesso
 	for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
-		if (Session::instance()->registered.at(i).getBalance() < 5)
-			Session::instance()->registered.at(i).switchBlocked();
 		Session::instance()->registered.at(i).modifyBalance(-5);
 	}
 	cout << "Monthly payment withdrawn!";
