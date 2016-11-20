@@ -1,25 +1,40 @@
 MEMBERS
 admin|admin|Dono Disto Tudo|23|-10
 blinkroot|qwerty|Miguel Fernandes|19|-49
+cometsharks|wowowow|Logan Paul|22|90
 ephons|qwerty|Afonso Ramos|19|999995
+fakelecture|qwerty|Trevor Noah|30|100
+smallhideous|Dylan Mason|44|130|130
+sparklingbeer|zxcvb123|Benjamin Carter|43|40
 teste1|teste2|Teste Teste|99|262
+timingbear|abcdefg|John Smith|34|30
 zepedrob|qwerty|Ze Borges|19|-63
 
 GARAGE
-ephons:Chevrolet Azul|OH-SH-IT|5
+ephons:Chevrolet Azul|98-AL-10|5
+sparklingbeer:Smart|32-55-CD|2
 teste1:Ford Fiesta|69-69-LM|5
 teste1:Ford Transit|96-96-AO|7
 teste1:Seat Ibiza|BE-RN-IE|6
+timingbear:Nissan Qashqai|54-PL-12|7
+timingbear:Honda Civic|92-EW-12|5
 
 BUDDIES
 admin:
-blinkroot:ephons|zepedrob
-ephons:admin|blinkroot|zepedrob|teste1
-teste1:ephons
-zepedrob:ephons|blinkroot|teste1
+blinkroot:ephons|zepedrob|cometsharks|timingbear
+cometsharks:blinkroot
+ephons:admin|blinkroot|zepedrob|teste1|fakelecture
+fakelecture:ephons|zepedrob
+smallhideous:
+sparklingbeer:teste1
+teste1:ephons|sparklingbeer
+timingbear:blinkroot
+zepedrob:ephons|blinkroot|teste1|fakelecture
 
 TRIPS
-ephons:201711161200|201711161300|OH-SH-IT|Aveiro(ephons)Beja()
+ephons:201711161200|201711161300||Aveiro(ephons)Beja()
+sparklingbeer:201711201300|201711201600|32-55-CD|Aveiro()Braganca()Castelo Branco()Coimbra()Beja()Evora()
+sparklingbeer:201711151200|201711160100|32-55-CD|Coimbra()Aveiro()Castelo Branco()Guarda()Beja()
 teste1:201711141700|201611141800|69-69-LM|Aveiro(ephons)Beja(blinkroot)Castelo Branco(zepedrob,blinkroot)
 teste1:201711141800|201611141900|96-96-AO|Aveiro()Castelo Branco()Beja()
 teste1:201611141800|201611141900|BE-RN-IE|Aveiro()Braga()

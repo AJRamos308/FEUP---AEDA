@@ -806,7 +806,6 @@ size_t Menu::chooseVehicle() {
 		if (menuUpdate == true) {
 			clearScreen();
 			showLogo();
-			cout << "  Which vehicle will you be driving?\n\n";
 
 			for (size_t i = 0; i < localVehicles.size(); i++) {
 

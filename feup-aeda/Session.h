@@ -104,13 +104,6 @@ public:
 	template <class T>
 	int sequentialSearch(const vector<T> &v, T x);
 	/*!
-	* **Description:** Binary Search algorithm, as provided on the lectures.
-	*
-	* **Arguments:** Please consult the lecture slides.
-	*/
-	template <class T>
-	int binarySearch(const vector<T> &v, T x);
-	/*!
 	* **Description:** Quick Sort algorithm, courtesy of [rosettacode.org](http://rosettacode.org/wiki/Rosetta_Code).
 	*
 	* **Arguments:** Please consult [rosettacode.org](http://rosettacode.org/wiki/Rosetta_Code).
