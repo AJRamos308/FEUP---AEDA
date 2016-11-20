@@ -32,7 +32,7 @@ timingbear:blinkroot
 zepedrob:ephons|blinkroot|teste1|fakelecture
 
 TRIPS
-ephons:201711161200|201711161300||Aveiro(ephons)Beja()
+ephons:201711161200|201711161300|98-AL-10|Aveiro(ephons)Beja()
 sparklingbeer:201711201300|201711201600|32-55-CD|Aveiro()Braganca()Castelo Branco()Coimbra()Beja()Evora()
 sparklingbeer:201711151200|201711160100|32-55-CD|Coimbra()Aveiro()Castelo Branco()Guarda()Beja()
 teste1:201711141700|201611141800|69-69-LM|Aveiro(ephons)Beja(blinkroot)Castelo Branco(zepedrob,blinkroot)

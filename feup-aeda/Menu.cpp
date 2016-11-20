@@ -723,7 +723,7 @@ vector<string> Menu::journeyMenu() {
 		if (menuUpdate == true) {
 			clearScreen();
 			showLogo();
-			cout << "  Where are you heading?\n\n";
+			cout << "  Where are you heading? Press ENTER to select a district and SHIFT+ENTER to finish.\n\n";
 
 			for (size_t i = 0; i < localDistricts.size(); i++) {
 				

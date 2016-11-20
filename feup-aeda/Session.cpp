@@ -464,10 +464,11 @@ void Session::registration() {
 	}
 	password = passwordMaker();
 	
-	Registered token(username, password, name, age, 0);
+	Registered token(username, password, name, age, 0.0);
 	registered.push_back(token);
+	userPos = registered.size() - 1;
 
-	cout << "  User created with success!\n";
+	cout << "\n\n  User created with success!\n";
 	Session::instance()->username = username;
 	Sleep(1000);
 	return;
@@ -525,7 +526,7 @@ string Session::passwordMaker() {
 		}
 		password1 = pass1;
 		password2 = pass2;
-		if (password1 == password2 && password1.size() > 5) {
+		if (password1 == password2 && password1.size() >= 5) {
 			break;
 		}
 		else if (password1 == password2 && password1.size() < 5)

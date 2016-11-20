@@ -96,6 +96,9 @@ void User::joinJourney() {
 					if (activeRoutes.at(i).getStops().at(j).getPassengers().size() == activeRoutes.at(i).getCar().getMaxSeats() - 1) {
 						break;
 					}
+					else if (activeRoutes.at(i).getHost() == username) {
+						break;
+					}
 					counter2++;
 				}
 			}
@@ -117,7 +120,9 @@ void User::joinJourney() {
 				if (currentTime.getCompactDate() <= activeRoutes.at(i).getEndingTime().getCompactDate()) {
 					if (activeRoutes.at(i).getStops().at(j).getPassengers().size() == activeRoutes.at(i).getCar().getMaxSeats() - 1) {
 						break;
-						
+					}
+					else if (activeRoutes.at(i).getHost() == username) {
+						break;
 					}
 					foundStart = true;
 					continue;
@@ -126,6 +131,9 @@ void User::joinJourney() {
 			if (selectedRoute.at(selectedRoute.size() - 1) == activeRoutes.at(i).getStops().at(j).getStop()) {
 				if (currentTime.getCompactDate() <= activeRoutes.at(i).getEndingTime().getCompactDate()) {
 					if (activeRoutes.at(i).getStops().at(j).getPassengers().size() == activeRoutes.at(i).getCar().getMaxSeats() - 1) {
+						break;
+					}
+					else if (activeRoutes.at(i).getHost() == username) {
 						break;
 					}
 					foundDest = true;
@@ -191,6 +199,15 @@ void User::joinJourney() {
 	
 	//Criação de uma nova route.
 	Route r = m.joinJourneyMenu(activeRoutesCopy, perfectRoutes, similarRoutes);
+	for (size_t i = 0; i < r.getStops().size(); i++) {
+		for (size_t j = 0; j < r.getStops().at(i).getPassengers().size(); j++) {
+			if (r.getStops().at(i).getPassengers().at(j) == username) {
+				cout << " You have already joined that trip!";
+				Sleep(1500);
+				return;
+			}
+		}
+	}
 
 	//Adiciona e subtrai emptySeats.
 	bool foundStart = false, foundEnd = false;
