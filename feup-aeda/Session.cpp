@@ -307,6 +307,7 @@ void Session::login() {
 		showLogo();
 
 		cout << "  Username: ";
+
 		cin >> username;
 		while (cin.fail()) {
 			cin.clear();

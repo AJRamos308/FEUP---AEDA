@@ -7,6 +7,7 @@ unsigned int Menu::currentMenu = 10;
 void Menu::manager() {
 
 	while (true) {
+
 		if (currentMenu == 10) {
 			menu1();
 			continue;
@@ -562,7 +563,7 @@ Route Menu::joinJourneyMenu(vector<Route> activeRoutes, vector<Route> perfectRou
 		if (menuUpdate) {
 			clearScreen();
 			showLogo();
-			cout << "Here are all the trips available to your requirements. The :] means that there are buddies in that trip.\n\n";
+			cout << "  Here are all the trips available to your requirements. The :] means that there are buddies in that trip.\n\n";
 			if (perfectRoutes.size() != 0) {
 				setcolor(10);
 				cout << "  PERFECT MATCHES\n";
