@@ -102,7 +102,7 @@ public:
 	*/
 	void addVehicleToVec(Vehicle v);
 	/*!
-	* **Description:** Handles adding a user as a friend. Asks for a username. This adds a user as your friend but also adds you to their friend list (and vice versa). 
+	* **Description:** Handles adding a user as a friend. Asks for a username. This adds a user as a friend (and vice versa). 
 	*/
 	void addBuddy();
 	/*!

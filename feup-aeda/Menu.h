@@ -57,7 +57,7 @@ public:
 	/*!
 	* **Description:** Displays a list of every district available for selection, thus allowing the user to create its own custom desired route.
 	*
-	* **Notes:** Confirm your selection by pressing SHIFT+ENTER. We feel like the green background after each selection was a clever little touch.
+	* **Notes:** Confirm your selection by pressing SHIFT+ENTER. We feel the green background after each selection was a clever little touch.
 	*/
 	vector<string> journeyMenu();
 	/*!

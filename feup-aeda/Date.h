@@ -29,7 +29,7 @@ private:
 	*/
 	unsigned int month;
 	/*!
-	* **Description:** Date's year, ranging from 1970 to infinity (and beyond!).
+	* **Description:** Date's year, ranging from 1970 to infinite (and beyond!).
 	*/
 	unsigned int year;
 	/*!
@@ -39,7 +39,7 @@ private:
 	*/
 	unsigned long long compactDate;
 	/*!
-	* **Description:** A user-friendly way to display dates in the european format. (DD/MM/YYYY hh:mm)
+	* **Description:** An user-friendly way to display dates in the european format. (DD/MM/YYYY hh:mm)
 	*/
 	string formattedDate;
 public:
