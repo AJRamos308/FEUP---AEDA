@@ -9,7 +9,9 @@ Date::Date(unsigned int hour, unsigned int minutes, unsigned int day, unsigned i
 	this->month = month;
 	this->year = year;
 	long long year2 = year * pow(10,8);
+	
 	compactDate = year * pow(10,8) + month * pow(10,6) + day * pow(10,4) + hour * pow(10,2) + minutes;
+	
 	if (minutes==0)
 		formattedDate = to_string(day) + "/" + to_string(month) + "/" + to_string(year) + " " + to_string(hour) + ":00";
 	else

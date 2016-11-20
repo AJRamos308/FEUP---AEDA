@@ -96,7 +96,20 @@ public:
 	* **Notes:** We figured simply asking an admin to run this function would be the most practical way to implement it. We also considered only automatically running this when the computer's date reached the end of the month, yet fulfilling this condition at the time of presentation would be very unpractical, so we sticked with this implementation.
 	*/
 	void extractPayment();
-
+	/*!
+	* **Description:** Sequential Search algorithm, as provided on the lectures.
+	*
+	* **Arguments:** Please consult the lecture slides.
+	*/
+	template <class T>
+	int sequentialSearch(const vector<T> &v, T x);
+	/*!
+	* **Description:** Binary Search algorithm, as provided on the lectures.
+	*
+	* **Arguments:** Please consult the lecture slides.
+	*/
+	template <class T>
+	int binarySearch(const vector<T> &v, T x);
 	/*!
 	* **Description:** Quick Sort algorithm, courtesy of [rosettacode.org](http://rosettacode.org/wiki/Rosetta_Code).
 	*
