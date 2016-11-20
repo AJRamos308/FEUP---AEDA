@@ -201,7 +201,6 @@ bool Session::importInfo() {
 					if (!d1.Valid()) {
 						r.switchActive();
 					}
-					//TODO: When there are active routes abort is called()
 					for (size_t i = 0; i < registered.size(); i++) {
 						if (registered.at(i).getUsername() == user) {
 							registered.at(i).addTripToVec(r);
