@@ -562,7 +562,7 @@ Route Menu::joinJourneyMenu(vector<Route> activeRoutes, vector<Route> perfectRou
 		if (menuUpdate) {
 			clearScreen();
 			showLogo();
-
+			cout << "Here are all the trips available to your requirements. The :] means that there are buddies in that trip.\n\n";
 			if (perfectRoutes.size() != 0) {
 				setcolor(10);
 				cout << "  PERFECT MATCHES\n";
@@ -581,7 +581,7 @@ Route Menu::joinJourneyMenu(vector<Route> activeRoutes, vector<Route> perfectRou
 							break;
 						}
 					}
-					cout << "/" << perfectRoutes.at(i).getCar().getMaxSeats() << left << setw(54) << " available!  ";
+					cout << "/" << perfectRoutes.at(i).getCar().getMaxSeats() << left << setw(30) << " available!  ";
 
 					for (size_t j = 0; j < Session::instance()->registered.at(Session::instance()->userPos).getBuddies().size(); j++) {
 						for (size_t k = 0; k < perfectRoutes.at(i).getStops().size(); k++) {
@@ -623,7 +623,7 @@ Route Menu::joinJourneyMenu(vector<Route> activeRoutes, vector<Route> perfectRou
 							break;
 						}
 					}
-					cout << "/" << similarRoutes.at(i).getCar().getMaxSeats() << left << setw(54) << " available!  ";
+					cout << "/" << similarRoutes.at(i).getCar().getMaxSeats() << left << setw(30) << " available!  ";
 
 					for (size_t j = 0; j < Session::instance()->registered.at(Session::instance()->userPos).getBuddies().size(); j++) {
 						for (size_t k = 0; k < similarRoutes.at(i).getStops().size(); k++) {
