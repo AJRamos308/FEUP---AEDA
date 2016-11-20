@@ -222,17 +222,17 @@ void User::joinJourney() {
 						for (size_t l = 0; Session::instance()->registered.at(i).getAllTrips().at(j).getStops().size(); l++) {
 							if (!foundStart) {
 								if (selectedRoute.at(0) == Session::instance()->registered.at(i).getAllTrips().at(j).getStops().at(l).getStop()) {
-									Session::instance()->registered.at(i).allTrips.at(j).stops.at(l).addSeats(username);
+									Session::instance()->registered.at(i).allTrips.at(j).stops.at(l).addSeats(Session::instance()->username);
 									foundStart = true;
 								}
 								continue;
 							}
 							if (selectedRoute.at(selectedRoute.size() - 1) == Session::instance()->registered.at(i).getAllTrips().at(j).getStops().at(l).getStop()) {
-								Session::instance()->registered.at(i).allTrips.at(j).stops.at(l).addSeats(username);
+								Session::instance()->registered.at(i).allTrips.at(j).stops.at(l).addSeats(Session::instance()->username);
 								foundEnd = true;
 								goto loopExit;
 							}
-							Session::instance()->registered.at(i).allTrips.at(j).stops.at(l).addSeats(username);
+							Session::instance()->registered.at(i).allTrips.at(j).stops.at(l).addSeats(Session::instance()->username);
 						}
 					}
 				}
@@ -354,9 +354,13 @@ void Registered::hostJourney() {
 }
 
 void Registered::addBuddy() {
+
+	clearScreen();
+	showLogo();
+
 	string username;
 	size_t usernamePos = -1;
-	
+
 	cout << "  Add friend : ";
 	cin >> username;
 	cin.clear();
@@ -403,6 +407,7 @@ void Registered::addVehicle() {
 
 	cout << "  What is the MODEL of the car?\n  > ";
 	getline(cin, model);
+
 	while (!validLicense) {
 		cout << "\n  What is its LICENSE PLATE? (XX-XX-XX)\n  > ";
 		for (size_t i = 0; true;) {
@@ -446,6 +451,9 @@ void Registered::addVehicle() {
 	while (!car) {
 	cout << "\n\n  How many seats does your car have? (Including the driver)\n  > ";
 	cin >> maxSeats;
+	cin.clear();
+	cin.ignore(1000, '\n');
+
 		if (maxSeats < 5) {
 			Compact compact(maxSeats, model, licensePlate);
 			garage.push_back(compact);
@@ -471,8 +479,7 @@ void Registered::removeVehicle() {
 
 	size_t removeIndex = m1.chooseVehicle();
 	char verification;
-	cin.clear();
-	cin.ignore(50, '\n');
+
 	cout << "  Are you sure you want to delete (Y/N)?";
 	cin >> verification;
 	cin.clear();
@@ -485,8 +492,6 @@ void Registered::removeVehicle() {
 }
 void Registered::addFunds() {
 
-
-
 	float amount;
 
 	clearScreen();
@@ -497,22 +502,20 @@ void Registered::addFunds() {
 	while (cin.fail()) {
 		if (cin.eof())
 			return;
-		cin.clear();
-		cin.ignore();
 		setcolor(12);
 		cerr << "\a  Not a valid amount!\n";
 		setcolor(15);
 		cout << "\n  Please reinsert amount: ";
 		cin >> amount;
 	}
-
+	cin.clear();
+	cin.ignore(1000, '\n');
 	balance += amount;
 	return;
 }
 
 void Registered::modifyBalance(float price) {
 	balance += price;
-	//TODO: taxa 5, fator 1.5.
 }
 
 float User::payTrip(float price) {
@@ -529,6 +532,9 @@ float Guest::payTrip(float price) {
 }
 
 void Registered::changePassword() {
+	clearScreen();
+	showLogo();
+
 	string oldpass;
 	char pass[32], a;
 	bool changed = false;

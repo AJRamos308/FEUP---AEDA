@@ -404,14 +404,21 @@ void Session::registration() {
 	while (!validName) {
 		cout << "  Name: ";
 		getline(cin, name);
+		if (name == "") {
+			clearScreen();
+			showLogo();
+			continue;
+		}
 
 		for (unsigned int i = 0; i < name.length(); i++) {
 			if (isdigit(name.at(i))) {
-				cout << "  Invalid name!";
-				continue;
+				cout << "  Invalid name!\n";
+				goto repeat;
 			}
 		}
 		validName = true;
+	repeat:
+		continue;
 	}
 
 	cout << "  Age: ";

@@ -58,6 +58,8 @@ void Menu::manager() {
 					break;
 				}
 			}
+			cin.clear();
+			cin.ignore(1000, '\n');
 			currentMenu = 20;
 			continue;
 		}
@@ -650,6 +652,8 @@ Route Menu::joinJourneyMenu(vector<Route> activeRoutes, vector<Route> perfectRou
 			menuUpdate = false;
 		}
 		if (GetAsyncKeyState(VK_RETURN)) {
+			cin.clear();
+			cin.ignore(50, '\n');
 			return selectedRoute;
 		}
 		else if (GetAsyncKeyState(VK_DOWN)) {
@@ -821,6 +825,8 @@ size_t Menu::chooseVehicle() {
 		if (GetAsyncKeyState(VK_RETURN)) {
 
 			while (GetAsyncKeyState(VK_RETURN)) {}
+			cin.clear();
+			cin.ignore(50, '\n');
 			return selectedIndex;
 		}
 		else if (GetAsyncKeyState(VK_DOWN)) {

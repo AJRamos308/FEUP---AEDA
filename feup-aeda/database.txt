@@ -1,12 +1,12 @@
 MEMBERS
-admin|admin|Dono Disto Tudo|23|-10
+admin|admin|Dono Disto Tudo|23|-20
 blinkroot|qwerty|Miguel Fernandes|19|-49
 cometsharks|wowowow|Logan Paul|22|90
-ephons|qwerty|Afonso Ramos|19|1.00001e+06
+ephons|qwerty|Afonso Ramos|19|1.00002e+06
 fakelecture|qwerty|Trevor Noah|30|100
 smallhideous|Dylan Mason|44|130|130
 sparklingbeer|zxcvb123|Benjamin Carter|43|170
-teste1|teste2|Teste Teste|99|187
+teste1|teste2|Teste Teste|99|333
 timingbear|abcdefg|John Smith|34|30
 zepedrob|qwerty|Ze Borges|19|-133
 
