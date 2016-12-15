@@ -678,7 +678,7 @@ Route Menu::joinJourneyMenu(vector<Route> activeRoutes, vector<Route> perfectRou
 			else if (selectedIndex1 == -1) {
 				if (selectedIndex2 != similarRoutes.size() - 1) {
 					menuUpdate = true;
-					selectedIndex1 += 1;
+					selectedIndex2 += 1;
 				}
 			}
 		}
@@ -698,7 +698,7 @@ Route Menu::joinJourneyMenu(vector<Route> activeRoutes, vector<Route> perfectRou
 			if (selectedIndex1 == -1) {
 				if (selectedIndex2 != 0) {
 					menuUpdate = true;
-					selectedIndex2 += 1;
+					selectedIndex2 -= 1;
 				}
 				else {
 					menuUpdate = true;

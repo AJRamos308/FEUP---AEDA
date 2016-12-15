@@ -451,8 +451,12 @@ void Registered::addVehicle() {
 	while (!car) {
 	cout << "\n\n  How many seats does your car have? (Including the driver)\n  > ";
 	cin >> maxSeats;
-	cin.clear();
-	cin.ignore(1000, '\n');
+	if (cin.fail()) { 
+		cout << "\n  Invalid number of seats chosen, please try again.";
+		cin.clear();
+		cin.ignore(1000, '\n');
+		continue;
+	}
 
 		if (maxSeats < 5) {
 			Compact compact(maxSeats, model, licensePlate);
@@ -473,6 +477,7 @@ void Registered::addVehicle() {
 			cout << "\n  Invalid number of seats chosen, please try again.";
 		}
 	}
+	return;
 }
 
 void Registered::removeVehicle() {
@@ -570,7 +575,7 @@ void Registered::changePassword() {
 			changed = true;
 		}
 		else {
-			cout << "  Whoops, that's not your current password. Try again.\n";
+			cout << "\n  Whoops, that's not your current password. Try again.\n";
 		}
 	}
 	return;
