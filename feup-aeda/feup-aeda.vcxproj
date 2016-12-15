@@ -29,6 +29,7 @@
     <ClCompile Include="Vehicle.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\Desktop\BST.h" />
     <ClInclude Include="Date.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Route.h" />
