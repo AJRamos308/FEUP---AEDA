@@ -61,6 +61,8 @@ public:
 	* **Description:** Allows manually switching a trip from active to inactive (and vice versa).
 	*/
 	void switchActive();
+
+	bool operator<(const Route r);
 };
 
 class seatsHandler {

@@ -1,6 +1,7 @@
 #pragma once
 #include "Vehicle.h"
 #include "Route.h"
+#include <queue>
 using namespace std;
 
 class User{
@@ -55,6 +56,8 @@ private:
 	* **Description:** The user's buddies, filled with users from the Registered class.
 	*/
 	vector<Registered> buddies;
+
+	priority_queue<Route> routesPQ;
 public:
 	/*!
 	* **Description:** Keeps track of every trip hosted by the user.
@@ -75,7 +78,7 @@ public:
 	vector<Route> getAllTrips();
 	vector<Vehicle> getGarage();
 	float getBalance();
-	//as
+
 	/*!
 	* **Description:** Handles the creation of a new journey. Asks for a departure time, arrival time, the selected vehicle from the garage and where the user will stop.
 	*/

@@ -54,6 +54,8 @@ float Route::randomPrice() {
 	}
 	return totalPrice;
 }
+bool Route::operator<(const Route r) {
+}
 
 //SEATSHANDLER
 seatsHandler::seatsHandler(string stop, vector<string> passengers) {
