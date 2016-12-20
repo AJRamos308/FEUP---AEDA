@@ -1,9 +1,11 @@
 #include "Vehicle.h"
 
 /*VEHICLE CLASS*/
-Vehicle::Vehicle(unsigned int maximumSeats, string model, string licensePlate) : maxSeats(maximumSeats){
+Vehicle::Vehicle(unsigned int maximumSeats, string model, string licensePlate, string brand, unsigned int year) : maxSeats(maximumSeats){
 	this->model = model;
 	this->licensePlate = licensePlate;
+	this->brand = brand;
+	this->year = year;
 }
 unsigned int Vehicle::getMaxSeats() {
 	return maxSeats;
@@ -13,6 +15,12 @@ string Vehicle::getLicensePlate() {
 }
 string Vehicle::getModel() {
 	return model;
+}
+string Vehicle::getBrand() {
+	return brand;
+}
+unsigned int Vehicle::getYear() {
+	return year;
 }
 Vehicle::Vehicle() {}
 
@@ -45,4 +53,10 @@ Van::Van(unsigned int maxSeats, string model, string licensePlate) {
 	setModel(model);
 	setLicensePlate(licensePlate);
 }
-
+bool Vehicle::operator<(Vehicle v1) {
+	if (brand == v1.brand && model == v1.model)
+		return year < v1.year;
+	if (brand == v1.brand)
+		return model < v1.model;
+	return brand < v1.brand;
+}

@@ -8,6 +8,14 @@ using namespace std;
 class Vehicle {
 private:
 	/*!
+	* **Description:** The vehicle's brand.
+	*/
+	string brand;
+	/*
+	* **Description:** The year the vehicle was built.
+	*/
+	unsigned int year;
+	/*!
 	* **Description:** The vehicle's maximum capacity (including the driver).
 	*/
 	unsigned int maxSeats;
@@ -21,13 +29,16 @@ private:
 	string licensePlate;
 public:
 	Vehicle();
-	Vehicle(unsigned int maximumSeats, string model, string licensePlate);
+	Vehicle(unsigned int maximumSeats, string model, string licensePlate, string brand, unsigned int year);
 	unsigned int getMaxSeats();
 	string getLicensePlate();
 	string getModel();
+	string getBrand();
+	unsigned int getYear();
 	void setMaxSeats(unsigned int maxSeats);
 	void setModel(string model);
 	void setLicensePlate(string licensePlate);
+	bool operator<(Vehicle v1);
 };
 
 /*!

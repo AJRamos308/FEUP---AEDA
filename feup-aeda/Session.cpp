@@ -81,11 +81,15 @@ bool Session::importInfo() {
 					token.erase(0, token.find(":") + 1);
 					string brand = token.substr(0, token.find("|"));
 					token.erase(0, token.find("|") + 1);
+					string model = token.substr(0, token.find("|"));
+					token.erase(0, token.find("|") + 1);
 					string licensePlate = token.substr(0, token.find("|"));
 					token.erase(0, token.find("|") + 1);
-					string maxSeats = token;
+					string maxSeats = token.substr(0, token.find("|"));
+					token.erase(0, token.find("|") + 1);
+					string year = token;
 
-					Vehicle v(stoul(maxSeats), brand, licensePlate);
+					Vehicle v(stoul(maxSeats), model, licensePlate, brand, stoul(year));
 					
 					for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
 						if (Session::instance()->registered.at(i).getUsername() == username) {

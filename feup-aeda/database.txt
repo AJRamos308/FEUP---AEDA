@@ -11,13 +11,13 @@ timingbear|abcdefg|John Smith|34|30
 zepedrob|qwerty|Ze Borges|19|-133
 
 GARAGE
-ephons:Chevrolet Azul|98-AL-10|5
-sparklingbeer:Smart|32-55-CD|2
-teste1:Ford Fiesta|69-69-LM|5
-teste1:Ford Transit|96-96-AO|7
-teste1:Seat Ibiza|BE-RN-IE|6
-timingbear:Nissan Qashqai|54-PL-12|7
-timingbear:Honda Civic|92-EP-12|5
+ephons:Chevrolet|Azul|98-AL-10|5|2000
+sparklingbeer:Smart|Fortwo|32-55-CD|2|1997
+teste1:Ford|Fiesta|69-69-LM|5|2008
+teste1:Ford|Transit|96-96-AO|7|2007
+teste1:Seat|Ibiza|BE-RN-IE|6|2006
+timingbear:Nissan|Qashqai|54-PL-12|7|2005
+timingbear:Honda|Civic|92-EP-12|5|2004
 
 BUDDIES
 admin:
