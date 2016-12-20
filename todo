@@ -1,0 +1,13 @@
+- pesquisa atraves de tipo de viatura
+- modificar construtor da classe de username para pointer para user
+- possível remoção da garagem
+- acrescentar marca do carro
+- pesquisa e remoção de carros da garagem
+
+- acrescentar proximidade de amizade (só se é buddy ou não)
+- acrescentar distâncias concelho a concelho
+- fazer fila de prioridade para joinJourney menu
+
+- acrescentar variável a usuário para tempo de não utilização
+- acrescentar morada a usuário
+- criar função para recolha de moradas
