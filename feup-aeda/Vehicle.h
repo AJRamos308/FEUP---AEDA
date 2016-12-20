@@ -3,10 +3,15 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include "User.h"
 using namespace std;
 
 class Vehicle {
 private:
+	/*!
+	* **Description:** The vehicle's owner.
+	*/
+	Registered owner;
 	/*!
 	* **Description:** The vehicle's brand.
 	*/
@@ -34,11 +39,15 @@ public:
 	string getLicensePlate();
 	string getModel();
 	string getBrand();
+	Registered getOwner();
 	unsigned int getYear();
 	void setMaxSeats(unsigned int maxSeats);
 	void setModel(string model);
 	void setLicensePlate(string licensePlate);
-	bool operator<(Vehicle v1);
+	void setBrand(string brand);
+	void setYear(unsigned int year);
+	bool operator<(Vehicle v1) const;
+	bool operator==(Vehicle v1) const;
 };
 
 /*!
@@ -47,7 +56,7 @@ public:
 class Compact : public Vehicle {
 private:
 public:
-	Compact(unsigned int maxSeats, string model, string licensePlate);
+	Compact(unsigned int maximumSeats, string model, string licensePlate, string brand, unsigned int year);
 
 };
 
@@ -57,7 +66,7 @@ public:
 class Midsize : public Vehicle {
 private:
 public:
-	Midsize(unsigned int maxSeats, string model, string licensePlate);
+	Midsize(unsigned int maximumSeats, string model, string licensePlate, string brand, unsigned int year);
 };
 
 /*!
@@ -67,5 +76,5 @@ class Van : public Vehicle {
 private:
 
 public:
-	Van(unsigned int maxSeats, string model, string licensePlate);
+	Van(unsigned int maximumSeats, string model, string licensePlate, string brand, unsigned int year);
 };

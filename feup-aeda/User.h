@@ -1,5 +1,4 @@
 #pragma once
-#include "Vehicle.h"
 #include "Route.h"
 #include <queue>
 using namespace std;
@@ -51,7 +50,7 @@ private:
 	/*!
 	* **Description:** The user's garage, filled with vehicles from the Vehicle class.
 	*/
-	vector<Vehicle> garage;
+	//vector<Vehicle> garage;
 	/*!
 	* **Description:** The user's buddies, filled with users from the Registered class.
 	*/
@@ -68,6 +67,7 @@ public:
 
 	//Constructors
 	Registered(string username, string password, string name, unsigned int age, float balance);
+	Registered() {};
 
 	//Get Methods
 	string getUsername();
@@ -76,7 +76,7 @@ public:
 	unsigned int getAge();
 	vector<Registered> getBuddies();
 	vector<Route> getAllTrips();
-	vector<Vehicle> getGarage();
+	//vector<Vehicle> getGarage();
 	float getBalance();
 
 	/*!
@@ -103,7 +103,7 @@ public:
 	* **Arguments:**
 	* - v: Vehicle.
 	*/
-	void addVehicleToVec(Vehicle v);
+	//void addVehicleToVec(Vehicle v);
 	/*!
 	* **Description:** Handles adding a user as a friend. Asks for a username. This adds a user as a friend (and vice versa). 
 	*/
@@ -136,6 +136,7 @@ public:
 	* **Description:** Compares two objects from the class Registered by their username.
 	*/
 	bool operator<(Registered r1) const;
+	bool operator==(Registered r1) const;
 };
 
 class Guest : public User{

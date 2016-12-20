@@ -55,6 +55,7 @@ float Route::randomPrice() {
 	return totalPrice;
 }
 bool Route::operator<(const Route r) {
+	return true;
 }
 
 //SEATSHANDLER

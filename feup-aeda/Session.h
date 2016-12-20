@@ -3,6 +3,7 @@
 #include "User.h"
 #include "Route.h"
 #include "Utilities.h"
+#include "BST.h"
 
 class Session {
 private:
@@ -15,6 +16,7 @@ private:
 	*/
 	bool admin = false;
 public:
+	BST<Vehicle> vehicleTree;
 	/*!
 	* **Description:** Creates a new singleton instance.
 	*

@@ -34,9 +34,9 @@ vector<Registered> Registered::getBuddies() {
 vector<Route> Registered::getAllTrips() {
 	return allTrips;
 }
-vector<Vehicle> Registered::getGarage() {
+/*vector<Vehicle> Registered::getGarage() {
 	return garage;
-}
+}*/
 float Registered::getBalance() {
 	return balance;
 }
@@ -46,9 +46,9 @@ void Registered::addBuddyToVec(Registered r) {
 void Registered::addTripToVec(Route r) {
 	allTrips.push_back(r);
 }
-void Registered::addVehicleToVec(Vehicle v) {
+/*void Registered::addVehicleToVec(Vehicle v) {
 	garage.push_back(v);
-}
+}*/
 
 void User::joinJourney() {
 	Menu m;
@@ -260,11 +260,24 @@ void Registered::hostJourney() {
 	string startingDate, endingDate;
 	int displayOrder = 0;
 	Date d1, d2;
+	bool hasCar = false;
 
-	if (getGarage().size() == 0) {
+	/*if (getGarage().size() == 0) {
 		cout << "  Sorry, you don't have any vehicles available so you can't host a trip. Try adding one!";
 		Sleep(4000);
 		return;
+	}*/
+	BSTItrIn<Vehicle> it(Session::instance()->vehicleTree);
+	while (!it.isAtEnd()) {
+	if (it.retrieve().getOwner() == Session::instance()->registered.at(Session::instance()->userPos))
+	hasCar = true;
+	it.advance();
+	}
+
+	if (!hasCar) {
+	cout << "  Sorry, you don't have any vehicles available so you can't host a trip. Try adding one!";
+	Sleep(4000);
+	return;
 	}
 	
 	cout << "  At what time are you hitting the road? (YYYY/MM/DD hh:mm)\n\n";
@@ -340,6 +353,7 @@ void Registered::hostJourney() {
 	}
 	
 	size_t vehicleChosen = m1.chooseVehicle();
+	//Vehicle vehicleChosen = m1.chooseVehicle();
 	vector<string> journeyStops = m1.journeyMenu();
 	vector<seatsHandler> handler;
 	vector<string> zeroPassengers;
@@ -348,8 +362,10 @@ void Registered::hostJourney() {
 		handler.push_back(s);
 	}
 
-	Route r(Session::instance()->username, d1, d2, handler, Session::instance()->registered.at(Session::instance()->userPos).getGarage().at(vehicleChosen));
-	Session::instance()->registered.at(Session::instance()->userPos).addTripToVec(r);
+	//Route r(Session::instance()->username, d1, d2, handler, Session::instance()->registered.at(Session::instance()->userPos).getGarage().at(vehicleChosen));
+	// -> ||||||||||||||||||||||e esta a versao BST |||||||||||     Route r(Session::instance()->username, d1, d2, handler, vehicleChosen);
+
+	//Session::instance()->registered.at(Session::instance()->userPos).addTripToVec(r);
 	return;
 }
 
@@ -397,16 +413,21 @@ void Registered::addBuddy() {
 }
 
 void Registered::addVehicle() {
-	string model, licensePlate;
+	string model, licensePlate, brand;
 	int maxSeats;
+	unsigned int year;
 	bool validLicense = false, car = false;
 	char token, license[9];
 
 	clearScreen();
 	showLogo();
 
+	cout << "  What is the BRAND of the car?\n  > ";
+	getline(cin, brand);
 	cout << "  What is the MODEL of the car?\n  > ";
 	getline(cin, model);
+	cout << "  What year was it bought?\n  > ";
+	cin >> year;
 
 	while (!validLicense) {
 		cout << "\n  What is its LICENSE PLATE? (XX-XX-XX)\n  > ";
@@ -459,18 +480,22 @@ void Registered::addVehicle() {
 	}
 
 		if (maxSeats < 5) {
-			Compact compact(maxSeats, model, licensePlate);
-			garage.push_back(compact);
+			Compact compact(maxSeats, model, licensePlate, brand, year);
+			//garage.push_back(compact);
+			Session::instance()->vehicleTree.insert(compact);
 			car = true;
 		}
 		else if (maxSeats == 5) {
-			Midsize midsize(maxSeats, model, licensePlate);
-			garage.push_back(midsize);
+			Midsize midsize(maxSeats, model, licensePlate, brand, year);
+			//garage.push_back(midsize);
+			Session::instance()->vehicleTree.insert(midsize);
 			car = true;
 		}
 		else if (maxSeats <= 9) {
-			Van van(maxSeats, model, licensePlate);
-			garage.push_back(van);
+			Van van(maxSeats, model, licensePlate, brand, year);
+			//garage.push_back(van);
+			Session::instance()->vehicleTree.insert(van);
+
 			car = true;
 		}
 		else {
@@ -482,7 +507,7 @@ void Registered::addVehicle() {
 
 void Registered::removeVehicle() {
 
-	size_t removeIndex = m1.chooseVehicle();
+	//size_t removeIndex = m1.chooseVehicle();
 	char verification;
 
 	cout << "  Are you sure you want to delete (Y/N)?";
@@ -490,7 +515,14 @@ void Registered::removeVehicle() {
 	cin.clear();
 	cin.ignore(50, '\n');
 	if (verification == 'Y' || verification == 'y') {
-		Session::instance()->registered.at(Session::instance()->userPos).garage.erase(Session::instance()->registered.at(Session::instance()->userPos).garage.begin() + removeIndex);
+		//Session::instance()->registered.at(Session::instance()->userPos).garage.erase(Session::instance()->registered.at(Session::instance()->userPos).garage.begin() + removeIndex);
+		BSTItrIn<Vehicle> it(Session::instance()->vehicleTree);
+		while (!it.isAtEnd()) {
+			if (it.retrieve().getOwner() == Session::instance()->registered.at(Session::instance()->userPos)) {
+				Session::instance()->vehicleTree.remove(it.retrieve());
+			}
+			it.advance();
+		}
 		cout << "\n  Vehicle deleted!";
 	}
 	return;
@@ -582,4 +614,9 @@ void Registered::changePassword() {
 }
 bool Registered::operator<(Registered r1) const {
 	return this->username < r1.username;
+}
+bool Registered::operator==(Registered r1) const {
+	if (this->username == r1.username && this->password == r1.password)
+		return true;
+	return false;
 }
