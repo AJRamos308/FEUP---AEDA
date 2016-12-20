@@ -73,8 +73,5 @@
     <Text Include="database.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="distance between districts.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
   </ItemGroup>
 </Project>

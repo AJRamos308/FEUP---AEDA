@@ -40,7 +40,6 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="database.txt" />
-    <Text Include="distance between districts.txt" />
     <Text Include="menu.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
