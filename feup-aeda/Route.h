@@ -15,6 +15,7 @@ private:
 	* **Description:** The username of the trip's host.
 	*/
 	Registered* host;
+	unsigned int distance;
 	/*!
 	* **Description:** Whether the trip is active or not. This depends simply on its starting date being later than the PC's date.
 	*/
@@ -32,9 +33,11 @@ private:
 	*/
 	Vehicle car;
 public:
+	priority_queue<User*> candidates;
+
 	//Constructors
 	Route();
-	Route(Registered* host, Date startingTime, Date endingTime, vector<seatsHandler> stops, Vehicle car);
+	Route(Registered *host, Date startingTime, Date endingTime, vector<seatsHandler> stops, Vehicle car);
 
 	/*!
 	* **Description:** Saves a struct that associates both the current stop with the amount of passengers at that given stop.
@@ -60,6 +63,8 @@ public:
 	/*!
 	* **Description:** Allows manually switching a trip from active to inactive (and vice versa).
 	*/
+	unsigned int calculateDistance();
+
 	void switchActive();
 
 	bool operator<(const Route r);

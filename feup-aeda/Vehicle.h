@@ -11,7 +11,7 @@ private:
 	/*!
 	* **Description:** The vehicle's owner.
 	*/
-	Registered* owner;
+	Registered *owner;
 	/*!
 	* **Description:** The vehicle's brand.
 	*/

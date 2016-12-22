@@ -1,4 +1,5 @@
 #include "Route.h"
+#include "Session.h"
 
 /*CONSTRUCTORS*/
 Route::Route() {
@@ -10,6 +11,7 @@ Route::Route(Registered* host, Date startingTime, Date endingTime, vector<seatsH
 	this->stops = stops;
 	this->car = car;
 	this->price = randomPrice();
+	this->distance = calculateDistance();
 	active = true;
 }
 
@@ -44,6 +46,23 @@ void Route::switchActive() {
 	}
 	active = true;
 	return;
+}
+unsigned int Route::calculateDistance() {
+	
+	unsigned int totalDistance = 0;
+
+	//Iterates through every stop in this specific journey.
+	for (size_t i = 0; i < stops.size() - 1; i++) {
+		string stop1 = stops.at(i).getStop();
+		string stop2 = stops.at(i + 1).getStop();
+
+		for (size_t j = 0; j < Session::instance()->distances.size(); j++) {
+			if (Session::instance()->distances.at(i).origin == stop1 && Session::instance()->distances.at(i).destination == stop2) {
+				totalDistance += Session::instance()->distances.at(i).distance;
+			}
+		}
+	}
+	return totalDistance;
 }
 float Route::randomPrice() {
 

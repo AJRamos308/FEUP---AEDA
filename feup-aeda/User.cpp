@@ -54,7 +54,26 @@ void User::joinJourney() {
 	localtime_s(&now, &t);
 	Date currentTime(now.tm_hour, now.tm_min, now.tm_mday, (now.tm_mon + 1), (now.tm_year + 1900));
 
+	vector<Route> *everyRoute;
+	everyRoute = &Session::instance()->allRoutes;
+
 	//Carrega o vetor activeRoutes com as viagens ativas.
+	for (size_t i = 0; i < everyRoute->size(); i++) {
+		if (everyRoute->at(i).getActive()) {
+			unsigned short counter = 0;
+
+			for (size_t j = 0; j < everyRoute->at(i).getStops().size(); j++) {
+				if (everyRoute->at(i).getCar().getMaxSeats() - 1) {
+					counter++;
+				}
+			}
+			if (counter != everyRoute->at(i).getStops().size()) {
+				activeRoutes.push_back(everyRoute->at(i));
+			}
+		}
+	}
+
+	/*
 	for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
 		for (size_t j = 0; j < Session::instance()->registered.at(i).getAllTrips().size(); j++) {
 			if (Session::instance()->registered.at(i).getAllTrips().at(j).getActive()) {
@@ -71,6 +90,7 @@ void User::joinJourney() {
 			}
 		}
 	}
+	*/
 	//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\Se não houver viagens para juntar, dá display a mensagem de erro.
 	if (activeRoutes.size() == 0) {
 		cout << "  Whoops, looks like there aren't any active routes to join.\n  Try hosting one!";
@@ -90,7 +110,7 @@ void User::joinJourney() {
 					if (activeRoutes.at(i).getStops().at(j).getPassengers().size() == activeRoutes.at(i).getCar().getMaxSeats() - 1) {
 						break;
 					}
-					else if (activeRoutes.at(i).getHost() == username) {
+					else if (activeRoutes.at(i).getHost()->getUsername() == username) {
 						break;
 					}
 					counter2++;
@@ -115,7 +135,7 @@ void User::joinJourney() {
 					if (activeRoutes.at(i).getStops().at(j).getPassengers().size() == activeRoutes.at(i).getCar().getMaxSeats() - 1) {
 						break;
 					}
-					else if (activeRoutes.at(i).getHost() == username) {
+					else if (activeRoutes.at(i).getHost()->getUsername() == username) {
 						break;
 					}
 					foundStart = true;
@@ -127,7 +147,7 @@ void User::joinJourney() {
 					if (activeRoutes.at(i).getStops().at(j).getPassengers().size() == activeRoutes.at(i).getCar().getMaxSeats() - 1) {
 						break;
 					}
-					else if (activeRoutes.at(i).getHost() == username) {
+					else if (activeRoutes.at(i).getHost()->getUsername() == username) {
 						break;
 					}
 					foundDest = true;
@@ -207,7 +227,7 @@ void User::joinJourney() {
 	bool foundStart = false, foundEnd = false;
 
 	for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
-		if (Session::instance()->registered.at(i).getUsername() == r.getHost()) {
+		if (Session::instance()->registered.at(i).getUsername() == r.getHost()->getUsername()) {
 			for (size_t j = 0; j < Session::instance()->registered.at(i).getAllTrips().size(); j++) {
 				if (Session::instance()->registered.at(i).getAllTrips().at(j).getStartingTime().getCompactDate() == r.getStartingTime().getCompactDate() &&
 					Session::instance()->registered.at(i).getAllTrips().at(j).getCar().getLicensePlate() == r.getCar().getLicensePlate()) {
@@ -263,7 +283,7 @@ void Registered::hostJourney() {
 	}*/
 	BSTItrIn<Vehicle> it(Session::instance()->vehicleTree);
 	while (!it.isAtEnd()) {
-	if (it.retrieve().getOwner() == Session::instance()->registered.at(Session::instance()->userPos))
+	if (it.retrieve().getOwner()->getUsername() == Session::instance()->registered.at(Session::instance()->userPos).getUsername())
 	hasCar = true;
 	it.advance();
 	}
@@ -512,7 +532,7 @@ void Registered::removeVehicle() {
 		//Session::instance()->registered.at(Session::instance()->userPos).garage.erase(Session::instance()->registered.at(Session::instance()->userPos).garage.begin() + removeIndex);
 		BSTItrIn<Vehicle> it(Session::instance()->vehicleTree);
 		while (!it.isAtEnd()) {
-			if (it.retrieve().getOwner() == Session::instance()->registered.at(Session::instance()->userPos)) {
+			if (it.retrieve().getOwner()->getUsername() == Session::instance()->registered.at(Session::instance()->userPos).getUsername()) {
 				Session::instance()->vehicleTree.remove(it.retrieve());
 			}
 			it.advance();

@@ -82,13 +82,6 @@ public:
 	*/
 	void addBuddyToVec(Registered r);
 	/*!
-	* **Description:** Adds a route to the user's trip list.
-	*
-	* **Arguments:**
-	* - r: Route.
-	*/
-	void addTripToVec(Route r);
-	/*!
 	* **Description:** Adds a vehicle to the user's garage.
 	*
 	* **Arguments:**

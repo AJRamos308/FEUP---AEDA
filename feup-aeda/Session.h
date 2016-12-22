@@ -20,7 +20,6 @@ private:
 	bool admin = false;
 public:
 	BST<Vehicle> vehicleTree;
-	priority_queue<Route> tripsQueue;
 
 	struct districtDistance {
 		string origin;
@@ -28,6 +27,7 @@ public:
 		unsigned int distance;
 	} d;
 
+	vector<Route> allRoutes;
 	vector<districtDistance> distances;
 
 	/*!

@@ -200,16 +200,19 @@ bool Session::importInfo() {
 						itr.advance();
 					}
 
-					Route r(user, d1, d2, s, v);
+					size_t pos;
+					for (size_t i = 0; i < registered.size(); i++) {
+						if (registered.at(i).getUsername() == user) {
+							pos = i;
+							break;
+						}
+					}
+					Route r(&registered.at(pos), d1, d2, s, v);
 					
 					if (!d1.Valid()) {
 						r.switchActive();
 					}
-					for (size_t i = 0; i < registered.size(); i++) {
-						if (registered.at(i).getUsername() == user) {
-							registered.at(i).addTripToVec(r);
-						}
-					}
+					allRoutes.push_back(r);
 					continue;
 				}
 				break;
@@ -258,7 +261,7 @@ bool Session::exportInfo() {
 	fstream f;
 
 	f.open("database.txt");
-	
+
 	f << "MEMBERS" << endl;
 	for (size_t i = 0; i < registered.size(); i++) {
 		f << registered.at(i).getUsername() << "|" << registered.at(i).getPassword() << "|" << registered.at(i).getName() << "|" << registered.at(i).getAge() << "|" << registered.at(i).getBalance() << endl;
@@ -274,7 +277,7 @@ bool Session::exportInfo() {
 
 	f << endl << "BUDDIES" << endl;
 	for (size_t i = 0; i < registered.size(); i++) {
-		
+
 		f << registered.at(i).getUsername() << ":";
 
 		for (size_t j = 0; j < registered.at(i).getBuddies().size(); j++) {
@@ -288,27 +291,24 @@ bool Session::exportInfo() {
 	}
 
 	f << endl << "TRIPS" << endl;
-	priority_queue<Route> temp = tripsQueue;
-	
-	while (!temp.empty()) {
-		f << temp.top().getHost()->getUsername() << ":";
-		f << temp.top().getStartingTime().getCompactDate() << "|";
-		f << temp.top().getEndingTime().getCompactDate() << "|";
-		f << temp.top().getCar().getLicensePlate() << "|";
+	for (size_t i = 0; allRoutes.size(); i++) {
+		f << allRoutes.at(i).getHost()->getUsername() << ":";
+		f << allRoutes.at(i).getStartingTime().getCompactDate() << "|";
+		f << allRoutes.at(i).getEndingTime().getCompactDate() << "|";
+		f << allRoutes.at(i).getCar().getLicensePlate() << "|";
 
-		for (size_t i = 0; i < temp.top().getStops().size(); i++) {
-			f << temp.top().getStops().at(i).getStop() << "(";
+		for (size_t j = 0; j < allRoutes.at(i).getStops().size(); j++) {
+			f << allRoutes.at(i).getStops().at(j).getStop() << "(";
 
-			for (size_t j = 0; j < temp.top().getStops().at(i).getPassengers().size(); j++) {
-				if (j == temp.top().getStops().at(i).getPassengers().size() - 1)
-					f << temp.top().getStops().at(i).getPassengers().at(j);
+			for (size_t k = 0; k < allRoutes.at(i).getStops().at(j).getPassengers().size(); k++) {
+				if (j == allRoutes.at(i).getStops().at(j).getPassengers().size() - 1)
+					f << allRoutes.at(i).getStops().at(j).getPassengers().at(k);
 				else
-					f << temp.top().getStops().at(i).getPassengers().at(j) << ",";
+					f << allRoutes.at(i).getStops().at(j).getPassengers().at(k) << ",";
 			}
 			f << ")";
 		}
 		f << endl;
-		temp.pop();
 	}
 
 	f << endl << "DISTRICTS" << endl;
@@ -603,21 +603,22 @@ void Session::showClientInformation() {
 }
 
 void Session::showTripInformation() {
-	clearScreen();
-	showLogo();
-	setcolor(11);
-	cout << setw(15) << left << "  Host" << setw(25) << left << "Starting date" << setw(25) << left << "Ending date" << setw(15) << left << "Origin" << setw(15) << left << "Destination" << endl;
-	setcolor(15);
-	for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
-		for (size_t j = 0; j < Session::instance()->registered.at(i).allTrips.size(); j++) {
-			cout << endl << "  " << setw(15) << left << Session::instance()->registered.at(i).getAllTrips().at(j).getHost() <<
-				setw(25) << left << Session::instance()->registered.at(i).getAllTrips().at(j).getStartingTime().getFormattedDate() <<
-				setw(25) << left << Session::instance()->registered.at(i).getAllTrips().at(j).getEndingTime().getFormattedDate() <<
-				setw(15) << left << Session::instance()->registered.at(i).getAllTrips().at(j).getStops().at(0).getStop() << 
-				setw(15) << left << Session::instance()->registered.at(i).getAllTrips().at(j).getStops().at(Session::instance()->registered.at(i).getAllTrips().at(j).getStops().size() - 1).getStop();
-		}
+	
+	//Display preparation.
+	clearScreen(); showLogo();
+	setcolor(11); cout << setw(15) << left << "  Host" << setw(25) << left << "Starting date" << setw(25) << left << "Ending date" << setw(15) << left << "Origin" << setw(15) << left << "Destination" << endl; setcolor(15);
+	
+	//Iterates through every trip.
+	for (size_t i = 0; i < allRoutes.size(); i++) {
+		cout << endl << "  " << setw(15) << left << allRoutes.at(i).getHost()->getUsername();
+		cout << setw(25) << left << allRoutes.at(i).getStartingTime().getFormattedDate();
+		cout << setw(25) << left << allRoutes.at(i).getEndingTime().getFormattedDate();
+		cout << setw(15) << left << allRoutes.at(i).getStops().at(0).getStop();
+		cout << setw(15) << left << allRoutes.at(i).getStops().at(allRoutes.at(i).getStops().size() - 1).getStop();
 	}
 	_getch();
+
+	return;
 }
 
 void Session::showStops() {
