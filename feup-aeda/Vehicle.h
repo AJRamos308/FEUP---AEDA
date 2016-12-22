@@ -11,7 +11,7 @@ private:
 	/*!
 	* **Description:** The vehicle's owner.
 	*/
-	Registered owner;
+	Registered* owner;
 	/*!
 	* **Description:** The vehicle's brand.
 	*/
@@ -34,12 +34,12 @@ private:
 	string licensePlate;
 public:
 	Vehicle();
-	Vehicle(unsigned int maximumSeats, string model, string licensePlate, string brand, unsigned int year);
+	Vehicle(Registered* owner, unsigned int maximumSeats, string model, string licensePlate, string brand, unsigned int year);
 	unsigned int getMaxSeats();
 	string getLicensePlate();
 	string getModel();
 	string getBrand();
-	Registered getOwner();
+	Registered* getOwner();
 	unsigned int getYear();
 	void setMaxSeats(unsigned int maxSeats);
 	void setModel(string model);

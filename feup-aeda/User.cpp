@@ -31,9 +31,6 @@ unsigned int Registered::getAge() {
 vector<Registered> Registered::getBuddies() {
 	return buddies;
 }
-vector<Route> Registered::getAllTrips() {
-	return allTrips;
-}
 /*vector<Vehicle> Registered::getGarage() {
 	return garage;
 }*/
@@ -42,9 +39,6 @@ float Registered::getBalance() {
 }
 void Registered::addBuddyToVec(Registered r) {
 	buddies.push_back(r);
-}
-void Registered::addTripToVec(Route r) {
-	allTrips.push_back(r);
 }
 /*void Registered::addVehicleToVec(Vehicle v) {
 	garage.push_back(v);

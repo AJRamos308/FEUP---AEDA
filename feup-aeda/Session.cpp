@@ -88,12 +88,11 @@ bool Session::importInfo() {
 					string maxSeats = token.substr(0, token.find("|"));
 					token.erase(0, token.find("|") + 1);
 					string year = token;
-
-					Vehicle v(stoul(maxSeats), model, licensePlate, brand, stoul(year));
 					
 					for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
 						if (Session::instance()->registered.at(i).getUsername() == username) {
-							Session::instance()->registered.at(i).addVehicleToVec(v);
+							Vehicle v(&Session::instance()->registered.at(i), stoul(maxSeats), model, licensePlate, brand, stoul(year));
+							vehicleTree.insert(v);
 						}
 					}
 					continue;
@@ -192,12 +191,13 @@ bool Session::importInfo() {
 					Date d2(stoull(arrivalTime));
 
 					Vehicle v;
-					for (size_t i = 0; i < registered.size(); i++) {
-						for (size_t j = 0; j < registered.at(i).getGarage().size(); j++) {
-							if (registered.at(i).getGarage().at(j).getLicensePlate() == licensePlate) {
-								v = registered.at(i).getGarage().at(j);
-							}
+					BSTItrIn<Vehicle> itr(vehicleTree);
+					while (!itr.isAtEnd()) {
+						if (itr.retrieve().getLicensePlate() == licensePlate) {
+							v = itr.retrieve();
+							break;
 						}
+						itr.advance();
 					}
 
 					Route r(user, d1, d2, s, v);
@@ -231,6 +231,26 @@ bool Session::importInfo() {
 	//Sorts the districts vector.
 	quickSort(districts.begin(), districts.end());
 	quickSort(registered.begin(), registered.end());
+
+	f.close();
+
+	//Fill the district distance matrix.
+	f.open("distance between districts.txt");
+
+	while (!f.eof()) {
+		string line;
+		getline(f, line);
+
+		d.origin = line.substr(0, line.find(" - "));
+		line.erase(0, line.find(" - ") + 1);
+		d.destination = line.substr(0, line.find(" : "));
+		line.erase(0, line.find(" : ") + 1);
+		d.distance = stoul(line);
+
+		distances.push_back(d);
+	}
+	f.close();
+
 	return true;
 }
 
@@ -245,11 +265,11 @@ bool Session::exportInfo() {
 	}
 
 	f << endl << "GARAGE" << endl;
-	for (size_t i = 0; i < registered.size(); i++) {
-		for (size_t j = 0; j < registered.at(i).getGarage().size(); j++) {
-			f << registered.at(i).getUsername() << ":" << registered.at(i).getGarage().at(j).getModel() << "|" << registered.at(i).getGarage().at(j).getLicensePlate() <<
-				"|" << registered.at(i).getGarage().at(j).getMaxSeats() << endl;
-		}
+	BSTItrIn<Vehicle> itr(vehicleTree);
+
+	while (!itr.isAtEnd()) {
+		f << itr.retrieve().getOwner()->getUsername() << ":" << itr.retrieve().getModel() << "|" << itr.retrieve().getLicensePlate() << "|" << itr.retrieve().getMaxSeats() << endl;
+		itr.advance();
 	}
 
 	f << endl << "BUDDIES" << endl;
@@ -268,26 +288,29 @@ bool Session::exportInfo() {
 	}
 
 	f << endl << "TRIPS" << endl;
-	for (size_t i = 0; i < registered.size(); i++) {
-		for (size_t j = 0; j < registered.at(i).getAllTrips().size(); j++) {
-			f << registered.at(i).getUsername() << ":";
-			f << registered.at(i).getAllTrips().at(j).getStartingTime().getCompactDate() << "|";
-			f << registered.at(i).getAllTrips().at(j).getEndingTime().getCompactDate() << "|";
-			f << registered.at(i).getAllTrips().at(j).getCar().getLicensePlate() << "|";
-			for (size_t k = 0; k < registered.at(i).getAllTrips().at(j).getStops().size(); k++) {
-				f << registered.at(i).getAllTrips().at(j).getStops().at(k).getStop() << "(";
-				for (size_t l = 0; l < registered.at(i).getAllTrips().at(j).getStops().at(k).getPassengers().size(); l++) {
-					if (l == registered.at(i).getAllTrips().at(j).getStops().at(k).getPassengers().size() - 1)
-						f << registered.at(i).getAllTrips().at(j).getStops().at(k).getPassengers().at(l);
-					else 
-						f << registered.at(i).getAllTrips().at(j).getStops().at(k).getPassengers().at(l) << ",";
-					
-				}
-				f << ")";
+	priority_queue<Route> temp = tripsQueue;
+	
+	while (!temp.empty()) {
+		f << temp.top().getHost()->getUsername() << ":";
+		f << temp.top().getStartingTime().getCompactDate() << "|";
+		f << temp.top().getEndingTime().getCompactDate() << "|";
+		f << temp.top().getCar().getLicensePlate() << "|";
+
+		for (size_t i = 0; i < temp.top().getStops().size(); i++) {
+			f << temp.top().getStops().at(i).getStop() << "(";
+
+			for (size_t j = 0; j < temp.top().getStops().at(i).getPassengers().size(); j++) {
+				if (j == temp.top().getStops().at(i).getPassengers().size() - 1)
+					f << temp.top().getStops().at(i).getPassengers().at(j);
+				else
+					f << temp.top().getStops().at(i).getPassengers().at(j) << ",";
 			}
-			f << endl;
+			f << ")";
 		}
+		f << endl;
+		temp.pop();
 	}
+
 	f << endl << "DISTRICTS" << endl;
 	for (size_t i = 0; i < districts.size(); i++) {
 		if (i == districts.size() - 1) {
@@ -612,19 +635,19 @@ void Session::showStops() {
 }
 
 void Session::showCars() {
+	
+	//Display setup.
 	cin.clear();
 	clearScreen();
 	showLogo();
-	setcolor(11);
-	cout << setw(15) << left << "  Cars Associated\n\n";
-	setcolor(15);
-	for (size_t i = 0; i < registered.size(); i++) {
-		for (size_t j = 0; j < registered.at(i).getGarage().size(); j++) {
-			setcolor(11);
-			cout << "  " << setw(20) << registered.at(i).getGarage().at(j).getModel();
-			setcolor(15);
-			cout << "[" << registered.at(i).getGarage().at(j).getLicensePlate() << "] with " << registered.at(i).getGarage().at(j).getMaxSeats() << " seats owned by " << registered.at(i).getUsername() << endl;
-		}
+	setcolor(11); cout << setw(15) << left << "  Cars Associated\n\n"; setcolor(15);
+
+	//Iterating all vehicles in BST.
+	BSTItrIn<Vehicle> itr(vehicleTree);
+	while (!itr.isAtEnd()) {
+		setcolor(11); cout << "  " << setw(20) << itr.retrieve().getModel(); setcolor(15);
+		cout << "[" << itr.retrieve().getLicensePlate() << "] with " << itr.retrieve().getMaxSeats() << " seats owned by " << itr.retrieve().getOwner()->getUsername() << endl;
+		itr.advance();
 	}
 	_getch();
 }

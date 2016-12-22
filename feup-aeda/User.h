@@ -56,14 +56,7 @@ private:
 	*/
 	vector<Registered> buddies;
 
-	priority_queue<Route> routesPQ;
 public:
-	/*!
-	* **Description:** Keeps track of every trip hosted by the user.
-	*
-	* **Notes:** In a similar fashion to the stops vector on Route class, declaring this member as public is a temporary solution to an issue we had, where we were unable to modify values with 'set functions' as actually reaching these methods envolved multiple 'get statements', thus creating a copy.
-	*/
-	vector<Route> allTrips;
 
 	//Constructors
 	Registered(string username, string password, string name, unsigned int age, float balance);
@@ -75,8 +68,6 @@ public:
 	string getName();
 	unsigned int getAge();
 	vector<Registered> getBuddies();
-	vector<Route> getAllTrips();
-	//vector<Vehicle> getGarage();
 	float getBalance();
 
 	/*!

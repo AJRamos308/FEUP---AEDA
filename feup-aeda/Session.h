@@ -1,9 +1,12 @@
 #pragma once
 #include <time.h>
+#include <queue>
+
 #include "User.h"
 #include "Route.h"
 #include "Utilities.h"
 #include "BST.h"
+#include "Vehicle.h"
 
 class Session {
 private:
@@ -17,6 +20,16 @@ private:
 	bool admin = false;
 public:
 	BST<Vehicle> vehicleTree;
+	priority_queue<Route> tripsQueue;
+
+	struct districtDistance {
+		string origin;
+		string destination;
+		unsigned int distance;
+	} d;
+
+	vector<districtDistance> distances;
+
 	/*!
 	* **Description:** Creates a new singleton instance.
 	*

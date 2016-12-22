@@ -3,7 +3,7 @@
 /*CONSTRUCTORS*/
 Route::Route() {
 }
-Route::Route(string host, Date startingTime, Date endingTime, vector<seatsHandler> stops, Vehicle car) {
+Route::Route(Registered* host, Date startingTime, Date endingTime, vector<seatsHandler> stops, Vehicle car) {
 	this->host = host;
 	this->startingTime = startingTime;
 	this->endingTime = endingTime;
@@ -17,22 +17,22 @@ Route::Route(string host, Date startingTime, Date endingTime, vector<seatsHandle
 float Route::getPrice() {
 	return price;
 }
-vector<seatsHandler>Route::getStops() {
+vector<seatsHandler>Route::getStops() const{
 	return stops;
 }
-string Route::getHost() {
+Registered* Route::getHost() const{
 	return host;
 }
 bool Route::getActive() {
 	return active;
 }
-Date Route::getStartingTime() {
+Date Route::getStartingTime() const{
 	return startingTime;
 }
-Date Route::getEndingTime() {
+Date Route::getEndingTime() const{
 	return endingTime;
 }
-Vehicle Route::getCar() {
+Vehicle Route::getCar() const{
 	return car;
 }
 

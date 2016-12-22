@@ -1,7 +1,8 @@
 #include "Vehicle.h"
 
 /*VEHICLE CLASS*/
-Vehicle::Vehicle(unsigned int maximumSeats, string model, string licensePlate, string brand, unsigned int year) : maxSeats(maximumSeats){
+Vehicle::Vehicle(Registered* owner, unsigned int maximumSeats, string model, string licensePlate, string brand, unsigned int year) : maxSeats(maximumSeats){
+	this->owner = owner;
 	this->model = model;
 	this->licensePlate = licensePlate;
 	this->brand = brand;
@@ -22,7 +23,7 @@ string Vehicle::getBrand() {
 unsigned int Vehicle::getYear() {
 	return year;
 }
-Registered Vehicle::getOwner() {
+Registered* Vehicle::getOwner() {
 	return owner;
 }
 Vehicle::Vehicle() {}

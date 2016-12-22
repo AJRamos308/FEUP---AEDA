@@ -14,7 +14,7 @@ private:
 	/*!
 	* **Description:** The username of the trip's host.
 	*/
-	string host;
+	Registered* host;
 	/*!
 	* **Description:** Whether the trip is active or not. This depends simply on its starting date being later than the PC's date.
 	*/
@@ -34,7 +34,7 @@ private:
 public:
 	//Constructors
 	Route();
-	Route(string host, Date startingTime, Date endingTime, vector<seatsHandler> stops, Vehicle car);
+	Route(Registered* host, Date startingTime, Date endingTime, vector<seatsHandler> stops, Vehicle car);
 
 	/*!
 	* **Description:** Saves a struct that associates both the current stop with the amount of passengers at that given stop.
@@ -45,12 +45,12 @@ public:
 
 	//Get Methods
 	float getPrice();
-	vector<seatsHandler> getStops();
-	string getHost();
+	vector<seatsHandler> getStops() const;
+	Registered* getHost() const;
 	bool getActive();
-	Date getStartingTime();
-	Date getEndingTime();
-	Vehicle getCar();
+	Date getStartingTime() const;
+	Date getEndingTime() const;
+	Vehicle getCar() const;
 	/*!
 	* **Description:** Generates a random integer between 10 and 15. This function returns the trip's cost.
 	*
