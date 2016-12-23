@@ -1,0 +1,306 @@
+Aveiro - Beja : 391
+Aveiro - Braga : 125
+Aveiro - Braganca : 271
+Aveiro - Castelo Branco : 200
+Aveiro - Coimbra : 61
+Aveiro - Evora : 347
+Aveiro - Faro : 491
+Aveiro - Guarda : 159
+Aveiro - Leiria : 124
+Aveiro - Lisboa : 254
+Aveiro - Portalegre : 234
+Aveiro - Porto : 75
+Aveiro - Santarem : 188
+Aveiro - Setubal : 290
+Aveiro - Viana do Castelo : 148
+Aveiro - Vila Real : 158
+Aveiro - Viseu : 86
+Beja - Aveiro : 391
+Beja - Braga : 499
+Beja - Braganca : 542
+Beja - Castelo Branco : 275
+Beja - Coimbra : 340
+Beja - Evora : 80
+Beja - Faro : 147
+Beja - Guarda : 367
+Beja - Leiria : 281
+Beja - Lisboa : 178
+Beja - Portalegre : 182
+Beja - Porto : 449
+Beja - Santarem : 206
+Beja - Setubal : 144
+Beja - Viana do Castelo : 522
+Beja - Vila Real : 532
+Beja - Viseu : 425
+Braga - Aveiro : 124
+Braga - Beja : 499
+Braga - Braganca : 217
+Braga - Castelo Branco : 309
+Braga - Coimbra : 170
+Braga - Evora : 457
+Braga - Faro : 600
+Braga - Guarda : 251
+Braga - Leiria : 233
+Braga - Lisboa : 363
+Braga - Portalegre : 344
+Braga - Porto : 57
+Braga - Santarem : 298
+Braga - Setubal : 399
+Braga - Viana do Castelo : 62
+Braga - Vila Real : 105
+Braga - Viseu : 178
+Braganca - Aveiro : 271
+Braganca - Beja : 542
+Braganca - Braga : 217
+Braganca - Castelo Branco : 273
+Braganca - Coimbra : 285
+Braganca - Evora : 464
+Braganca - Faro : 722
+Braganca - Guarda : 178
+Braganca - Leiria : 358
+Braganca - Lisboa : 485
+Braganca - Portalegre : 362
+Braganca - Porto : 209
+Braganca - Santarem : 420
+Braganca - Setubal : 521
+Braganca - Viana do Castelo : 274
+Braganca - Vila Real : 118
+Braganca - Viseu : 199
+Castelo Branco - Aveiro : 200
+Castelo Branco - Beja : 275
+Castelo Branco - Braga : 309
+Castelo Branco - Braganca : 273
+Castelo Branco - Coimbra : 140
+Castelo Branco - Evora : 197
+Castelo Branco - Faro : 461
+Castelo Branco - Guarda : 97
+Castelo Branco - Leiria : 165
+Castelo Branco - Lisboa : 224
+Castelo Branco - Portalegre : 95
+Castelo Branco - Porto : 257
+Castelo Branco - Santarem : 159
+Castelo Branco - Setubal : 261
+Castelo Branco - Viana do Castelo : 330
+Castelo Branco - Vila Real : 263
+Castelo Branco - Viseu : 170
+Coimbra - Aveiro : 61
+Coimbra - Beja : 340
+Coimbra - Braga : 170
+Coimbra - Braganca : 285
+Coimbra - Castelo Branco : 140
+Coimbra - Evora : 298
+Coimbra - Faro : 443
+Coimbra - Guarda : 153
+Coimbra - Leiria : 76
+Coimbra - Lisboa : 205
+Coimbra - Portalegre : 176
+Coimbra - Porto : 120
+Coimbra - Santarem : 139
+Coimbra - Setubal : 241
+Coimbra - Viana do Castelo : 193
+Coimbra - Vila Real : 180
+Coimbra - Viseu : 90
+Evora - Aveiro : 347
+Evora - Beja : 80
+Evora - Braga : 457
+Evora - Braganca : 464
+Evora - Castelo Branco : 197
+Evora - Coimbra : 298
+Evora - Faro : 226
+Evora - Guarda : 288
+Evora - Leiria : 235
+Evora - Lisboa : 132
+Evora - Portalegre : 103
+Evora - Porto : 403
+Evora - Santarem : 160
+Evora - Setubal : 99
+Evora - Viana do Castelo : 476
+Evora - Vila Real : 486
+Evora - Viseu : 380
+Faro - Aveiro : 491
+Faro - Beja : 147
+Faro - Braga : 600
+Faro - Braganca : 722
+Faro - Castelo Branco : 461
+Faro - Coimbra : 443
+Faro - Evora : 227
+Faro - Guarda : 557
+Faro - Leiria : 385
+Faro - Lisboa : 282
+Faro - Portalegre : 386
+Faro - Porto : 553
+Faro - Santarem : 311
+Faro - Setubal : 249
+Faro - Viana do Castelo : 626
+Faro - Vila Real : 637
+Faro - Viseu : 530
+Guarda - Aveiro : 159
+Guarda - Beja : 367
+Guarda - Braga : 251
+Guarda - Braganca : 178
+Guarda - Castelo Branco : 97
+Guarda - Coimbra : 153
+Guarda - Evora : 288
+Guarda - Faro : 557
+Guarda - Leiria : 254
+Guarda - Lisboa : 313
+Guarda - Portalegre : 184
+Guarda - Porto : 200
+Guarda - Santarem : 248
+Guarda - Setubal : 350
+Guarda - Viana do Castelo : 273
+Guarda - Vila Real : 168
+Guarda - Viseu : 76
+Leiria - Aveiro : 124
+Leiria - Beja : 281
+Leiria - Braga : 233
+Leiria - Braganca : 358
+Leiria - Castelo Branco : 165
+Leiria - Coimbra : 76
+Leiria - Evora : 235
+Leiria - Faro : 385
+Leiria - Guarda : 254
+Leiria - Lisboa : 144
+Leiria - Portalegre : 174
+Leiria - Porto : 186
+Leiria - Santarem : 82
+Leiria - Setubal : 180
+Leiria - Viana do Castelo : 259
+Leiria - Vila Real : 269
+Leiria - Viseu : 163
+Lisboa - Aveiro : 254
+Lisboa - Beja : 178
+Lisboa - Braga : 363
+Lisboa - Braganca : 485
+Lisboa - Castelo Branco : 224
+Lisboa - Coimbra : 205
+Lisboa - Evora : 132
+Lisboa - Faro : 282
+Lisboa - Guarda : 316
+Lisboa - Leiria : 144
+Lisboa - Portalegre : 228
+Lisboa - Porto : 312
+Lisboa - Santarem : 81
+Lisboa - Setubal : 54
+Lisboa - Viana do Castelo : 385
+Lisboa - Vila Real : 280
+Lisboa - Viseu : 289
+Portalegre - Aveiro : 234
+Portalegre - Beja : 182
+Portalegre - Braga : 344
+Portalegre - Braganca : 362
+Portalegre - Castelo Branco : 95
+Portalegre - Coimbra : 176
+Portalegre - Evora : 103
+Portalegre - Faro : 386
+Portalegre - Guarda : 184
+Portalegre - Leiria : 174
+Portalegre - Lisboa : 228
+Portalegre - Porto : 292
+Portalegre - Santarem : 164
+Portalegre - Setubal : 194
+Portalegre - Viana do Castelo : 365
+Portalegre - Vila Real : 352
+Portalegre - Viseu : 260
+Porto - Aveiro : 75
+Porto - Beja : 449
+Porto - Braga : 57
+Porto - Braganca : 209
+Porto - Castelo Branco : 257
+Porto - Coimbra : 120
+Porto - Evora : 403
+Porto - Faro : 553
+Porto - Guarda : 201
+Porto - Leiria : 183
+Porto - Lisboa : 312
+Porto - Portalegre : 294
+Porto - Santarem : 248
+Porto - Setubal : 350
+Porto - Viana do Castelo : 74
+Porto - Vila Real : 96
+Porto - Viseu : 128
+Santarem - Aveiro : 188
+Santarem - Beja : 206
+Santarem - Braga : 298
+Santarem - Braganca : 420
+Santarem - Castelo Branco : 159
+Santarem - Coimbra : 139
+Santarem - Evora : 160
+Santarem - Faro : 311
+Santarem - Guarda : 248
+Santarem - Leiria : 82
+Santarem - Lisboa : 81
+Santarem - Portalegre : 164
+Santarem - Porto : 248
+Santarem - Setubal : 118
+Santarem - Viana do Castelo : 318
+Santarem - Vila Real : 328
+Santarem - Viseu : 222
+Setubal - Aveiro : 290
+Setubal - Beja : 144
+Setubal - Braga : 399
+Setubal - Braganca : 521
+Setubal - Castelo Branco : 261
+Setubal - Coimbra : 241
+Setubal - Evora : 99
+Setubal - Faro : 249
+Setubal - Guarda : 350
+Setubal - Leiria : 180
+Setubal - Lisboa : 54
+Setubal - Portalegre : 194
+Setubal - Porto : 350
+Setubal - Santarem : 118
+Setubal - Viana do Castelo : 421
+Setubal - Vila Real : 432
+Setubal - Viseu :  325
+Viana do Castelo - Aveiro : 148
+Viana do Castelo - Beja : 522
+Viana do Castelo - Braga : 62
+Viana do Castelo - Braganca : 274
+Viana do Castelo - Castelo Branco : 330
+Viana do Castelo - Coimbra : 193
+Viana do Castelo - Evora : 476
+Viana do Castelo - Faro : 626
+Viana do Castelo - Guarda : 273
+Viana do Castelo - Leiria : 259
+Viana do Castelo - Lisboa : 385
+Viana do Castelo - Portalegre : 365
+Viana do Castelo - Porto : 74
+Viana do Castelo - Santarem : 318
+Viana do Castelo - Setubal : 421
+Viana do Castelo - Vila Real : 162
+Viana do Castelo - Viseu : 204
+Vila Real - Aveiro : 158
+Vila Real - Beja : 532
+Vila Real - Braga : 105
+Vila Real - Braganca : 118
+Vila Real - Castelo Branco : 263
+Vila Real - Coimbra : 180
+Vila Real - Evora : 486
+Vila Real - Faro : 637
+Vila Real - Guarda : 168
+Vila Real - Leiria : 269
+Vila Real - Lisboa : 280
+Vila Real - Portalegre : 352
+Vila Real - Porto : 96
+Vila Real - Santarem : 328
+Vila Real - Setubal : 432
+Vila Real - Viana do Castelo : 162
+Vila Real - Viseu : 97
+Viseu - Aveiro : 86
+Viseu - Beja : 425
+Viseu - Braga : 178
+Viseu - Braganca : 199
+Viseu - Castelo Branco : 170
+Viseu - Coimbra : 90
+Viseu - Evora : 380
+Viseu - Faro : 530
+Viseu - Guarda : 76
+Viseu - Leiria : 163
+Viseu - Lisboa : 289
+Viseu - Portalegre : 260
+Viseu - Porto : 128
+Viseu - Santarem : 222
+Viseu - Setubal : 325
+Viseu - Viana do Castelo : 204
+Viseu - Vila Real : 97
