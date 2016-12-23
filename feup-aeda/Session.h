@@ -18,6 +18,7 @@ private:
 	* **Description:** Flag which indicates whether admin mode is activated.
 	*/
 	bool admin = false;
+
 public:
 	BST<Vehicle> vehicleTree;
 
@@ -26,7 +27,6 @@ public:
 		string destination;
 		unsigned int distance;
 	} d;
-
 	vector<Route> allRoutes;
 	vector<districtDistance> distances;
 

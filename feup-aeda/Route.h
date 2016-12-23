@@ -1,7 +1,6 @@
 #pragma once
 #include <vector>
 
-#include "Session.h"
 #include "Date.h"
 #include "Vehicle.h"
 
