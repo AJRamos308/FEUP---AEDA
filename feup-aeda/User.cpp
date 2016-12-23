@@ -222,8 +222,10 @@ void User::joinJourney() {
 			}
 		}
 	}
+	r.candidates.push(&Session::instance()->registered.at(Session::instance()->userPos));
 
 	//Adiciona e subtrai emptySeats.
+	/*
 	bool foundStart = false, foundEnd = false;
 
 	for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
@@ -262,6 +264,7 @@ void User::joinJourney() {
 			break;
 		}
 	}
+	*/
 	return;
 }
 
@@ -283,15 +286,15 @@ void Registered::hostJourney() {
 	}*/
 	BSTItrIn<Vehicle> it(Session::instance()->vehicleTree);
 	while (!it.isAtEnd()) {
-	if (it.retrieve().getOwner()->getUsername() == Session::instance()->registered.at(Session::instance()->userPos).getUsername())
-	hasCar = true;
-	it.advance();
+		if (it.retrieve().getOwner()->getUsername() == Session::instance()->registered.at(Session::instance()->userPos).getUsername())
+			hasCar = true;
+		it.advance();
 	}
 
 	if (!hasCar) {
-	cout << "  Sorry, you don't have any vehicles available so you can't host a trip. Try adding one!";
-	Sleep(4000);
-	return;
+		cout << "  Sorry, you don't have any vehicles available so you can't host a trip. Try adding one!";
+		Sleep(4000);
+		return;
 	}
 	
 	cout << "  At what time are you hitting the road? (YYYY/MM/DD hh:mm)\n\n";
