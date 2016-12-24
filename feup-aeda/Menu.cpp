@@ -113,18 +113,20 @@ void Menu::manager() {
 			continue;
 		}
 		if (currentMenu == 44) {
-			for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
-				if (Session::instance()->username == Session::instance()->registered.at(i).getUsername()) {
-					if (Session::instance()->registered.at(i).getGarage().size() > 0) {
-						Session::instance()->registered.at(i).removeVehicle();
-						break;
-					}
-					else {
-						cout << "You can't remove what is not there! Owning a vehicle is a big step!";
-						_getch();
-						break;
-					}
+			BSTItrIn<Vehicle> it(Session::instance()->vehicleTree);
+			bool noRegisteredCars = true;
+
+			while (!it.isAtEnd()) {
+				if (it.retrieve().getOwner()->getUsername() == Session::instance()->username) {
+					Session::instance()->registered.at(Session::instance()->userPos).removeVehicle();
+					noRegisteredCars = false;
+					break;
 				}
+				it.advance();
+			}
+			if (noRegisteredCars) {
+				cout << "You can't remove what is not there! Owning a vehicle is a big step!";
+				_getch();
 			}
 			currentMenu = 40;
 			continue;
@@ -801,8 +803,17 @@ size_t Menu::chooseVehicle() {
 
 	bool menuUpdate = true;
 
-	vector<Vehicle> localVehicles = Session::instance()->registered.at(Session::instance()->userPos).getGarage();
 	size_t selectedIndex = 0;
+
+	//Loads a vector called localVehicles with every vehicle belonging to this user.
+	vector<Vehicle> localVehicles;
+	BSTItrIn<Vehicle> it(Session::instance()->vehicleTree);
+
+	while (!it.isAtEnd()) {
+		if (it.retrieve().getOwner()->getUsername() == Session::instance()->username) {
+			localVehicles.push_back(it.retrieve());
+		}
+	}
 
 	while (GetAsyncKeyState(VK_RETURN)) {}
 
