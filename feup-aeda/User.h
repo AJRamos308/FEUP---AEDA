@@ -115,9 +115,14 @@ public:
 	*/
 	void modifyBalance(float price);
 	virtual float payTrip(float price);
+	
 	/*!
 	* **Description:** Compares two objects from the class Registered by their username.
 	*/
+
+
+
+
 	bool operator<(Registered r1) const;
 	bool operator==(Registered r1) const;
 };

@@ -6,9 +6,10 @@
 
 2
   1. Host journey
-  2. Join journey
-  3. Account settings
-  4. Logout
+  2. Pending Join Requests
+  3. Join journey
+  4. Account settings
+  5. Logout
 
 3
   1. Join journey

@@ -51,7 +51,23 @@ void Menu::manager() {
 			currentMenu = 20;
 			continue;
 		}
+
+		//Pending Join Requests
 		if (currentMenu == 22) {
+			vector<Route> *everyRoute = &Session::instance()->allRoutes;
+
+			//Iterates through every route and saves the ones hosted by this user.
+			for (size_t i = 0; i < everyRoute->size(); i++) {
+				if (everyRoute->at(i).getHost()->getUsername() == Session::instance()->username) {
+					pendingRequestsMenu(everyRoute->at(i));
+					break;
+				}
+			}
+			currentMenu = 20;
+			continue;
+		}
+
+		if (currentMenu == 23) {
 			for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
 				if (Session::instance()->username == Session::instance()->registered.at(i).getUsername()) {
 					Session::instance()->registered.at(i).joinJourney();
@@ -63,11 +79,11 @@ void Menu::manager() {
 			currentMenu = 20;
 			continue;
 		}
-		if (currentMenu == 23) {
+		if (currentMenu == 24) {
 			currentMenu = 40;
 			continue;
 		}
-		if (currentMenu == 24) {
+		if (currentMenu == 25) {
 			Session::instance()->logout();
 			currentMenu = 10;
 			continue;
@@ -861,4 +877,68 @@ size_t Menu::chooseVehicle() {
 	cin.clear();
 	cin.ignore(50, '\n');
 	return -1;
+}
+
+void Menu::pendingRequestsMenu(Route userRoute) {
+	
+	hideCursor();
+	bool menuUpdate = true;
+	size_t selectedIndex = 0;
+	priority_queue<Registered*> tempQueue;
+
+	while (GetAsyncKeyState(VK_RETURN)) {}
+
+	while (!(GetAsyncKeyState(VK_SHIFT) && GetAsyncKeyState(VK_RETURN))) {
+
+		if (menuUpdate == true) {
+			clearScreen();
+			showLogo();
+
+			tempQueue = userRoute.candidates;
+			
+			cout << "  You have new requests for your trip starting at " << userRoute.getStartingTime().getFormattedDate()
+				<< "(" << userRoute.getStops().at(0).getStop() << " -> " << userRoute.getStops().at(userRoute.getStops().size() - 1).getStop() << ")\n";
+
+			short index = 0;
+			while (!tempQueue.empty()) {
+				if (index == selectedIndex) {
+					whiteBG();
+				}
+				cout << "\n  " << index << ". " << tempQueue.top()->getUsername();
+				blackBG();
+
+				index++;
+				tempQueue.pop();
+			}
+			menuUpdate = false;
+		}
+		if (GetAsyncKeyState(VK_RETURN)) {
+
+			while (GetAsyncKeyState(VK_RETURN)) {}
+			cin.clear();
+			cin.ignore(50, '\n');
+
+			return;
+		}
+		else if (GetAsyncKeyState(VK_DOWN)) {
+			while (GetAsyncKeyState(VK_DOWN)) {}
+
+			if (selectedIndex != tempQueue.size() - 1) {
+				menuUpdate = true;
+				selectedIndex += 1;
+			}
+		}
+		else if (GetAsyncKeyState(VK_UP)) {
+			while (GetAsyncKeyState(VK_UP)) {}
+
+			if (selectedIndex != 0) {
+				menuUpdate = true;
+				selectedIndex -= 1;
+			}
+		}
+	}
+	showCursor();
+	cin.clear();
+	cin.ignore(50, '\n');
+	return;
 }
