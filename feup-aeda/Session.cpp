@@ -238,16 +238,16 @@ bool Session::importInfo() {
 	f.close();
 
 	//Fill the district distance matrix.
-	f.open("distance between districts.txt");
+	f.open("distance.txt");
 
 	while (!f.eof()) {
 		string line;
 		getline(f, line);
 
 		d.origin = line.substr(0, line.find(" - "));
-		line.erase(0, line.find(" - ") + 1);
+		line.erase(0, line.find(" - ") + 3);
 		d.destination = line.substr(0, line.find(" : "));
-		line.erase(0, line.find(" : ") + 1);
+		line.erase(0, line.find(" : ") + 3);
 		d.distance = stoul(line);
 
 		distances.push_back(d);

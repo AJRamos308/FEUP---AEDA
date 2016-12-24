@@ -73,7 +73,7 @@
     <Text Include="database.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="distance between districts.txt">
+    <Text Include="distance.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>
