@@ -271,7 +271,7 @@ bool Session::exportInfo() {
 	BSTItrIn<Vehicle> itr(vehicleTree);
 
 	while (!itr.isAtEnd()) {
-		f << itr.retrieve().getOwner()->getUsername() << ":" << itr.retrieve().getModel() << "|" << itr.retrieve().getLicensePlate() << "|" << itr.retrieve().getMaxSeats() << endl;
+		f << itr.retrieve().getOwner()->getUsername() << ":" << itr.retrieve().getBrand() << "|" << itr.retrieve().getModel() << "|" << itr.retrieve().getLicensePlate() << "|" << itr.retrieve().getMaxSeats() << "|" << itr.retrieve().getYear() << endl;
 		itr.advance();
 	}
 
