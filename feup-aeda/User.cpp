@@ -13,6 +13,7 @@ Registered::Registered(string username, string password, string name, unsigned i
 	this->name = name;
 	this->age = age;
 	this->balance = balance;
+	this->routeInProgress = false;
 }
 Guest::Guest() {
 }
@@ -47,7 +48,7 @@ void Registered::addBuddyToVec(Registered r) {
 void User::joinJourney() {
 	Menu m;
 	vector<string> selectedRoute;
-	vector<Route> activeRoutes, perfectRoutes, similarRoutes, separateRoutes, activeRoutesCopy;
+	vector<Route> activeRoutes, perfectRoutes, activeRoutesCopy;
 
 	time_t t = time(0);   // get time now
 	struct tm now;
@@ -124,6 +125,7 @@ void User::joinJourney() {
 			i--;
 		}
 	}
+	/*
 	//Para viagens apenas com início e fim (PORTO/COIMBRA/FARO, PORTO/FARO).
 	for (size_t i = 0; i < activeRoutes.size(); i++) {
 
@@ -164,6 +166,8 @@ void User::joinJourney() {
 			similarRoutes.push_back(activeRoutes.at(i));
 		}
 	}
+	*/
+
 	//Verifica ordenação das perfectRoutes.
 	for (size_t i = 0; i < perfectRoutes.size(); i++) {
 		size_t orderPos = 0;
@@ -185,6 +189,7 @@ void User::joinJourney() {
 			i--;
 		}
 	}
+	/*
 	//Verifica ordenação das similarRoutes.
 	for (unsigned int i = 0; i < similarRoutes.size(); i++) {
 
@@ -202,8 +207,9 @@ void User::joinJourney() {
 			i--;
 		}
 	}
+	*/
 
-	if (perfectRoutes.size() == 0 && similarRoutes.size() == 0) {
+	if (perfectRoutes.size() == 0) {
 		clearScreen();
 		showLogo();
 		cout << "  Whoops, looks like there aren't any active routes to join.\n  Try hosting one!";
@@ -212,7 +218,7 @@ void User::joinJourney() {
 	}
 	
 	//Criação de uma nova route.
-	Route r = m.joinJourneyMenu(activeRoutesCopy, perfectRoutes, similarRoutes);
+	Route r = m.joinJourneyMenu(activeRoutesCopy, perfectRoutes);
 	for (size_t i = 0; i < r.getStops().size(); i++) {
 		for (size_t j = 0; j < r.getStops().at(i).getPassengers().size(); j++) {
 			if (r.getStops().at(i).getPassengers().at(j) == username) {
@@ -222,7 +228,8 @@ void User::joinJourney() {
 			}
 		}
 	}
-	r.candidates.push(&Session::instance()->registered.at(Session::instance()->userPos));
+	Candidate c(&Session::instance()->registered.at(Session::instance()->userPos), r, selectedRoute);
+	r.candidates.push(c);
 
 	//Adiciona e subtrai emptySeats.
 	/*
@@ -278,6 +285,12 @@ void Registered::hostJourney() {
 	int displayOrder = 0;
 	Date d1, d2;
 	bool hasCar = false;
+
+	if (Session::instance()->registered.at(Session::instance()->userPos).getRouteInProgress()) {
+		cout << "  Sorry, you may only have one trip active simultaneously!";
+		Sleep(4000);
+		return;
+	}
 
 	/*if (getGarage().size() == 0) {
 		cout << "  Sorry, you don't have any vehicles available so you can't host a trip. Try adding one!";
@@ -369,8 +382,8 @@ void Registered::hostJourney() {
 		}
 	}
 	
-	size_t vehicleChosen = m1.chooseVehicle();
-	//Vehicle vehicleChosen = m1.chooseVehicle();
+	//size_t vehicleChosen = m1.chooseVehicle();
+	Vehicle vehicleChosen = m1.chooseVehicle();
 	vector<string> journeyStops = m1.journeyMenu();
 	vector<seatsHandler> handler;
 	vector<string> zeroPassengers;
@@ -383,6 +396,8 @@ void Registered::hostJourney() {
 	// -> ||||||||||||||||||||||e esta a versao BST |||||||||||     Route r(Session::instance()->username, d1, d2, handler, vehicleChosen);
 
 	//Session::instance()->registered.at(Session::instance()->userPos).addTripToVec(r);
+	Session::instance()->registered.at(Session::instance()->userPos).switchProgressState();
+
 	return;
 }
 
@@ -426,98 +441,6 @@ void Registered::addBuddy() {
 	Session::instance()->registered.at(usernamePos).addBuddyToVec(Session::instance()->registered.at(Session::instance()->userPos));
 
 	Sleep(2000);
-	return;
-}
-
-void Registered::addVehicle() {
-	string model, licensePlate, brand;
-	int maxSeats;
-	unsigned int year;
-	bool validLicense = false, car = false;
-	char token, license[9];
-	Registered r(Session::instance()->registered.at(Session::instance()->userPos));
-	clearScreen();
-	showLogo();
-
-	cout << "  What is the BRAND of the car?\n  > ";
-	getline(cin, brand);
-	cout << "  What is the MODEL of the car?\n  > ";
-	getline(cin, model);
-	cout << "  What year was it bought?\n  > ";
-	cin >> year;
-
-	while (!validLicense) {
-		cout << "\n  What is its LICENSE PLATE? (XX-XX-XX)\n  > ";
-		for (size_t i = 0; true;) {
-			token = _getch();
-
-			if ((token >= '0' && token <= '9') || isalpha(token)) {
-				if (token >= 'a' && token <= 'z')
-					license[i] = toupper(token);
-				else 
-					license[i] = token;
-				cout << license[i];
-				i++;
-			}
-			if (token == '\\') {
-				return;
-			}
-			if (token == '\b' && (i == 3 || i == 6)) {
-				cout << "\b \b";
-				cout << "\b \b";
-				i--;
-			}
-			else if (token == '\b' && i > 0) {
-				cout << "\b \b";
-				i--;
-			}
-			else if (i == 2 || i == 5) {
-				cout << "-";
-				license[i] = '-';
-				i++;
-			}
-			else if (i == 8) {
-				license[i] = '\0';
-				licensePlate = license;
-				validLicense = true;
-				break;
-			}
-		}
-		if (!validLicense)
-			cout << "  Invalid License Plate structure!\n";
-	}
-	while (!car) {
-	cout << "\n\n  How many seats does your car have? (Including the driver)\n  > ";
-	cin >> maxSeats;
-	if (cin.fail()) { 
-		cout << "\n  Invalid number of seats chosen, please try again.";
-		cin.clear();
-		cin.ignore(1000, '\n');
-		continue;
-	}
-
-		if (maxSeats < 5) {
-			Compact compact(&r, maxSeats, model, licensePlate, brand, year);
-			//garage.push_back(compact);
-			Session::instance()->vehicleTree.insert(compact);
-			car = true;
-		}
-		else if (maxSeats == 5) {
-			Midsize midsize(&r, maxSeats, model, licensePlate, brand, year);
-			//garage.push_back(midsize);
-			Session::instance()->vehicleTree.insert(midsize);
-			car = true;
-		}
-		else if (maxSeats <= 9) {
-			Van van(&r, maxSeats, model, licensePlate, brand, year);
-			//garage.push_back(van);
-			Session::instance()->vehicleTree.insert(van);
-			car = true;
-		}
-		else {
-			cout << "\n  Invalid number of seats chosen, please try again.";
-		}
-	}
 	return;
 }
 
@@ -636,4 +559,54 @@ bool Registered::operator==(Registered r1) const {
 	if (this->username == r1.username && this->password == r1.password)
 		return true;
 	return false;
+}
+
+/* CANDIDATE CLASS */
+Candidate::Candidate(Registered* candidate, Route routeToJoin, vector<string> selectedRoute) {
+	this->candidate = candidate;
+	this->routeToJoin = routeToJoin;
+
+	for (size_t i = 0; i < selectedRoute.size() - 1; i++) {
+		string stop1 = selectedRoute.at(i);
+		string stop2 = selectedRoute.at(i + 1);
+
+		for (size_t j = 0; j < Session::instance()->distances.size(); j++) {
+			if (Session::instance()->distances.at(i).origin == stop1 && Session::instance()->distances.at(i).destination == stop2) {
+				this->distance += Session::instance()->distances.at(i).distance;
+			}
+		}
+	}
+	this->distance = abs(routeToJoin.calculateDistance() - this->distance);
+}
+Registered* Candidate::getCandidate(){
+	return candidate;
+}
+Route Candidate::getRouteToJoin(){
+	return routeToJoin;
+}
+unsigned int Candidate::getDistance(){
+	return distance;
+}
+bool Candidate::operator<(Candidate c1) const {
+	vector<Registered> hostBuddies = routeToJoin.getHost()->getBuddies();
+	bool thisIsBuddy = false, thatIsBuddy = false;
+
+	for (size_t i = 0; i < hostBuddies.size(); i++) {
+		if (candidate->getUsername() == hostBuddies.at(i).getUsername()) {
+			thisIsBuddy = true;
+		}
+		if (c1.getCandidate()->getUsername() == hostBuddies.at(i).getUsername()) {
+			thatIsBuddy = true;
+		}
+	}
+
+	if ((thisIsBuddy && thatIsBuddy) ||(!thisIsBuddy && !thatIsBuddy)) {
+		return distance < c1.getDistance();
+	}
+	else if (thisIsBuddy && !thatIsBuddy) {
+		return true;
+	}
+	else if (!thisIsBuddy && thatIsBuddy) {
+		return false;
+	}
 }

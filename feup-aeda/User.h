@@ -1,5 +1,6 @@
 #pragma once
 #include <queue>
+#include <cmath>
 using namespace std;
 
 class User{
@@ -53,6 +54,9 @@ private:
 	/*!
 	* **Description:** The user's buddies, filled with users from the Registered class.
 	*/
+	
+	bool routeInProgress;
+
 	vector<Registered> buddies;
 
 public:
@@ -68,6 +72,9 @@ public:
 	unsigned int getAge();
 	vector<Registered> getBuddies();
 	float getBalance();
+	bool getRouteInProgress() {
+		return routeInProgress;
+	}
 	/*!
 	* **Description:** Handles the creation of a new journey. Asks for a departure time, arrival time, the selected vehicle from the garage and where the user will stop.
 	*/
@@ -93,7 +100,6 @@ public:
 	/*!
 	* **Description:** Handles adding a vehicle to the garage. Asks for the vehicle's model, license plate and maximum number of seats.
 	*/
-	void addVehicle();
 	/*!
 	* **Description:** Handles removing a vehicle from a user's garage. This has direct linking to the vehicle selection menu.
 	*/
@@ -115,6 +121,16 @@ public:
 	void modifyBalance(float price);
 	virtual float payTrip(float price);
 	
+	void switchProgressState() {
+		if (routeInProgress) {
+			routeInProgress = false;
+		}
+		else {
+			routeInProgress = true;
+		}
+		return;
+	}
+
 	/*!
 	* **Description:** Compares two objects from the class Registered by their username.
 	*/
@@ -129,4 +145,18 @@ public:
 
 	//Functions
 	virtual float payTrip(float price);
+};
+
+class Candidate {
+private:
+	Registered* candidate;
+	Route routeToJoin;
+	int distance;
+public:
+	Candidate(Registered* candidate, Route routeToJoin, vector<string> selectedRoute);
+
+	Registered* getCandidate();
+	Route getRouteToJoin();
+	unsigned int getDistance();
+	bool operator<(Candidate c1) const;
 };

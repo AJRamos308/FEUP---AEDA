@@ -794,3 +794,95 @@ void Session::changeOwner() {
 	_getch();
 	return;
 }
+
+void Session::addVehicle() {
+	string model, licensePlate, brand;
+	int maxSeats;
+	unsigned int year;
+	bool validLicense = false, car = false;
+	char token, license[9];
+	Registered r(Session::instance()->registered.at(Session::instance()->userPos));
+	clearScreen();
+	showLogo();
+
+	cout << "  What is the BRAND of the car?\n  > ";
+	getline(cin, brand);
+	cout << "  What is the MODEL of the car?\n  > ";
+	getline(cin, model);
+	cout << "  What year was it bought?\n  > ";
+	cin >> year;
+
+	while (!validLicense) {
+		cout << "\n  What is its LICENSE PLATE? (XX-XX-XX)\n  > ";
+		for (size_t i = 0; true;) {
+			token = _getch();
+
+			if ((token >= '0' && token <= '9') || isalpha(token)) {
+				if (token >= 'a' && token <= 'z')
+					license[i] = toupper(token);
+				else
+					license[i] = token;
+				cout << license[i];
+				i++;
+			}
+			if (token == '\\') {
+				return;
+			}
+			if (token == '\b' && (i == 3 || i == 6)) {
+				cout << "\b \b";
+				cout << "\b \b";
+				i--;
+			}
+			else if (token == '\b' && i > 0) {
+				cout << "\b \b";
+				i--;
+			}
+			else if (i == 2 || i == 5) {
+				cout << "-";
+				license[i] = '-';
+				i++;
+			}
+			else if (i == 8) {
+				license[i] = '\0';
+				licensePlate = license;
+				validLicense = true;
+				break;
+			}
+		}
+		if (!validLicense)
+			cout << "  Invalid License Plate structure!\n";
+	}
+	while (!car) {
+		cout << "\n\n  How many seats does your car have? (Including the driver)\n  > ";
+		cin >> maxSeats;
+		if (cin.fail()) {
+			cout << "\n  Invalid number of seats chosen, please try again.";
+			cin.clear();
+			cin.ignore(1000, '\n');
+			continue;
+		}
+
+		if (maxSeats < 5) {
+			Compact compact(&r, maxSeats, model, licensePlate, brand, year);
+			//garage.push_back(compact);
+			Session::instance()->vehicleTree.insert(compact);
+			car = true;
+		}
+		else if (maxSeats == 5) {
+			Midsize midsize(&r, maxSeats, model, licensePlate, brand, year);
+			//garage.push_back(midsize);
+			Session::instance()->vehicleTree.insert(midsize);
+			car = true;
+		}
+		else if (maxSeats <= 9) {
+			Van van(&r, maxSeats, model, licensePlate, brand, year);
+			//garage.push_back(van);
+			Session::instance()->vehicleTree.insert(van);
+			car = true;
+		}
+		else {
+			cout << "\n  Invalid number of seats chosen, please try again.";
+		}
+	}
+	return;
+}

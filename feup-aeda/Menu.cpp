@@ -126,12 +126,7 @@ void Menu::manager() {
 			continue;
 		}
 		if (currentMenu == 43) {
-			for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
-				if (Session::instance()->username == Session::instance()->registered.at(i).getUsername()) {
-					Session::instance()->registered.at(i).addVehicle();
-					break;
-				}
-			}
+			Session::instance()->addVehicle();
 			currentMenu = 40;
 			continue;
 		}
@@ -562,34 +557,12 @@ void Menu::menu5() {
 	return;
 }
 
-Route Menu::joinJourneyMenu(vector<Route> activeRoutes, vector<Route> perfectRoutes, vector<Route> similarRoutes) {
+Route Menu::joinJourneyMenu(vector<Route> activeRoutes, vector<Route> perfectRoutes) {
 	hideCursor();
 
-	bool menuUpdate = true, index1Exists = false, index2Exists = false;
-	size_t selectedIndex1, selectedIndex2;
-	size_t userIndex;
+	bool menuUpdate = true;
+	size_t selectedIndex;
 	Route selectedRoute;
-
-	//Encontra a posição do usuário no vetor de Registered
-	for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
-		if (Session::instance()->registered.at(i).getUsername() == Session::instance()->username) {
-			userIndex = i;
-		}
-	}
-
-	//Index initialization
-	if (perfectRoutes.size() != 0 && similarRoutes.size() != 0) {
-		selectedIndex1 = 0;
-		selectedIndex2 = 0;
-	}
-	else if (perfectRoutes.size() == 0 && similarRoutes.size() != 0) {
-		selectedIndex1 = -1;
-		selectedIndex2 = 0;
-	}
-	else if (perfectRoutes.size() != 0 && similarRoutes.size() == 0) {
-		selectedIndex1 = 0;
-		selectedIndex2 = -1;
-	}
 
 	while (GetAsyncKeyState(VK_RETURN)) {}
 
@@ -599,11 +572,8 @@ Route Menu::joinJourneyMenu(vector<Route> activeRoutes, vector<Route> perfectRou
 			showLogo();
 			cout << "  Here are all the trips available to your requirements. The :] means that there are buddies in that trip.\n\n";
 			if (perfectRoutes.size() != 0) {
-				setcolor(10);
-				cout << "  PERFECT MATCHES\n";
-				setcolor(15);
 				for (size_t i = 0; i < perfectRoutes.size(); i++) {
-					if (i == selectedIndex1) {
+					if (i == selectedIndex) {
 						selectedRoute = perfectRoutes.at(i);
 						whiteBG();
 					}
@@ -640,6 +610,7 @@ Route Menu::joinJourneyMenu(vector<Route> activeRoutes, vector<Route> perfectRou
 					blackBG();
 				}
 			}
+			/*
 			if (similarRoutes.size() != 0) {
 				setcolor(14);
 				cout << "  SIMILAR MATCHES\n";
@@ -681,6 +652,7 @@ Route Menu::joinJourneyMenu(vector<Route> activeRoutes, vector<Route> perfectRou
 					blackBG();
 				}
 			}
+			*/
 			menuUpdate = false;
 		}
 		if (GetAsyncKeyState(VK_RETURN)) {
@@ -691,52 +663,23 @@ Route Menu::joinJourneyMenu(vector<Route> activeRoutes, vector<Route> perfectRou
 		else if (GetAsyncKeyState(VK_DOWN)) {
 			while (GetAsyncKeyState(VK_DOWN)) {}
 
-			//If index reaches the end and similarRoutes is empty, it ignores the keypress.
-			if (similarRoutes.size() == 0 && selectedIndex1 == perfectRoutes.size() - 1) {
+			if (selectedIndex == perfectRoutes.size() - 1) {
 				continue;
 			}
-			if (selectedIndex2 == -1) {
-				if (selectedIndex1 != perfectRoutes.size() - 1) {
-					menuUpdate = true;
-					selectedIndex1 += 1;
-				}
-				else {
-					selectedIndex1 = -1;
-					menuUpdate = true;
-					selectedIndex2 = 0;
-				}
-				continue;
-			}
-			else if (selectedIndex1 == -1) {
-				if (selectedIndex2 != similarRoutes.size() - 1) {
-					menuUpdate = true;
-					selectedIndex2 += 1;
-				}
+			else {
+				menuUpdate = true;
+				selectedIndex += 1;
 			}
 		}
 		else if (GetAsyncKeyState(VK_UP)) {
 			while (GetAsyncKeyState(VK_UP)) {}
 
-			if (perfectRoutes.size() == 0 && selectedIndex2 == 0) {
+			if (perfectRoutes.size() == 0) {
 				continue;
 			}
-			if (selectedIndex2 == -1) {
-				if (selectedIndex1 != 0) {
-					menuUpdate = true;
-					selectedIndex1 -= 1;
-				}
-				continue;
-			}
-			if (selectedIndex1 == -1) {
-				if (selectedIndex2 != 0) {
-					menuUpdate = true;
-					selectedIndex2 -= 1;
-				}
-				else {
-					menuUpdate = true;
-					selectedIndex1 = perfectRoutes.size() - 1;
-					selectedIndex2 = -1;
-				}
+			else {
+				menuUpdate = true;
+				selectedIndex -= 1;
 			}
 		}
 	}
@@ -828,7 +771,7 @@ vector<string> Menu::journeyMenu() {
 	return selectedDistricts;
 }
 
-size_t Menu::chooseVehicle() {
+Vehicle Menu::chooseVehicle() {
 	hideCursor();
 
 	bool menuUpdate = true;
@@ -843,6 +786,7 @@ size_t Menu::chooseVehicle() {
 		if (it.retrieve().getOwner()->getUsername() == Session::instance()->username) {
 			localVehicles.push_back(it.retrieve());
 		}
+		it.advance();
 	}
 
 	while (GetAsyncKeyState(VK_RETURN)) {}
@@ -868,7 +812,7 @@ size_t Menu::chooseVehicle() {
 			while (GetAsyncKeyState(VK_RETURN)) {}
 			cin.clear();
 			cin.ignore(50, '\n');
-			return selectedIndex;
+			return localVehicles.at(selectedIndex);
 		}
 		else if (GetAsyncKeyState(VK_DOWN)) {
 			while (GetAsyncKeyState(VK_DOWN)) {}
@@ -890,7 +834,9 @@ size_t Menu::chooseVehicle() {
 	showCursor();
 	cin.clear();
 	cin.ignore(50, '\n');
-	return -1;
+
+	Vehicle v;
+	return v;
 }
 
 void Menu::pendingRequestsMenu(Route userRoute) {
@@ -898,7 +844,7 @@ void Menu::pendingRequestsMenu(Route userRoute) {
 	hideCursor();
 	bool menuUpdate = true;
 	size_t selectedIndex = 0;
-	priority_queue<Registered*> tempQueue;
+	priority_queue<Candidate> tempQueue;
 
 	while (GetAsyncKeyState(VK_RETURN)) {}
 

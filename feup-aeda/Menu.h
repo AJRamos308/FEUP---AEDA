@@ -53,7 +53,7 @@ public:
 	*
 	* **Notes:** Perfect routes cannot be similar routes (and vice versa). Max seats verification happens inside this function.
 	*/
-	Route joinJourneyMenu(vector<Route> activeRoutesCopy, vector<Route> perfectRoutes, vector<Route> similarRoutes);
+	Route joinJourneyMenu(vector<Route> activeRoutesCopy, vector<Route> perfectRoutes);
 	/*!
 	* **Description:** Displays a list of every district available for selection, thus allowing the user to create its own custom desired route.
 	*
@@ -65,7 +65,7 @@ public:
 	*
 	* **Notes:** This menu is both used on the journey selection (you must pick a car for your trip) and on the vehicle deletion function.
 	*/
-	size_t chooseVehicle();
+	Vehicle chooseVehicle();
 
 	void pendingRequestsMenu(Route userRoute);
 };

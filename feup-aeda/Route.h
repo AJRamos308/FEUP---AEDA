@@ -16,7 +16,7 @@ private:
 	* **Description:** The username of the trip's host.
 	*/
 	Registered* host;
-	unsigned int distance;
+	int distance;
 	/*!
 	* **Description:** Whether the trip is active or not. This depends simply on its starting date being later than the PC's date.
 	*/
@@ -34,7 +34,7 @@ private:
 	*/
 	Vehicle car;
 public:
-	priority_queue<Registered*> candidates;
+	priority_queue<Candidate> candidates;
 
 	//Constructors
 	Route();
@@ -64,11 +64,9 @@ public:
 	/*!
 	* **Description:** Allows manually switching a trip from active to inactive (and vice versa).
 	*/
-	unsigned int calculateDistance();
+	int calculateDistance();
 
 	void switchActive();
-
-	bool operator<(const Route r);
 };
 
 class seatsHandler {

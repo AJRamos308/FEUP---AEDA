@@ -12,7 +12,7 @@ Route::Route(Registered* host, Date startingTime, Date endingTime, vector<seatsH
 	this->car = car;
 	this->price = randomPrice();
 	this->distance = calculateDistance();
-	active = true;
+	this->active = true;
 }
 
 /*GET*/
@@ -72,9 +72,6 @@ float Route::randomPrice() {
 		totalPrice += rand() % 6 + 10;
 	}
 	return totalPrice;
-}
-bool Route::operator<(const Route r) {
-	return true;
 }
 
 //SEATSHANDLER

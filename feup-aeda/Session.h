@@ -140,4 +140,6 @@ public:
 	*/
 	template<typename RandomAccessIterator>
 	void quickSort(RandomAccessIterator first, RandomAccessIterator last);
+
+	void addVehicle();
 };
