@@ -228,8 +228,8 @@ void User::joinJourney() {
 			}
 		}
 	}
-	Candidate c(&Session::instance()->registered.at(Session::instance()->userPos), r, selectedRoute);
-	r.candidates.push(c);
+	Candidate c(&Session::instance()->registered.at(Session::instance()->userPos), selectedRoute);
+	Session::instance()->candidates.push(c);
 
 	//Adiciona e subtrai emptySeats.
 	/*

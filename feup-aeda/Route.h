@@ -34,7 +34,6 @@ private:
 	*/
 	Vehicle car;
 public:
-	priority_queue<Candidate> candidates;
 
 	//Constructors
 	Route();

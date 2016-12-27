@@ -47,7 +47,7 @@ void Route::switchActive() {
 	active = true;
 	return;
 }
-unsigned int Route::calculateDistance() {
+int Route::calculateDistance() {
 	
 	unsigned int totalDistance = 0;
 

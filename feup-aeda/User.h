@@ -28,6 +28,7 @@ public:
 	*/
 	virtual float payTrip(float price);
 };
+class Candidate;
 
 class Registered : public User{
 private:
@@ -136,6 +137,7 @@ public:
 	*/
 	bool operator<(Registered r1) const;
 	bool operator==(Registered r1) const;
+	priority_queue<Candidate> candidates;
 };
 
 class Guest : public User{
@@ -150,13 +152,13 @@ public:
 class Candidate {
 private:
 	Registered* candidate;
-	Route routeToJoin;
+	//Route routeToJoin;
 	int distance;
 public:
-	Candidate(Registered* candidate, Route routeToJoin, vector<string> selectedRoute);
+	Candidate(Registered* candidate, vector<string> selectedRoute);
 
 	Registered* getCandidate();
-	Route getRouteToJoin();
+	//Route getRouteToJoin();
 	unsigned int getDistance();
 	bool operator<(Candidate c1) const;
 };

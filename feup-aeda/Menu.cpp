@@ -854,7 +854,7 @@ void Menu::pendingRequestsMenu(Route userRoute) {
 			clearScreen();
 			showLogo();
 
-			tempQueue = userRoute.candidates;
+			tempQueue = Session::instance()->candidates;//userRoute.candidates;
 			
 			cout << "  You have new requests for your trip starting at " << userRoute.getStartingTime().getFormattedDate()
 				<< "(" << userRoute.getStops().at(0).getStop() << " -> " << userRoute.getStops().at(userRoute.getStops().size() - 1).getStop() << ")\n";
@@ -864,7 +864,7 @@ void Menu::pendingRequestsMenu(Route userRoute) {
 				if (index == selectedIndex) {
 					whiteBG();
 				}
-				cout << "\n  " << index << ". " << tempQueue.top()->getUsername();
+				cout << "\n  " << index << ". " << tempQueue.top()->getUsername();//tempQueue.top()->getUsername();
 				blackBG();
 
 				index++;
