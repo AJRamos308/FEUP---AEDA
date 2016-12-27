@@ -291,7 +291,7 @@ bool Session::exportInfo() {
 	}
 
 	f << endl << "TRIPS" << endl;
-	for (size_t i = 0; allRoutes.size(); i++) {
+	for (size_t i = 0; i < allRoutes.size(); i++) {
 		f << allRoutes.at(i).getHost()->getUsername() << ":";
 		f << allRoutes.at(i).getStartingTime().getCompactDate() << "|";
 		f << allRoutes.at(i).getEndingTime().getCompactDate() << "|";
@@ -301,7 +301,7 @@ bool Session::exportInfo() {
 			f << allRoutes.at(i).getStops().at(j).getStop() << "(";
 
 			for (size_t k = 0; k < allRoutes.at(i).getStops().at(j).getPassengers().size(); k++) {
-				if (j == allRoutes.at(i).getStops().at(j).getPassengers().size() - 1)
+				if (k == allRoutes.at(i).getStops().at(j).getPassengers().size() - 1)
 					f << allRoutes.at(i).getStops().at(j).getPassengers().at(k);
 				else
 					f << allRoutes.at(i).getStops().at(j).getPassengers().at(k) << ",";
@@ -310,7 +310,7 @@ bool Session::exportInfo() {
 		}
 		f << endl;
 	}
-
+	
 	f << endl << "DISTRICTS" << endl;
 	for (size_t i = 0; i < districts.size(); i++) {
 		if (i == districts.size() - 1) {
@@ -687,3 +687,110 @@ void Session::extractPayment() { //So o admin tem acesso
 	Sleep(2000);
 }
 
+void Session::searchVehicle() {
+	BSTItrIn<Vehicle> it(vehicleTree);
+	char token, license[9];
+	bool validLicense = false;
+	bool found = false;
+	vector<Vehicle> vehiclesFound;
+	string licensePlate, brand;
+
+	cout << "  What is the BRAND of the car?\n  > ";
+	getline(cin, brand);
+
+	while (!it.isAtEnd()) {
+		if (it.retrieve().getBrand() == brand) {
+			found = true;
+			vehiclesFound.push_back(it.retrieve());
+		}
+		it.advance();
+	}
+
+	for (size_t i = 0; i < vehiclesFound.size(); i++) {
+		cout << i+1 << ".  [" << vehiclesFound.at(i).getLicensePlate() << "] with " << vehiclesFound.at(i).getMaxSeats() << " seats owned by " << vehiclesFound.at(i).getOwner()->getUsername() << endl;
+	}
+
+	if (!found)
+		cout << "\nNo vehicles match that brand.";
+
+	_getch();
+	return;
+}
+void Session::changeOwner() {
+	clearScreen();
+	showLogo();
+	bool validLicense = false, foundUser = false;
+	char token, license[9];
+	string licensePlate, user;
+
+	BSTItrIn<Vehicle> it(vehicleTree);
+
+	while (!validLicense) {
+		cout << "\n  What is the license plate of the vehicle of which you want to change the owner? (XX-XX-XX)\n  > ";
+		for (size_t i = 0; true;) {
+			token = _getch();
+
+			if ((token >= '0' && token <= '9') || isalpha(token)) {
+				if (token >= 'a' && token <= 'z')
+					license[i] = toupper(token);
+				else
+					license[i] = token;
+				cout << license[i];
+				i++;
+			}
+			if (token == '\\') {
+				return;
+			}
+			if (token == '\b' && (i == 3 || i == 6)) {
+				cout << "\b \b";
+				cout << "\b \b";
+				i--;
+			}
+			else if (token == '\b' && i > 0) {
+				cout << "\b \b";
+				i--;
+			}
+			else if (i == 2 || i == 5) {
+				cout << "-";
+				license[i] = '-';
+				i++;
+			}
+			else if (i == 8) {
+				license[i] = '\0';
+				licensePlate = license;
+				validLicense = true;
+				break;
+			}
+		}
+		if (!validLicense)
+			cout << "  Invalid License Plate structure!\n";
+	}
+
+	while (!it.isAtEnd()) {
+		if (it.retrieve().getLicensePlate() == licensePlate && it.retrieve().getOwner()->getUsername() == Session::instance()->registered.at(Session::instance()->userPos).getUsername()) {
+			cout << "\n  Who is the new owner of the vehicle?\n  > ";
+			cin >> user;
+			BSTItrIn<Vehicle> it2(vehicleTree);
+			while (!it2.isAtEnd()) {
+				if (it2.retrieve().getOwner()->getUsername() == user) {
+					foundUser = true;
+					it.retrieve().setOwner(it2.retrieve().getOwner());
+					cout << "\n\nThe owner has been changed!";
+					_getch();
+					return;
+				}
+				it2.advance();
+			}
+			if (!foundUser) {
+				cout << "\n That user does not belong in our database. Please try again. ";
+				_getch();
+				return;
+			}
+		}
+
+		it.advance();
+	}
+	cout << "\n  That car does not belong to you or it's not in the database yet. Either add it or try again with the correct license.";
+	_getch();
+	return;
+}

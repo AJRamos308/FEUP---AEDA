@@ -46,6 +46,7 @@ public:
 	void setLicensePlate(string licensePlate);
 	void setBrand(string brand);
 	void setYear(unsigned int year);
+	void setOwner(Registered* owner);
 	bool operator<(Vehicle v1) const;
 	bool operator==(Vehicle v1) const;
 };
@@ -56,7 +57,7 @@ public:
 class Compact : public Vehicle {
 private:
 public:
-	Compact(unsigned int maximumSeats, string model, string licensePlate, string brand, unsigned int year);
+	Compact(Registered* owner, unsigned int maximumSeats, string model, string licensePlate, string brand, unsigned int year);
 
 };
 
@@ -66,7 +67,7 @@ public:
 class Midsize : public Vehicle {
 private:
 public:
-	Midsize(unsigned int maximumSeats, string model, string licensePlate, string brand, unsigned int year);
+	Midsize(Registered* owner, unsigned int maximumSeats, string model, string licensePlate, string brand, unsigned int year);
 };
 
 /*!
@@ -76,5 +77,5 @@ class Van : public Vehicle {
 private:
 
 public:
-	Van(unsigned int maximumSeats, string model, string licensePlate, string brand, unsigned int year);
+	Van(Registered* owner, unsigned int maximumSeats, string model, string licensePlate, string brand, unsigned int year);
 };

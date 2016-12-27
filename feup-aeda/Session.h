@@ -29,6 +29,14 @@ public:
 	} d;
 	vector<Route> allRoutes;
 	vector<districtDistance> distances;
+	/*
+	* **Description:** Changes the owner of a Vehicle
+	*/
+	void changeOwner();
+	/*!
+	* **Description:** Searches the BST for the asked vehicle.
+	*/
+	void searchVehicle();
 
 	/*!
 	* **Description:** Creates a new singleton instance.

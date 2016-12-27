@@ -43,9 +43,13 @@ void Vehicle::setBrand(string brand) {
 void Vehicle::setYear(unsigned int year) {
 	this->year = year;
 }
+void Vehicle::setOwner(Registered* owner) {
+	this->owner = owner;
+}
 
 //COMPACT CLASS
-Compact::Compact(unsigned int maxSeats, string model, string licensePlate, string brand, unsigned int year) {
+Compact::Compact(Registered* owner, unsigned int maxSeats, string model, string licensePlate, string brand, unsigned int year) {
+	setOwner(owner);
 	setMaxSeats(maxSeats);
 	setModel(model);
 	setLicensePlate(licensePlate);
@@ -54,7 +58,8 @@ Compact::Compact(unsigned int maxSeats, string model, string licensePlate, strin
 }
 
 //MIDSIZE CLASS
-Midsize::Midsize(unsigned int maxSeats, string model, string licensePlate, string brand, unsigned int year) {
+Midsize::Midsize(Registered* owner, unsigned int maxSeats, string model, string licensePlate, string brand, unsigned int year) {
+	setOwner(owner);
 	setMaxSeats(maxSeats);
 	setModel(model);
 	setLicensePlate(licensePlate);
@@ -62,7 +67,8 @@ Midsize::Midsize(unsigned int maxSeats, string model, string licensePlate, strin
 	setYear(year);
 }
 //VAN CLASS
-Van::Van(unsigned int maxSeats, string model, string licensePlate, string brand, unsigned int year) {
+Van::Van(Registered* owner, unsigned int maxSeats, string model, string licensePlate, string brand, unsigned int year) {
+	setOwner(owner);
 	setMaxSeats(maxSeats);
 	setModel(model);
 	setLicensePlate(licensePlate);

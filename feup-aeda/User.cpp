@@ -435,7 +435,7 @@ void Registered::addVehicle() {
 	unsigned int year;
 	bool validLicense = false, car = false;
 	char token, license[9];
-
+	Registered r(Session::instance()->registered.at(Session::instance()->userPos));
 	clearScreen();
 	showLogo();
 
@@ -497,22 +497,21 @@ void Registered::addVehicle() {
 	}
 
 		if (maxSeats < 5) {
-			Compact compact(maxSeats, model, licensePlate, brand, year);
+			Compact compact(&r, maxSeats, model, licensePlate, brand, year);
 			//garage.push_back(compact);
 			Session::instance()->vehicleTree.insert(compact);
 			car = true;
 		}
 		else if (maxSeats == 5) {
-			Midsize midsize(maxSeats, model, licensePlate, brand, year);
+			Midsize midsize(&r, maxSeats, model, licensePlate, brand, year);
 			//garage.push_back(midsize);
 			Session::instance()->vehicleTree.insert(midsize);
 			car = true;
 		}
 		else if (maxSeats <= 9) {
-			Van van(maxSeats, model, licensePlate, brand, year);
+			Van van(&r, maxSeats, model, licensePlate, brand, year);
 			//garage.push_back(van);
 			Session::instance()->vehicleTree.insert(van);
-
 			car = true;
 		}
 		else {

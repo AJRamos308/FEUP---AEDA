@@ -68,7 +68,6 @@ public:
 	unsigned int getAge();
 	vector<Registered> getBuddies();
 	float getBalance();
-
 	/*!
 	* **Description:** Handles the creation of a new journey. Asks for a departure time, arrival time, the selected vehicle from the garage and where the user will stop.
 	*/
@@ -119,10 +118,6 @@ public:
 	/*!
 	* **Description:** Compares two objects from the class Registered by their username.
 	*/
-
-
-
-
 	bool operator<(Registered r1) const;
 	bool operator==(Registered r1) const;
 };

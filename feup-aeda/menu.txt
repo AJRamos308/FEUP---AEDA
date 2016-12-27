@@ -8,8 +8,9 @@
   1. Host journey
   2. Pending Join Requests
   3. Join journey
-  4. Account settings
-  5. Logout
+  4. Search Vehicles
+  5. Account settings
+  6. Logout
 
 3
   1. Join journey
@@ -20,8 +21,9 @@
   2. Send friend request
   3. Add vehicle
   4. Remove vehicle
-  5. Change password
-  6. Back
+  5. Change owner
+  6. Change password
+  7. Back
 
 5
   1. Show all client information

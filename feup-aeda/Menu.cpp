@@ -80,10 +80,17 @@ void Menu::manager() {
 			continue;
 		}
 		if (currentMenu == 24) {
-			currentMenu = 40;
+			clearScreen();
+			showLogo();
+			Session::instance()->searchVehicle();
+			currentMenu = 20;
 			continue;
 		}
 		if (currentMenu == 25) {
+			currentMenu = 40;
+			continue;
+		}
+		if (currentMenu == 26) {
 			Session::instance()->logout();
 			currentMenu = 10;
 			continue;
@@ -148,6 +155,13 @@ void Menu::manager() {
 			continue;
 		}
 		if (currentMenu == 45) {
+			Session::instance()->changeOwner();
+			cout << "jsa";
+			Sleep(1000);
+			currentMenu = 40;
+			continue;
+		}
+		if (currentMenu == 46) {
 			for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
 				if (Session::instance()->username == Session::instance()->registered.at(i).getUsername()) {
 					Session::instance()->registered.at(i).changePassword();
@@ -157,7 +171,7 @@ void Menu::manager() {
 			currentMenu = 40;
 			continue;
 		}
-		if (currentMenu == 46) {
+		if (currentMenu == 47) {
 			currentMenu = 20;
 			continue;
 		}
