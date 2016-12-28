@@ -67,7 +67,9 @@ bool Session::importInfo() {
 					string lasttrip = token;
 
 
-					Registered reg(username, password, name, stoi(age), stof(balance));
+
+					Registered reg(username, password, name, stoi(age), stof(balance), stoull(lasttrip));
+					Date d1(stoull(lasttrip));
 					if (inactiveUser(d1))
 						users.insert(reg);
 					registered.push_back(reg);
@@ -269,6 +271,7 @@ bool Session::exportInfo() {
 
 	f << "MEMBERS" << endl;
 	for (size_t i = 0; i < registered.size(); i++) {
+		f << registered.at(i).getUsername() << "|" << registered.at(i).getPassword() << "|" << registered.at(i).getName() << "|" << registered.at(i).getAge() << "|" << registered.at(i).getBalance() << "|" << registered.at(i).getLastTrip() << endl;
 	}
 
 	f << endl << "GARAGE" << endl;

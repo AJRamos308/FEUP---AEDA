@@ -51,6 +51,7 @@ private:
 	/*!
 	* **Description:** The user's last trip date.
 	*/
+	unsigned long long lasttrip;
 	/*!
 	* **Description:** The user's buddies, filled with users from the Registered class.
 	*/
@@ -62,6 +63,7 @@ private:
 public:
 
 	//Constructors
+	Registered(string username, string password, string name, unsigned int age, float balance, unsigned long long lasttrip);
 	Registered() {};
 
 	//Get Methods
@@ -70,6 +72,7 @@ public:
 	string getName();
 	unsigned int getAge();
 	vector<Registered> getBuddies();
+	unsigned long long getLastTrip();
 	float getBalance();
 	bool getRouteInProgress() {
 		return routeInProgress;
