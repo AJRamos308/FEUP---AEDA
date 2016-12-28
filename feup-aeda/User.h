@@ -138,6 +138,7 @@ public:
 	*/
 	bool operator<(Registered r1) const;
 	bool operator==(Registered r1) const;
+	
 	priority_queue<Candidate> candidates;
 };
 
@@ -153,13 +154,13 @@ public:
 class Candidate {
 private:
 	Registered* candidate;
-	//Route routeToJoin;
 	int distance;
+	bool isBuddies;
 public:
 	Candidate(Registered* candidate, vector<string> selectedRoute);
 
-	Registered* getCandidate();
-	//Route getRouteToJoin();
-	unsigned int getDistance();
+	Registered* getCandidate() const;
+	unsigned int getDistance() const;
+	bool getIsBuddies() const;
 	bool operator<(Candidate c1) const;
 };

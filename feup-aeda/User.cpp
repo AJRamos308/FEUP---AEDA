@@ -229,7 +229,9 @@ void User::joinJourney() { //TODO:: Remove inactive user from tabela de dispersã
 		}
 	}
 	Candidate c(&Session::instance()->registered.at(Session::instance()->userPos), selectedRoute);
-	Session::instance()->candidates.push(c);
+	
+	//Adiciona-lhe o candidato ao host.
+	r.getHost()->candidates.push(c);
 
 	//Adiciona e subtrai emptySeats.
 	/*
@@ -562,10 +564,10 @@ bool Registered::operator==(Registered r1) const {
 }
 
 /* CANDIDATE CLASS */
-Candidate::Candidate(Registered* candidate, Route routeToJoin, vector<string> selectedRoute) {
+Candidate::Candidate(Registered* candidate, vector<string> selectedRoute) {
 	this->candidate = candidate;
-	this->routeToJoin = routeToJoin;
 
+	//Distance parameter.
 	for (size_t i = 0; i < selectedRoute.size() - 1; i++) {
 		string stop1 = selectedRoute.at(i);
 		string stop2 = selectedRoute.at(i + 1);
@@ -576,37 +578,50 @@ Candidate::Candidate(Registered* candidate, Route routeToJoin, vector<string> se
 			}
 		}
 	}
-	this->distance = abs(routeToJoin.calculateDistance() - this->distance);
+
+	for (size_t i = 0; i < Session::instance()->allRoutes.size(); i++) {
+		if (Session::instance()->allRoutes.at(i).getHost()->getUsername() == Session::instance()->username) {
+			this->distance = abs(Session::instance()->allRoutes.at(i).calculateDistance() - this->distance);
+			break;
+		}
+	}
+
+	//isBuddies parameter.
+	for (size_t i = 0; i < Session::instance()->allRoutes.size(); i++) {
+		if (Session::instance()->allRoutes.at(i).getHost()->getUsername() == Session::instance()->username) {
+
+			vector<Registered> hostBuddies = Session::instance()->allRoutes.at(i).getHost()->getBuddies();
+
+			for (size_t j = 0; j < hostBuddies.size(); j++) {
+				if (hostBuddies.at(j).getUsername() == candidate->getUsername()) {
+					this->isBuddies = true;
+					goto skipFalse;
+				}
+			}
+		}
+	}
+	this->isBuddies = false;
+skipFalse: 
+	NULL;
 }
-Registered* Candidate::getCandidate(){
+Registered* Candidate::getCandidate() const{
 	return candidate;
 }
-Route Candidate::getRouteToJoin(){
-	return routeToJoin;
-}
-unsigned int Candidate::getDistance(){
+unsigned int Candidate::getDistance() const{
 	return distance;
 }
+bool Candidate::getIsBuddies() const {
+	return isBuddies;
+}
 bool Candidate::operator<(Candidate c1) const {
-	vector<Registered> hostBuddies = routeToJoin.getHost()->getBuddies();
-	bool thisIsBuddy = false, thatIsBuddy = false;
-
-	for (size_t i = 0; i < hostBuddies.size(); i++) {
-		if (candidate->getUsername() == hostBuddies.at(i).getUsername()) {
-			thisIsBuddy = true;
-		}
-		if (c1.getCandidate()->getUsername() == hostBuddies.at(i).getUsername()) {
-			thatIsBuddy = true;
-		}
-	}
-
-	if ((thisIsBuddy && thatIsBuddy) ||(!thisIsBuddy && !thatIsBuddy)) {
+	
+	if ((isBuddies && c1.getIsBuddies()) || (!isBuddies && !c1.getIsBuddies())) {
 		return distance < c1.getDistance();
 	}
-	else if (thisIsBuddy && !thatIsBuddy) {
+	else if (isBuddies && !c1.getIsBuddies()) {
 		return true;
 	}
-	else if (!thisIsBuddy && thatIsBuddy) {
+	else if (!isBuddies && c1.getIsBuddies()) {
 		return false;
 	}
 }

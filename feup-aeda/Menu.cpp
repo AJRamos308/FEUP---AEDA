@@ -54,15 +54,8 @@ void Menu::manager() {
 
 		//Pending Join Requests
 		if (currentMenu == 22) {
-			vector<Route> *everyRoute = &Session::instance()->allRoutes;
+			pendingRequestsMenu();
 
-			//Iterates through every route and saves the ones hosted by this user.
-			for (size_t i = 0; i < everyRoute->size(); i++) {
-				if (everyRoute->at(i).getHost()->getUsername() == Session::instance()->username) {
-					pendingRequestsMenu(everyRoute->at(i));
-					break;
-				}
-			}
 			currentMenu = 20;
 			continue;
 		}
@@ -839,7 +832,7 @@ Vehicle Menu::chooseVehicle() {
 	return v;
 }
 
-void Menu::pendingRequestsMenu(Route userRoute) {
+void Menu::pendingRequestsMenu() {
 	
 	hideCursor();
 	bool menuUpdate = true;
@@ -854,17 +847,16 @@ void Menu::pendingRequestsMenu(Route userRoute) {
 			clearScreen();
 			showLogo();
 
-			tempQueue = Session::instance()->candidates;//userRoute.candidates;
+			tempQueue = Session::instance()->registered.at(Session::instance()->userPos).candidates;
 			
-			cout << "  You have new requests for your trip starting at " << userRoute.getStartingTime().getFormattedDate()
-				<< "(" << userRoute.getStops().at(0).getStop() << " -> " << userRoute.getStops().at(userRoute.getStops().size() - 1).getStop() << ")\n";
+			cout << "  You have new requests for your trip!\n";
 
 			short index = 0;
 			while (!tempQueue.empty()) {
 				if (index == selectedIndex) {
 					whiteBG();
 				}
-				cout << "\n  " << index << ". " << tempQueue.top()->getUsername();//tempQueue.top()->getUsername();
+				cout << "\n  " << index << ". " << tempQueue.top().getCandidate()->getUsername();
 				blackBG();
 
 				index++;
