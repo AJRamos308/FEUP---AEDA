@@ -1,14 +1,38 @@
 #pragma once
 #include <time.h>
 #include <queue>
+#include <unordered_set>
 
 #include "User.h"
 #include "Route.h"
 #include "Utilities.h"
 #include "BST.h"
 #include "Vehicle.h"
+#include "Date.h"
+
+struct hUserPtr {
+	int operator()(Registered & u1) const {
+		string s1 = u1.getUsername();
+		int v = 0;
+		for (unsigned int i = 0; i < s1.size(); i++)
+		{
+			v = 37 * v + s1[i];
+
+		}
+		return v;
+	}
+	bool operator()(Registered & u1, Registered & u2) const {
+		if (u1.getUsername() == u2.getUsername())
+			return true;
+		else
+			return false;
+	}
+};
+
+typedef unordered_set<Registered, hUserPtr, hUserPtr> tabHUsers;
 
 class Session {
+	tabHUsers users;
 private:
 	/*!
 	* **Description:** Singleton instance.
@@ -61,6 +85,7 @@ public:
 	*/
 	vector<string> districts;
 
+	bool inactiveUser(Date lasttrip);
 	//Admin Get & Set Functions
 	bool getAdmin();
 	void setAdmin();
@@ -142,4 +167,5 @@ public:
 	void quickSort(RandomAccessIterator first, RandomAccessIterator last);
 
 	void addVehicle();
+	tabHUsers getUsers();
 };

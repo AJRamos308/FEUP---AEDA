@@ -49,9 +49,8 @@ private:
 	*/
 	float balance;
 	/*!
-	* **Description:** The user's garage, filled with vehicles from the Vehicle class.
+	* **Description:** The user's last trip date.
 	*/
-	//vector<Vehicle> garage;
 	/*!
 	* **Description:** The user's buddies, filled with users from the Registered class.
 	*/
@@ -63,7 +62,6 @@ private:
 public:
 
 	//Constructors
-	Registered(string username, string password, string name, unsigned int age, float balance);
 	Registered() {};
 
 	//Get Methods

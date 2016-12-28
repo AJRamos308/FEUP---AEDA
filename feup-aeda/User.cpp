@@ -7,12 +7,13 @@ Menu m1;
 
 User::User() {
 }
-Registered::Registered(string username, string password, string name, unsigned int age, float balance) {
+Registered::Registered(string username, string password, string name, unsigned int age, float balance, unsigned long long lasttrip) {
 	this->username = username;
 	this->password = password;
 	this->name = name;
 	this->age = age;
 	this->balance = balance;
+	this->lasttrip = lasttrip;
 	this->routeInProgress = false;
 }
 Guest::Guest() {
@@ -32,9 +33,9 @@ unsigned int Registered::getAge() {
 vector<Registered> Registered::getBuddies() {
 	return buddies;
 }
-/*vector<Vehicle> Registered::getGarage() {
-	return garage;
-}*/
+unsigned long long Registered::getLastTrip() {
+	return lasttrip;
+}
 float Registered::getBalance() {
 	return balance;
 }
@@ -45,7 +46,7 @@ void Registered::addBuddyToVec(Registered r) {
 	garage.push_back(v);
 }*/
 
-void User::joinJourney() {
+void User::joinJourney() { //TODO:: Remove inactive user from tabela de dispersão ao juntar ou dar host
 	Menu m;
 	vector<string> selectedRoute;
 	vector<Route> activeRoutes, perfectRoutes, activeRoutesCopy;
@@ -54,7 +55,6 @@ void User::joinJourney() {
 	struct tm now;
 	localtime_s(&now, &t);
 	Date currentTime(now.tm_hour, now.tm_min, now.tm_mday, (now.tm_mon + 1), (now.tm_year + 1900));
-
 	vector<Route> *everyRoute;
 	everyRoute = &Session::instance()->allRoutes;
 

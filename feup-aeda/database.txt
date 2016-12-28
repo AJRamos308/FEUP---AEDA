@@ -1,14 +1,14 @@
 MEMBERS
-admin|admin|Dono Disto Tudo|23|-20
-blinkroot|qwerty|Miguel Fernandes|19|-49
-cometsharks|wowowow|Logan Paul|22|90
-ephons|qwerty|Afonso Ramos|19|1.00002e+06
-fakelecture|qwerty|Trevor Noah|30|100
-smallhideous|Dylan Mason|44|130|130
-sparklingbeer|zxcvb123|Benjamin Carter|43|170
-teste1|teste2|Teste Teste|99|333
-timingbear|abcdefg|John Smith|34|30
-zepedrob|qwerty|Ze Borges|19|-133
+admin|admin|Dono Disto Tudo|23|-20|201611161200
+blinkroot|qwerty|Miguel Fernandes|19|-49|201611161200
+cometsharks|wowowow|Logan Paul|22|90|201611161200
+ephons|qwerty|Afonso Ramos|19|1.00002e+06|201611161200
+fakelecture|qwerty|Trevor Noah|30|100|201611161200
+smallhideous|Dylan Mason|44|130|130|201611161200
+sparklingbeer|zxcvb123|Benjamin Carter|43|170|201611161200
+teste1|teste2|Teste Teste|99|333|201611161200
+timingbear|abcdefg|John Smith|34|30|201611161200
+zepedrob|qwerty|Ze Borges|19|-133|201611161200
 
 GARAGE
 ephons:Chevrolet|Azul|98-AL-10|5|2000

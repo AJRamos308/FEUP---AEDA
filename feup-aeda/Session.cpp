@@ -62,9 +62,14 @@ bool Session::importInfo() {
 					token.erase(0, token.find("|") + 1);
 					string age = token.substr(0, token.find("|"));
 					token.erase(0, token.find("|") + 1);
-					string balance = token;
+					string balance = token.substr(0, token.find("|"));
+					token.erase(0, token.find("|") + 1);
+					string lasttrip = token;
+
 
 					Registered reg(username, password, name, stoi(age), stof(balance));
+					if (inactiveUser(d1))
+						users.insert(reg);
 					registered.push_back(reg);
 					continue;
 				}
@@ -264,7 +269,6 @@ bool Session::exportInfo() {
 
 	f << "MEMBERS" << endl;
 	for (size_t i = 0; i < registered.size(); i++) {
-		f << registered.at(i).getUsername() << "|" << registered.at(i).getPassword() << "|" << registered.at(i).getName() << "|" << registered.at(i).getAge() << "|" << registered.at(i).getBalance() << endl;
 	}
 
 	f << endl << "GARAGE" << endl;
@@ -418,7 +422,7 @@ void Session::loginAsGuest() {
 }
 
 void Session::registration() {
-
+	
 	string name, username, password;
 	unsigned int age;
 	fstream f;
@@ -498,8 +502,8 @@ void Session::registration() {
 		}
 	}
 	password = passwordMaker();
-	
-	Registered token(username, password, name, age, 0.0);
+	Date d1;
+	Registered token(username, password, name, age, 0.0, d1.getCurrentDate());
 	registered.push_back(token);
 	userPos = registered.size() - 1;
 
@@ -579,6 +583,14 @@ string Session::passwordMaker() {
 		}
 	}
 	return password1;
+}
+
+bool Session::inactiveUser(Date lasttrip) {
+	Date d1;
+	if ((d1.getCurrentDate() - lasttrip.getCompactDate()) > 300000)
+		return true;
+	else
+		return false;
 }
 
 void Session::setAdmin() {
@@ -885,4 +897,9 @@ void Session::addVehicle() {
 		}
 	}
 	return;
+}
+
+tabHUsers Session::getUsers()
+{
+	return users;
 }

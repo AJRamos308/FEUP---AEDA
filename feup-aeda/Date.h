@@ -56,6 +56,7 @@ public:
 	unsigned int getYear();
 	unsigned long long getCompactDate();
 	string getFormattedDate();
+	unsigned long long getCurrentDate();
 
 	/*!
 	* **Description:** Checks the validity of the date. This includes rejecting dates that do not fulfill the following criteria: being later than PC's date and having invalid values for both days (according to current month and leap years) and hours/minutes.

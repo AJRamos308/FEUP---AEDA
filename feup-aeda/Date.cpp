@@ -17,6 +17,7 @@ Date::Date(unsigned int hour, unsigned int minutes, unsigned int day, unsigned i
 	else
 		formattedDate = to_string(day) + "/" + to_string(month) + "/" + to_string(year) + " " + to_string(hour) + ":" + to_string(minutes);
 }
+
 Date::Date(unsigned long long compactDate) {
 	this->compactDate = compactDate;
 	
@@ -142,4 +143,36 @@ unsigned long long Date::getCompactDate() {
 }
 string Date::getFormattedDate() {
 	return formattedDate;
+}
+unsigned long long Date::getCurrentDate() {
+	time_t tt = time(0);   // get time now
+	struct tm * now = localtime(&tt);
+	unsigned long long currentDate;
+	int year, month, day, hour, min;
+	ostringstream oss;
+	year = now->tm_year + 1900;
+	month = now->tm_mon + 1;
+	day = now->tm_mday;
+	hour = now->tm_hour;
+	min = now->tm_min;
+	oss << year;
+	if (month < 10)
+		oss << "0" << month;
+	else
+		oss << month;
+	if (day < 10)
+		oss << "0" << day;
+	else
+		oss << day;
+	if (hour < 10)
+		oss << "0" << hour;
+	else
+		oss << hour;
+	if (min < 10)
+		oss << "0" << min;
+	else
+		oss << min;
+	currentDate=stoll(oss.str());
+	//currentDate = (now->tm_year + 1900) * pow(10, 8) + (now->tm_mon + 1) * pow(10, 6) + (now->tm_mday) * pow(10, 4) + (now->tm_hour) * pow(10, 2) + (now->tm_min);
+	return currentDate;
 }
