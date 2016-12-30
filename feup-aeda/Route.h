@@ -54,6 +54,7 @@ public:
 	Date getStartingTime() const;
 	Date getEndingTime() const;
 	Vehicle getCar() const;
+	void addCandidate(Candidate &c);
 	/*!
 	* **Description:** Generates a random integer between 10 and 15. This function returns the trip's cost.
 	*

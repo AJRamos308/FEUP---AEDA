@@ -133,9 +133,11 @@ public:
 		return;
 	}
 
+	void addUserToTrip(size_t index);
 	/*!
 	* **Description:** Compares two objects from the class Registered by their username.
 	*/
+
 	bool operator<(Registered r1) const;
 	bool operator==(Registered r1) const;
 	
@@ -156,11 +158,13 @@ private:
 	Registered* candidate;
 	int distance;
 	bool isBuddies;
+	vector<string> selectedRoute;
 public:
 	Candidate(Registered* candidate, vector<string> selectedRoute);
 
 	Registered* getCandidate() const;
 	unsigned int getDistance() const;
+	vector<string> getSelectedRoute() const;
 	bool getIsBuddies() const;
 	bool operator<(Candidate c1) const;
 };

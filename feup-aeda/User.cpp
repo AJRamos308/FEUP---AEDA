@@ -42,9 +42,6 @@ float Registered::getBalance() {
 void Registered::addBuddyToVec(Registered r) {
 	buddies.push_back(r);
 }
-/*void Registered::addVehicleToVec(Vehicle v) {
-	garage.push_back(v);
-}*/
 
 void User::joinJourney() { //TODO:: Remove inactive user from tabela de dispersão ao juntar ou dar host
 	Menu m;
@@ -74,34 +71,16 @@ void User::joinJourney() { //TODO:: Remove inactive user from tabela de dispersã
 		}
 	}
 
-	/*
-	for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
-		for (size_t j = 0; j < Session::instance()->registered.at(i).getAllTrips().size(); j++) {
-			if (Session::instance()->registered.at(i).getAllTrips().at(j).getActive()) {
-				int counter = 0;
-				for (size_t k = 0; k < Session::instance()->registered.at(i).getAllTrips().at(j).getStops().size(); k++) {
-					if (Session::instance()->registered.at(i).getAllTrips().at(j).getStops().at(k).getPassengers().size() ==
-						Session::instance()->registered.at(i).getAllTrips().at(j).getCar().getMaxSeats() - 1) {
-						counter++;
-					}
-				}
-				if (counter != Session::instance()->registered.at(i).getAllTrips().at(j).getStops().size()) {
-					activeRoutes.push_back(Session::instance()->registered.at(i).getAllTrips().at(j));
-				}
-			}
-		}
-	}
-	*/
-	//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\Se não houver viagens para juntar, dá display a mensagem de erro.
+	//Caso não haja rotas ativas, mostra uma mensagem de erro.
 	if (activeRoutes.size() == 0) {
 		cout << "  Whoops, looks like there aren't any active routes to join.\n  Try hosting one!";
 		Sleep(2000);
 		return;
 	}
-	selectedRoute = m.journeyMenu(); //Isto carrega o vetor selectedRoute com a escolha do usuário.
-	activeRoutesCopy = activeRoutes;
+	selectedRoute = m.journeyMenu(); //Carrega o vetor selectedRoute com a escolha do usuário.
+	activeRoutesCopy = activeRoutes; //Cópia do vetor activeRoutes.
 
-	//Para viagens com match perfeita (PORTO/LISBOA/FARO, PORTO/COIMBRA/LISBOA/FARO, AVEIRO/PORTO/LISBOA/FARO).
+	//Guarda as viagens perfeitas no vetor activeRoutes (eliminando estas das activeRoutes).
 	for (size_t i = 0; i < activeRoutes.size(); i++) {
 		unsigned int counter2 = 0;
 
@@ -118,55 +97,12 @@ void User::joinJourney() { //TODO:: Remove inactive user from tabela de dispersã
 				}
 			}
 		}
-
 		if (counter2 == selectedRoute.size()) {
 			perfectRoutes.push_back(activeRoutes.at(i));
 			activeRoutes.erase(activeRoutes.begin() + i);
 			i--;
 		}
 	}
-	/*
-	//Para viagens apenas com início e fim (PORTO/COIMBRA/FARO, PORTO/FARO).
-	for (size_t i = 0; i < activeRoutes.size(); i++) {
-
-		bool foundStart = false, foundDest = false;
-
-		for (size_t j = 0; j < activeRoutes.at(i).getStops().size(); j++) {
-			if (selectedRoute.at(0) == activeRoutes.at(i).getStops().at(j).getStop()) {
-				if (currentTime.getCompactDate() <= activeRoutes.at(i).getEndingTime().getCompactDate()) {
-					if (activeRoutes.at(i).getStops().at(j).getPassengers().size() == activeRoutes.at(i).getCar().getMaxSeats() - 1) {
-						break;
-					}
-					else if (activeRoutes.at(i).getHost()->getUsername() == username) {
-						break;
-					}
-					foundStart = true;
-					continue;
-				}
-			}
-			if (selectedRoute.at(selectedRoute.size() - 1) == activeRoutes.at(i).getStops().at(j).getStop()) {
-				if (currentTime.getCompactDate() <= activeRoutes.at(i).getEndingTime().getCompactDate()) {
-					if (activeRoutes.at(i).getStops().at(j).getPassengers().size() == activeRoutes.at(i).getCar().getMaxSeats() - 1) {
-						break;
-					}
-					else if (activeRoutes.at(i).getHost()->getUsername() == username) {
-						break;
-					}
-					foundDest = true;
-					break;
-				}
-			}
-			if (foundStart && !foundDest) {
-				if (activeRoutes.at(i).getStops().at(j).getPassengers().size() == activeRoutes.at(i).getCar().getMaxSeats() - 1) {
-					break;
-				}
-			}
-		}
-		if (foundStart && foundDest) {
-			similarRoutes.push_back(activeRoutes.at(i));
-		}
-	}
-	*/
 
 	//Verifica ordenação das perfectRoutes.
 	for (size_t i = 0; i < perfectRoutes.size(); i++) {
@@ -189,26 +125,8 @@ void User::joinJourney() { //TODO:: Remove inactive user from tabela de dispersã
 			i--;
 		}
 	}
-	/*
-	//Verifica ordenação das similarRoutes.
-	for (unsigned int i = 0; i < similarRoutes.size(); i++) {
 
-		int indexStart = 0, indexEnd = 0;
-
-		for (unsigned int j = 0; j < selectedRoute.size(); j++) {
-			if (similarRoutes.at(i).getStops().at(0).getStop() == selectedRoute.at(j)) {
-				indexStart = j;
-			}
-			if (similarRoutes.at(i).getStops().at(similarRoutes.at(i).getStops().size() - 1).getStop() == selectedRoute.at(j))
-				indexEnd = j;
-		}
-		if (indexStart > indexEnd) {
-			similarRoutes.erase(similarRoutes.begin() + i);
-			i--;
-		}
-	}
-	*/
-
+	//Caso não haja rotas perfeitas para juntar, dá mensagem de erro.
 	if (perfectRoutes.size() == 0) {
 		clearScreen();
 		showLogo();
@@ -230,50 +148,9 @@ void User::joinJourney() { //TODO:: Remove inactive user from tabela de dispersã
 	}
 	Candidate c(&Session::instance()->registered.at(Session::instance()->userPos), selectedRoute);
 	
-	//Adiciona-lhe o candidato ao host.
-	r.getHost()->candidates.push(c);
+	//Adiciona o candidato à queue de candidatos do host.
+	r.addCandidate(c);
 
-	//Adiciona e subtrai emptySeats.
-	/*
-	bool foundStart = false, foundEnd = false;
-
-	for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
-		if (Session::instance()->registered.at(i).getUsername() == r.getHost()->getUsername()) {
-			for (size_t j = 0; j < Session::instance()->registered.at(i).getAllTrips().size(); j++) {
-				if (Session::instance()->registered.at(i).getAllTrips().at(j).getStartingTime().getCompactDate() == r.getStartingTime().getCompactDate() &&
-					Session::instance()->registered.at(i).getAllTrips().at(j).getCar().getLicensePlate() == r.getCar().getLicensePlate()) {
-
-					for (size_t k = 0; k < selectedRoute.size(); k++) {
-						for (size_t l = 0; Session::instance()->registered.at(i).getAllTrips().at(j).getStops().size(); l++) {
-							if (!foundStart) {
-								if (selectedRoute.at(0) == Session::instance()->registered.at(i).getAllTrips().at(j).getStops().at(l).getStop()) {
-									Session::instance()->registered.at(i).allTrips.at(j).stops.at(l).addSeats(Session::instance()->username);
-									foundStart = true;
-								}
-								continue;
-							}
-							if (selectedRoute.at(selectedRoute.size() - 1) == Session::instance()->registered.at(i).getAllTrips().at(j).getStops().at(l).getStop()) {
-								Session::instance()->registered.at(i).allTrips.at(j).stops.at(l).addSeats(Session::instance()->username);
-								foundEnd = true;
-								goto loopExit;
-							}
-							Session::instance()->registered.at(i).allTrips.at(j).stops.at(l).addSeats(Session::instance()->username);
-						}
-					}
-				}
-			}
-		}
-	}
-	loopExit:
-
-	//Incrementa dinheiro ao usuário que está a dar host e, simultaneamente, retira ao que está a entrar.
-	for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
-		if (Session::instance()->registered.at(i).getUsername() == r.getHost()) {
-			Session::instance()->registered.at(i).modifyBalance(Session::instance()->registered.at(Session::instance()->userPos).payTrip(r.getPrice()));
-			break;
-		}
-	}
-	*/
 	return;
 }
 
@@ -294,24 +171,21 @@ void Registered::hostJourney() {
 		return;
 	}
 
-	/*if (getGarage().size() == 0) {
-		cout << "  Sorry, you don't have any vehicles available so you can't host a trip. Try adding one!";
-		Sleep(4000);
-		return;
-	}*/
+	//Checks whether the user has a vehicle in the system.
 	BSTItrIn<Vehicle> it(Session::instance()->vehicleTree);
+
 	while (!it.isAtEnd()) {
 		if (it.retrieve().getOwner()->getUsername() == Session::instance()->registered.at(Session::instance()->userPos).getUsername())
 			hasCar = true;
 		it.advance();
 	}
-
 	if (!hasCar) {
 		cout << "  Sorry, you don't have any vehicles available so you can't host a trip. Try adding one!";
 		Sleep(4000);
 		return;
 	}
 	
+	//Asks the departure and arrival time.
 	cout << "  At what time are you hitting the road? (YYYY/MM/DD hh:mm)\n\n";
 	while (displayOrder != -1) {
 
@@ -384,20 +258,21 @@ void Registered::hostJourney() {
 		}
 	}
 	
-	//size_t vehicleChosen = m1.chooseVehicle();
+	//Asks which vehicle is going to be used and which stops.
 	Vehicle vehicleChosen = m1.chooseVehicle();
 	vector<string> journeyStops = m1.journeyMenu();
+	
 	vector<seatsHandler> handler;
 	vector<string> zeroPassengers;
+
 	for (size_t i = 0; i < journeyStops.size(); i++) {
 		seatsHandler s(journeyStops.at(i), zeroPassengers);
 		handler.push_back(s);
 	}
 
-	//Route r(Session::instance()->username, d1, d2, handler, Session::instance()->registered.at(Session::instance()->userPos).getGarage().at(vehicleChosen));
-	// -> ||||||||||||||||||||||e esta a versao BST |||||||||||     Route r(Session::instance()->username, d1, d2, handler, vehicleChosen);
-
-	//Session::instance()->registered.at(Session::instance()->userPos).addTripToVec(r);
+	//Creates a new route and adds it to the allTrips vector.
+	Route r(&Session::instance()->registered.at(Session::instance()->userPos), d1, d2, handler, vehicleChosen);
+	Session::instance()->allRoutes.push_back(r);
 	Session::instance()->registered.at(Session::instance()->userPos).switchProgressState();
 
 	return;
@@ -554,6 +429,39 @@ void Registered::changePassword() {
 	return;
 }
 
+void Registered::addUserToTrip(size_t index){
+	priority_queue<Candidate> temp = candidates;
+
+	//Pops every user that isn't the selected one.
+	for (size_t i = 0; i < index; i++) {
+		temp.pop();
+	}
+
+	//Finds this user's trip and saves on routePtr.
+	Route* routePtr = NULL;
+
+	for (size_t i = 0; i < Session::instance()->allRoutes.size(); i++) {
+		if (Session::instance()->allRoutes.at(i).getHost()->getUsername() == Session::instance()->registered.at(Session::instance()->userPos).getUsername()) {
+			routePtr = &Session::instance()->allRoutes.at(i);
+			break;
+		}
+	}
+
+	//Saves the route of the candidate.
+	vector<string> candidateRoute = temp.top().getSelectedRoute();
+	string candidateUsername = temp.top().getCandidate()->getUsername();
+
+	//Iterates through every host's stop and tries to match with the candidate's stops.
+	for (size_t i = 0; i < routePtr->getStops().size(); i++) {
+		for (size_t j = 0; j < candidateRoute.size(); j++) {
+			if (routePtr->getStops().at(i).getStop() == candidateRoute.at(j)) {
+				routePtr->stops.at(i).addSeats(candidateUsername);
+			}
+		}
+	}
+	return;
+}
+
 bool Registered::operator<(Registered r1) const {
 	return this->username < r1.username;
 }
@@ -602,13 +510,16 @@ Candidate::Candidate(Registered* candidate, vector<string> selectedRoute) {
 	}
 	this->isBuddies = false;
 skipFalse: 
-	NULL;
+	this->selectedRoute = selectedRoute;
 }
 Registered* Candidate::getCandidate() const{
 	return candidate;
 }
 unsigned int Candidate::getDistance() const{
 	return distance;
+}
+vector<string> Candidate::getSelectedRoute() const{
+	return selectedRoute;
 }
 bool Candidate::getIsBuddies() const {
 	return isBuddies;

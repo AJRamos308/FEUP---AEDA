@@ -67,5 +67,5 @@ public:
 	*/
 	Vehicle chooseVehicle();
 
-	void pendingRequestsMenu();
+	size_t pendingRequestsMenu();
 };

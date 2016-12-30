@@ -54,7 +54,9 @@ void Menu::manager() {
 
 		//Pending Join Requests
 		if (currentMenu == 22) {
-			pendingRequestsMenu();
+			size_t selectedIndex = pendingRequestsMenu();
+
+			Session::instance()->registered.at(Session::instance()->userPos).addUserToTrip(selectedIndex);
 
 			currentMenu = 20;
 			continue;
@@ -144,7 +146,6 @@ void Menu::manager() {
 		}
 		if (currentMenu == 45) {
 			Session::instance()->changeOwner();
-			cout << "jsa";
 			Sleep(1000);
 			currentMenu = 40;
 			continue;
@@ -832,7 +833,7 @@ Vehicle Menu::chooseVehicle() {
 	return v;
 }
 
-void Menu::pendingRequestsMenu() {
+size_t Menu::pendingRequestsMenu() {
 	
 	hideCursor();
 	bool menuUpdate = true;
@@ -870,7 +871,7 @@ void Menu::pendingRequestsMenu() {
 			cin.clear();
 			cin.ignore(50, '\n');
 
-			return;
+			return selectedIndex;
 		}
 		else if (GetAsyncKeyState(VK_DOWN)) {
 			while (GetAsyncKeyState(VK_DOWN)) {}
@@ -892,5 +893,5 @@ void Menu::pendingRequestsMenu() {
 	showCursor();
 	cin.clear();
 	cin.ignore(50, '\n');
-	return;
+	return -1;
 }

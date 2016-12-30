@@ -38,6 +38,11 @@ Vehicle Route::getCar() const{
 	return car;
 }
 
+void Route::addCandidate(Candidate &c){
+	host->candidates.push(c);
+	return;
+}
+
 /*FUNCTIONS*/
 void Route::switchActive() {
 	if (active) {
