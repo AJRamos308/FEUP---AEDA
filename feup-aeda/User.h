@@ -162,8 +162,9 @@ private:
 	int distance;
 	bool isBuddies;
 	vector<string> selectedRoute;
+	string hostToJoin;
 public:
-	Candidate(Registered* candidate, vector<string> selectedRoute);
+	Candidate(Registered* candidate, vector<string> selectedRoute, string hostToJoin);
 
 	Registered* getCandidate() const;
 	unsigned int getDistance() const;

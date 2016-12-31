@@ -146,7 +146,7 @@ void User::joinJourney() { //TODO:: Remove inactive user from tabela de dispersã
 			}
 		}
 	}
-	Candidate c(&Session::instance()->registered.at(Session::instance()->userPos), selectedRoute);
+	Candidate c(&Session::instance()->registered.at(Session::instance()->userPos), selectedRoute, r.getHost()->getUsername());
 	
 	//Adiciona o candidato à queue de candidatos do host.
 	r.addCandidate(c);
@@ -476,9 +476,10 @@ bool Registered::operator==(Registered r1) const {
 }
 
 /* CANDIDATE CLASS */
-Candidate::Candidate(Registered* candidate, vector<string> selectedRoute) {
+Candidate::Candidate(Registered* candidate, vector<string> selectedRoute, string hostToJoin) {
 	this->candidate = candidate;
 	this->distance = 0;
+	this->hostToJoin = hostToJoin;
 
 	//Distance parameter.
 	for (size_t i = 0; i < selectedRoute.size() - 1; i++) {
@@ -486,14 +487,14 @@ Candidate::Candidate(Registered* candidate, vector<string> selectedRoute) {
 		string stop2 = selectedRoute.at(i + 1);
 
 		for (size_t j = 0; j < Session::instance()->distances.size(); j++) {
-			if (Session::instance()->distances.at(i).origin == stop1 && Session::instance()->distances.at(i).destination == stop2) {
-				this->distance += Session::instance()->distances.at(i).distance;
+			if (Session::instance()->distances.at(j).origin == stop1 && Session::instance()->distances.at(j).destination == stop2) {
+				this->distance += Session::instance()->distances.at(j).distance;
+				break;
 			}
 		}
 	}
-
 	for (size_t i = 0; i < Session::instance()->allRoutes.size(); i++) {
-		if (Session::instance()->allRoutes.at(i).getHost()->getUsername() == Session::instance()->username) {
+		if (Session::instance()->allRoutes.at(i).getHost()->getUsername() == this->hostToJoin) {
 			this->distance = abs(Session::instance()->allRoutes.at(i).calculateDistance() - this->distance);
 			break;
 		}
@@ -501,7 +502,7 @@ Candidate::Candidate(Registered* candidate, vector<string> selectedRoute) {
 
 	//isBuddies parameter.
 	for (size_t i = 0; i < Session::instance()->allRoutes.size(); i++) {
-		if (Session::instance()->allRoutes.at(i).getHost()->getUsername() == Session::instance()->username) {
+		if (Session::instance()->allRoutes.at(i).getHost()->getUsername() == this->hostToJoin) {
 
 			vector<Registered> hostBuddies = Session::instance()->allRoutes.at(i).getHost()->getBuddies();
 
@@ -535,7 +536,7 @@ bool Candidate::operator<(Candidate c1) const {
 		return distance > c1.getDistance();
 	}
 	else if (!isBuddies && !c1.getIsBuddies()) {
-		return distance < c1.getDistance();
+		return distance > c1.getDistance();
 	}
 	else if (isBuddies && !c1.getIsBuddies()) {
 		return false;

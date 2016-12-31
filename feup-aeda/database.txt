@@ -32,22 +32,9 @@ timingbear:blinkroot
 zepedrob:ephons|blinkroot|teste1|fakelecture
 
 TRIPS
-ephons:201711161200|201711161300|98-AL-10|Aveiro(ephons,teste1)Beja(teste1)
+ephons:201711161200|201711161300|98-AL-10|Aveiro(ephons)Beja()
 sparklingbeer:201711201300|201711201600|32-55-CD|Aveiro(zepedrob)Braganca(zepedrob)Castelo Branco(zepedrob)Coimbra(zepedrob)Beja(zepedrob)Evora(zepedrob)
-sparklingbeer:201711151200|201711160100|32-55-CD|Coimbra()Aveiro(teste1)Castelo Branco(teste1)Guarda(teste1)Beja(teste1)
-teste1:201711141700|201611141800|69-69-LM|Aveiro(ephons)Beja(blinkroot)Castelo Branco(zepedrob,blinkroot)
-teste1:201711141800|201611141900|96-96-AO|Aveiro()Castelo Branco()Beja()
-teste1:201611141800|201611141900|BE-RN-IE|Aveiro()Braga()
-teste1:201611161200|201511161300|96-96-AO|Aveiro()Beja()
-teste1:201711121100|201711121200|96-96-AO|Faro(zepedrob)Guarda()Leiria(zepedrob,blinkroot)Lisboa(blinkroot)
-teste1:201611190100|201611190200|96-96-AO|Castelo Branco(teste1,ephons)Coimbra(teste1,ephons,zepedrob)Evora(ephons,zepedrob)Faro(zepedrob)
-teste1:201703212000|201703212200|96-96-AO|Aveiro()Castelo Branco()Beja()
-teste1:201712222222|201712232323|69-69-LM|Aveiro()Beja()
-ephons:201707202020|201707202021|98-AL-10|Aveiro()Beja()
-ephons:202002202020|202002202021|98-AL-10|Aveiro()Beja()
-timingbear:202002202020|202002202021|92-EP-12|Aveiro()Beja()
-teste1:201612311300|201612311400|69-69-LM|Aveiro()Beja()Braga()
-teste1:201706211300|201706211500|96-96-AO|Aveiro()Beja()Braga()Braganca()Castelo Branco()
+teste1:201705201500|201705201700|96-96-AO|Aveiro()Beja()Braga()Braganca()Castelo Branco()Coimbra()
 
 DISTRICTS
 Aveiro|Beja|Braga|Braganca|Castelo Branco|Coimbra|Evora|Faro|Guarda|Leiria|Lisboa|Portalegre|Porto|Santarem|Setubal|Viana do Castelo|Vila Real|Viseu
