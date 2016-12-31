@@ -21,19 +21,19 @@ Guest::Guest() {
 string Registered::getUsername() const {
 	return username;
 }
-string Registered::getPassword() {
+string Registered::getPassword() const {
 	return password;
 }
-string Registered::getName() {
+string Registered::getName() const {
 	return name;
 }
-unsigned int Registered::getAge() {
+unsigned int Registered::getAge() const {
 	return age;
 }
 vector<Registered> Registered::getBuddies() {
 	return buddies;
 }
-unsigned long long Registered::getLastTrip() {
+unsigned long long Registered::getLastTrip() const {
 	return lasttrip;
 }
 float Registered::getBalance() {
@@ -150,6 +150,9 @@ void User::joinJourney() { //TODO:: Remove inactive user from tabela de dispersã
 	
 	//Adiciona o candidato à queue de candidatos do host.
 	r.addCandidate(c);
+	Session::instance()->getUsers().erase(Session::instance()->registered.at(Session::instance()->userPos));
+	Date d1;
+	Session::instance()->registered.at(Session::instance()->userPos).setLastTrip(d1.getCurrentDate());
 
 	return;
 }
@@ -274,7 +277,8 @@ void Registered::hostJourney() {
 	Route r(&Session::instance()->registered.at(Session::instance()->userPos), d1, d2, handler, vehicleChosen);
 	Session::instance()->allRoutes.push_back(r);
 	Session::instance()->registered.at(Session::instance()->userPos).switchProgressState();
-
+	Session::instance()->getUsers().erase(Session::instance()->registered.at(Session::instance()->userPos));
+	Session::instance()->registered.at(Session::instance()->userPos).setLastTrip(d1.getCurrentDate());
 	return;
 }
 

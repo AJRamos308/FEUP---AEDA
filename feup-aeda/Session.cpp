@@ -614,6 +614,7 @@ void Session::showClientInformation() {
 			setw(15) << left << Session::instance()->registered.at(i).getAge() << 
 			setw(15) << Session::instance()->registered.at(i).getBalance();
 	}
+	Sleep(1000);
 	_getch();
 }
 
@@ -631,6 +632,7 @@ void Session::showTripInformation() {
 		cout << setw(15) << left << allRoutes.at(i).getStops().at(0).getStop();
 		cout << setw(15) << left << allRoutes.at(i).getStops().at(allRoutes.at(i).getStops().size() - 1).getStop();
 	}
+	Sleep(1000);
 	_getch();
 
 	return;
@@ -647,6 +649,7 @@ void Session::showStops() {
 		setcolor(15);
 		cout << Session::instance()->districts.at(i) << endl;
 	}
+	Sleep(1000);
 	_getch();
 }
 
@@ -665,6 +668,7 @@ void Session::showCars() {
 		cout << "[" << itr.retrieve().getLicensePlate() << "] with " << itr.retrieve().getMaxSeats() << " seats owned by " << itr.retrieve().getOwner()->getUsername() << endl;
 		itr.advance();
 	}
+	Sleep(1000);
 	_getch();
 }
 
@@ -691,6 +695,7 @@ void Session::showBuddies() {
 			cout << registered.at(i).getBuddies().at(j).getUsername() << ", ";
 		}
 	}
+	Sleep(1000);
 	_getch();
 }
 
@@ -702,9 +707,28 @@ void Session::extractPayment() { //So o admin tem acesso
 	Sleep(2000);
 }
 
+void Session::inactiveUsers() {
+	clearScreen();
+	showLogo();
+	setcolor(11);
+	cout << setw(20) << left << "  Username" << setw(40) << left << "Full Name" << setw(15) << left << "Age" << setw(15) << left << "Last trip" << endl;
+	setcolor(15);
+	Sleep(1000);
+	cout << "x";
+	tabHUsers::const_iterator it = Session::instance()->getUsers().begin();
+	tabHUsers::const_iterator ite = Session::instance()->getUsers().end();
+	cout << "x";
+	for (it; it != ite; it++) {
+		cout << "x";
+		cout << endl << "  " << setw(20) << left << it->getUsername() << setw(40) << left << it->getName() << setw(15) << left << it->getAge() << setw(15) << it->getLastTrip();
+		cout << "x";
+	}
+	Sleep(1000);
+	_getch();
+}
+
 void Session::searchVehicle() {
 	BSTItrIn<Vehicle> it(vehicleTree);
-	char token, license[9];
 	bool validLicense = false;
 	bool found = false;
 	vector<Vehicle> vehiclesFound;
@@ -728,6 +752,7 @@ void Session::searchVehicle() {
 	if (!found)
 		cout << "\nNo vehicles match that brand.";
 
+	Sleep(1000);
 	_getch();
 	return;
 }

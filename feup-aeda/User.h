@@ -66,16 +66,19 @@ public:
 	Registered(string username, string password, string name, unsigned int age, float balance, unsigned long long lasttrip);
 	Registered() {};
 
-	//Get Methods
+	//Get and Set Methods
 	string getUsername() const;
-	string getPassword();
-	string getName();
-	unsigned int getAge();
+	string getPassword() const;
+	string getName() const;
+	unsigned int getAge() const;
 	vector<Registered> getBuddies();
-	unsigned long long getLastTrip();
+	unsigned long long getLastTrip() const;
 	float getBalance();
 	bool getRouteInProgress() {
 		return routeInProgress;
+	}
+	void setLastTrip(unsigned long long lastTrip) {
+		lasttrip = lastTrip;
 	}
 	/*!
 	* **Description:** Handles the creation of a new journey. Asks for a departure time, arrival time, the selected vehicle from the garage and where the user will stop.

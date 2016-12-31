@@ -1,14 +1,14 @@
 MEMBERS
-admin|admin|Dono Disto Tudo|23|-20|201611161200
-blinkroot|qwerty|Miguel Fernandes|19|-49|201611161200
-cometsharks|wowowow|Logan Paul|22|90|201611161200
-ephons|qwerty|Afonso Ramos|19|1.00002e+06|201611161200
-fakelecture|qwerty|Trevor Noah|30|100|201611161200
-smallhideous|Dylan Mason|44|130|130|201611161200
-sparklingbeer|zxcvb123|Benjamin Carter|43|170|201611161200
-teste1|teste2|Teste Teste|99|333|201611161200
-timingbear|abcdefg|John Smith|34|30|201611161200
-zepedrob|qwerty|Ze Borges|19|-133|201611161200
+admin|admin|Dono Disto Tudo|23|-25|201611161200
+blinkroot|qwerty|Miguel Fernandes|19|-54|201611161200
+cometsharks|wowowow|Logan Paul|22|85|201611161200
+ephons|qwerty|Afonso Ramos|19|1.00002e+06|201612311239
+fakelecture|qwerty|Trevor Noah|30|95|201611161200
+smallhideous|Dylan Mason|44|130|125|201611161200
+sparklingbeer|zxcvb123|Benjamin Carter|43|165|201611161200
+teste1|teste2|Teste Teste|99|328|201612311227
+timingbear|abcdefg|John Smith|34|25|201612311240
+zepedrob|qwerty|Ze Borges|19|-138|201611161200
 
 GARAGE
 ephons:Chevrolet|Azul|98-AL-10|5|2000
@@ -42,6 +42,10 @@ teste1:201611161200|201511161300|96-96-AO|Aveiro()Beja()
 teste1:201711121100|201711121200|96-96-AO|Faro(zepedrob)Guarda()Leiria(zepedrob,blinkroot)Lisboa(blinkroot)
 teste1:201611190100|201611190200|96-96-AO|Castelo Branco(teste1,ephons)Coimbra(teste1,ephons,zepedrob)Evora(ephons,zepedrob)Faro(zepedrob)
 teste1:201703212000|201703212200|96-96-AO|Aveiro()Castelo Branco()Beja()
+teste1:201712222222|201712232323|69-69-LM|Aveiro()Beja()
+ephons:201707202020|201707202021|98-AL-10|Aveiro()Beja()
+ephons:202002202020|202002202021|98-AL-10|Aveiro()Beja()
+timingbear:202002202020|202002202021|92-EP-12|Aveiro()Beja()
 
 DISTRICTS
 Aveiro|Beja|Braga|Braganca|Castelo Branco|Coimbra|Evora|Faro|Guarda|Leiria|Lisboa|Portalegre|Porto|Santarem|Setubal|Viana do Castelo|Vila Real|Viseu
