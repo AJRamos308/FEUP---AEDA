@@ -18,7 +18,7 @@ Registered::Registered(string username, string password, string name, unsigned i
 }
 Guest::Guest() {
 }
-string Registered::getUsername() {
+string Registered::getUsername() const {
 	return username;
 }
 string Registered::getPassword() {

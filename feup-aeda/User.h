@@ -67,7 +67,7 @@ public:
 	Registered() {};
 
 	//Get Methods
-	string getUsername();
+	string getUsername() const;
 	string getPassword();
 	string getName();
 	unsigned int getAge();

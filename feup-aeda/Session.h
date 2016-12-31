@@ -11,7 +11,7 @@
 #include "Date.h"
 
 struct hUserPtr {
-	int operator()(Registered & u1) const {
+	int operator()(const Registered u1) const {
 		string s1 = u1.getUsername();
 		int v = 0;
 		for (unsigned int i = 0; i < s1.size(); i++)
@@ -21,7 +21,7 @@ struct hUserPtr {
 		}
 		return v;
 	}
-	bool operator()(Registered & u1, Registered & u2) const {
+	bool operator()(const Registered u1,const Registered u2) const {
 		if (u1.getUsername() == u2.getUsername())
 			return true;
 		else
