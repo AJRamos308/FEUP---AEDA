@@ -578,8 +578,8 @@ Route Menu::joinJourneyMenu(vector<Route> activeRoutes, vector<Route> perfectRou
 						selectedRoute = perfectRoutes.at(i);
 						whiteBG();
 					}
-					cout << "  HOST: " << setw(35) << left << perfectRoutes.at(i).getHost() << perfectRoutes.at(i).getStartingTime().getFormattedDate() << endl;
-					cout << "  " << setw(20) << perfectRoutes.at(i).getCar().getModel() << " [" << perfectRoutes.at(i).getCar().getLicensePlate() << "]" << setw(26) << right << perfectRoutes.at(i).getEndingTime().getFormattedDate();
+					cout << "  HOST: " << setw(35) << left << perfectRoutes.at(i).getHost()->getUsername() << perfectRoutes.at(i).getStartingTime().getFormattedDate() << endl;
+					cout << "  " << setw(20) << perfectRoutes.at(i).getCar().getBrand() << " " << perfectRoutes.at(i).getCar().getModel() << " [" << perfectRoutes.at(i).getCar().getLicensePlate() << "]" << setw(26) << right << perfectRoutes.at(i).getEndingTime().getFormattedDate();
 					cout << "\n  ";
 					for (size_t j = 0; j < perfectRoutes.at(i).getStops().size(); j++) {
 						if (perfectRoutes.at(i).getStops().at(j).getStop() == selectedRoute.getStops().at(0).getStop()) {

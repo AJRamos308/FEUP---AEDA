@@ -60,10 +60,14 @@ int Route::calculateDistance() {
 	for (size_t i = 0; i < stops.size() - 1; i++) {
 		string stop1 = stops.at(i).getStop();
 		string stop2 = stops.at(i + 1).getStop();
+		
+		//cout << stop1 << "|" << stop2 << endl;
+		//Sleep(1000);
 
 		for (size_t j = 0; j < Session::instance()->distances.size(); j++) {
-			if (Session::instance()->distances.at(i).origin == stop1 && Session::instance()->distances.at(i).destination == stop2) {
-				totalDistance += Session::instance()->distances.at(i).distance;
+			if (Session::instance()->distances.at(j).origin == stop1 && Session::instance()->distances.at(j).destination == stop2) {
+				totalDistance += Session::instance()->distances.at(j).distance;
+				break;
 			}
 		}
 	}
