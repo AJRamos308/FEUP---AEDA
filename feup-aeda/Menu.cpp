@@ -184,7 +184,7 @@ void Menu::manager() {
 			continue;
 		}
 		if (currentMenu == 54) {
-			Session::instance()->showCars();
+			Session::instance()->inactiveUsers();
 			currentMenu = 50;
 			continue;
 		}
