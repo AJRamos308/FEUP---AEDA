@@ -46,6 +46,8 @@ teste1:201712222222|201712232323|69-69-LM|Aveiro()Beja()
 ephons:201707202020|201707202021|98-AL-10|Aveiro()Beja()
 ephons:202002202020|202002202021|98-AL-10|Aveiro()Beja()
 timingbear:202002202020|202002202021|92-EP-12|Aveiro()Beja()
+teste1:201612311300|201612311400|69-69-LM|Aveiro()Beja()Braga()
+teste1:201706211300|201706211500|96-96-AO|Aveiro()Beja()Braga()Braganca()Castelo Branco()
 
 DISTRICTS
 Aveiro|Beja|Braga|Braganca|Castelo Branco|Coimbra|Evora|Faro|Guarda|Leiria|Lisboa|Portalegre|Porto|Santarem|Setubal|Viana do Castelo|Vila Real|Viseu

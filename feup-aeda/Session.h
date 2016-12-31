@@ -51,6 +51,7 @@ public:
 		string destination;
 		unsigned int distance;
 	} d;
+
 	vector<Route> allRoutes;
 	vector<districtDistance> distances;
 	/*

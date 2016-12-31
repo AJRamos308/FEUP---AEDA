@@ -61,11 +61,11 @@ void User::joinJourney() { //TODO:: Remove inactive user from tabela de dispersã
 			unsigned short counter = 0;
 
 			for (size_t j = 0; j < everyRoute->at(i).getStops().size(); j++) {
-				if (everyRoute->at(i).getCar().getMaxSeats() - 1) {
+				if (everyRoute->at(i).getStops().at(j).getPassengers().size() < everyRoute->at(i).getCar().getMaxSeats()) {
 					counter++;
 				}
 			}
-			if (counter != everyRoute->at(i).getStops().size()) {
+			if (counter != 0) {
 				activeRoutes.push_back(everyRoute->at(i));
 			}
 		}
@@ -169,8 +169,8 @@ void Registered::hostJourney() {
 	bool hasCar = false;
 
 	if (Session::instance()->registered.at(Session::instance()->userPos).getRouteInProgress()) {
-		cout << "  Sorry, you may only have one trip active simultaneously!";
-		Sleep(4000);
+		cout << "  Sorry, you may only have one active trip simultaneously!";
+		Sleep(3000);
 		return;
 	}
 
@@ -478,6 +478,7 @@ bool Registered::operator==(Registered r1) const {
 /* CANDIDATE CLASS */
 Candidate::Candidate(Registered* candidate, vector<string> selectedRoute) {
 	this->candidate = candidate;
+	this->distance = 0;
 
 	//Distance parameter.
 	for (size_t i = 0; i < selectedRoute.size() - 1; i++) {
@@ -530,13 +531,16 @@ bool Candidate::getIsBuddies() const {
 }
 bool Candidate::operator<(Candidate c1) const {
 	
-	if ((isBuddies && c1.getIsBuddies()) || (!isBuddies && !c1.getIsBuddies())) {
+	if (isBuddies && c1.getIsBuddies()) {
+		return distance > c1.getDistance();
+	}
+	else if (!isBuddies && !c1.getIsBuddies()) {
 		return distance < c1.getDistance();
 	}
 	else if (isBuddies && !c1.getIsBuddies()) {
-		return true;
+		return false;
 	}
 	else if (!isBuddies && c1.getIsBuddies()) {
-		return false;
+		return true;
 	}
 }

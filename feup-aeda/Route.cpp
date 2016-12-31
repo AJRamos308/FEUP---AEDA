@@ -45,11 +45,11 @@ void Route::addCandidate(Candidate &c){
 
 /*FUNCTIONS*/
 void Route::switchActive() {
-	if (active) {
+	if (active)
 		active = false;
-		return;
-	}
-	active = true;
+	else
+		active = true;
+
 	return;
 }
 int Route::calculateDistance() {

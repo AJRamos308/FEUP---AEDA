@@ -56,8 +56,9 @@ void Menu::manager() {
 		if (currentMenu == 22) {
 			size_t selectedIndex = pendingRequestsMenu();
 
-			Session::instance()->registered.at(Session::instance()->userPos).addUserToTrip(selectedIndex);
-
+			if (selectedIndex != -1) {
+				Session::instance()->registered.at(Session::instance()->userPos).addUserToTrip(selectedIndex);
+			}
 			currentMenu = 20;
 			continue;
 		}
@@ -86,7 +87,6 @@ void Menu::manager() {
 			continue;
 		}
 		if (currentMenu == 26) {
-			Session::instance()->logout();
 			currentMenu = 10;
 			continue;
 		}
@@ -316,12 +316,19 @@ void Menu::menu2() {
 			for (size_t i = 0; i < menuOptions.size(); i++) {
 				if (i == selectedIndex) {
 					whiteBG();
-					cout << menuOptions.at(i) << endl;
+					cout << menuOptions.at(i);
+					if (i == 1) {
+						cout << " (" << Session::instance()->registered.at(Session::instance()->userPos).candidates.size() << ")";
+					}
 					blackBG();
 				}
 				else {
-					cout << menuOptions.at(i) << endl;
+					cout << menuOptions.at(i);
+					if (i == 1) {
+						cout << " (" << Session::instance()->registered.at(Session::instance()->userPos).candidates.size() << ")";
+					}
 				}
+				cout << endl;
 			}
 			pushUpdate = false;
 		}
@@ -555,7 +562,7 @@ Route Menu::joinJourneyMenu(vector<Route> activeRoutes, vector<Route> perfectRou
 	hideCursor();
 
 	bool menuUpdate = true;
-	size_t selectedIndex;
+	size_t selectedIndex = 0;
 	Route selectedRoute;
 
 	while (GetAsyncKeyState(VK_RETURN)) {}
@@ -840,6 +847,14 @@ size_t Menu::pendingRequestsMenu() {
 	size_t selectedIndex = 0;
 	priority_queue<Candidate> tempQueue;
 
+	if (Session::instance()->registered.at(Session::instance()->userPos).candidates.size() == 0) {
+		clearScreen();
+		showLogo();
+		cout << "  No new requests! Come back later!\n";
+		Sleep(3000);
+		return -1;
+	}
+
 	while (GetAsyncKeyState(VK_RETURN)) {}
 
 	while (!(GetAsyncKeyState(VK_SHIFT) && GetAsyncKeyState(VK_RETURN))) {
@@ -857,7 +872,7 @@ size_t Menu::pendingRequestsMenu() {
 				if (index == selectedIndex) {
 					whiteBG();
 				}
-				cout << "\n  " << index << ". " << tempQueue.top().getCandidate()->getUsername();
+				cout << "\n  " << index + 1 << ". " << tempQueue.top().getCandidate()->getUsername();
 				blackBG();
 
 				index++;
