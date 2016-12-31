@@ -56,9 +56,8 @@ void Menu::manager() {
 		if (currentMenu == 22) {
 			size_t selectedIndex = pendingRequestsMenu();
 
-			if (selectedIndex != -1) {
-				Session::instance()->registered.at(Session::instance()->userPos).addUserToTrip(selectedIndex);
-			}
+			Session::instance()->registered.at(Session::instance()->userPos).addUserToTrip(selectedIndex);
+
 			currentMenu = 20;
 			continue;
 		}
@@ -87,6 +86,7 @@ void Menu::manager() {
 			continue;
 		}
 		if (currentMenu == 26) {
+			Session::instance()->logout();
 			currentMenu = 10;
 			continue;
 		}
@@ -185,20 +185,24 @@ void Menu::manager() {
 		}
 		if (currentMenu == 54) {
 			Session::instance()->inactiveUsers();
-			currentMenu = 50;
-			continue;
+			currentMenu = 10;
 		}
 		if (currentMenu == 55) {
-			Session::instance()->showStops();
+			Session::instance()->showCars();
 			currentMenu = 50;
 			continue;
 		}
 		if (currentMenu == 56) {
-			Session::instance()->showBuddies();
+			Session::instance()->showStops();
 			currentMenu = 50;
 			continue;
 		}
 		if (currentMenu == 57) {
+			Session::instance()->showBuddies();
+			currentMenu = 50;
+			continue;
+		}
+		if (currentMenu == 58) {
 			Session::instance()->logout();
 			currentMenu = 10;
 		}
@@ -316,19 +320,12 @@ void Menu::menu2() {
 			for (size_t i = 0; i < menuOptions.size(); i++) {
 				if (i == selectedIndex) {
 					whiteBG();
-					cout << menuOptions.at(i);
-					if (i == 1) {
-						cout << " (" << Session::instance()->registered.at(Session::instance()->userPos).candidates.size() << ")";
-					}
+					cout << menuOptions.at(i) << endl;
 					blackBG();
 				}
 				else {
-					cout << menuOptions.at(i);
-					if (i == 1) {
-						cout << " (" << Session::instance()->registered.at(Session::instance()->userPos).candidates.size() << ")";
-					}
+					cout << menuOptions.at(i) << endl;
 				}
-				cout << endl;
 			}
 			pushUpdate = false;
 		}
@@ -562,7 +559,7 @@ Route Menu::joinJourneyMenu(vector<Route> activeRoutes, vector<Route> perfectRou
 	hideCursor();
 
 	bool menuUpdate = true;
-	size_t selectedIndex = 0;
+	size_t selectedIndex;
 	Route selectedRoute;
 
 	while (GetAsyncKeyState(VK_RETURN)) {}
@@ -847,14 +844,6 @@ size_t Menu::pendingRequestsMenu() {
 	size_t selectedIndex = 0;
 	priority_queue<Candidate> tempQueue;
 
-	if (Session::instance()->registered.at(Session::instance()->userPos).candidates.size() == 0) {
-		clearScreen();
-		showLogo();
-		cout << "  No new requests! Come back later!\n";
-		Sleep(3000);
-		return -1;
-	}
-
 	while (GetAsyncKeyState(VK_RETURN)) {}
 
 	while (!(GetAsyncKeyState(VK_SHIFT) && GetAsyncKeyState(VK_RETURN))) {
@@ -872,7 +861,7 @@ size_t Menu::pendingRequestsMenu() {
 				if (index == selectedIndex) {
 					whiteBG();
 				}
-				cout << "\n  " << index + 1 << ". " << tempQueue.top().getCandidate()->getUsername();
+				cout << "\n  " << index << ". " << tempQueue.top().getCandidate()->getUsername();
 				blackBG();
 
 				index++;

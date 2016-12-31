@@ -711,17 +711,12 @@ void Session::inactiveUsers() {
 	clearScreen();
 	showLogo();
 	setcolor(11);
-	cout << setw(20) << left << "  Username" << setw(40) << left << "Full Name" << setw(15) << left << "Age" << setw(15) << left << "Last trip" << endl;
+	cout << setw(22) << left << "  Username" << setw(40) << left << "Full Name" << setw(15) << left << "Age" << setw(15) << left << "Last trip" << endl;
 	setcolor(15);
-	Sleep(1000);
-	cout << "x";
-	tabHUsers::const_iterator it = Session::instance()->getUsers().begin();
-	tabHUsers::const_iterator ite = Session::instance()->getUsers().end();
-	cout << "x";
-	for (it; it != ite; it++) {
-		cout << "x";
-		cout << endl << "  " << setw(20) << left << it->getUsername() << setw(40) << left << it->getName() << setw(15) << left << it->getAge() << setw(15) << it->getLastTrip();
-		cout << "x";
+	tabHUsers temp = Session::instance()->getUsers();
+	for (tabHUsers::const_iterator it = temp.begin(); it != temp.end(); it++) {
+		Date d1(it->getLastTrip());
+		cout << endl << "  " << setw(20) << left << it->getUsername() << setw(40) << left << it->getName() << setw(15) << left << it->getAge() << setw(15) << d1.getFormattedDate();
 	}
 	Sleep(1000);
 	_getch();

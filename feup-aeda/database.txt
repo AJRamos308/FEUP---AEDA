@@ -4,7 +4,7 @@ blinkroot|qwerty|Miguel Fernandes|19|-54|201611161200
 cometsharks|wowowow|Logan Paul|22|85|201611161200
 ephons|qwerty|Afonso Ramos|19|1.00002e+06|201612311239
 fakelecture|qwerty|Trevor Noah|30|95|201611161200
-smallhideous|Dylan Mason|44|130|125|201611161200
+smallhideous|qwerty|Dylan Mason|67|125|201611161200
 sparklingbeer|zxcvb123|Benjamin Carter|43|165|201611161200
 teste1|teste2|Teste Teste|99|328|201612311227
 timingbear|abcdefg|John Smith|34|25|201612311240
