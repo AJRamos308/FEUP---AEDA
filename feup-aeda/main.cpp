@@ -9,6 +9,7 @@ Session* Session::singleton_instance = 0;
 //TODO: Implementar algoritmo de ordenação para ficheiros!
 
 int main() {
+
 	Menu m;
 
 	//Exception Handling

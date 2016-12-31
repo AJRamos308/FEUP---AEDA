@@ -42,6 +42,8 @@ teste1:201611161200|201511161300|96-96-AO|Aveiro()Beja()
 teste1:201711121100|201711121200|96-96-AO|Faro(zepedrob)Guarda()Leiria(zepedrob,blinkroot)Lisboa(blinkroot)
 teste1:201611190100|201611190200|96-96-AO|Castelo Branco(teste1,ephons)Coimbra(teste1,ephons,zepedrob)Evora(ephons,zepedrob)Faro(zepedrob)
 teste1:201703212000|201703212200|96-96-AO|Aveiro()Castelo Branco()Beja()
+teste1:201612311300|201612311400|69-69-LM|Aveiro()Beja()Braga()
+teste1:201706211300|201706211500|96-96-AO|Aveiro()Beja()Braga()Braganca()Castelo Branco()
 
 DISTRICTS
 Aveiro|Beja|Braga|Braganca|Castelo Branco|Coimbra|Evora|Faro|Guarda|Leiria|Lisboa|Portalegre|Porto|Santarem|Setubal|Viana do Castelo|Vila Real|Viseu
