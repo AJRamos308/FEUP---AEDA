@@ -183,27 +183,27 @@ void Menu::manager() {
 			currentMenu = 50;
 			continue;
 		}
-		if (currentMenu == 55) {
+		if (currentMenu == 54) {
 			Session::instance()->inactiveUsers();
 			currentMenu = 50;
 			continue;
 		}
-		if (currentMenu == 56) {
+		if (currentMenu == 55) {
 			Session::instance()->showCars();
 			currentMenu = 50;
 			continue;
 		}
-		if (currentMenu == 57) {
+		if (currentMenu == 56) {
 			Session::instance()->showStops();
 			currentMenu = 50;
 			continue;
 		}
-		if (currentMenu == 58) {
+		if (currentMenu == 57) {
 			Session::instance()->showBuddies();
 			currentMenu = 50;
 			continue;
 		}
-		if (currentMenu == 59) {
+		if (currentMenu == 58) {
 			Session::instance()->logout();
 			currentMenu = 10;
 		}
