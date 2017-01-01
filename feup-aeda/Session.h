@@ -44,7 +44,8 @@ private:
 	bool admin = false;
 
 public:
-	BST<Vehicle> vehicleTree;
+	Session();
+	BST<Vehicle*> vehicleTree;
 
 	struct districtDistance {
 		string origin;

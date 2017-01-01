@@ -65,7 +65,7 @@ public:
 	*
 	* **Notes:** This menu is both used on the journey selection (you must pick a car for your trip) and on the vehicle deletion function.
 	*/
-	Vehicle chooseVehicle();
+	Vehicle* chooseVehicle();
 
 	size_t pendingRequestsMenu();
 };

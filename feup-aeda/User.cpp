@@ -175,10 +175,10 @@ void Registered::hostJourney() {
 	}
 
 	//Checks whether the user has a vehicle in the system.
-	BSTItrIn<Vehicle> it(Session::instance()->vehicleTree);
+	BSTItrIn<Vehicle*> it(Session::instance()->vehicleTree);
 
 	while (!it.isAtEnd()) {
-		if (it.retrieve().getOwner()->getUsername() == Session::instance()->registered.at(Session::instance()->userPos).getUsername())
+		if (it.retrieve()->getOwner()->getUsername() == Session::instance()->registered.at(Session::instance()->userPos).getUsername())
 			hasCar = true;
 		it.advance();
 	}
@@ -262,7 +262,7 @@ void Registered::hostJourney() {
 	}
 	
 	//Asks which vehicle is going to be used and which stops.
-	Vehicle vehicleChosen = m1.chooseVehicle();
+	Vehicle* vehicleChosen = m1.chooseVehicle();
 	vector<string> journeyStops = m1.journeyMenu();
 	
 	vector<seatsHandler> handler;
@@ -274,7 +274,7 @@ void Registered::hostJourney() {
 	}
 
 	//Creates a new route and adds it to the allTrips vector.
-	Route r(&Session::instance()->registered.at(Session::instance()->userPos), d1, d2, handler, vehicleChosen);
+	Route r(&Session::instance()->registered.at(Session::instance()->userPos), d1, d2, handler, *vehicleChosen);
 	Session::instance()->allRoutes.push_back(r);
 	Session::instance()->registered.at(Session::instance()->userPos).switchProgressState();
 	Session::instance()->getUsers().erase(Session::instance()->registered.at(Session::instance()->userPos));
@@ -328,6 +328,7 @@ void Registered::addBuddy() {
 void Registered::removeVehicle() {
 
 	//size_t removeIndex = m1.chooseVehicle();
+	Vehicle* v = m1.chooseVehicle();
 	char verification;
 
 	cout << "  Are you sure you want to delete (Y/N)?";
@@ -336,13 +337,7 @@ void Registered::removeVehicle() {
 	cin.ignore(50, '\n');
 	if (verification == 'Y' || verification == 'y') {
 		//Session::instance()->registered.at(Session::instance()->userPos).garage.erase(Session::instance()->registered.at(Session::instance()->userPos).garage.begin() + removeIndex);
-		BSTItrIn<Vehicle> it(Session::instance()->vehicleTree);
-		while (!it.isAtEnd()) {
-			if (it.retrieve().getOwner()->getUsername() == Session::instance()->registered.at(Session::instance()->userPos).getUsername()) {
-				Session::instance()->vehicleTree.remove(it.retrieve());
-			}
-			it.advance();
-		}
+		Session::instance()->vehicleTree.remove(v);
 		cout << "\n  Vehicle deleted!";
 	}
 	return;

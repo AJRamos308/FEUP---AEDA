@@ -99,7 +99,7 @@ bool Session::importInfo() {
 					for (size_t i = 0; i < Session::instance()->registered.size(); i++) {
 						if (Session::instance()->registered.at(i).getUsername() == username) {
 							Vehicle v(&Session::instance()->registered.at(i), stoul(maxSeats), model, licensePlate, brand, stoul(year));
-							vehicleTree.insert(v);
+							vehicleTree.insert(&v);
 						}
 					}
 					continue;
@@ -197,10 +197,10 @@ bool Session::importInfo() {
 					Date d1(stoull(departureTime));
 					Date d2(stoull(arrivalTime));
 
-					Vehicle v;
-					BSTItrIn<Vehicle> itr(vehicleTree);
+					Vehicle* v;
+					BSTItrIn<Vehicle*> itr(vehicleTree);
 					while (!itr.isAtEnd()) {
-						if (itr.retrieve().getLicensePlate() == licensePlate) {
+						if (itr.retrieve()->getLicensePlate() == licensePlate) {
 							v = itr.retrieve();
 							break;
 						}
@@ -214,7 +214,7 @@ bool Session::importInfo() {
 							break;
 						}
 					}
-					Route r(&registered.at(pos), d1, d2, s, v);
+					Route r(&registered.at(pos), d1, d2, s, *v);
 					
 					if (!d1.Valid()) {
 						r.switchActive();
@@ -275,10 +275,10 @@ bool Session::exportInfo() {
 	}
 
 	f << endl << "GARAGE" << endl;
-	BSTItrIn<Vehicle> itr(vehicleTree);
+	BSTItrIn<Vehicle*> itr(vehicleTree);
 
 	while (!itr.isAtEnd()) {
-		f << itr.retrieve().getOwner()->getUsername() << ":" << itr.retrieve().getBrand() << "|" << itr.retrieve().getModel() << "|" << itr.retrieve().getLicensePlate() << "|" << itr.retrieve().getMaxSeats() << "|" << itr.retrieve().getYear() << endl;
+		f << itr.retrieve()->getOwner()->getUsername() << ":" << itr.retrieve()->getBrand() << "|" << itr.retrieve()->getModel() << "|" << itr.retrieve()->getLicensePlate() << "|" << itr.retrieve()->getMaxSeats() << "|" << itr.retrieve()->getYear() << endl;
 		itr.advance();
 	}
 
@@ -662,10 +662,10 @@ void Session::showCars() {
 	setcolor(11); cout << setw(15) << left << "  Cars Associated\n\n"; setcolor(15);
 
 	//Iterating all vehicles in BST.
-	BSTItrIn<Vehicle> itr(vehicleTree);
+	BSTItrIn<Vehicle*> itr(vehicleTree);
 	while (!itr.isAtEnd()) {
-		setcolor(11); cout << "  " << setw(20) << itr.retrieve().getModel(); setcolor(15);
-		cout << "[" << itr.retrieve().getLicensePlate() << "] with " << itr.retrieve().getMaxSeats() << " seats owned by " << itr.retrieve().getOwner()->getUsername() << endl;
+		setcolor(11); cout << "  " << setw(20) << itr.retrieve()->getModel(); setcolor(15);
+		cout << "[" << itr.retrieve()->getLicensePlate() << "] with " << itr.retrieve()->getMaxSeats() << " seats owned by " << itr.retrieve()->getOwner()->getUsername() << endl;
 		itr.advance();
 	}
 	Sleep(1000);
@@ -723,17 +723,17 @@ void Session::inactiveUsers() {
 }
 
 void Session::searchVehicle() {
-	BSTItrIn<Vehicle> it(vehicleTree);
+	BSTItrIn<Vehicle*> it(vehicleTree);
 	bool validLicense = false;
 	bool found = false;
-	vector<Vehicle> vehiclesFound;
+	vector<Vehicle*> vehiclesFound;
 	string licensePlate, brand;
 
 	cout << "  What is the BRAND of the car?\n  > ";
 	getline(cin, brand);
 
 	while (!it.isAtEnd()) {
-		if (it.retrieve().getBrand() == brand) {
+		if (it.retrieve()->getBrand() == brand) {
 			found = true;
 			vehiclesFound.push_back(it.retrieve());
 		}
@@ -741,7 +741,7 @@ void Session::searchVehicle() {
 	}
 
 	for (size_t i = 0; i < vehiclesFound.size(); i++) {
-		cout << i+1 << ".  [" << vehiclesFound.at(i).getLicensePlate() << "] with " << vehiclesFound.at(i).getMaxSeats() << " seats owned by " << vehiclesFound.at(i).getOwner()->getUsername() << endl;
+		cout << i+1 << ".  [" << vehiclesFound.at(i)->getLicensePlate() << "] with " << vehiclesFound.at(i)->getMaxSeats() << " seats owned by " << vehiclesFound.at(i)->getOwner()->getUsername() << endl;
 	}
 
 	if (!found)
@@ -751,6 +751,10 @@ void Session::searchVehicle() {
 	_getch();
 	return;
 }
+
+Session::Session() : vehicleTree(Vehicle()){
+}
+
 void Session::changeOwner() {
 	clearScreen();
 	showLogo();
@@ -758,7 +762,7 @@ void Session::changeOwner() {
 	char token, license[9];
 	string licensePlate, user;
 
-	BSTItrIn<Vehicle> it(vehicleTree);
+	BSTItrIn<Vehicle*> it(vehicleTree);
 
 	while (!validLicense) {
 		cout << "\n  What is the license plate of the vehicle of which you want to change the owner? (XX-XX-XX)\n  > ";
@@ -802,14 +806,14 @@ void Session::changeOwner() {
 	}
 
 	while (!it.isAtEnd()) {
-		if (it.retrieve().getLicensePlate() == licensePlate && it.retrieve().getOwner()->getUsername() == Session::instance()->registered.at(Session::instance()->userPos).getUsername()) {
+		if (it.retrieve()->getLicensePlate() == licensePlate && it.retrieve()->getOwner()->getUsername() == Session::instance()->registered.at(Session::instance()->userPos).getUsername()) {
 			cout << "\n  Who is the new owner of the vehicle?\n  > ";
 			cin >> user;
-			BSTItrIn<Vehicle> it2(vehicleTree);
+			BSTItrIn<Vehicle*> it2(vehicleTree);
 			while (!it2.isAtEnd()) {
-				if (it2.retrieve().getOwner()->getUsername() == user) {
+				if (it2.retrieve()->getOwner()->getUsername() == user) {
 					foundUser = true;
-					it.retrieve().setOwner(it2.retrieve().getOwner());
+					it.retrieve()->setOwner(it2.retrieve()->getOwner());
 					cout << "\n\nThe owner has been changed!";
 					_getch();
 					return;
@@ -898,19 +902,19 @@ void Session::addVehicle() {
 		}
 
 		if (maxSeats < 5) {
-			Compact compact(&r, maxSeats, model, licensePlate, brand, year);
+			Compact* compact = new Compact(&r, maxSeats, model, licensePlate, brand, year);
 			//garage.push_back(compact);
 			Session::instance()->vehicleTree.insert(compact);
 			car = true;
 		}
 		else if (maxSeats == 5) {
-			Midsize midsize(&r, maxSeats, model, licensePlate, brand, year);
+			Midsize* midsize = new Midsize(&r, maxSeats, model, licensePlate, brand, year);
 			//garage.push_back(midsize);
 			Session::instance()->vehicleTree.insert(midsize);
 			car = true;
 		}
 		else if (maxSeats <= 9) {
-			Van van(&r, maxSeats, model, licensePlate, brand, year);
+			Van* van = new Van(&r, maxSeats, model, licensePlate, brand, year);
 			//garage.push_back(van);
 			Session::instance()->vehicleTree.insert(van);
 			car = true;

@@ -126,11 +126,11 @@ void Menu::manager() {
 			continue;
 		}
 		if (currentMenu == 44) {
-			BSTItrIn<Vehicle> it(Session::instance()->vehicleTree);
+			BSTItrIn<Vehicle*> it(Session::instance()->vehicleTree);
 			bool noRegisteredCars = true;
 
 			while (!it.isAtEnd()) {
-				if (it.retrieve().getOwner()->getUsername() == Session::instance()->username) {
+				if (it.retrieve()->getOwner()->getUsername() == Session::instance()->username) {
 					Session::instance()->registered.at(Session::instance()->userPos).removeVehicle();
 					noRegisteredCars = false;
 					break;
@@ -777,7 +777,7 @@ vector<string> Menu::journeyMenu() {
 	return selectedDistricts;
 }
 
-Vehicle Menu::chooseVehicle() {
+Vehicle* Menu::chooseVehicle() {
 	hideCursor();
 
 	bool menuUpdate = true;
@@ -785,11 +785,11 @@ Vehicle Menu::chooseVehicle() {
 	size_t selectedIndex = 0;
 
 	//Loads a vector called localVehicles with every vehicle belonging to this user.
-	vector<Vehicle> localVehicles;
-	BSTItrIn<Vehicle> it(Session::instance()->vehicleTree);
+	vector<Vehicle*> localVehicles;
+	BSTItrIn<Vehicle*> it(Session::instance()->vehicleTree);
 
 	while (!it.isAtEnd()) {
-		if (it.retrieve().getOwner()->getUsername() == Session::instance()->username) {
+		if (it.retrieve()->getOwner()->getUsername() == Session::instance()->username) {
 			localVehicles.push_back(it.retrieve());
 		}
 		it.advance();
@@ -808,7 +808,7 @@ Vehicle Menu::chooseVehicle() {
 				if (i == selectedIndex) {
 					whiteBG();
 				}
-				cout << "  " << i + 1 << ". " << localVehicles.at(i).getModel() << " [" << localVehicles.at(i).getLicensePlate() << "]\n";
+				cout << "  " << i + 1 << ". " << localVehicles.at(i)->getModel() << " [" << localVehicles.at(i)->getLicensePlate() << "]\n";
 				blackBG();
 			}
 			menuUpdate = false;
@@ -840,9 +840,6 @@ Vehicle Menu::chooseVehicle() {
 	showCursor();
 	cin.clear();
 	cin.ignore(50, '\n');
-
-	Vehicle v;
-	return v;
 }
 
 size_t Menu::pendingRequestsMenu() {
