@@ -15,41 +15,47 @@
 using namespace std;
 
 /*!
-* **Description:** Clears the screen console 'the safe way', avoiding system calls.
+* @brief Clears the screen console 'the safe way', avoiding system calls.
 */
 void clearScreen();
+
 /*!
-* **Description:** Switches the color of console text.
-*
-* **Arguments:**
-* - color: An integer ranging from 1 to 25, each with its combination of background color and text color.
+* @brief Switches the color of console text.
+* @param color An integer ranging from 1 to 25, each with its combination of background color and text color.
 */
 void setcolor(unsigned int color);
+
 /*!
-* **Description:** Displays the console's output with a white background.
+* @brief Displays the console's output with a white background.
 */
 void whiteBG();
+
 /*!
-* **Description:** Displays the console's output with a black background.
+* @brief Displays the console's output with a black background.
 */
 void blackBG();
+
 /*!
-* **Description:** Displays the console's output with a yellow background.
+* @brief Displays the console's output with a yellow background.
 */
 void yellowBG();
+
 /*!
-* **Description:** Displays the console's output with a green background.
+* @brief Displays the console's output with a green background.
 */
 void greenBG();
+
 /*!
-* **Description:** Hides the cursor on the console's output. This is mainly used for menus, simply for aesthetic purposes.
+* @brief Hides the cursor on the console's output. This is mainly used for menus, simply for aesthetic purposes.
 */
 void hideCursor();
+
 /*!
-* **Description:** Shows the cursor on the console's output.
+* @brief Shows the cursor on the console's output.
 */
 void showCursor();
+
 /*!
-* **Description:** Displays the 'Ride.Me' logo.
+* @brief Displays the 'Ride.Me' logo.
 */
 void showLogo();

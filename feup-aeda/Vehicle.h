@@ -9,27 +9,32 @@ using namespace std;
 class Vehicle {
 private:
 	/*!
-	* **Description:** The vehicle's owner.
+	* @brief The vehicle's owner.
 	*/
 	Registered *owner;
+	
 	/*!
-	* **Description:** The vehicle's brand.
+	* @brief The vehicle's brand.
 	*/
 	string brand;
+	
 	/*
-	* **Description:** The year the vehicle was built.
+	* @brief The year the vehicle was built.
 	*/
 	unsigned int year;
+	
 	/*!
-	* **Description:** The vehicle's maximum capacity (including the driver).
+	* @brief The vehicle's maximum capacity (including the driver).
 	*/
 	unsigned int maxSeats;
+	
 	/*!
-	* **Description:** The vehicle's model, for identification purposes.
+	* @brief The vehicle's model, for identification purposes.
 	*/
 	string model;
+	
 	/*!
-	* **Description:** The vehicle's license plate, for identification purposes.
+	* @brief The vehicle's license plate, for identification purposes.
 	*/
 	string licensePlate;
 public:
@@ -52,7 +57,7 @@ public:
 };
 
 /*!
-* **Description:** A compact vehicle has less than 5 seats.
+* @brief A compact vehicle has less than 5 seats.
 */
 class Compact : public Vehicle {
 private:
@@ -62,7 +67,7 @@ public:
 };
 
 /*!
-* **Description:** A midsize vehicle has 5 to 7 seats.
+* @brief A midsize vehicle has 5 to 7 seats.
 */
 class Midsize : public Vehicle {
 private:
@@ -71,7 +76,7 @@ public:
 };
 
 /*!
-* **Description:** A van vehicle has 7 to 9 seats.
+* @brief A van vehicle has 7 to 9 seats.
 */
 class Van : public Vehicle {
 private:

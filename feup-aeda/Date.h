@@ -13,35 +13,41 @@ using namespace std;
 class Date {
 private:
 	/*!
-	* **Description:** Date's hour, ranging from 0 to 24.
+	* @brief Date's hour, ranging from 0 to 24.
 	*/
 	unsigned int hour;
+	
 	/*!
-	* **Description:** Date's minutes, ranging from 0 to 59.
+	* @brief Date's minutes, ranging from 0 to 59.
 	*/
 	unsigned int minutes;
+	
 	/*!
-	* **Description:** Date's day, ranging from 1 to 31.
+	* @brief Date's day, ranging from 1 to 31.
 	*/
 	unsigned int day;
+	
 	/*!
-	* **Description:** Date's month, ranging from 1 to 12.
+	* @brief Date's month, ranging from 1 to 12.
 	*/
 	unsigned int month;
+
 	/*!
-	* **Description:** Date's year, ranging from 1970 to infinite (and beyond!).
+	* @brief Date's year, ranging from 1970 to infinite (and beyond!).
 	*/
 	unsigned int year;
+
 	/*!
-	* **Description:** A simple way to compare dates, which bundles every value of the date together, making it easy to compare with other dates.
-	*
-	* **Notes:** At some point, we intend to implement an operator for even easier date comparison.
+	* @brief A simple way to compare dates, which bundles every value of the date together, making it easy to compare with other dates.
+	* @note At some point, we intend to implement an operator for even easier date comparison.
 	*/
 	unsigned long long compactDate;
+	
 	/*!
-	* **Description:** An user-friendly way to display dates in the european format. (DD/MM/YYYY hh:mm)
+	* @brief An user-friendly way to display dates in the european format. (DD/MM/YYYY hh:mm)
 	*/
 	string formattedDate;
+
 public:
 	//Constructors
 	Date();
@@ -59,7 +65,7 @@ public:
 	unsigned long long getCurrentDate();
 
 	/*!
-	* **Description:** Checks the validity of the date. This includes rejecting dates that do not fulfill the following criteria: being later than PC's date and having invalid values for both days (according to current month and leap years) and hours/minutes.
+	* @brief Checks the validity of the date. This includes rejecting dates that do not fulfill the following criteria: being later than PC's date and having invalid values for both days (according to current month and leap years) and hours/minutes.
 	*/
 	bool Valid();
 };
