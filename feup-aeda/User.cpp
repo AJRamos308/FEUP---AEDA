@@ -279,6 +279,8 @@ void Registered::hostJourney() {
 	Session::instance()->registered.at(Session::instance()->userPos).switchProgressState();
 	Session::instance()->getUsers().erase(Session::instance()->registered.at(Session::instance()->userPos));
 	Session::instance()->registered.at(Session::instance()->userPos).setLastTrip(d1.getCurrentDate());
+	cin.clear();
+	cin.ignore(1000, '\n');
 	return;
 }
 
@@ -320,7 +322,7 @@ void Registered::addBuddy() {
 	//Se as duas condições acima se verificam, adiciona a ambos a amizade.
 	Session::instance()->registered.at(Session::instance()->userPos).addBuddyToVec(Session::instance()->registered.at(usernamePos));
 	Session::instance()->registered.at(usernamePos).addBuddyToVec(Session::instance()->registered.at(Session::instance()->userPos));
-
+	cout << "\n  Friend added!";
 	Sleep(2000);
 	return;
 }
@@ -328,6 +330,7 @@ void Registered::addBuddy() {
 void Registered::removeVehicle() {
 
 	//size_t removeIndex = m1.chooseVehicle();
+	Vehicle v = m1.chooseVehicle();
 	char verification;
 
 	cout << "  Are you sure you want to delete (Y/N)?";
@@ -336,14 +339,9 @@ void Registered::removeVehicle() {
 	cin.ignore(50, '\n');
 	if (verification == 'Y' || verification == 'y') {
 		//Session::instance()->registered.at(Session::instance()->userPos).garage.erase(Session::instance()->registered.at(Session::instance()->userPos).garage.begin() + removeIndex);
-		BSTItrIn<Vehicle> it(Session::instance()->vehicleTree);
-		while (!it.isAtEnd()) {
-			if (it.retrieve().getOwner()->getUsername() == Session::instance()->registered.at(Session::instance()->userPos).getUsername()) {
-				Session::instance()->vehicleTree.remove(it.retrieve());
-			}
-			it.advance();
-		}
+		Session::instance()->vehicleTree.remove(v);
 		cout << "\n  Vehicle deleted!";
+		Sleep(1000);
 	}
 	return;
 }

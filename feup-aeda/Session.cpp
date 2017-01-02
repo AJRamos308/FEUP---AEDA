@@ -834,18 +834,31 @@ void Session::addVehicle() {
 	string model, licensePlate, brand;
 	int maxSeats;
 	unsigned int year;
-	bool validLicense = false, car = false;
+	bool validLicense = false, car = false, validYear = false;
 	char token, license[9];
-	Registered r(Session::instance()->registered.at(Session::instance()->userPos));
+	time_t tt = time(0);   // get time now
+	struct tm * now = localtime(&tt);
 	clearScreen();
 	showLogo();
-
+	
 	cout << "  What is the BRAND of the car?\n  > ";
 	getline(cin, brand);
 	cout << "  What is the MODEL of the car?\n  > ";
 	getline(cin, model);
-	cout << "  What year was it bought?\n  > ";
-	cin >> year;
+	while (!validYear) {
+		cout << "  What year was it bought?\n  > ";
+		cin >> year;
+		if (year < 2000) {
+			cout << "\n  That car is not acceptable because it is too old! The function will now automatically exit.";
+			Sleep(4000);
+			return;
+		}
+		else if (year > (now->tm_year + 1900)) {
+			cout << "\n  Invalid year used! Please try again. \n\n";
+		}
+		else 
+			validYear = true;
+	}
 
 	while (!validLicense) {
 		cout << "\n  What is its LICENSE PLATE? (XX-XX-XX)\n  > ";
@@ -897,28 +910,18 @@ void Session::addVehicle() {
 			continue;
 		}
 
-		if (maxSeats < 5) {
-			Compact compact(&r, maxSeats, model, licensePlate, brand, year);
-			//garage.push_back(compact);
-			Session::instance()->vehicleTree.insert(compact);
-			car = true;
-		}
-		else if (maxSeats == 5) {
-			Midsize midsize(&r, maxSeats, model, licensePlate, brand, year);
-			//garage.push_back(midsize);
-			Session::instance()->vehicleTree.insert(midsize);
-			car = true;
-		}
-		else if (maxSeats <= 9) {
-			Van van(&r, maxSeats, model, licensePlate, brand, year);
+		if (maxSeats <= 9) {
+			Vehicle v(&registered.at(userPos), maxSeats, model, licensePlate, brand, year);
 			//garage.push_back(van);
-			Session::instance()->vehicleTree.insert(van);
+			vehicleTree.insert(v);
 			car = true;
 		}
 		else {
 			cout << "\n  Invalid number of seats chosen, please try again.";
 		}
 	}
+	cin.clear();
+	cin.ignore(1000, '\n');
 	return;
 }
 

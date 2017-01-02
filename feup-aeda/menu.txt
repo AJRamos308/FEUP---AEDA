@@ -18,10 +18,10 @@
 
 4
   1. Add funds
-  2. Send friend request
+  2. Add user as a friend
   3. Add vehicle
   4. Remove vehicle
-  5. Change owner
+  5. Change the owner of a vehicle
   6. Change password
   7. Back
 
