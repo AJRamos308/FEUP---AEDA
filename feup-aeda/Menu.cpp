@@ -808,7 +808,7 @@ Vehicle Menu::chooseVehicle() {
 				if (i == selectedIndex) {
 					whiteBG();
 				}
-				cout << "  " << i + 1 << ". " << localVehicles.at(i).getModel() << " [" << localVehicles.at(i).getLicensePlate() << "]\n";
+				cout << "  " << i + 1 << ". " << localVehicles.at(i).getBrand() << " " << localVehicles.at(i).getModel() << " [" << localVehicles.at(i).getLicensePlate() << "]\n";
 				blackBG();
 			}
 			menuUpdate = false;
