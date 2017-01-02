@@ -464,6 +464,25 @@ void Registered::addUserToTrip(size_t index){
 			}
 		}
 	}
+
+	//Pops the added user.
+	vector<Candidate> notRemoved;
+	unsigned int counter = 0;
+
+	while (!candidates.empty()) {
+		if (counter == index) {
+			candidates.pop();
+		}
+		else {
+			notRemoved.push_back(candidates.top());
+			candidates.pop();
+		}
+		counter++;
+	}
+	for (size_t i = 0; i < notRemoved.size(); i++) {
+		candidates.push(notRemoved.at(i));
+	}
+
 	return;
 }
 
