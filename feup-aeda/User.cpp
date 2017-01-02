@@ -428,6 +428,9 @@ void Registered::changePassword() {
 			cout << "\n  Whoops, that's not your current password. Try again.\n";
 		}
 	}
+	Date d1;
+	Session::instance()->getUsers().erase(Session::instance()->registered.at(Session::instance()->userPos));
+	Session::instance()->registered.at(Session::instance()->userPos).setLastTrip(d1.getCurrentDate());
 	return;
 }
 

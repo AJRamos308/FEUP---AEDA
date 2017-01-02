@@ -406,7 +406,12 @@ void Session::login() {
 	cout << "\n  Login successful!\n"; 
 	Sleep(1000);
 	userPos = passwordIndex;
-
+	if (inactiveUser(registered.at(passwordIndex).getLastTrip())) {
+		cout << "\nYou have been inactive for too long, please change you password to become active again.";
+		Sleep(500);
+		_getch();
+		Session::instance()->registered.at(passwordIndex).changePassword();
+	}
 	return;
 }
 
